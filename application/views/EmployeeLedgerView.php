@@ -28,18 +28,18 @@
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
-                        <div class="header flex-div">
+                        <div class="header">
                             <h2>
                                 Employee Ledger
                             </h2>
                             <h2>
                                 <p align="right">
                                     
-                                <a href="<?php echo site_url('manager/EmployeeController/exportDataToExcel');?>">
-                                <button class="btn btn-xs btnStyle bg-primary margin"><i class="material-icons">download</i> Download Advance Master</button>
-                                </a>
+                                    <a href="<?php echo site_url('manager/EmployeeController/exportDataToExcel');?>">
+                                      <button class="btn btn-xs bg-primary margin"><i class="material-icons">download</i> Download Advance Master</button>
+                                    </a>
 
-                                <button data-toggle="modal" data-target="#SalaryAdvanceModal" class="btn btn-xs btnStyle bg-primary margin"><i class="material-icons">upload</i> Upload Advance Master</button>
+                                    <button data-toggle="modal" data-target="#SalaryAdvanceModal" class="btn btn-xs bg-primary margin"><i class="material-icons">upload</i> Upload Advance Master</button>
                                 </p>
                             </h2>
                         </div>
@@ -57,8 +57,8 @@
                            </div>
                           <?php } ?>
                         <div class="body">
-                            <!--<div class="table-responsive"> -->
-                                <table id="tbl-employee" class="table table-bordered cust-tbl js-exportable dataTable" data-page-length='25'>
+                            <div class="table-responsive">
+                                <table id="tbl-employee" style="font-size: 12px" class="table table-bordered table-striped table-hover js-exportable dataTable" data-page-length='25'>
                                     <thead>
                                         <tr>
                                             <th>S. No</th>
@@ -134,22 +134,22 @@
                                       ?>   
                                     </tbody>
                                 </table>
-                           <!-- </div> -->
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div> 
+            </div>
             <!-- #END# Basic Examples -->  
         </div>
     </section>
- 
+
       <div class="modal fade" id="SalaryAdvanceModal" role="dialog">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
             <center><h4 class="modal-title">Upload Salary/Advance File</h4></center>
-          </div>  
+          </div>
           <div class="modal-body">
            <form method="post" role="form"  enctype="multipart/form-data"  action="<?php echo site_url('manager/EmployeeController/employeeAdvanceDataUploading');?>"> 
                     <div class="col-md-12">

@@ -9,8 +9,7 @@ class OperatorModel extends CI_Model {
     public function getdata($tableName)
     {
         $query=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -24,8 +23,7 @@ class OperatorModel extends CI_Model {
         $this->db->join('employee e4','e4.id=allocations.fieldStaffCode4','left outer');
         $this->db->where('allocations.id',$id);
         $query=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -34,8 +32,7 @@ class OperatorModel extends CI_Model {
         $this->db->where('bills.deliveryStatus !=',"cancelled");
         $this->db->where('bills.SRAmt >',0);
         $query=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -45,8 +42,7 @@ class OperatorModel extends CI_Model {
         $this->db->order_by('id','desc');
         $this->db->limit(1);
         $query=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -56,8 +52,7 @@ class OperatorModel extends CI_Model {
         $this->db->where('bills.isFsrBill',1);
         $this->db->where('bills.isAllocated',0);
         $query=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -65,8 +60,7 @@ class OperatorModel extends CI_Model {
         $this->db->where('allocationId',$id);
         $this->db->group_by('billId');
         $query=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -76,8 +70,7 @@ class OperatorModel extends CI_Model {
         $this->db->where('allocation_sr_details.billId',$billId);
         $this->db->join('billsdetails','billsdetails.id=allocation_sr_details.billItemId');
         $query=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -86,8 +79,7 @@ class OperatorModel extends CI_Model {
         $this->db->where('allocationId',$id);
         $this->db->join('billsdetails','billsdetails.id=allocation_sr_details.billItemId');
         $query=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -96,16 +88,14 @@ class OperatorModel extends CI_Model {
         $this->db->where('bill_remark_history.billId',$billId);
         $this->db->where('bill_remark_history.amount',$amount);
         $query=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
     public function getSrAllocationInfo(){
         $this->db->join('allocation_sr_details','allocations.id=allocation_sr_details.allocationId');
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -113,8 +103,7 @@ class OperatorModel extends CI_Model {
         $this->db->where('allocation_sr_details.allocationId',$billId);
         $this->db->where('allocation_sr_details.billId',$billId);
         $query=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -127,8 +116,7 @@ class OperatorModel extends CI_Model {
         $this->db->group_by('allocations.id');
         // $this->db->order_by('allocation_sr_details.id','desc');
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -138,8 +126,7 @@ class OperatorModel extends CI_Model {
         $this->db->join('bills','bills.id=allocationsbills.billId');
         $this->db->where('allocations.id', $id);
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();   
     }
 
@@ -167,8 +154,7 @@ class OperatorModel extends CI_Model {
         $this->db->group_by('allocations.id');
         // $this->db->order_by('allocation_sr_details.id','desc');
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -182,8 +168,7 @@ class OperatorModel extends CI_Model {
         $this->db->group_by('allocations.id');
         // $this->db->order_by('allocation_sr_details.id','desc');
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -198,8 +183,7 @@ class OperatorModel extends CI_Model {
         $this->db->group_by('allocation_sr_details.allocationId');
         // $this->db->order_by('allocation_sr_details.id','desc');
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -211,8 +195,7 @@ class OperatorModel extends CI_Model {
         $this->db->where('allocations_officebills.transactionType','fsr');
         $this->db->group_by('DATE(allocations_officebills.updatedAt)');
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -226,8 +209,7 @@ class OperatorModel extends CI_Model {
         $this->db->where('allocations_officeadjustment.company',$company);
         $this->db->group_by('DATE(allocations_officebills.updatedAt)');
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -240,8 +222,7 @@ class OperatorModel extends CI_Model {
         $this->db->where('bills.isDeliverySlipBill !=',1);
         $this->db->group_by('DATE(allocation_sr_details.createdAt)');
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -256,8 +237,7 @@ class OperatorModel extends CI_Model {
         $this->db->where('bills.isDeliverySlipBill !=',1);
         $this->db->group_by('DATE(allocation_sr_details.createdAt)');
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -275,8 +255,7 @@ class OperatorModel extends CI_Model {
         $this->db->where('billpayments.chequeStatus !=','Bounced&Returned');
         $this->db->group_by('billpayments.allocationId');
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -292,8 +271,7 @@ class OperatorModel extends CI_Model {
         $this->db->where('billpayments.chequeStatus !=','Bounced&Returned');
         $this->db->group_by('billpayments.allocationId');
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -308,8 +286,7 @@ class OperatorModel extends CI_Model {
         $this->db->where('allocations_officebills.transactionType !=','pending');
         $this->db->group_by('allocations_officeadjustment.id');
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -324,8 +301,7 @@ class OperatorModel extends CI_Model {
         $this->db->where('allocations_officebills.transactionType !=','pending');
         $this->db->group_by('allocations_officeadjustment.id');
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
     //end office collection
@@ -336,8 +312,7 @@ class OperatorModel extends CI_Model {
         $this->db->where('billpayments.operatorApproval',0);
         $this->db->group_by('billpayments.allocationId',0);
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -349,8 +324,7 @@ class OperatorModel extends CI_Model {
          $this->db->where('allocation_sr_details.quantity >',0);
         $this->db->where('allocation_sr_details.operatorStatus',0);
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -365,8 +339,7 @@ class OperatorModel extends CI_Model {
         $this->db->where('billpayments.chequeStatus !=','Bounced');
         $this->db->where('billpayments.chequeStatus !=','Bounced&Returned');
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -381,8 +354,7 @@ class OperatorModel extends CI_Model {
         $this->db->where('billpayments.chequeStatus !=','Bounced');
         $this->db->where('billpayments.chequeStatus !=','Bounced&Returned');
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -397,8 +369,7 @@ class OperatorModel extends CI_Model {
         $this->db->where('billpayments.chequeStatus !=','Bounced');
         $this->db->where('billpayments.chequeStatus !=','Bounced&Returned');
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -414,8 +385,7 @@ class OperatorModel extends CI_Model {
         $this->db->where('billpayments.chequeStatus !=','Bounced&Returned');
         // $this->db->group_by('billpayments.billId');
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -428,8 +398,7 @@ class OperatorModel extends CI_Model {
         $this->db->where('amount !=',0);
         $this->db->where('transactionType !=','pending');
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -442,8 +411,7 @@ class OperatorModel extends CI_Model {
         $this->db->where('amount !=',0);
         $this->db->where('transactionType !=','pending');
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -457,63 +425,55 @@ class OperatorModel extends CI_Model {
 
         $this->db->where('allocations.id',$id);
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
     public function getCountForBills($id){
         $query="SELECT count(billId) as billcount,billId FROM `allocation_sr_details` where allocationId=$id group by billId";
         $res=$this->db->query($query);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $res->result_array();
     }
 
     public function getBillPaymentCountForBills($id){
         $query="SELECT count(billId) as billcount FROM `allocationsbills` where allocationId=$id";
         $res=$this->db->query($query);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $res->result_array();
     }
 
     public function getOfficeBillPaymentCountForBills($id){
         $query="SELECT count(billId) as billcount FROM `allocations_officebills` where allocationId=$id";
         $res=$this->db->query($query);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $res->result_array();
     }
 
     public function getBillPaymentCount(){
         $query="SELECT count(DISTINCT billId) as billcount FROM `billpayments` where allocationId=0";
         $res=$this->db->query($query);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $res->result_array();
     }
 
     public function getQtySumByBill($id){
         $query="SELECT sum(qty) as billcount FROM billsdetails where billId=$id group by billId";
         $res=$this->db->query($query);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $res->result_array();
     }
     public function srAcceptedByBill($id){
         $query="SELECT sum(quantity) as billcount FROM allocation_sr_details where billId=$id and operatorStatus=0 group by billId";
         $res=$this->db->query($query);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $res->result_array();
     }
 
     public function getSrQtySumByBill($id,$allocationId){
         $query="SELECT sum(quantity) as billcount FROM allocation_sr_details where billId=$id and allocationId=$allocationId and operatorStatus=0 group by billId";
         $res=$this->db->query($query);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $res->result_array();
     }
 
@@ -530,8 +490,7 @@ class OperatorModel extends CI_Model {
         $this->db->where('bills.isFsrBill !=',1);
         // $this->db->group_by('allocation_sr_details.allocationId');
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -548,8 +507,7 @@ class OperatorModel extends CI_Model {
         $this->db->where('allocation_sr_details.quantity >',0);
         $this->db->group_by('bills.id');
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -563,8 +521,7 @@ class OperatorModel extends CI_Model {
         $this->db->where('allocations_officebills.transactionType','fsr');
         // $this->db->group_by('bills.id');
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -576,8 +533,7 @@ class OperatorModel extends CI_Model {
         $this->db->where('allocation_sr_details.operatorStatus',0);
         $this->db->where('allocation_sr_details.quantity >',0);
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -594,8 +550,7 @@ class OperatorModel extends CI_Model {
         $this->db->where('bills.isFsrBill !=',"1");//
         $this->db->order_by('bills.id','asc');
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -604,8 +559,7 @@ class OperatorModel extends CI_Model {
         $this->db->where('code',$rcode);
         $this->db->where('name',$rname);
         $query=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -614,8 +568,7 @@ class OperatorModel extends CI_Model {
         $this->db->where('name',$rName);
         $this->db->where('code',$rcode);
         $query=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -624,8 +577,7 @@ class OperatorModel extends CI_Model {
         $this->db->select('name');
         $this->db->distinct();
         $query=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -665,8 +617,7 @@ class OperatorModel extends CI_Model {
 
     public function show($tblName) {
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();    
     }
     
@@ -688,16 +639,14 @@ class OperatorModel extends CI_Model {
     public function load($tblName, $id) {
         $this->db->where('id', $id);
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();   
     }
 
     public function getBillId($tblName, $id) {
         $this->db->where('billNo', $id);
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array(); 
         // return $query->row()->id;   
     }

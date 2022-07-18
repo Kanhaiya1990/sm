@@ -53,14 +53,14 @@ padding-bottom: 0PX;
                             
 
                                 <a href="<?php echo site_url('manager/EmployeeController');?>">
-                                    <button type="submit" class="btn btn-xs btnStyle bg-primary margin"><i class="material-icons">how_to_reg</i>  Active  </button>
+                                    <button type="submit" class="btn btn-xs bg-primary margin"><i class="material-icons">how_to_reg</i>  Active  </button>
                                   </a> 
 
                                   <a href="<?php echo site_url('manager/EmployeeController/inactiveEmployee');?>">
-                                    <button type="submit" class="btn btn-xs btnStyle bg-primary margin"><i class="material-icons">person_add_disabled</i>  Inactive  </button>
+                                    <button type="submit" class="btn btn-xs bg-primary margin"><i class="material-icons">person_add_disabled</i>  Inactive  </button>
                                   </a> 
                                   <a href="<?php echo site_url('manager/EmployeeController/add');?>">
-                                    <button type="submit" class="btn btn-xs btnStyle bg-primary margin"><i class="material-icons">person_add</i>  Add Employee </button></a> 
+                                    <button type="submit" class="btn btn-xs bg-primary margin"><i class="material-icons">person_add</i>  Add Employee </button></a> 
                                     <!-- <button data-toggle="modal" data-target="#nonSalaryModal" type="button" class="btn btn-xs bg-primary margin"><i class="material-icons">person_add</i>  Add Non Salary Employee </button> -->
                                 </p> 
                             </h2>
@@ -79,46 +79,46 @@ padding-bottom: 0PX;
                                         echo '<p class="flashMsg flashError" style="color:red">'.$msg['message'].'</p>';
                                     }
                               ?>
-                                <table class="table table-bordered cust-tbl dataTable js-exportable" data-page-length='100'>
+                                <table style="font-size: 11px" class="table table-bordered table-striped table-hover dataTable js-exportable" data-page-length='100'>
                                     <thead>
                                         <tr>
-                                            <th>No</th>
-                                            <th class="noSpace">Employee Code</th>
-                                            <th>FirstName</th>
-                                            <th>LastName</th>
+                                            <th>Sr.No</th>
+                                            <th>Employee Code</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
                                             <th>Mobile</th>
                                             <th>Company</th>
                                             <th>Role</th>
                                           <?php if ((in_array('owner', $des))) {  ?>   
                                             <th>Salary</th> 
                                           <?php } ?>
-                                            <th>Balance</th>
-                                            <th class="noSpace">ID Proof</th>
-                                            <th class="noSpace">Address Proof</th>
+                                            <th>Current Balance</th>
+                                            <th>ID Proof</th>
+                                            <th>Address Proof</th>
                                             <th>Type</th>
                                             <th>Status </th>
-                                            <th class="noSpace">Disable Login </th>
+                                            <th>Disable Login </th>
                                             <th>Edit</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
-                                         <tr>          
-                                            <th>No</th>
-                                            <th class="noSpace">Employee Code</th>
-                                            <th>FirstName</th>
-                                            <th>LastName</th>
+                                         <tr>
+                                            <th>Sr.No</th>
+                                            <th>Employee Code</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
                                             <th>Mobile</th>
                                             <th>Company</th>
                                             <th>Role</th>
                                            <?php if ((in_array('owner', $des))) {  ?>   
                                             <th>Salary</th> 
                                           <?php } ?>
-                                            <th>Balance</th>
-                                            <th class="noSpace">ID Proof</th>
-                                            <th class="noSpace">Address Proof</th>
+                                            <th>Current Balance</th>
+                                            <th>ID Proof</th>
+                                            <th>Address Proof</th>
                                             <th>Type</th>
                                             <th>Status </th>
-                                            <th class="noSpace">Disable Login </th>
+                                            <th>Disable Login </th>
                                             <th>Edit</th>
                                         </tr>
                                     </tfoot>

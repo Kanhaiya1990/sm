@@ -12,60 +12,54 @@ if (isset($this->session->userdata['codeKeyData'])) {
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <center>
-            <h4 class="modal-title">Bill Transactions </h4>
-          </center>
+          <center><h4 id="title_nameForAll" style="color:#050A30">Bill Transactions For All </h4></center>
           </div>
           <div class="modal-body">
+        
             <div class="body">
                 <div class="demo-masked-input">
                     <div class="row clearfix">
-                        <div class="row cust-tbl">
+                        <div class="row">
                             <div class="col-md-12">
                                 <div class="col-md-3">
-                                    <b style="color: #000000;"> Bill No :</b>  <span style="color: #050A30;" id='bill_noForAll'></span>
+                                    <h5 style="color:#000000">Bill No :  <span style="color:#050A30" id='bill_noForAll'></span></h5>
                                     <input type="hidden" id="currentBillNoForAll" autocomplete="off" name="currentBillNoForAll" class="form-control"> 
                                     <input type="hidden" id="currentBillIdForAll" autocomplete="off" name="currentBillIdForAll" class="form-control"> 
                                      <input type="hidden" id="currentBillRetailerForAll" autocomplete="off" name="currentBillRetailerForAll" class="form-control">    
                                 </div> 
                                 
                                  <div class="col-md-3">
-                                    <b style="color: #000000;">Bill Date :</b>  <span style="color: #050A30;" id='bill-dateForAll'></span>
+                                    <h5 style="color:#000000">Bill Date :  <span style="color:#050A30" id='bill-dateForAll'></span></h5>
                                 </div> 
                                 <span id='bill_retailerForAll'></span>
                                
                                 <div class="col-md-3">
-                                    <b style="color: #000000;">Pending Amount :</b> <span style="color: #050A30;" id='bill_pendingAmtForAll'></span>
+                                    <h5 style="color:#000000">Pending Amount : <span style="color:#050A30" id='bill_pendingAmtForAll'></span></h5>
                                     <input type="hidden" id="currentPendingAmtForAll" autocomplete="off" name="currentPendingAmtForAll" class="form-control">   
                                 </div>
                             </div>
 
-                            <div class="col-md-12 cust-tbl">
+                            <div class="col-md-12">
                               
                                 <div class="col-md-3">
-                                    <b style="color: #000000;">Route :</b> <span style="color: #050A30;" id='bill-routeForAll'></span>
+                                    <h5 style="color:#000000">Route:  <span style="color:#050A30" id='bill-routeForAll'></span></h5>
                                 </div>
                                 <div class="col-md-3">
-                                    <b style="color: #000000;">Salesman : </b> <span style="color: #050A30;" id='bill-salesmanForAll'></span>
+                                    <h5 style="color:#000000">Salesman:  <span style="color:#050A30" id='bill-salesmanForAll'></span></h5>
                                 </div>
                                 <div class="col-md-3">
-                                    <b style="color: #000000;">GST No. : </b> <span style="color: #050A30;" id='gstForAll'></span>
+                                    <h5 style="color:#000000">GST No. : 
+                                        <span style="color:#050A30" id='gstForAll'></span></h5>
                                 </div>
-                                <div class="col-md-2">
-                                  <span style="display:none;color: #050A30;" class="logo_prov"></span>
-                                </div>
+                                <div class="col-md-3"><span style="display:none" class="logo_prov">CN</span></div>
                             </div>
                         </div>
                          
-                        <br>
-                        <div class="row">   
+                         <br>
+                           <div class="row">
+                            
                         <div class="col-md-12">
-                            <div class="col-md-12 radio-btns-div">
-                              <!-- <div>
-                                <input name="group5" type="radio" id="radio_cash" class="with-gap radio-col-red" checked="" value="">
-                                <label for="radio_cash">Cash</label>
-                              </div> -->
-                              <div>
+                            <div class="col-md-12">
                               <?php if ((in_array('owner', $des)) || (in_array('cashier', $des))){ ?>
                                 <input name="group5ForAll" type="radio" id="radio_cashForAll" class="with-gap radio-col-red" checked />
                                 <label for="radio_cashForAll">Cash</label>
@@ -73,8 +67,7 @@ if (isset($this->session->userdata['codeKeyData'])) {
                                 <input name="group5ForAll" type="radio" id="radio_cashForAll" class="with-gap radio-col-red" disabled />
                                 <label for="radio_cashForAll">Cash</label>
                               <?php } ?> 
-                            </div>
-                            <div>
+
                               <?php if ((in_array('owner', $des)) || (in_array('cashier', $des)) || (in_array('senior_manager', $des))){ ?>
                                 <input name="group5ForAll" type="radio" id="radio_chequeForAll" class="with-gap radio-col-red"  />
                                 <label for="radio_chequeForAll">Cheque</label>
@@ -82,17 +75,15 @@ if (isset($this->session->userdata['codeKeyData'])) {
                                 <input name="group5ForAll" type="radio" id="radio_chequeForAll" class="with-gap radio-col-red" disabled />
                                 <label for="radio_chequeForAll">Cheque</label>
                               <?php } ?> 
-                            </div>
-                            <div>
+                            
                               <?php if ((in_array('owner', $des)) || (in_array('cashier', $des)) || (in_array('senior_manager', $des))){ ?>
                                 <input name="group5ForAll" type="radio" id="radio_neftForAll" class="with-gap radio-col-red"  />
                                 <label for="radio_neftForAll">NEFT</label>
                               <?php }else{ ?>
                                 <input name="group5ForAll" type="radio" id="radio_neftForAll" class="with-gap radio-col-red" disabled />
                                 <label for="radio_neftForAll">NEFT</label>
-                              <?php } ?>
-                            </div> 
-                            <div>
+                              <?php } ?> 
+                            
                               <?php if ((in_array('owner', $des)) || (in_array('senior_manager', $des))){ ?>
                                 <input name="group5ForAll" type="radio" id="radio_cdForAll" class="with-gap radio-col-red"  />
                                 <label for="radio_cdForAll">CD</label>
@@ -100,8 +91,8 @@ if (isset($this->session->userdata['codeKeyData'])) {
                                 <input name="group5ForAll" type="radio" id="radio_cdForAll" class="with-gap radio-col-red" disabled />
                                 <label for="radio_cdForAll">CD</label>
                               <?php } ?> 
-                            </div>
-                            <div>
+
+
                               <?php if ((in_array('owner', $des)) || (in_array('cashier', $des)) || (in_array('senior_manager', $des))){ ?>
                                 <input name="group5ForAll" type="radio" id="radio_debitForAll" class="with-gap radio-col-red" />
                                 <label for="radio_debitForAll">Debit to Employee</label>
@@ -109,8 +100,10 @@ if (isset($this->session->userdata['codeKeyData'])) {
                                 <input name="group5ForAll" type="radio" id="radio_debitForAll" class="with-gap radio-col-red" disabled/>
                                 <label for="radio_debitForAll">Debit to Employee</label>
                               <?php } ?> 
-                            </div>
-                            <div>
+
+                              
+                              
+
                               <?php if ((in_array('owner', $des)) || (in_array('senior_manager', $des))){ ?>
                                 <input name="group5ForAll" type="radio" id="radio_officeAdjForAll" class="with-gap radio-col-red" />
                                 <label for="radio_officeAdjForAll">Office Adjustment</label>
@@ -118,8 +111,7 @@ if (isset($this->session->userdata['codeKeyData'])) {
                                 <input name="group5ForAll" type="radio" id="radio_officeAdjForAll" class="with-gap radio-col-red" disabled/>
                                 <label for="radio_officeAdjForAll">Office Adjustment</label>
                               <?php } ?> 
-                            </div>
-                            <div>
+
                                <?php if ((in_array('owner', $des)) || (in_array('senior_manager', $des))){ ?>
                                 <input name="group5ForAll" type="radio" id="radio_otherAdjForAll" class="with-gap radio-col-red" />
                                 <label for="radio_otherAdjForAll">Other Adjustment</label>
@@ -127,8 +119,7 @@ if (isset($this->session->userdata['codeKeyData'])) {
                                 <input name="group5ForAll" type="radio" id="radio_otherAdjForAll" class="with-gap radio-col-red" disabled/>
                                 <label for="radio_otherAdjForAll">Other Adjustment</label>
                               <?php } ?> 
-                            </div>
-                            <div>
+
                               <?php if ((in_array('owner', $des)) || (in_array('godownkeeper', $des))){ ?>
                                 <input name="group5ForAll" type="radio" id="radio_srForAll" class="with-gap radio-col-red"  />
                                 <label for="radio_srForAll">SR/FSR</label>
@@ -136,8 +127,7 @@ if (isset($this->session->userdata['codeKeyData'])) {
                                  <input name="group5ForAll" type="radio" id="radio_srForAll" class="with-gap radio-col-red" disabled />
                                 <label for="radio_srForAll">SR/FSR</label>
                               <?php } ?> 
-                              </div>
-                              <div>
+                              
                               <?php if ((in_array('owner', $des)) || (in_array('manager', $des)) || (in_array('senior_manager', $des))){ ?>   
                                 <input name="group5ForAll" type="radio" id="radio_allocationForAll" class="with-gap radio-col-red"  />
                                 <label for="radio_allocationForAll">Add to Open Allocation</label>
@@ -145,8 +135,7 @@ if (isset($this->session->userdata['codeKeyData'])) {
                                 <input name="group5ForAll" type="radio" id="radio_allocationForAll" class="with-gap radio-col-red" disabled />
                                 <label for="radio_allocationForAll">Add to Open Allocation</label>
                               <?php } ?> 
-                            </div>
-                            <div>
+
                               <?php if ((in_array('owner', $des)) || (in_array('manager', $des)) || (in_array('senior_manager', $des))){ ?> 
                                 <input name="group5ForAll" type="radio" id="radio_EmpDeliveryForAll" class="with-gap radio-col-red"  />
                                 <label for="radio_EmpDeliveryForAll">Direct Delivery by Employee</label>
@@ -154,8 +143,7 @@ if (isset($this->session->userdata['codeKeyData'])) {
                                 <input name="group5ForAll" type="radio" id="radio_EmpDeliveryForAll" class="with-gap radio-col-red" disabled />
                                 <label for="radio_EmpDeliveryForAll">Direct Delivery by Employee</label>
                               <?php } ?> 
-                              </div>
-                              <div>
+
                               <?php if ((in_array('owner', $des)) || (in_array('cashier', $des)) || (in_array('senior_manager', $des))){ ?>
                                 <input name="group5ForAll" type="radio" id="radio_debitNoteForAll" class="with-gap radio-col-red" />
                                 <label for="radio_debitNoteForAll">Debit Note</label>
@@ -163,17 +151,21 @@ if (isset($this->session->userdata['codeKeyData'])) {
                                 <input name="group5ForAll" type="radio" id="radio_debitNoteForAll" class="with-gap radio-col-red" disabled/>
                                 <label for="radio_debitNoteForAll">Debit Note</label>
                               <?php } ?> 
+
                             </div>
-                            </div>
+                             
+
                         </div>
                     </div>
 
                     <br>
 
-                    <div id="srDivForAll" style="display: none" class="row cust-tbl">   
+                    <div id="srDivForAll" style="display: none" class="row">
+                       
                     </div>
                     
-                    <div id="chequeDivForAll" style="display: none" class="row cust-tbl">
+
+                    <div id="chequeDivForAll" style="display: none" class="row">
                         <div class="col-md-12">
                             <div class="col-md-4">
                                     <b>Employee</b><span style="color:red">  *</span>
@@ -270,14 +262,14 @@ if (isset($this->session->userdata['codeKeyData'])) {
                              <div class="col-md-12">
                               <p id="error-chk-allForAll"></p>
                                 <div class="col-md-4">
-                                  <button id="chequeSaveBtnForAll" type="button" tabindex="6"  class="btn btnStyle m-t-15 waves-effect">
-                                  <i class="material-icons">save</i> 
-                                    <span class="icon-name"> Save</span>
+                                    <button id="chequeSaveBtnForAll" type="button" tabindex="6"  class="btn btn-primary m-t-15 waves-effect">
+                                        <i class="material-icons">save</i> 
+                                        <span class="icon-name"> Save</span>
                                     </button>
                                
-                                    <button data-dismiss="modal" type="button" tabindex="7" class="btn btn-sm btn-danger m-t-15 waves-effect">
-                                      <i class="material-icons">cancel</i> 
-                                      <span class="icon-name"> Cancel</span>
+                                    <button data-dismiss="modal" type="button" tabindex="7" class="btn btn-primary m-t-15 waves-effect">
+                                        <i class="material-icons">cancel</i> 
+                                        <span class="icon-name"> Cancel</span>
                                     </button>
                                 </div>
                              </div>
@@ -285,7 +277,7 @@ if (isset($this->session->userdata['codeKeyData'])) {
 
 
 
-                    <div id="neftDivForAll" style="display: none" class="row cust-tbl">
+                    <div id="neftDivForAll" style="display: none" class="row">
                         <div class="col-md-12">
                                 <div class="col-md-4">
                                     <b>Employee</b><span style="color:red">  *</span>
@@ -354,12 +346,12 @@ if (isset($this->session->userdata['codeKeyData'])) {
                             </div>
                             <div class="col-md-12">
                                 <div class="col-md-4">
-                                    <button id="neftSaveBtnForAll" type="button" class="btn btnStyle m-t-15 waves-effect">
+                                    <button id="neftSaveBtnForAll" type="button" class="btn btn-primary m-t-15 waves-effect">
                                         <i class="material-icons">save</i> 
                                         <span class="icon-name"> Save</span>
                                     </button>
                                
-                                    <button data-dismiss="modal" type="button" class="btn btn-sm btn-danger m-t-15 waves-effect">
+                                    <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
                                         <i class="material-icons">cancel</i> 
                                         <span class="icon-name"> Cancel</span>
                                     </button>
@@ -367,7 +359,7 @@ if (isset($this->session->userdata['codeKeyData'])) {
                             </div>
                     </div>
 
-                    <div id="cdDivForAll" style="display: none" class="row cust-tbl">
+                    <div id="cdDivForAll" style="display: none" class="row">
                         <div class="col-md-12">
                             <div class="col-md-4">
                                     <b>Employee</b><span style="color:red">  *</span>
@@ -424,12 +416,12 @@ if (isset($this->session->userdata['codeKeyData'])) {
 
                             <div class="col-md-12">
                                 <div class="col-md-4">
-                                    <button id="cdSaveBtnForAll" type="button" class="btn btnStyle m-t-15 waves-effect">
+                                    <button id="cdSaveBtnForAll" type="button" class="btn btn-primary m-t-15 waves-effect">
                                         <i class="material-icons">save</i> 
                                         <span class="icon-name"> Save</span>
                                     </button>
                                
-                                    <button data-dismiss="modal" type="button" class="btn btn-sm btn-danger m-t-15 waves-effect">
+                                    <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
                                         <i class="material-icons">cancel</i> 
                                         <span class="icon-name"> Cancel</span>
                                     </button>
@@ -437,7 +429,7 @@ if (isset($this->session->userdata['codeKeyData'])) {
                             </div>
                     </div>
 
-                    <div id="debitDivForAll" style="display: none" class="row cust-tbl">
+                    <div id="debitDivForAll" style="display: none" class="row">
                         <div class="col-md-12">
                             <div class="col-md-4">
                                     <b>Employee</b><span style="color:red">  *</span>
@@ -494,12 +486,12 @@ if (isset($this->session->userdata['codeKeyData'])) {
 
                             <div class="col-md-12">
                                 <div class="col-md-4">
-                                    <button id="debitSaveBtnForAll" type="button" class="btn btnStyle m-t-15 waves-effect">
+                                    <button id="debitSaveBtnForAll" type="button" class="btn btn-primary m-t-15 waves-effect">
                                         <i class="material-icons">save</i> 
                                         <span class="icon-name"> Save</span>
                                     </button>
                                
-                                    <button data-dismiss="modal" type="button" class="btn btn-sm btn-danger m-t-15 waves-effect">
+                                    <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
                                         <i class="material-icons">cancel</i> 
                                         <span class="icon-name"> Cancel</span>
                                     </button>
@@ -507,7 +499,7 @@ if (isset($this->session->userdata['codeKeyData'])) {
                             </div>
                     </div>
 
-                    <div id="debitNoteForAll" style="display: none" class="row cust-tbl">
+                    <div id="debitNoteForAll" style="display: none" class="row">
                         <div class="col-md-12">
                             <div class="col-md-4">
                                     <b>Employee</b><span style="color:red">  *</span>
@@ -564,12 +556,12 @@ if (isset($this->session->userdata['codeKeyData'])) {
 
                             <div class="col-md-12">
                                 <div class="col-md-4">
-                                    <button id="debitNoteSaveBtnForAll" type="button" class="btn btnStyle m-t-15 waves-effect">
+                                    <button id="debitNoteSaveBtnForAll" type="button" class="btn btn-primary m-t-15 waves-effect">
                                         <i class="material-icons">save</i> 
                                         <span class="icon-name"> Save</span>
                                     </button>
                                
-                                    <button data-dismiss="modal" type="button" class="btn btn-sm btn-danger m-t-15 waves-effect">
+                                    <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
                                         <i class="material-icons">cancel</i> 
                                         <span class="icon-name"> Cancel</span>
                                     </button>
@@ -577,7 +569,7 @@ if (isset($this->session->userdata['codeKeyData'])) {
                             </div>
                     </div>
 
-                    <div id="officeAdjDivForAll" style="display: none" class="row cust-tbl">
+                    <div id="officeAdjDivForAll" style="display: none" class="row">
                         <div class="col-md-12">
                             <div class="col-md-4">
                                     <b>Employee</b><span style="color:red">  *</span>
@@ -634,12 +626,12 @@ if (isset($this->session->userdata['codeKeyData'])) {
 
                             <div class="col-md-12">
                                 <div class="col-md-4">
-                                    <button id="officeAdjSaveBtnForAll" type="button" class="btn btnStyle m-t-15 waves-effect">
+                                    <button id="officeAdjSaveBtnForAll" type="button" class="btn btn-primary m-t-15 waves-effect">
                                         <i class="material-icons">save</i> 
                                         <span class="icon-name"> Save</span>
                                     </button>
                                
-                                    <button data-dismiss="modal" type="button" class="btn btn-sm btn-danger m-t-15 waves-effect">
+                                    <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
                                         <i class="material-icons">cancel</i> 
                                         <span class="icon-name"> Cancel</span>
                                     </button>
@@ -647,7 +639,7 @@ if (isset($this->session->userdata['codeKeyData'])) {
                             </div>
                     </div>
 
-                    <div id="otherAdjDivForAll" style="display: none" class="row cust-tbl">
+                    <div id="otherAdjDivForAll" style="display: none" class="row">
                         <div class="col-md-12">
                             <div class="col-md-4">
                                     <b>Employee</b><span style="color:red">  *</span>
@@ -704,12 +696,12 @@ if (isset($this->session->userdata['codeKeyData'])) {
 
                             <div class="col-md-12">
                                 <div class="col-md-4">
-                                    <button id="otherAdjSaveBtnForAll" type="button" class="btn btnStyle m-t-15 waves-effect">
+                                    <button id="otherAdjSaveBtnForAll" type="button" class="btn btn-primary m-t-15 waves-effect">
                                         <i class="material-icons">save</i> 
                                         <span class="icon-name"> Save</span>
                                     </button>
                                
-                                    <button data-dismiss="modal" type="button" class="btn btn-sm btn-danger m-t-15 waves-effect">
+                                    <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
                                         <i class="material-icons">cancel</i> 
                                         <span class="icon-name"> Cancel</span>
                                     </button>
@@ -717,7 +709,7 @@ if (isset($this->session->userdata['codeKeyData'])) {
                             </div>
                     </div>
 
-                    <div id="empDeliveryDivForAll" style="display: none" class="row cust-tbl">
+                    <div id="empDeliveryDivForAll" style="display: none" class="row">
                         <div class="col-md-12">
                             <div class="col-md-4">
                                     <b>Employee</b><span style="color:red">  *</span>
@@ -763,12 +755,12 @@ if (isset($this->session->userdata['codeKeyData'])) {
                           
                             <div class="col-md-12">
                                 <div class="col-md-4">
-                                    <button id="deliveryEmpSaveBtnForAll" type="button" class="btn btnStyle m-t-15 waves-effect">
+                                    <button id="deliveryEmpSaveBtnForAll" type="button" class="btn btn-primary m-t-15 waves-effect">
                                         <i class="material-icons">save</i> 
                                         <span class="icon-name"> Save</span>
                                     </button>
                                
-                                    <button data-dismiss="modal" type="button" class="btn btn-sm btn-danger m-t-15 waves-effect">
+                                    <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
                                         <i class="material-icons">cancel</i> 
                                         <span class="icon-name"> Cancel</span>
                                     </button>
@@ -776,7 +768,7 @@ if (isset($this->session->userdata['codeKeyData'])) {
                             </div>
                     </div>
 
-                    <div id="allocationDivForAll" style="display: none" class="row cust-tbl">
+                    <div id="allocationDivForAll" style="display: none" class="row">
                         <div class="col-md-12">
                             <div class="col-md-4">
                                     <b>Open Allocations</b><span style="color:red">  *</span>
@@ -806,12 +798,12 @@ if (isset($this->session->userdata['codeKeyData'])) {
 
                             <div class="col-md-12">
                                 <div class="col-md-4">
-                                    <button id="allocationSaveBtnForAll" type="button" class="btn btnStyle m-t-15 waves-effect">
+                                    <button id="allocationSaveBtnForAll" type="button" class="btn btn-primary m-t-15 waves-effect">
                                         <i class="material-icons">save</i> 
                                         <span class="icon-name"> Save</span>
                                     </button>
                                
-                                    <button data-dismiss="modal" type="button" class="btn btn-sm btn-danger m-t-15 waves-effect">
+                                    <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
                                         <i class="material-icons">cancel</i> 
                                         <span class="icon-name"> Cancel</span>
                                     </button>
@@ -819,7 +811,7 @@ if (isset($this->session->userdata['codeKeyData'])) {
                             </div>
                     </div>
 
-                    <div id="cashDivForAll" class="row cust-tbl">
+                    <div id="cashDivForAll" class="row">
                         <div class="col-md-12">
                                 <div class="col-md-4">
                                     <b>Employee</b><span style="color:red">  *</span>
@@ -861,7 +853,7 @@ if (isset($this->session->userdata['codeKeyData'])) {
                     
                         <div class="col-md-12">
                             <div class="col-md-12">
-                                <table class="table table-bordered cust-tbl" data-page-length='100'>
+                                <table style="font-size: 13px" class="table table-bordered table-striped table-hover" data-page-length='100'>
                                     <thead>
                                         <tr>
                                             <th><center>Denominations</center></th>
@@ -946,12 +938,12 @@ if (isset($this->session->userdata['codeKeyData'])) {
                           <?php if ((in_array('owner', $des)) || (in_array('cashier', $des))){   ?>
                             <div class="row clearfix">
                                 <div class="col-md-5">
-                                    <button id="cashSaveBtnForAll" type="button" class="btn btnStyle m-t-15 waves-effect">
+                                    <button id="cashSaveBtnForAll" type="button" class="btn btn-primary m-t-15 waves-effect">
                                         <i class="material-icons">save</i> 
                                         <span class="icon-name"> Save</span>
                                     </button>
                                
-                                    <button data-dismiss="modal" type="button" class="btn btn-sm btn-danger m-t-15 waves-effect">
+                                    <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
                                         <i class="material-icons">cancel</i> 
                                         <span class="icon-name"> Cancel</span>
                                     </button>
@@ -960,12 +952,12 @@ if (isset($this->session->userdata['codeKeyData'])) {
                             <?php } else { ?>
                               <div class="row clearfix">
                                 <div class="col-md-5">
-                                    <button id="cashSaveBtnForAll" disabled type="button" class="btn btnStyle m-t-15 waves-effect">
+                                    <button id="cashSaveBtnForAll" disabled type="button" class="btn btn-primary m-t-15 waves-effect">
                                         <i class="material-icons">save</i> 
                                         <span class="icon-name"> Save</span>
                                     </button>
                                
-                                    <button data-dismiss="modal" type="button" class="btn btn-sm btn-danger m-t-15 waves-effect">
+                                    <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
                                         <i class="material-icons">cancel</i> 
                                         <span class="icon-name"> Cancel</span>
                                     </button>
@@ -1195,7 +1187,7 @@ if (isset($this->session->userdata['codeKeyData'])) {
        
         if(credAdj>0){
            
-            $('.logo_prov').text('CN:'+credAdj);
+            $('.logo_prov').text('CN : '+credAdj);
              $(".logo_prov").show();
         }else{
              $(".logo_prov").hide();
@@ -1237,7 +1229,16 @@ if (isset($this->session->userdata['codeKeyData'])) {
                 data:{currentBillId:currentBillId},
                 success: function (data) {
                     $('#srDivForAll').html(data);
-                }  
+                },
+                beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                } 
             });
         }
     });
@@ -1273,7 +1274,16 @@ if (isset($this->session->userdata['codeKeyData'])) {
                     }else{
                         alert(data);
                     }
-                }  
+                },
+                beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                }   
             });
         }
         }
@@ -1323,7 +1333,16 @@ if (isset($this->session->userdata['codeKeyData'])) {
                 window.location.reload()
             //   window.location.href="<?php echo base_url();?>index.php/SrController/outstandingBills";
             }
-          }  
+          },
+          beforeSend: function(){
+            $('.comman-ajax-loader').css("visibility", "visible");
+        },
+        complete: function(){
+            $('.comman-ajax-loader').css("visibility", "hidden");
+        },
+        error: function(jqXHR, exception) {
+            alert("Something Went Wrong, Please Try Again...!");
+        }   
       });
     }
   });
@@ -1438,7 +1457,16 @@ if (isset($this->session->userdata['codeKeyData'])) {
                 }else{
                     alert(data);
                 }
-            }  
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            } 
         });
         
         // }
@@ -1490,7 +1518,16 @@ function dupChequeEntry(){
                 document.getElementById('error-nwlForAll').innerText = '';
                 return true;
               }
-            }
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            } 
         });
       
     }
@@ -1558,7 +1595,16 @@ function dupChequeEntry(){
                     }else{
                         alert(data);
                     }
-                }  
+                },
+                beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                }   
             });
         }else if(empName !=="" && chequeAmount !=="" && chequeBank !== "" && chequeNumber !=="" && chequeDate !==""){
             var err=$('#error-nwlForAll').text();
@@ -1619,7 +1665,16 @@ function dupChequeEntry(){
                               }else{
                                   alert(data);
                               }
-                          }  
+                          },
+                          beforeSend: function(){
+                                $('.comman-ajax-loader').css("visibility", "visible");
+                            },
+                            complete: function(){
+                                $('.comman-ajax-loader').css("visibility", "hidden");
+                            },
+                            error: function(jqXHR, exception) {
+                                alert("Something Went Wrong, Please Try Again...!");
+                            }   
                       });
                     } else {
                         // window.location.href="<?php echo base_url();?>index.php/SrController/outstandingBills";
@@ -1639,10 +1694,29 @@ function dupChequeEntry(){
                               }else{
                                   alert(data);
                               }
-                          }  
+                          },
+                          beforeSend: function(){
+                                $('.comman-ajax-loader').css("visibility", "visible");
+                            },
+                            complete: function(){
+                                $('.comman-ajax-loader').css("visibility", "hidden");
+                            },
+                            error: function(jqXHR, exception) {
+                                alert("Something Went Wrong, Please Try Again...!");
+                            }   
                       });
                   }
-                }
+                },
+                beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                } 
+
             });
             
             
@@ -1728,7 +1802,16 @@ function dupChequeEntry(){
                     }else{
                         alert(data);
                     }
-                }  
+                },
+                beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                }   
             });
         }else if(empId !=="" && neftAmount !=="" && neftNumber !=="" && neftDate !==""){
             var err=$('#error-nwl1ForAll').text();
@@ -1776,7 +1859,16 @@ function dupChequeEntry(){
                                     }else{
                                         alert(data);
                                     }
-                                }  
+                                },
+                                beforeSend: function(){
+                                    $('.comman-ajax-loader').css("visibility", "visible");
+                                },
+                                complete: function(){
+                                    $('.comman-ajax-loader').css("visibility", "hidden");
+                                },
+                                error: function(jqXHR, exception) {
+                                    alert("Something Went Wrong, Please Try Again...!");
+                                } 
                             });
                         } else {
                             // window.location.href="<?php echo base_url();?>index.php/SrController/outstandingBills";
@@ -1797,10 +1889,28 @@ function dupChequeEntry(){
                                 }else{
                                     alert(data);
                                 }
-                            }  
+                            },
+                            beforeSend: function(){
+                                $('.comman-ajax-loader').css("visibility", "visible");
+                            },
+                            complete: function(){
+                                $('.comman-ajax-loader').css("visibility", "hidden");
+                            },
+                            error: function(jqXHR, exception) {
+                                alert("Something Went Wrong, Please Try Again...!");
+                            }           
                         });
                       }
-                    }
+                    },
+                    beforeSend: function(){
+                        $('.comman-ajax-loader').css("visibility", "visible");
+                    },
+                    complete: function(){
+                        $('.comman-ajax-loader').css("visibility", "hidden");
+                    },
+                    error: function(jqXHR, exception) {
+                        alert("Something Went Wrong, Please Try Again...!");
+                    } 
                 });
             
             
@@ -1850,7 +1960,16 @@ function dupChequeEntry(){
                 }else{
                     alert(data);
                 }
-            }  
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            }   
         });
         }
         
@@ -1914,7 +2033,16 @@ function dupChequeEntry(){
                 }else{
                     alert(data);
                 }
-            }  
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            }   
         });
       }
         
@@ -1978,7 +2106,16 @@ function dupChequeEntry(){
                 }else{
                     alert(data);
                 }
-            }  
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            }   
         });
         
         }
@@ -2043,7 +2180,16 @@ function dupChequeEntry(){
                 }else{
                     alert(data);
                 }
-            }  
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            }   
         });
         
         }
@@ -2108,7 +2254,16 @@ function dupChequeEntry(){
                     alert(data);
                 }
 
-            }  
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            } 
         });
         }
         
@@ -2171,7 +2326,16 @@ function dupChequeEntry(){
                 }else{
                     alert(data);
                 }
-            }  
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            }   
         });
         }
         
@@ -2235,7 +2399,16 @@ function dupChequeEntry(){
                 }else{
                     alert(data);
                 }
-            }  
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            }   
         });
         }
     });

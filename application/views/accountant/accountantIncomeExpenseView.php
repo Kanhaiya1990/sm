@@ -33,6 +33,7 @@
   } );
 </script>
 
+
         <h1 style="display: none;">Welcome</h1><br/><br/><br/><br/><br/>
         <section class="col-md-12 box" style="height: auto;overflow-y: scroll;">
         <div class="container-fluid">
@@ -42,28 +43,28 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                            <center><h2>
+                            <h2>
                                Accountant Income Expense Report
-                            </h2></center><br/>
+                            </h2><br/>
                         </div>
                         <div class="body">
                           <div class="row">
-                            <div class="col-md-12 cust-tbl">
+                            <div class="col-md-12">
                                     <form method="post" role="form" action="<?php echo site_url('accountant/AccountantController/incomeExpense');?>">
                                           <label>From Date:</label>
-                                          <input type="date" value="<?php echo $startDate?>" name="from_date" class="form-control dateCustom" required >
+                                          <input type="date" value="<?php echo $startDate?>" name="from_date" required >
                                           <label>To Date:</label>
-                                          <input type="date" value="<?php echo $endDate?>" name="to_date" class="form-control dateCustom" required>
-                                          <button type="submit" style="padding: 5px;" class="btn btn-xs btnStyle">Search</button>
+                                          <input type="date" value="<?php echo $endDate?>" name="to_date" required>
+                                          <button type="submit" class="btn btn-primary">Search</button>
                                           <a href="<?php echo site_url('accountant/AccountantController/incomeExpense');?>">
-                                              <button type="button" class="btn btn-danger">Cancel</button>
+                                              <button type="button" class="btn btn-primary">Cancel</button>
                                           </a> 
                                     </form>
                                 </div>
                             </div>
                             <div class="table-responsive">
                                 
-                                <table id="Tbldata" class="table table-bordered cust-tbl js-exportable dataTable" data-page-length='25'>
+                                <table id="Tbldata" style="font-size: 12px;" class="table table-bordered table-striped table-hover js-exportable dataTable" data-page-length='25'>
                                     <thead>
                                         <tr>
                                             <th>S. No.</th>
@@ -98,7 +99,7 @@
                                                 echo "Expenses are not approved by owner.";
                                               }else{ ?>
                                                 <a href="<?php echo site_url('accountant/AccountantController/incomeExpenseDetails/'.$date); ?>">
-                                                  <button class="btn btn-xs btnStyle margin"><i class="material-icons">visibility</i></button>
+                                                  <i class="material-icons" style="color: blue;">remove_red_eye</i>
                                                 </a> 
                                             <?php } ?>
                                           </td>
@@ -146,7 +147,16 @@
             data : {closeDayBookName: closeDayBookName},
             success: function(data){
               $('.mods').html(data);
-            }
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            }   
         });
         
 

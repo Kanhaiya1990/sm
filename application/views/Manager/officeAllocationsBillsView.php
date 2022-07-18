@@ -52,7 +52,7 @@
                                         <tr>
                                             <th>S. No.</th>
                                             <th>Allocation No.</th>
-                                            <th>Company</th>
+                                            <th>Division</th>
                                             <th>Allocation Date</th>
                                             <th>Created By</th>
                                         </tr>
@@ -61,7 +61,7 @@
                                         <tr>
                                            <th>S. No.</th>
                                             <th>Allocation No.</th>
-                                            <th>Company</th>
+                                            <th>Division</th>
                                             <th>Allocation Date</th>
                                             <th>Created By</th>
                                         </tr>

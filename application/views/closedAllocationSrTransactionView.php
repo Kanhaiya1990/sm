@@ -12,21 +12,21 @@
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
-                        <div class="header flex-div">
+                        <div class="header">
                             <h2>
                                  Bill SR Details
                             </h2>
                             <p align="right">
                                 <a href="<?php echo site_url('AllocationByManagerController/CloseCompleteAllocation/'.$allocationId);?>">
-                                    <button class="btn bg-primary btnStyle margin">Summary</button></a> 
+                                    <button class="btn bg-primary margin">Summary</button></a> 
 
                                 <a href="<?php echo site_url('AllocationByManagerController/closedAllocationTrancationDetails/'.$allocationId);?>">
-                                    <button class="btn bg-primary btnStyle margin"> Other Details</button></a> 
+                                    <button class="btn bg-primary margin"> Other Details</button></a> 
                             </p>
                         </div>
                         <div class="body">
-                            <div class="row cust-tbl">
-                                <div class="col-md-12 mb-0">
+                            <div class="row">
+                                <div class="col-md-12">
                                    <div class="col-md-4"> 
                                     <label id="allocation">Allocation : </label>
                                     <?php echo $allocations[0]['allocationCode']?>
@@ -90,7 +90,7 @@
                                 </div>
                                 </div>
                             <div class="table-responsive">
-                                <table id="crTbl" class="table table-bordered cust-tbl js-basic-example dataTable" data-page-length='25'>
+                                <table id="crTbl" class="table table-bordered table-striped table-hover js-basic-example dataTable" data-page-length='25'>
                                     <thead>
                                         <tr>
                                             <th>S. No.</th>

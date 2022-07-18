@@ -19,7 +19,7 @@
                         </div>
                         <div class="body">
                             <div class="table-responsive">
-                                <table class="table table-bordered js-basic-example dataTable cust-tbl" data-page-length='100'>
+                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable" data-page-length='100'>
                                     <thead>
                                         <tr>
                                             <td>Sr.No</td>
@@ -65,7 +65,7 @@
                         </div>
                         <div class="body">
                             <div class="table-responsive">
-                                <table class="table table-bordered js-basic-example dataTable cust-tbl" data-page-length='100'>
+                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable" data-page-length='100'>
                                     <thead>
                                         <tr>
                                             <td>Sr.No</td>

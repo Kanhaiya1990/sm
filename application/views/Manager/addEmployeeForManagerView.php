@@ -46,7 +46,7 @@ $projectSessionName="";
                                 if($employee[0]['isLoginEmp'] ==0){
                         ?>        
 
-                        <form class="cust-tbl" id="nonLoginFrm" <?php if(isset($employee)) { if($employee[0]['isLoginEmp'] ==1){ ?>style="display:none" <?php } } ?> method="post" role="form" enctype="multipart/form-data"  action="<?php echo site_url('manager/EmployeeController/updateNonSalaryEmployee');?>"> 
+                        <form id="nonLoginFrm" <?php if(isset($employee)) { if($employee[0]['isLoginEmp'] ==1){ ?>style="display:none" <?php } } ?> method="post" role="form" enctype="multipart/form-data"  action="<?php echo site_url('manager/EmployeeController/updateNonSalaryEmployee');?>"> 
                             <div class="body">
                                 <div class="demo-masked-input">
                                     <div class="row clearfix">
@@ -110,7 +110,7 @@ $projectSessionName="";
                                     </div>
                                     <div class="col-md-12">
                                         <div class="col-md-4">
-                                            <button type="submit" class="btn btnStyle btn-xs bg-primary margin"><i class="material-icons">person_add</i> Save</button>
+                                            <button type="submit" class="btn btn-xs bg-primary margin"><i class="material-icons">person_add</i> Save</button>
                                         </div>
                                     </div>
                                 </div>
@@ -123,7 +123,7 @@ $projectSessionName="";
                      ?>
 
 
-                        <form class="cust-tbl" id="nonLoginFrm" style="display:none" method="post" role="form" enctype="multipart/form-data"  action="<?php echo site_url('manager/EmployeeController/addNonSalaryEmployee');?>"> 
+                        <form id="nonLoginFrm" style="display:none" method="post" role="form" enctype="multipart/form-data"  action="<?php echo site_url('manager/EmployeeController/addNonSalaryEmployee');?>"> 
                             <div class="body">
                                 <div class="demo-masked-input">
                                     <div class="row clearfix">
@@ -184,7 +184,7 @@ $projectSessionName="";
                                     </div>
                                     <div class="col-md-12">
                                         <div class="col-md-4">
-                                            <button type="submit" class="btn btnStyle btn-xs bg-primary margin"><i class="material-icons">person_add</i> Save</button>
+                                            <button type="submit" class="btn btn-xs bg-primary margin"><i class="material-icons">person_add</i> Save</button>
                                         </div>
                                     </div>
                                 </div>
@@ -199,7 +199,7 @@ $projectSessionName="";
                                 <div class="row clearfix"> -->
                                     <?php if(isset($employee)){ ?>
                                         <div class="col-md-9">
-                                <form class="cust-tbl" id="frmuser" <?php if($employee[0]['isLoginEmp'] ==0){ ?>style="display:none" <?php } ?> method="post" onsubmit="return onEmpUserNameSubmit();" role="form" action="<?php echo site_url('manager/EmployeeController/updateEmployeeUsername'); ?>">
+                                <form id="frmuser" <?php if($employee[0]['isLoginEmp'] ==0){ ?>style="display:none" <?php } ?> method="post" onsubmit="return onEmpUserNameSubmit();" role="form" action="<?php echo site_url('manager/EmployeeController/updateEmployeeUsername'); ?>">
 
                                         <input type="hidden" id="updateEmpId" name="updateEmpId" value="<?php if(isset($employee)) { echo $employee[0]['id']; } ?>">
 
@@ -250,11 +250,11 @@ $projectSessionName="";
                                         </div>
                                     </div>
                                     <div class="col-md-1">
-                                        <a id="enabledUsrBtn" class="btn btnStyle btn-primary m-t-15 waves-effect"> 
+                                        <a id="enabledUsrBtn" class="btn btn-primary m-t-15 waves-effect"> 
                                             <span class="icon-name"> Edit </span>
                                         </a>
 
-                                        <input type="submit" value="Update" class="btn btn-primary btnStyle m-t-15 waves-effect"> 
+                                        <input type="submit" value="Update" class="btn btn-primary m-t-15 waves-effect"> 
                                             
                                     </div>
                                
@@ -281,11 +281,11 @@ $projectSessionName="";
                                                 </div>
                                             </div> 
                                             <div class="col-md-3">
-                                                 <a id="enabledUsrMobile" class="btn btn-primary btnStyle m-t-15 waves-effect"> 
+                                                 <a id="enabledUsrMobile" class="btn btn-primary m-t-15 waves-effect"> 
                                                     <span class="icon-name"> Edit </span>
                                                 </a>
 
-                                                 <input type="submit" value="Update" class="btn btn-primary btnStyle m-t-15 waves-effect"> 
+                                                 <input type="submit" value="Update" class="btn btn-primary m-t-15 waves-effect"> 
                                                 
                                             </div>
                                         </form>
@@ -296,7 +296,7 @@ $projectSessionName="";
                         </div>
 
 
-                        <form id="frm" class="cust-tbl" <?php if(isset($employee)){ if($employee[0]['isLoginEmp'] ==0){ ?>style="display:none" <?php } } ?> method="post" onsubmit="return onEmpSubmit();" role="form" enctype="multipart/form-data" 
+                        <form id="frm" <?php if(isset($employee)){ if($employee[0]['isLoginEmp'] ==0){ ?>style="display:none" <?php } } ?> method="post" onsubmit="return onEmpSubmit();" role="form" enctype="multipart/form-data" 
                         action="<?php
                             if(isset($employee))
                             {
@@ -640,12 +640,12 @@ $projectSessionName="";
                                     <div class="col-md-12">
                                             <div class="col-md-4">
                                                 <?php if(isset($employee)){ ?>
-                                                     <a id="enabledBtn" class="btn btnStyle btn-primary m-t-15 waves-effect"> 
+                                                     <a id="enabledBtn" class="btn btn-primary m-t-15 waves-effect"> 
                                                             <i class="material-icons">edit</i> 
                                                             <span class="icon-name"> Edit </span>
                                                         </a>
                                                   <?php } ?>
-                                                <button type="submit" class="btn btnStyle btn-primary m-t-15 waves-effect">
+                                                <button type="submit" class="btn btn-primary m-t-15 waves-effect">
                                                     <i class="material-icons">save</i> 
                                                     <span class="icon-name"> Save </span>
                                                 </button>

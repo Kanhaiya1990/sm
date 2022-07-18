@@ -919,7 +919,16 @@
                 //     alert(response);
                 // }
                 $('#usr').html('<span style="color: red;">'+response+'</span>');
-            }
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            }   
         });
     }
 
@@ -936,7 +945,16 @@
                 //     alert(response);
                 // }
                 $('#usrUpdate').html(response);
-            }
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            }   
         });
     }
 
@@ -955,7 +973,16 @@
                     success:function(response)
                     {
                         $('#mbl').html('<span style="color: red;">'+response+'</span>');
-                    }
+                    },
+                    beforeSend: function(){
+                        $('.comman-ajax-loader').css("visibility", "visible");
+                    },
+                    complete: function(){
+                        $('.comman-ajax-loader').css("visibility", "hidden");
+                    },
+                    error: function(jqXHR, exception) {
+                        alert("Something Went Wrong, Please Try Again...!");
+                    }   
                 });
             } else{
                 document.getElementById('mbl').innerText='please enter valid mobile number';
@@ -978,7 +1005,16 @@
                     success:function(response)
                     {
                         $('#updmbl').html(response);
-                    }
+                    },
+                    beforeSend: function(){
+                        $('.comman-ajax-loader').css("visibility", "visible");
+                    },
+                    complete: function(){
+                        $('.comman-ajax-loader').css("visibility", "hidden");
+                    },
+                    error: function(jqXHR, exception) {
+                        alert("Something Went Wrong, Please Try Again...!");
+                    }   
                 });
             } else{
                 document.getElementById('updmbl').innerText='please enter valid mobile number';
@@ -1024,7 +1060,16 @@
                     alert(data);
                 }
 
-            }  
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            }     
         });
         
         
@@ -1059,7 +1104,16 @@
                     alert(data);
                 }
 
-            }  
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            }     
         });
     // }
         

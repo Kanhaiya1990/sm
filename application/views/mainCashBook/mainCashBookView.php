@@ -51,21 +51,31 @@
                             <!-- <button data-toggle="modal" data-target="#myModal1" class="modalLink btn btn-primary btn-xs m-t-15 waves-effect">
                                 <span class="icon-name"> <i class="material-icons">playlist_add</i><span>Transfer to Main Cash Book </span></span>
                             </button> -->
-                            
-                            <button data-toggle="modal" data-target="#myModal2" class="modalLink btn btn-primary btnStyle btn-xs m-t-15 waves-effect">
-                                <span class="icon-name"> <i class="material-icons">playlist_add</i><span>Transfer to Day Book</span></span>
-                            </button>
+                            <?php if($this->session->userdata['workRestrict']['status']=="yes"){?>
+                                <button class="btn btn-primary btn-xs m-t-15 waves-effect" onclick="planUpgradeMsg()">
+                                    <span class="icon-name"> <i class="material-icons">playlist_add</i><span>Transfer to Day Book</span></span>
+                                </button>
 
-                            <button data-toggle="modal" data-target="#myModal3" class="modalLink btn btn-primary btnStyle btn-xs m-t-15 waves-effect">
-                                <span class="icon-name"> <i class="material-icons">playlist_add</i><span>Bank Deposit </span></span>
-                            </button>
+                                <button class="btn btn-primary btn-xs m-t-15 waves-effect" onclick="planUpgradeMsg()">
+                                    <span class="icon-name"> <i class="material-icons">playlist_add</i><span>Bank Deposit </span></span>
+                                </button>
+                            <?php } else { ?>
+                                <button data-toggle="modal" data-target="#myModal2" class="modalLink btn btn-primary btn-xs m-t-15 waves-effect">
+                                    <span class="icon-name"> <i class="material-icons">playlist_add</i><span>Transfer to Day Book</span></span>
+                                </button>
+
+                                <button data-toggle="modal" data-target="#myModal3" class="modalLink btn btn-primary btn-xs m-t-15 waves-effect">
+                                    <span class="icon-name"> <i class="material-icons">playlist_add</i><span>Bank Deposit </span></span>
+                                </button>
+                            <?php } ?>
+                            
                         </p> <br>
                        
                     </div>
             <div class="body">
                 <div class="row">
                     <div class="col-lg-4">
-                    <table style="font-size: 12px" class="table table-bordered cust-tbl js-basic-example" data-page-length='100'>
+                    <table style="font-size: 12px" class="table table-bordered table-striped table-hover js-basic-example" data-page-length='100'>
                             <thead>
                                 <tr style="background-color: #dfdddd;">
                                     <th>Denomination</th>
@@ -133,7 +143,7 @@
 
                     <div class="col-lg-8">
                         <div class="table-responsive">
-                            <table style="font-size: 12px" class="table table-bordered cust-tbl js-basic-example" data-page-length='100'>
+                            <table style="font-size: 12px" class="table table-bordered table-striped table-hover js-basic-example dataTable" data-page-length='100'>
                                 <thead>
                                     <tr>
                                         <th>Last 10 transaction</th>
@@ -169,24 +179,10 @@
                                             foreach($mainCashBook as $data){
                                     ?>
                                           <tr>
-                                            <td class="noSpace"><?php echo date("d-M-Y h:i a", strtotime($data['date'])); ?></td>
-											<td class="CellWithComment"><?php 
-											$nature=substr($data['nature'], 0, 10);
-											echo rtrim($nature);?>
-											<span class="CellComment"><?php echo $result =substr($data['nature'],0); ?></span>
-										    </td>
-                                           
-											<td class="CellWithComment"><?php 
-											$empName=substr($data['empName'], 0, 10);
-											echo rtrim($empName);?>
-											<span class="CellComment"><?php echo $result =substr($data['empName'],0); ?></span>
-										    </td>
-                                            
-											<td class="CellWithComment"><?php 
-											$narration=substr($data['narration'], 0, 10);
-											echo rtrim($narration);?>
-											<span class="CellComment"><?php echo $result =substr($data['narration'],0); ?></span>
-										    </td>
+                                            <td><?php echo date("d-M-Y h:i a", strtotime($data['date'])); ?></td>
+                                            <td><?php echo $data['nature']?></td>
+                                            <td><?php echo $data['empName']?></td>
+                                            <td><?php echo $data['narration']?></td>
                                             <?php if($data['inoutStatus']=="Inflow"){ ?>
                                                 <td class="text-right" style="color:blue"><?php echo number_format($data['amount']); ?></td>
                                                 <td></td>
@@ -409,7 +405,7 @@
                             <div class="col-md-12">
                                 <div class="col-md-12">
                                     <p id="err-data" style="color:red"></p>
-                                    <table style="font-size: 12px" class="table table-bordered cust-tbl js-basic-example" data-page-length='100'>
+                                    <table style="font-size: 12px" class="table table-bordered table-striped table-hover js-basic-example" data-page-length='100'>
                                         <thead>
                                             <tr style="background-color: #dfdddd;">
                                                 <th>Denomination</th>
@@ -541,14 +537,14 @@
                             <div class="row clearfix">
                                 <div class="col-md-12">
                                     <center>                                               
-                                        <button id="transferToDayButton" type="submit" class="btn  btnStyle m-t-15 waves-effect">
+                                        <button id="transferToDayButton" type="submit" class="btn btn-primary m-t-15 waves-effect">
                                             <i class="material-icons">save</i> 
                                             <span class="icon-name">
                                                 Save
                                             </span>
                                         </button> 
 
-                                        <button data-dismiss="modal" type="button" id="bnkClose" class="btn btn-sm btn-danger m-t-15 waves-effect">
+                                        <button data-dismiss="modal" type="button" id="bnkClose" class="btn btn-primary m-t-15 waves-effect">
                                             <i class="material-icons">cancel</i> 
                                             <span class="icon-name">
                                                 cancel
@@ -578,7 +574,7 @@
                             <div class="col-md-12">
                                 <div class="col-md-12">
                                 <p id="err-data1" style="color:red"></p>
-                                    <table style="font-size: 12px" class="table table-bordered cust-tbl js-basic-example" data-page-length='100'>
+                                    <table style="font-size: 12px" class="table table-bordered table-striped table-hover js-basic-example" data-page-length='100'>
                                         <thead>
                                             <tr style="background-color: #dfdddd;">
                                                 <th>Denomination</th>
@@ -721,14 +717,14 @@
                             <div class="row clearfix">
                                 <div class="col-md-12">
                                     <center>                                               
-                                        <button id="bankDepositButton" type="submit" class="btn btnStyle m-t-15 waves-effect">
+                                        <button id="bankDepositButton" type="submit" class="btn btn-primary m-t-15 waves-effect">
                                             <i class="material-icons">save</i> 
                                             <span class="icon-name">
                                                 Save
                                             </span>
                                         </button> 
 
-                                        <button data-dismiss="modal" type="button" id="bnkClose" class="btn btn-sm btn-danger m-t-15 waves-effect">
+                                        <button data-dismiss="modal" type="button" id="bnkClose" class="btn btn-primary m-t-15 waves-effect">
                                             <i class="material-icons">cancel</i> 
                                             <span class="icon-name">
                                                 cancel

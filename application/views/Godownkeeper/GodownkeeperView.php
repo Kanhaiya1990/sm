@@ -52,7 +52,7 @@
                                Sale Return Check 
                             </h2></center>
                             <br>
-                             <div class="cust-tbl">
+                             <h2>
                                 <span><b>Allocation No : </b><?php echo $BillInfo[0]['allocationCode']; ?></span>&nbsp;&nbsp;
                                 <span><b>Company : </b><?php echo $BillInfo[0]['company']; ?></span>&nbsp;&nbsp;
                                 <span><b>Route : </b><?php echo $BillInfo[0]['rname']; ?></span>&nbsp;&nbsp;
@@ -70,7 +70,7 @@
                                     </button> 
                         </form> -->
                                 </div>
-                            </div>
+                            </h2>
                         </div>
                         <div class="body">
                             <div id="res"></div>
@@ -78,7 +78,7 @@
                             <span id="all_id" style="display:none"></span>
                             <div class="table-responsive">
                                 <?php if(!empty($sr) || !empty($fsr) || !empty($newFsr)){ ?>
-                                <table class="table table-bordered cust-tbl js-basic-example DataTable display nowrap" id="example" data-page-length='100'>
+                                <table class="table table-bordered table-striped table-hover js-basic-example DataTable display nowrap" id="example" data-page-length='100'>
                                     <thead>
                                         <tr>
                                             <th colspan="11" class="text-center">SR/FSR Approval</th>
@@ -86,7 +86,7 @@
                                     </thead>    
                                     <thead>
                                         <tr>
-                                            <th>No</th>
+                                            <th style="width: 15px;">S. No.</th>
                                             <th style="display: none;"></th>
                                             <th>Bill No.</th>
                                             <th>Retailer</th>
@@ -95,7 +95,7 @@
                                             <th>MRP</th>
                                             <th>Billed Qty</th>
                                             <th>SR</th>
-                                            <th class="noSpace">SR Received</th>
+                                            <th>SR Received</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -116,21 +116,11 @@
                                                 <td id="billNo">
                                                     <?php echo $data['billNo'];?>
                                                 </td>
-                                                <td class="CellWithComment"><?php 	
-												$retailerName=substr($data['retailerName'], 0, 15);
-                                                echo rtrim($retailerName);?>
-											    <span class="CellComment"><?php echo $result =substr($data['retailerName'],0); ?></span>
-										        </td>
-												<td class="CellWithComment"><?php 	
-												$salesmanName=substr($data['salesmanName'], 0, 15);
-                                                echo rtrim($salesmanName);?>
-											    <span class="CellComment"><?php echo $result =substr($data['salesmanName'],0); ?></span>
-										        </td>
-												<td class="CellWithComment"><?php 	
-												$productName=substr($data['productName'], 0, 15);
-                                                echo rtrim($productName);?>
-											    <span class="CellComment"><?php echo $result =substr($data['productName'],0); ?></span>
-										        </td>
+                                               <td><?php 
+                                                $retailerName=substr($data['retailerName'], 0, 30);
+                                                echo $retailerName;?></td>
+                                               <td><?php echo $data['salesmanName'];?></td>
+                                                <td><?php echo $data['productName'];?></td>
                                                 <td class="text-right"><?php echo number_format($data['mrp']);?></td>
                                                 <td class="text-right"><?php echo number_format($data['qty']);?></td>
                                                 <td align="right" id="fsSrAmt"><?php echo number_format($data['fsReturnQty']);?></td>
@@ -145,7 +135,7 @@
                                                 </td>
                                                 <td>
                                                     <?php if($data['gkStatus'] !=1 || $data['fsReturnQty'] >0){ ?>
-                                                    <button id="btn_err<?php echo $no; ?>" onclick="updateSRqty(this,<?php echo $no; ?>);" class="btn btn-sm btnStyle primary waves-effect" style="padding: 3px 10px;">
+                                                    <button id="btn_err<?php echo $no; ?>" onclick="updateSRqty(this,<?php echo $no; ?>);" class="btn btn-sm btn-primary waves-effect">
                                                         OK 
                                                     </button>
                                                 <?php }else{ ?>
@@ -170,23 +160,17 @@
                                                 <td>
                                                     <?php echo $data['billNo'];?>
                                                 </td>
-												<td class="CellWithComment"><?php 	
-												$retailerName=substr($data['retailerName'], 0, 15);
-                                                echo rtrim($retailerName);?>
-											    <span class="CellComment"><?php echo $result =substr($data['retailerName'],0); ?></span>
-										        </td>
-                                                <td class="CellWithComment"><?php 	
-												$salesmanName=substr($data['salesmanName'], 0, 15);
-                                                echo rtrim($salesmanName);?>
-											    <span class="CellComment"><?php echo $result =substr($data['salesmanName'],0); ?></span>
-										        </td>
+                                                <td><?php 
+                                                $retailerName=substr($data['retailerName'], 0, 20);
+                                                echo $retailerName;?></td>
+                                                <td><?php echo $data['salesmanName'];?></td>
                                                 <td> 
                                                 <?php if($data['creditAdjustment'] >0){ ?>
-                                                    <button onclick="creditAdjustmentMsg();" class="btn btn-sm btnStyle waves-effect" style="padding: 2px 13px;">
+                                                    <button onclick="creditAdjustmentMsg();" class="btn btn-sm btn-primary waves-effect">
                                                         FSR
                                                     </button>
                                                 <?php } else { ?>
-                                                    <button id="fsr-id" onclick="showModal(this,'<?php echo $data['id']; ?>','<?php echo $allocationID; ?>');" data-toggle="modal" data-target="#retailerModal" class="btn btn-sm btnStyle waves-effect" style="padding: 2px 13px;">
+                                                    <button id="fsr-id" onclick="showModal(this,'<?php echo $data['id']; ?>','<?php echo $allocationID; ?>');" data-toggle="modal" data-target="#retailerModal" class="btn btn-sm btn-primary waves-effect">
                                                         FSR
                                                     </button>
                                                 <?php } ?>
@@ -201,11 +185,11 @@
                                                     <?php if(!empty($chkFSR)){ 
 
                                                     ?>
-                                                     <button data-id="<?php echo $data['id']; ?>" data-allocationId="<?php echo $allocationID; ?>" id="fsr_btn_clk" class="btn btn-sm btnStyle waves-effect" style="padding: 3px 10px;">
+                                                     <button data-id="<?php echo $data['id']; ?>" data-allocationId="<?php echo $allocationID; ?>" id="fsr_btn_clk" class="btn btn-sm btn-primary waves-effect">
                                                         OK
                                                     </button>
 
-                                                    <button data-id="<?php echo $data['id']; ?>" id="fsr_btn_cncl_clk" class="btn btn-sm btn-danger waves-effect" style="padding: 3px 10px;">
+                                                    <button data-id="<?php echo $data['id']; ?>" id="fsr_btn_cncl_clk" class="btn btn-sm btn-primary waves-effect">
                                                         Cancel
                                                     </button>
                                                 <?php }else{ ?>
@@ -249,11 +233,11 @@
                                                     <?php if($data['pendingAmt'] >0){ 
 
                                                     ?>
-                                                     <button data-id="<?php echo $data['id']; ?>" data-allocationId="<?php echo $allocationID; ?>" id="newbill_fsr_btn_clk" class="btn btn-sm btnStyle waves-effect">
+                                                     <button data-id="<?php echo $data['id']; ?>" data-allocationId="<?php echo $allocationID; ?>" id="newbill_fsr_btn_clk" class="btn btn-sm btn-primary waves-effect">
                                                         OK
                                                     </button>
 
-                                                    <button data-id="<?php echo $data['id']; ?>" id="newbill_fsr_btn_cncl_clk" class="btn btn-sm btn-danger waves-effect">
+                                                    <button data-id="<?php echo $data['id']; ?>" id="newbill_fsr_btn_cncl_clk" class="btn btn-sm btn-primary waves-effect">
                                                         Cancel
                                                     </button>
                                                 <?php }else{ ?>
@@ -272,7 +256,7 @@
                             </div>
 
                             <div class="table-responsive">
-                                <table class="table table-bordered cust-tbl table-hover js-basic-example DataTable display nowrap" id="example" data-page-length='100'>
+                                <table class="table table-bordered table-striped table-hover js-basic-example DataTable display nowrap" id="example" data-page-length='100'>
                                     <thead>
                                         <tr>
                                             <th colspan="7" class="text-center">Other Adjustment Approval</th>
@@ -311,7 +295,7 @@
                                         <td class="text-right"><?php echo number_format($data['paidAmount']);?></td>
                                         <td>
                                             <input type="text" id="paidAmount<?php echo $data['id'] ?>" style="width:50%" value="<?php echo $amt; ?>" >
-                                            <button onclick="statusOtherAdjustment(this,'<?php echo $data['paidAmount']; ?>','<?php echo $data['id']; ?>','<?php echo $data['bid']; ?>','<?php echo $allocationID;?>');" class="btn btnStyle waves-effect btn-sm">Save</button>
+                                            <button onclick="statusOtherAdjustment(this,'<?php echo $data['paidAmount']; ?>','<?php echo $data['id']; ?>','<?php echo $data['bid']; ?>','<?php echo $allocationID;?>');" class="btn btn-primary waves-effect btn-sm">Save</button>
                                         </td>
                                     </tr>
                                     <?php
@@ -357,7 +341,16 @@
             data : {id: id,allocationId:allocationId},
             success: function(data){
               $('.mods').html(data);
-            }
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            } 
         });
     }
 </script>
@@ -405,6 +398,10 @@
 
 <script type="text/javascript">
     function updateSRqty(e,id){
+        // var btn = document.getElementById("#btn_err"+id);
+        // btn.disabled = true;
+        // btn.innerText = 'Processing...'
+
         var btn = $("#btn_err"+id).attr("disabled", true);
         // var btn = document.getElementById("#btn_err"+id);
         // btn.disabled = true;
@@ -429,7 +426,16 @@
                         // document.getElementById('res').innerHTML=data;
                         // location.reload(); 
                         // $('.mods').html(data);
-                    }  
+                    },
+                    beforeSend: function(){
+                        $('.comman-ajax-loader').css("visibility", "visible");
+                    },
+                    complete: function(){
+                        $('.comman-ajax-loader').css("visibility", "hidden");
+                    },
+                    error: function(jqXHR, exception) {
+                        alert("Something Went Wrong, Please Try Again...!");
+                    }   
                 });
              }else{
                  document.getElementById('res').innerHTML='';
@@ -461,7 +467,16 @@
                         // document.getElementById('res').innerHTML=data;
                         // location.reload(); 
                         $('.mods').html(data);
-                    }  
+                    },
+                    beforeSend: function(){
+                        $('.comman-ajax-loader').css("visibility", "visible");
+                    },
+                    complete: function(){
+                        $('.comman-ajax-loader').css("visibility", "hidden");
+                    },
+                    error: function(jqXHR, exception) {
+                        alert("Something Went Wrong, Please Try Again...!");
+                    }   
                 });
              }else{
                  document.getElementById('res').innerHTML='';
@@ -496,7 +511,16 @@
                 success: function (data) {
                     // alert(data);die();
                     window.parent.location.reload(true);
-                }  
+                },
+                beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                }   
             });
         }else{  
             alert("Can't be change quantity to accept all.");
@@ -525,7 +549,16 @@
             success: function(data){
                 // alert(data);die();
               window.parent.location.reload(true);
-            }
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            } 
         });
     });
  </script>
@@ -542,7 +575,16 @@
             success: function(data){
                 // alert(data);die();
               window.parent.location.reload(true);
-            }
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            } 
         });
     });
  </script>
@@ -559,7 +601,16 @@
             success: function(data){
                 // alert(data);die();
               window.parent.location.reload(true);
-            }
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            } 
         });
     });
  </script>
@@ -576,7 +627,16 @@
             success: function(data){
                 // alert(data);die();
               window.parent.location.reload(true);
-            }
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            } 
         });
     });
  </script>
@@ -662,7 +722,16 @@ function creditAdjustmentMsg() {
             data:{"paidAmount" : paidAmount,"billPaymentId" : billPaymentId,"billId":billId,"allocationId":allocationId},
             success: function (data) {
                 window.parent.location.reload(true);
-            }  
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            }   
         });
     } 
 </script>

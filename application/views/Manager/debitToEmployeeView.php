@@ -49,10 +49,10 @@
                             <div class="row m-t-20">
                                 <div class="col-md-12">
                                     <div class="col-md-2">
-                                        <b> Company </b>
+                                        <b> Division </b>
                                         <div class="input-group">
                                             <select name="company" class="form-control" id="excelcompany" required>
-                                                <option value=''>--select Company--</option>
+                                                <option value=''>--select Division--</option>
                                                 <?php 
                                                     $no=0;
                                                     foreach($company as $item){

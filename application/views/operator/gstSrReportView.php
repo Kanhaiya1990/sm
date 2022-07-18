@@ -13,20 +13,22 @@ function goBack() {
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
-                        <div class="header flex-div">
-                            <h2> GST SR Report</h2>
+                        <div class="header">
                             <h2>
-                               <button type="button" id="insert-ins" class="btn btnStyle m-t-15 waves-effect"> <i class="material-icons">save</i> 
-                                <span class="icon-name">Save Selected</span></button>
-
-                               <button onclick="goBack();" class="btn btn-xs btnStyle m-t-15 margin"><i class="material-icons">keyboard_return</i></button>
+                               <button onclick="goBack();" class="btn btn-xs bg-primary margin"><i class="material-icons">keyboard_return</i></button></a> GST SR Report
                             </h2>
                         </div>
                         <div class="body">
-                          
+                            <div class="row">
+                                <p align="right">
+                                    <button type="button" id="insert-ins" class="btn btn-primary m-t-15 waves-effect"> <i class="material-icons">save</i> 
+                                              <span class="icon-name">Save Selected</span>
+                                    </button>
+                                </p>
+                            </div><br> 
                             <div class="table-responsive">
                                 <!-- <input type="hidden" id="allocationId" value="<?php echo $allocationId; ?>"> -->
-                                <table class="table table-bordered cust-tbl js-exportable dataTable no-footer" data-page-length='100'>
+                                <table class="table table-bordered table-striped table-hover js-exportable dataTable" data-page-length='100'>
                                     <thead>
                                         <tr>
                                             <th><input class="checkall" type="checkbox" name="selValue" id="basic_checkbox"/>
@@ -117,7 +119,16 @@ function goBack() {
                         $(this).attr('checked', false);
                     });      
                     window.location.href="<?php echo base_url();?>index.php/operator/OperatorController/srPrint";
-                }  
+                },
+                beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                }     
             });
         }else{
             alert('Please select Bills.');
@@ -135,7 +146,16 @@ function goBack() {
             success: function (data) {
                 // alert(data);
                 $('#tbl_data').html(data);
-            }  
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            }     
         });
     }
 </script>

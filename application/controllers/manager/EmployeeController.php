@@ -18,6 +18,30 @@ class EmployeeController extends CI_Controller {
 
         if(isset($this->session->userdata['codeKeyData'])) {
 			$this->projectSessionName= $this->session->userdata['codeKeyData']['codeKeyValue'];
+			$this->baseUrl=$this->session->userdata['codeKeyData']['yourBaseUrl'];
+
+            if($this->baseUrl=="http://localhost/smartdistributor/" || $this->baseUrl=="https://siainc.in/kiasales/" || $this->baseUrl=="https://siainc.in/staging_kiasales/"){
+
+            }else{
+                $this->load->helper('url');
+                $url_parts = parse_url(current_url());
+                $siteUrl=explode('/',$url_parts['path']);//current url path
+        
+                $baseUrl=explode('/',$this->baseUrl);//base url path
+                
+                $siteDistributorName=trim($siteUrl[2]);
+                $baseDistributorName=trim($baseUrl[4]);
+                
+                if($siteDistributorName !="" && $baseDistributorName !=""){
+                    if($siteDistributorName==$baseDistributorName){
+                    //   
+                    }else{
+                    redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
+                    }
+                }else{
+                redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
+                }
+            }
 		}else{
 			$this->load->view('LoginView');
 		}
@@ -217,12 +241,12 @@ class EmployeeController extends CI_Controller {
         $username="";
         $empCount="";
         if(!empty($emp)){
-            $data['empCount']=$emp[0]['id']+1;
+            $data['empCount']=date('y').($emp[0]['id']+1);
             $empCount=($emp[0]['id']+1);
             $username="fname.lname".$empCount;
             $data['userEmail']=$username;
         }else{
-            $data['empCount']=count($emp)+1;
+            $data['empCount']=date('y').(count($emp)+1);
             $empCount=count($emp);
             $username="fname.lname".$empCount;
             $data['userEmail']=$username;
@@ -473,9 +497,9 @@ class EmployeeController extends CI_Controller {
         if(!empty($emp)){
             // $data['empCount']=$emp[0]['id']+1;
             $empCodeData=($emp[0]['id']+1);
-            $code=$pre_role_code[0]['name'].''.$empCodeData;
+            $code=$pre_role_code[0]['name'].date('y').$empCodeData;
         }else{
-            $code=$pre_role_code[0]['name'].''.(count($emp)+1);
+            $code=$pre_role_code[0]['name'].date('y').(count($emp)+1);
         }
         // echo $code;exit;
         
@@ -493,11 +517,19 @@ class EmployeeController extends CI_Controller {
 
         $loginId = $this->session->userdata[$this->projectSessionName]['id'];
         
-        $emp=$this->EmployeeModel->getdata('employee');
+        // $emp=$this->EmployeeModel->getdata('employee');
+        $emp=$this->EmployeeModel->getLastEntry('employee');
         $pre_role_code=$this->EmployeeModel->getdata('emp_code');
-        $code=$pre_role_code[0]['name'].''.count($emp);
+
+        $empCount="";
+        if(!empty($emp)){
+            $empCount=date('y').($emp[0]['id']+1);
+        }else{
+            $empCount=date('y').(count($emp)+1);
+        }
+        $code=$pre_role_code[0]['name'].''.$empCount;
         
-        $data=array('name'=>$name,'mobile'=>$mobile,'ownerApproval'=>1,'status'=>2,'joiningDate'=>date('Y-m-d'));
+        $data=array('name'=>$name,'mobile'=>$mobile,'ownerApproval'=>1,'status'=>1,'joiningDate'=>date('Y-m-d'));
         $this->EmployeeModel->update('employee',$data,$id);
         redirect("manager/EmployeeController");
     }

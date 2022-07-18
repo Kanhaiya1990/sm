@@ -38,16 +38,16 @@
         <div class="row clearfix" id="page">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
-                    <div class="header flex-div">
-                        <h2>Debit Note Bills</h2>
-                        <p align="right"><a href="<?php echo site_url('AdHocController/debitNoteBills');?>">
-                        <button class="btn btn-xs btnStyle margin"><i class="material-icons"> refresh</i></button></a>
-                        </p>
+                    <div class="header">
+                            <h2><a href="<?php echo site_url('AdHocController/debitNoteBills');?>">
+                              <button class="btn btn-xs bg-primary margin"><i class="material-icons"> refresh</i>    </button></a>
+                            Debit Note Bills
+                         </h2>
                     </div>
                     <div class="body">
                         <div class="row">                                 
                             <div class="row m-t-20">
-                                <div class="col-md-12 cust-tbl">
+                                <div class="col-md-12">
                                     <div class="col-md-3">
                                         <b> Company </b>
                                         <div class="input-group">
@@ -82,27 +82,28 @@
                                             </datalist>
                                         </div>
                                       <div class="col-md-3">
-                                        <button id="submitBtn" class="btn btn-sm m-t-20 btnStyle">Search</button>
+                                        <button id="submitBtn" class="btn m-t-20 btn-primary">Search</button>
                                       </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <button data-toggle="modal" disabled data-target="#percentModel" class="permodalLink btn m-t-20 btnStyle">
+
+                                    <button data-toggle="modal" disabled data-target="#percentModel" class="permodalLink btn m-t-20 btn-primary">
                                     Percent (%)</button>
 
-                                    <button data-toggle="modal" disabled data-target="#flatModel" class="flatmodalLink btn m-t-20 btnStyle">
+                                    <button data-toggle="modal" disabled data-target="#flatModel" class="flatmodalLink btn m-t-20 btn-primary">
                                     Flat Amount</button>
                                     
-                                    <button id="manualBtn" disabled class="btn m-t-20 btnStyle">Manual Debit Note</button>
+                                    <button id="manualBtn" disabled class="btn m-t-20 btn-primary">Manual Debit Note</button>
                                     
-                                    <table class="table table-bordered cust-tbl dataTable js-exportable" data-page-length='100'>
+                                    <table style="font-size: 12px" class="table table-bordered table-striped table-hover" data-page-length='100'>
                                         <thead>
-                                        <tr>
-                                        <th colspan="8">
-                                        <span style="color:blue"> Bills For Debit Note </span>
-                                        </th>
-                                        <input type="hidden" class="form-control" id="percentAmt" name="percentAmt" onkeypress="return numbersonly(event)" placeholder="Percent">
-                                        <input type="hidden" class="form-control" id="flatAmt" name="flatAmt" onkeypress="return numbersonly(event)" placeholder="Flat Amount">
-                                        </tr>
+                                            <tr>
+                                                <th colspan="8">
+                                                <span style="color:blue"> Bills For Debit Note </span>
+                                                </th>
+                                                <input type="hidden" class="form-control" id="percentAmt" name="percentAmt" onkeypress="return numbersonly(event)" placeholder="Percent">
+                                                <input type="hidden" class="form-control" id="flatAmt" name="flatAmt" onkeypress="return numbersonly(event)" placeholder="Flat Amount">
+                                            </tr>
                                         </thead>
                                         <thead>
                                             <tr class="gray">
@@ -124,7 +125,7 @@
                                     </table>
                                 </div>
                                 <div class="col-md-12">
-                                    <button id="manualBtnFinal" class="btn m-t-20 btnStyle" disabled>Save Debit Note</button>
+                                    <button id="manualBtnFinal" class="btn m-t-20 btn-primary" disabled>Save Debit Note</button>
                                 </div>
                         </div>
                                 
@@ -151,7 +152,7 @@
 
                         <div class="demo-masked-input">
                             <input id="addProdQtyId" type="hidden" name="addProdQtyId">
-                            <div class="col-md-12 cust-tbl">
+                            <div class="col-md-12">
                             <div class="col-md-3">
                                 <b>Percentage Amount</b>
                                 <div class="input-group">
@@ -187,12 +188,12 @@
                         <div class="col-md-12">
                             <div class="row clearfix">
                                 <div class="col-md-4">
-                                    <button id="percentBtnFinal" class="btn btnStyle m-t-15 waves-effect">
+                                    <button id="percentBtnFinal" class="btn btn-primary m-t-15 waves-effect">
                                         <i class="material-icons">save</i> 
                                         <span class="icon-name">Save Debit Note</span>
                                     </button>
                                     
-                                    <button data-dismiss="modal" type="button" class="btn btn-danger m-t-15 waves-effect">
+                                    <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
                                         <i class="material-icons">cancel</i> 
                                         <span class="icon-name"> Cancel</span>
                                     </button>
@@ -222,7 +223,7 @@
 
                         <div class="demo-masked-input">
                             <input id="addProdQtyId" type="hidden" name="addProdQtyId">
-                            <div class="col-md-12 cust-tbl">
+                            <div class="col-md-12">
                             <div class="col-md-4">
                                 <b>Flat Amount</b>
                                 <div class="input-group">
@@ -252,12 +253,12 @@
                         <div class="col-md-12">
                             <div class="row clearfix">
                                 <div class="col-md-4">
-                                    <button id="flatBtnFinal" class="btn btnStyle m-t-15 waves-effect">
+                                    <button id="flatBtnFinal" class="btn btn-primary m-t-15 waves-effect">
                                         <i class="material-icons">save</i> 
                                         <span class="icon-name">Save Debit Note</span>
                                     </button>
                                     
-                                    <button data-dismiss="modal" type="button" class="btn btn-danger m-t-15 waves-effect">
+                                    <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
                                         <i class="material-icons">cancel</i> 
                                         <span class="icon-name"> Cancel</span>
                                     </button>
@@ -295,7 +296,16 @@
                     success: function(data){
                         $('#frmBill').html(data);
                         $('#toBill').html(data);
-                    }
+                    },
+                    beforeSend: function(){
+                        $('.comman-ajax-loader').css("visibility", "visible");
+                    },
+                    complete: function(){
+                        $('.comman-ajax-loader').css("visibility", "hidden");
+                    },
+                    error: function(jqXHR, exception) {
+                        alert("Something Went Wrong, Please Try Again...!");
+                    } 
                 });
             }
     });
@@ -338,7 +348,16 @@
                     $('.permodalLink').prop('disabled',false);
                     $('.flatmodalLink').prop('disabled',false);
                     $('#manualBtn').prop('disabled',false);
-                }
+                },
+                beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                } 
             });
         }
     });
@@ -420,7 +439,16 @@
                 }else{
                     alert(data);
                 }
-            }  
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            }   
         });
     });
 </script>
@@ -463,7 +491,16 @@
                 }else{
                     alert(data);
                 }
-            }  
+            },
+            beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                }   
         });
     });
 </script>
@@ -511,7 +548,16 @@
                 }else{
                     alert(data);
                 }
-            }  
+            },
+            beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                }   
         });
     });
 </script>

@@ -10,16 +10,14 @@ class OfficeAllocationModel extends CI_Model {
     {
         // $this->db->where('isDeleted', 0);
         $query=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
     public function billsById($tblName,$id) {
         $this->db->where('billId',$id);
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();   
     }
 
@@ -38,8 +36,7 @@ class OfficeAllocationModel extends CI_Model {
         $this->db->where('emptransactions.ownerApprovalStatus !=',2);
          // $this->db->where('employee.isSalaryEmp', 1);
         $resultset=$this->db->get($tableName); 
-        $this->db->close();
-        $this->db->initialize();
+        
         return $resultset->result_array();
     }
 
@@ -47,8 +44,7 @@ class OfficeAllocationModel extends CI_Model {
     {
         $this->db->where('allocationId',$id);
         $query=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -57,8 +53,7 @@ class OfficeAllocationModel extends CI_Model {
         $this->db->where('pendingAmt >',0);
         $this->db->where('billNo', $billNo);
         $query=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -71,8 +66,7 @@ class OfficeAllocationModel extends CI_Model {
         $this->db->where('billpayments.chequeStatus !=', "Bounced");
         $this->db->order_by('billpayments.id','desc');
         $resultset=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $resultset->result_array();
     }
 
@@ -83,8 +77,7 @@ class OfficeAllocationModel extends CI_Model {
         $this->db->where('billpayments.paymentMode', "NEFT");
         $this->db->order_by('billpayments.id','desc');
         $resultset=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $resultset->result_array();
     }
 
@@ -92,8 +85,7 @@ class OfficeAllocationModel extends CI_Model {
     {
         $this->db->where('closeDayBookDate', $name);
         $resultset=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $resultset->result_array();
     }
 
@@ -122,16 +114,14 @@ class OfficeAllocationModel extends CI_Model {
         $this->db->limit(1);
         $this->db->order_by('id','desc');
         $query=$this->db->get('expences');
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
     public function lastRecordDayBookValue(){
         $date=date('Y-m-d');
         $query = $this->db->query("SELECT * FROM expences WHERE isCloseDayBook=0 ORDER BY id desc LIMIT 1");
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->row_array();
     }
 
@@ -141,8 +131,7 @@ class OfficeAllocationModel extends CI_Model {
         $this->db->where('nonCashStatus', 1);
         $this->db->where('ownerApprovalStatus', 0);
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -154,8 +143,7 @@ class OfficeAllocationModel extends CI_Model {
         $this->db->where('ownerApprovalStatus', 0);
         $this->db->where('transactionType', 'cr');
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -167,8 +155,7 @@ class OfficeAllocationModel extends CI_Model {
         $this->db->where('ownerApprovalStatus', 0);
         $this->db->where('transactionType', 'dr');
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -183,8 +170,7 @@ class OfficeAllocationModel extends CI_Model {
         $this->db->where('paymentMode', 'Debit To Employee');
         $this->db->group_by('billpayments.id');
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -195,8 +181,7 @@ class OfficeAllocationModel extends CI_Model {
         $this->db->where('billpayments.paymentMode', 'CD');
         $this->db->where('billpayments.ownerApproval',0);
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -207,8 +192,7 @@ class OfficeAllocationModel extends CI_Model {
         $this->db->where('billpayments.paymentMode', 'Other Adjustment');
         $this->db->where('billpayments.ownerApproval',0);
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -219,8 +203,7 @@ class OfficeAllocationModel extends CI_Model {
         $this->db->where('billpayments.paymentMode', 'Office Adjustment');
         $this->db->where('billpayments.ownerApproval',0);
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -230,8 +213,7 @@ class OfficeAllocationModel extends CI_Model {
         $this->db->join("company","employee.companyId = company.id","left outer"); 
         $this->db->where('ownerApproval', 0);
         $query=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -241,8 +223,7 @@ class OfficeAllocationModel extends CI_Model {
         $this->db->join("company","employee.companyId = company.id","left outer"); 
         $this->db->where('employee.id', $id);
         $query=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -250,8 +231,7 @@ class OfficeAllocationModel extends CI_Model {
     {
         $this->db->order_by('id', 'desc');
         $query=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -285,8 +265,7 @@ class OfficeAllocationModel extends CI_Model {
         $this->db->where('compName',$company);
         $this->db->where('isAllocated !=',1);
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -295,8 +274,7 @@ class OfficeAllocationModel extends CI_Model {
         $this->db->where('pendingAmt >',0);
         $this->db->where('isAllocated !=',1);
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -308,15 +286,13 @@ class OfficeAllocationModel extends CI_Model {
     public function getCategories($tblName,$type){
         $this->db->where('type',$type);
         $res=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $res->result_array();
     }   
 
     public function lastRecordValue(){
         $query = $this->db->query("SELECT * FROM expences where isCloseDayBook=0 ORDER BY id desc LIMIT 1");
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->row_array();
     }
 
@@ -328,8 +304,7 @@ class OfficeAllocationModel extends CI_Model {
         $this->db->where('notesdetails.expenseOwnerApproval','1');
         $this->db->order_by('notesdetails.id','desc');
         $query=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -340,8 +315,7 @@ class OfficeAllocationModel extends CI_Model {
         $this->db->where('expenseOwnerApproval',1);
         $this->db->where('expences.nature !=','Bank Deposit');
         $query=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -350,8 +324,7 @@ class OfficeAllocationModel extends CI_Model {
         $this->db->where('expenseApproval',0);
         $this->db->join('employee','employee.id=close_daybook_notes.empId');
         $query=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -362,8 +335,7 @@ class OfficeAllocationModel extends CI_Model {
         $this->db->where('isAllocationComplete !=','1');
         $this->db->order_by('id','desc');
         $query=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -376,8 +348,7 @@ class OfficeAllocationModel extends CI_Model {
         // $this->db->where('expenseOwnerApproval','0');
         $this->db->where('expences.amount !=','0');
         $query=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -388,8 +359,7 @@ class OfficeAllocationModel extends CI_Model {
         $this->db->where('bankDepositApproval','1');
         $this->db->where('main_cashbook_expences.amount !=','0');
         $query=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -398,8 +368,7 @@ class OfficeAllocationModel extends CI_Model {
         $this->db->where('isAllocationComplete','1');
          $this->db->order_by('id','desc');
         $query=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -409,8 +378,7 @@ class OfficeAllocationModel extends CI_Model {
         $this->db->join('bills','bills.id=allocations_officebills.billId');
         $this->db->where('allocations_officebills.allocationId',$id);
         $query=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -418,8 +386,7 @@ class OfficeAllocationModel extends CI_Model {
     {
         // $this->db->where('isAllocationComplete','3');
         $query=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -431,8 +398,7 @@ class OfficeAllocationModel extends CI_Model {
         
         $this->db->where('allocations_officebills.allocationId',$id);
         $query=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -443,8 +409,7 @@ class OfficeAllocationModel extends CI_Model {
         $this->db->where('allocations_officebills.allocationId',$allocationId);
         $this->db->where('allocations_officebills.billId',$id);
         $query=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -490,8 +455,7 @@ class OfficeAllocationModel extends CI_Model {
 
     public function show($tblName) {
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();    
     }
     
@@ -511,16 +475,14 @@ class OfficeAllocationModel extends CI_Model {
     public function load($tblName, $id) {
         $this -> db -> where('id', $id);
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();   
     }
 
     public function getCategoryByType($tblName, $type) {
         $this->db->where('type', $type);
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();   
     }
 
@@ -528,16 +490,14 @@ class OfficeAllocationModel extends CI_Model {
         $this->db->where('billId',$id);
         $this->db->where('allocationId',$alId);
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
     public function checkAllocationDetails($tblName,$id){
         $this->db->where('allocationId',$id);
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 

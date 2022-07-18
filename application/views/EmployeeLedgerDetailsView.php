@@ -14,44 +14,42 @@
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
-                        <div class="header flex-div">
+                        <div class="header">
                           <h2>
-                            <?php 
+                              <button class="btn btn-xs bg-primary margin" onclick="history.back()"><i class="material-icons"> arrow_back</i>    </button>
+                              <a href="<?php echo site_url('manager/EmployeeController/employeeLedgerByEmp/'.$empId);?>">
+                              <button class="btn btn-xs bg-primary margin"><i class="material-icons"> refresh</i>    </button></a>
+
+                              <?php 
                                 $dt=date_create(date($fromdate));
                                 $fdate = date_format($dt,'d-M-Y');
 
                                 $dt=date_create(date($todate));
                                 $tdate = date_format($dt,'d-M-Y');
                               ?>
-                              Ledger For <?php echo urldecode($emp[0]['name']); ?>  :- <?php echo $fdate; ?> to <?php echo $tdate; ?>
-                              </h2>
-                              <div>
-                              <button class="btn btn-xs btnStyle bg-primary margin" onclick="history.back()"><i class="material-icons"> arrow_back</i>    </button>
-                              <a href="<?php echo site_url('manager/EmployeeController/employeeLedgerByEmp/'.$empId);?>">
-                              <button class="btn btn-xs btnStyle bg-primary margin"><i class="material-icons"> refresh</i></button></a>
-                          </div>
-                          
+                              Ledger For <?php echo urldecode($emp[0]['name']); ?>  :- <?php echo $fdate; ?> to <?php echo $tdate; ?></h2>
                         </div>
 
                         <div class="body">
-                            <div class="row cust-tbl">
+                            <div class="row">
                                 <div class="col-md-12">
-                                <form method="post" role="form" action="<?php echo site_url('manager/EmployeeController/employeeLedgerByEmp/'.$empId);?>" class="focused">
+                                    <form method="post" role="form" action="<?php echo site_url('manager/EmployeeController/employeeLedgerByEmp/'.$empId);?>">
                                         
-                                    <label>From Date:</label>
-                                    <input class="form-control dateCustom" type="date" name="from_date" value="<?php if(!empty($fromdate)){ echo $fromdate; }else{ echo date('Y-m-d'); } ?>" required >
-                                    <label>To Date:</label>
-                                    <input class="form-control dateCustom" type="date" name="to_date" value="<?php if(!empty($todate)){ echo $todate; }else{ echo date('Y-m-d'); }?>" required>
-                                    <button type="submit" style="padding: 6px 10px;" class="btn btn-lg btnStyle">Search</button>
+                                        <label>From Date:</label>
+                                        <input type="date" name="from_date" value="<?php if(!empty($fromdate)){ echo $fromdate; }else{ echo date('Y-m-d'); } ?>" required >
+                                        <label>To Date:</label>
+                                        <input type="date" name="to_date" value="<?php if(!empty($todate)){ echo $todate; }else{ echo date('Y-m-d'); }?>" required>
+                                        <button type="submit" class="btn btn-primary">Search</button>
                                         
                                     </form>
+
                                 </div>
                             </div><br>
-                          <!--  <div class="table-responsive"> -->
-                                <table id="tbl-emp" class="table table-bordered cust-tbl dataTable" data-page-length='100'>
+                            <div class="table-responsive">
+                                <table id="tbl-emp" style="font-size: 12px" class="table table-bordered table-striped table-hover dataTable" data-page-length='100'>
                                     <thead>
                                         <tr>
-                                            <th>No</th>
+                                            <th>S. No</th>
                                             <th>Employee Name</th>
                                             <th>Date</th>
                                             <th>Credit</th>
@@ -63,7 +61,7 @@
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>No</th>
+                                            <th>S. No</th>
                                             <th>Employee Name</th>
                                             <th>Date</th>
                                             <th>Credit</th>
@@ -310,7 +308,7 @@
                                         </tr> 
                                     </tbody>
                                 </table>
-                          <!--  </div> -->
+                            </div>
                         </div>
                     </div>
                 </div>

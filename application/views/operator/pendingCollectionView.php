@@ -26,11 +26,11 @@
                         </div>
                         <div class="body">
                             <div class="row m-t-20">
-                            <div class="col-md-12 cust-tbl">
+                            <div class="col-md-12">
                                     <form method="post" role="form" action="">
                                         
                                         <label>Company:</label>
-                                        <input type="text" list="compList" autocomplete="off" placeholder="select company" id="cmp" name="cmp" value="<?php  echo $cmpName; ?>" class="b-bottom" style="border: 0">
+                                        <input type="text" list="compList" autocomplete="off" placeholder="select company" id="cmp" name="cmp" value="<?php  echo $cmpName; ?>">
                                          <datalist id="compList">
                                         <?php
                                             foreach($company as $data){
@@ -41,14 +41,14 @@
                                             }
                                         ?>
                                     </datalist>
-                                        <button type="submit" class="btn btnStyle h-35">Search</button>
+                                        <button type="submit" class="btn btn-primary">Search</button>
                                     </form>
 
                                 </div>
                             </div>
                             <br>
                             <div class="table-responsive">
-                                <table class="table table-bordered cust-tbl js-exportable dataTable" data-page-length='100'>
+                                <table style="font-size: 12px" class="table table-bordered table-striped table-hover js-exportable dataTable" data-page-length='100'>
                                     <thead>
                                         <tr>
                                             <th>S. No.</th>
@@ -81,7 +81,7 @@
                                         <td><?php echo "Process Button Collection"; ?></td>
                                         <td></td>
                                         <td>
-                                            <a href="<?php echo site_url('operator/OperatorController/pendingOfficeCollection'); ?>"><button class="btn btn-xs btnStyle margin"><i class="material-icons">visibility</i></button></a>
+                                            <a href="<?php echo site_url('operator/OperatorController/pendingOfficeCollection'); ?>"><button class="btn btn-xs bg-primary margin"><i class="material-icons">visibility</i></button></a>
                                         </td>
                                    </tr>  
                                 <?php } 
@@ -104,7 +104,7 @@
                                         </td>
                                         <td><?php echo $data['empName']; ?></td>
                                         <td>
-                                            <a href="<?php echo site_url('operator/OperatorController/pendingOfficeCollectionByAllocation/'.$allocation_Id); ?>"><button class="btn btn-xs btnStyle margin"><i class="material-icons">visibility</i></button></a>
+                                            <a href="<?php echo site_url('operator/OperatorController/pendingOfficeCollectionByAllocation/'.$allocation_Id); ?>"><button class="btn btn-xs bg-primary margin"><i class="material-icons">visibility</i></button></a>
                                         </td>
                                    </tr>  
                                 <?php

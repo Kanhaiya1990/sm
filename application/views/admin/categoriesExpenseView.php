@@ -7,20 +7,20 @@
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
-                        <div class="header flex-div">
+                        <div class="header">
                             <h2>
                                Expense Master
                             </h2>
                             <h2>
                                 <p align="right">
                                   <a data-toggle="modal" data-target="#expenseCategoryModal" href="javascript:void();">
-                                    <button type="submit" class="btn btnStyle margin"><i class="material-icons">add</i>  Add  </button></a> 
+                                    <button type="submit" class="btn bg-primary margin"><i class="material-icons">add</i>  Add  </button></a> 
                                 </p> 
                             </h2>
                         </div>
                         <div class="body">
-                           <!-- <div class="table-responsive"> -->
-                                <table class="table table-bordered cust-tbl js-basic-example dataTable" data-page-length='100'>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable" data-page-length='100'>
                                     <thead>
                                         <tr>
                                             <th>Sr.No</th>
@@ -48,24 +48,23 @@
                                             <td>
 
                                               <?php if($data['isStatic'] ==1 && $data['categoryName'] !="Employee Advances"){ ?>
-                                                <a id="expense_limit_id" href="javascript:void();" data-toggle="modal" data-id="<?php echo $data['id'];?>" data-target="#updateExpenselimitModal" class="btn btn-sm process-btn">
-                                                    <b><i class="material-icons">edit</i></b>
+                                                <a id="expense_limit_id" href="javascript:void();" data-toggle="modal" data-id="<?php echo $data['id'];?>" data-target="#updateExpenselimitModal">
+                                                    <i class="material-icons" style="color: green;">edit</i>
                                                 </a>
                                                   
                                               <?php } ?>  
 
                                              <?php if($data['isStatic'] !=1){ ?>
-                                                <a id="limit_id" href="javascript:void();" data-toggle="modal" data-id="<?php echo $data['id'];?>" data-target="#updatelimitModal" class="btn btn-sm process-btn">
-                                                    <b><i class="material-icons">edit</i></b>
-
+                                                <a id="limit_id" href="javascript:void();" data-toggle="modal" data-id="<?php echo $data['id'];?>" data-target="#updatelimitModal">
+                                                    <i class="material-icons" style="color: green;">edit</i>
                                                 </a> 
                                                 &nbsp
-                                                <a id="deleted" 
-                                                    onclick="deleted(<?php echo $data['id'];?>)" href='#' class="btn btn-sm btn-danger">
+                                                <!-- <a id="deleted" 
+                                                    onclick="deleted(<?php echo $data['id'];?>)" href='#'>
                                                     <b>
-                                                        <b><i class="material-icons">delete</i><b> 
+                                                        <i class="material-icons" style="color: red;">delete</i> 
                                                     </b>
-                                                </a>    
+                                                </a>     -->
                                               <?php } ?>                                     
                                             </td>
                                         </tr>
@@ -74,7 +73,7 @@
                                       ?> 
                                     </tbody>
                                 </table>
-                           <!-- </div> -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -98,7 +97,7 @@
                                 <div class="row clearfix">
                                     <input type="hidden" id='limitId' autocomplete="off" name="limitId" list="ret" value="2" class="form-control date">
 
-                                <div class="col-md-12 cust-tbl">
+                                <div class="col-md-12">
                                         <b>Category Name</b>
                                         <div class="input-group">
                                             <span class="input-group-addon">
@@ -114,12 +113,12 @@
                                      <div class="col-md-12">
                                         <div class="row clearfix">
                                             <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">
-                                                <button id="insRet" class="btn btnStyle m-t-15 waves-effect">
+                                                <button id="insRet" class="btn btn-primary m-t-15 waves-effect">
                                                     <i class="material-icons">save</i> 
                                                     <span class="icon-name">Save</span>
                                                 </button>
                                                
-                                                    <button data-dismiss="modal" type="button" class="btn btn-danger m-t-15 waves-effect">
+                                                    <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
                                                         <i class="material-icons">cancel</i> 
                                                         <span class="icon-name"> Cancel</span>
                                                     </button>
@@ -214,7 +213,16 @@ swal({
             data : {id: id},
             success: function(data){
                 $('#up_limitid').html(data);
-            }
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            }   
         });
     });
 
@@ -229,7 +237,16 @@ swal({
             data : {id: id},
             success: function(data){
                 $('#expense_limitid').html(data);
-            }
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            }   
         });
     });
 

@@ -17,7 +17,7 @@ margin-bottom: 0PX;
 padding-bottom: 0PX;
 }
 
-/*.logo_prov {
+.logo_prov {
     border-radius: 30px;
      border: 2px solid black;
     background: red;
@@ -25,7 +25,7 @@ padding-bottom: 0PX;
     padding: 6px;
     width: 50px;
     height: 50px;
-}*/
+}
 
 </style>
 <!--<section class="content">-->
@@ -47,7 +47,7 @@ padding-bottom: 0PX;
                          
                         </div>
                         <div class="body">
-                              <div class="row cust-tbl">
+                              <div class="row">
                                 <div class="col-md-12">
                                    <div class="col-md-3"> 
                                     <label id="allocation">Allocation : </label>
@@ -109,10 +109,10 @@ padding-bottom: 0PX;
                                 </div>
                                 <div class="col-md-3">
                                       <a href="<?php echo site_url('AllocationByManagerController/closedAllocationSrTrancationDetails/'.$allocations[0]['id']);?>">
-                                      <button class="btn btnStyle bg-primary margin"><i class="material-icons">inventory_2</i>  SR Details</button></a> 
+                                      <button class="btn bg-primary margin"><i class="material-icons">inventory_2</i>  SR Details</button></a> 
 
                                       <a href="<?php echo site_url('AllocationByManagerController/closedAllocationTrancationDetails/'.$allocations[0]['id']);?>">
-                                      <button class="btn btnStyle bg-primary margin"><i class="material-icons">local_atm</i>  Other Details</button></a> 
+                                      <button class="btn bg-primary margin"><i class="material-icons">local_atm</i>  Other Details</button></a> 
                                 </div>
                                 </div>
 
@@ -251,7 +251,8 @@ padding-bottom: 0PX;
                                  ?>
 
                                  <div class="col-md-12 table-responsive">
-                                   <table class="table table-bordered cust-tbl" style=";width: 80%">    
+                                   <table border="2px" style="font-size: 11px;width: 80%">
+                                        
                                         
                                          <tr class="gray">
                                             <th><center>Particulars</center></th>
@@ -288,7 +289,7 @@ padding-bottom: 0PX;
                                 <div class="row m-t-20">
                                     <div class="col-md-12">
                                         <div class="table-responsive">
-                                            <table class="table table-bordered cust-tbl js-basic-example dataTable" id="tbl">
+                                            <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id="tbl">
                                                 <tr class="head">
                                                     <td colspan="12" style="background-color: whitesmoke;"><center><b>Current Supply Bills</b></center></td>
                                                 </tr>
@@ -438,7 +439,7 @@ padding-bottom: 0PX;
                                     <div class="col-md-12">
                                         <div class="table-responsive">
                                             
-                                            <table class="table table-bordered cust-tbl js-basic-example dataTable">
+                                            <table class="table table-striped table-bordered">
                                             <tr class="head">
                                                 <td colspan="12"  style="background-color: whitesmoke;"><center><b>Past Bills</b></center></td>
                                             </tr>

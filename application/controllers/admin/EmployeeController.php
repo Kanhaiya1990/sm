@@ -11,6 +11,30 @@ class EmployeeController extends CI_Controller {
 
         if(isset($this->session->userdata['codeKeyData'])) {
 			$this->projectSessionName= $this->session->userdata['codeKeyData']['codeKeyValue'];
+			$this->baseUrl=$this->session->userdata['codeKeyData']['yourBaseUrl'];
+
+            if($this->baseUrl=="http://localhost/smartdistributor/" || $this->baseUrl=="https://siainc.in/kiasales/" || $this->baseUrl=="https://siainc.in/staging_kiasales/"){
+
+            }else{
+                $this->load->helper('url');
+                $url_parts = parse_url(current_url());
+                $siteUrl=explode('/',$url_parts['path']);//current url path
+        
+                $baseUrl=explode('/',$this->baseUrl);//base url path
+                
+                $siteDistributorName=trim($siteUrl[2]);
+                $baseDistributorName=trim($baseUrl[4]);
+                
+                if($siteDistributorName !="" && $baseDistributorName !=""){
+                    if($siteDistributorName==$baseDistributorName){
+                    //   
+                    }else{
+                    redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
+                    }
+                }else{
+                redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
+                }
+            }
 		}else{
 			$this->load->view('LoginView');
 		}
@@ -135,7 +159,7 @@ class EmployeeController extends CI_Controller {
                     'employeeId'=>$empId,
                     'createdBy'=>$loginId
                 );
-                $this->EmployeeModel->updateByCodeName('salesman_linking',$data,$salesmanCode,$salesmanName); 
+                $this->EmployeeModel->updateByCodeName('salesman_linking',$data,$salesmanCode,$salesmanName);
                 $this->session->set_flashdata('Successfully', 'Salesman assigned');
             }
         }
@@ -153,14 +177,16 @@ class EmployeeController extends CI_Controller {
     }
 
 
-    public function cancelSalesmanLinking($salesmancode,$salesmanname){
+    public function cancelSalesmanLinking($salesmancode){
         $salesmanCode=trim($salesmancode);
-        $salesmanName=urldecode(trim($salesmanname));
+        // $salesmanName=urldecode(trim($salesmanname));
         // echo $salesmanCode.' '.$salesmanName;exit;
         $data=array(
             'employeeId'=>0,
         );
-        $this->EmployeeModel->updateByCodeName('salesman_linking',$data,$salesmanCode,$salesmanName); 
+
+        $this->EmployeeModel->updateWithCode('salesman_linking',$data,$salesmanCode); 
+        // $this->EmployeeModel->updateByCodeName('salesman_linking',$data,$salesmanCode,$salesmanName); 
         $this->session->set_flashdata('Successfully', 'Salesman linking removed');
         redirect("admin/EmployeeController/salesmanLinking");
     }

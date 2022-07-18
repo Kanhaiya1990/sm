@@ -15,7 +15,7 @@
                         </div>
                         <div class="body">
                             <div class="row m-t-20">
-                            <div class="col-md-12 cust-tbl">
+                            <div class="col-md-12">
                                     <form method="post" role="form" action="">
                                         
                                         <label>Company:</label>
@@ -30,7 +30,7 @@
                                             }
                                         ?>
                                     </datalist>
-                                        <button type="submit" class="btn btnStyle">Filter</button>
+                                        <button type="submit" class="btn btn-primary">Filter</button>
                                     </form>
 
                                 </div>

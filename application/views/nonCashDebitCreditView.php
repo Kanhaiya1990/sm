@@ -19,7 +19,7 @@
                                 <p id="res"></p>
                                 <div class="row clearfix">
                                 <div class="demo-masked-input">
-                                    <div class="col-md-12 cust-tbl"> 
+                                    <div class="col-md-12"> 
                                         <div class="col-md-3">
                                             <b>Employee Name</b>
                                             <div class="input-group">
@@ -66,22 +66,22 @@
                                             </div>
                                         </div>
                                         <div class="col-md-1">
-                                            <input name="cashType" value="cr" type="radio" id="radio_1" class="with-gap radio-col-red" />
+                                            <input name="cashType" value="cr" type="radio" id="radio_1" />
                                             <label for="radio_1">Credit </label>
-                                            <input name="cashType" value="dr" type="radio" id="radio_2" class="with-gap radio-col-red" />
+                                            <input name="cashType" value="dr" type="radio" id="radio_2" />
                                             <label for="radio_2">Debit </label>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="col-md-4">
-                                            <button id="insertRecord" class="btn btnStyle m-t-15 waves-effect">
+                                            <button id="insertRecord" class="btn btn-primary m-t-15 waves-effect">
                                                 <i class="material-icons">save</i> 
                                                 <span class="icon-name">
                                                  Save
                                                 </span>
                                             </button>
                                            <a href="<?php echo site_url('DashbordController');?>">
-                                                <button type="button" class="btn btn-danger m-t-15 waves-effect">
+                                                <button type="button" class="btn btn-primary m-t-15 waves-effect">
                                                     <i class="material-icons">cancel</i> 
                                                     <span class="icon-name"> Cancel</span>
                                                 </button>

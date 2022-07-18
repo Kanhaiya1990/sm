@@ -47,16 +47,16 @@ if (isset($this->session->userdata['codeKeyData'])) {
             <div class="row clearfix">
                 <div class="col-lg-12">
                     <div class="card">
-                        <div class="header flex-div">
+                        <div class="header">
                             <h2>
                               Past Day Book Details
                             </h2>
-                             
-                            <p align="center">Day Book Name: <?php echo $daybookName;?></p>
-                        </div>  
-                        <div class="body">
-                           <div class="table-responsive">
-                                <table style="font-size: 12px" class="table table-bordered js-basic-example dataTable cust-tbl" data-page-length='100'>
+                             <h2>
+                                 <br>
+                                 <p align="center">Day Book Name: <?php echo $daybookName;?></p>
+                                
+                                 <br>
+                                <table style="font-size: 12px" class="table table-bordered table-striped table-hover" data-page-length='100'>
                                     <thead>
                                         <tr>
                                             <th>Date</th>
@@ -81,9 +81,9 @@ if (isset($this->session->userdata['codeKeyData'])) {
                                             
                                     </tbody>
                                 </table>
-                              </div>
-                            </div>
-                        
+                              
+                            </h2>
+                        </div>
                         <div class="body">
                             
                             <div class="table-responsive">
@@ -94,7 +94,7 @@ if (isset($this->session->userdata['codeKeyData'])) {
                                 }
                                 
                             ?> 
-                                <table class="table table-bordered js-basic-example dataTable cust-tbl" data-page-length='100'>
+                                <table style="font-size: 12px" class="table header-fixed table-bordered table-striped table-hover dataTable js-exportable" data-page-length='100'>
                                     <thead>
                                         <tr>
                                             <th>Date</th>

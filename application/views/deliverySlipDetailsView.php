@@ -39,21 +39,23 @@
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
-                        <div class="header flex-div">
-                            <h2 class="text-center"> Delivery Slip Details </h2>
+                        <div class="header">
+                            <h2>
+                               Delivery Slip Details 
+                            </h2>
                         </div>
                        
                         <div class="body outer">
                           <div class="top-panel">
                               <div class="btn-group pull-right">
-                                <button type="button" class="btn btn-primary btnStyle btn-lg dropdown-toggle" data-toggle="dropdown">Export <span class="caret"></span></button>
+                                <button type="button" class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown">Export <span class="caret"></span></button>
                                 <ul class="dropdown-menu" role="menu">
                                   <!-- <li><a class="dataExport" data-type="csv">CSV</a></li> -->
                                   <li><a class="dataExport" data-type="excel">XLS</a></li>          
                                 </ul>
                               </div>
                             </div>
-                          <div class="row cust-tbl">
+                          <div class="row">
                                 <div class="col-sm-3">
                                   <b>Search Anything</b>
                                   <div class="form-group">
@@ -77,7 +79,7 @@
                                   </div>
                                 </div>
                                 <div class="col-sm-3">
-                                  <a href="<?php echo site_url('DeliverySlipController/deliverySlipDetail'); ?>" class="btn btn-sm m-t-15 btn-danger waves-effect">
+                                  <a href="<?php echo site_url('DeliverySlipController/deliverySlipDetail'); ?>" class="btn btn-sm m-t-15 btn-primary waves-effect">
                                         <i class="material-icons">cancel</i> 
                                         <span class="icon-name"> Cancel</span>
                                     </a>
@@ -85,11 +87,11 @@
                             </div>
                             <div class="table-responsive">
                               <?php echo $pagination; ?>
-                                <table id="retTbl" class="table table-bordered cust-tbl js-exportable dataTable" data-page-length='100'>
+                                <table style="font-size:12px" id="retTbl" class="table table-bordered table-striped table-hover js-exportable dataTable" data-page-length='100'>
                                     <thead>
                                         <tr>
                                             <th>S. No.</th>
-                                            <th data-action="sort" data-title="compName" data-direction="ASC">Company </th>
+                                            <th data-action="sort" data-title="compName" data-direction="ASC">Division </th>
                                             <th data-action="sort" data-title="billNo" data-direction="ASC">Bill Number </th>
                                             <th data-action="sort" data-title="date" data-direction="ASC">Date</th>
                                             <th data-action="sort" data-title="retailerName" data-direction="ASC">Retailer</th>
@@ -103,7 +105,7 @@
                                     <tfoot>
                                         <tr>
                                             <th>S. No.</th>
-                                            <th data-action="sort" data-title="compName" data-direction="ASC">Company </th>
+                                            <th data-action="sort" data-title="compName" data-direction="ASC">Division </th>
                                             <th data-action="sort" data-title="billNo" data-direction="ASC">Bill Number </th>
                                             <th data-action="sort" data-title="date" data-direction="ASC">Date</th>
                                             <th data-action="sort" data-title="retailerName" data-direction="ASC">Retailer</th>
@@ -157,18 +159,22 @@
                                                     
                                                  ?>
                                             </td>
-                        <td class="noSpace">
-                        <?php if($data['isAllocated']==0){ ?>
-                        <a id="prDetailsForAll" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-billDate="<?php echo date("d-M-Y", strtotime($data['date'])); ?>" data-credAdj="<?php echo $data['creditAdjustment']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-route="<?php echo $data['routeName']; ?>" data-toggle="modal" data-target="#processModalForAll" ><button class="btn btn-xs process-btn waves-effect waves-float" data-toggle="tooltip" data-placement="bottom" title="Process"><i class="material-icons">touch_app</i></button></a>
-
-                        <!-- <a id="prDetails" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-billDate="<?php echo date("d-M-Y", strtotime($data['date'])); ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>"  data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-toggle="modal" data-target="#processModal"><button class="btn btn-xs btn-primary waves-effect waves-float" data-toggle="tooltip" data-placement="bottom" title="Process"><i class="material-icons">touch_app</i></button></a> -->
-                        <?php } ?>
+                                            <td>
+                                              <?php if($data['isAllocated']==0){ ?>
+                    
+                                                <?php if($this->session->userdata['workRestrict']['status']=="yes"){?>
+                                                    <button class="btn btn-xs btn-primary waves-effect waves-float" onclick="planUpgradeMsg()"><i class="material-icons">touch_app</i></button>
+                                                <?php }else{ ?> 
+                                                      <a id="prDetailsForAll" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-billDate="<?php echo date("d-M-Y", strtotime($data['date'])); ?>" data-credAdj="<?php echo $data['creditAdjustment']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-route="<?php echo $data['routeName']; ?>" data-toggle="modal" data-target="#processModalForAll" ><button class="btn btn-xs btn-primary waves-effect waves-float" data-toggle="tooltip" data-placement="bottom" title="Process"><i class="material-icons">touch_app</i></button></a>
+                                                <?php } ?>
+                                                <!-- <a id="prDetails" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-billDate="<?php echo date("d-M-Y", strtotime($data['date'])); ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>"  data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-toggle="modal" data-target="#processModal"><button class="btn btn-xs btn-primary waves-effect waves-float" data-toggle="tooltip" data-placement="bottom" title="Process"><i class="material-icons">touch_app</i></button></a> -->
+                                              <?php } ?>
                                               
-                        <a href="<?php echo site_url('AdHocController/billHistoryInfo/'.$data['id']); ?>" class="btn btn-xs history-btn" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
+                                              <a href="<?php echo site_url('AdHocController/billHistoryInfo/'.$data['id']); ?>" class="btn btn-xs btn-primary" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
                                              
-                        <a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs viewBill-btn" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
+                                              <a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs  btn-primary" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
                                               
-                        <a target="_blank"  href="<?php echo site_url('DeliverySlipController/pastDeliverySlipDownloadPDF/'.$data['id']); ?>" class="btn btn-xs  pdf-btn" data-toggle="tooltip" data-placement="bottom" title="Download PDF"><i class="material-icons">download</i></a>
+                                              <a target="_blank"  href="<?php echo site_url('DeliverySlipController/pastDeliverySlipDownloadPDF/'.$data['id']); ?>" class="btn btn-xs  btn-primary" data-toggle="tooltip" data-placement="bottom" title="Download PDF"><i class="material-icons">download</i></a>
                                             </td>
                                         </tr>
                                     <?php

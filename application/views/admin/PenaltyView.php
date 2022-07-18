@@ -8,20 +8,20 @@
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
-                        <div class="header flex-div">
+                        <div class="header">
                             <h2>
                               Cheque Bounce Penalties
                             </h2>
                             <h2>
                                 <p align="right">
                                   <a href="<?php echo site_url('admin/PenaltyController/Add');?>">
-                                    <button type="submit" class="btn btnStyle margin"><i class="material-icons">add</i>  Add  </button></a> 
+                                    <button type="submit" class="btn bg-primary margin"><i class="material-icons">add</i>  Add  </button></a> 
                                 </p> 
                             </h2>
                         </div>
                         <div class="body">
-                            <!--<div class="table-responsive"> -->
-                                <table class="table table-bordered cust-tbl js-basic-example dataTable" data-page-length='100'>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable" data-page-length='100'>
                                     <thead>
                                         <tr>
                                             <th>Sr.No</th>
@@ -50,14 +50,16 @@
                                             <td><?php echo $data['name']; ?></td>
                                             <td><?php echo $data['amount']; ?></td>
                                             <td>
-                                            <a href="<?php echo base_url().'index.php/admin/PenaltyController/load/'.$data['id']; ?>" class="btn btn-sm process-btn">
-                                            <b><i class="material-icons">edit</i></b>
-                                            </a>
+                                                <a href="<?php echo base_url().'index.php/admin/PenaltyController/load/'.$data['id']; ?>">
+                                                    <i class="material-icons" style="color: green;">edit</i>
+                                                </a>
                                                 &nbsp
-                                            <a id="deleted" onclick="deleted(<?php echo $data['id'];?>)" href='#' class="btn btn-sm btn-danger">
-                                            <b>
-                                            <i class="material-icons">delete</i></b>
-                                            </a>                                               
+                                                <!-- <a id="deleted" 
+                                                    onclick="deleted(<?php echo $data['id'];?>)" href='#'>
+                                                    <b>
+                                                        <i class="material-icons" style="color: red;">delete</i> 
+                                                    </b>
+                                                </a>                                                -->
                                             </td>
                                         </tr>
                                     <?php
@@ -65,7 +67,7 @@
                                       ?> 
                                     </tbody>
                                 </table>
-                           <!-- </div> -->
+                            </div>
                         </div>
                     </div>
                 </div>

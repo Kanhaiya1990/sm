@@ -57,7 +57,7 @@ tr.shown td.details-control {
                     <div class="table-responsive">
                         <div class="col-md-12">
    
-                    <table class="table table-bordered cust-tbl dataTable js-exportable" data-page-length='100' id="xp">
+                    <table class="table table-bordered table-striped table-hover dataTable js-exportable" data-page-length='100' id="xp">
                         <thead>
                          <tr data-key-1="Value 1" data-key-2="Value 2">
                             <th></th>
@@ -183,8 +183,8 @@ $(document).ready(function () {
                 $.each(data, function (i, d) {
                     tbody += '<tr><td>' + d.billNo + '</td><td>' + d.date + '</td><td>' + d.retailerName + '</td><td>' + d.salesman + '</td><td align="right">' + d.netAmount + '</td><td align="right">' + d.SRAmt + '</td><td align="right">' + d.receivedAmt + '</td><td align="right">' + d.pendingAmt + '</td></tr>';
                 });
-            console.log('<table class="table table-bordered cust-tbl dataTable js-exportable display nowrap">' + thead + tbody + '</table>');
-            callback($('<table class="table table-bordered cust-tbl dataTable js-exportable display nowrap">' + thead + tbody + '</table>')).show();
+            console.log('<table class="table table-bordered table-striped table-hover js-basic-example DataTable display nowrap">' + thead + tbody + '</table>');
+            callback($('<table class="table table-bordered table-striped table-hover js-basic-example DataTable display nowrap">' + thead + tbody + '</table>')).show();
         },
         error: function () {
             $('#output').html('Bummer: there was an error!');

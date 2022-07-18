@@ -2,7 +2,7 @@
 Class LoginDatabase extends CI_Model {
 // Read data using username and password
 public function login($data) {
-// 		$condition = "email =" . "'" . $data['email'] . "' AND " . "password =" . "'" . $data['password'] . "' AND " . "status =" . "'" . $status. "'";
+		// $condition = "email =" . "'" . $data['email'] . "' AND " . "password =" . "'" . $data['password'] . "' AND " . "status =" . "'" . $status. "'";
 		$this->db->select('*');
 		$this->db->from('employee');
 		$this->db->where('email',$data['email']);
@@ -70,8 +70,7 @@ public function read_user_information($email) {
 	public function getdata($tableName)
     {
         $query=$this->db->get($tableName);
-		$this->db->close();
-        $this->db->initialize();
+		
         return $query->result_array();
     }
     
@@ -95,31 +94,27 @@ public function read_user_information($email) {
 
     public function show($tblName) {
         $query = $this->db->get($tblName);
-		$this->db->close();
-        $this->db->initialize();
+		
         return $query->result_array();    
     }
       public function load($tblName, $id) {
         $this->db->where('id', $id);
         $query = $this->db->get($tblName);
-		$this->db->close();
-        $this->db->initialize();
+		
         return $query->result_array();   
     }
 
     public function getUserByMobile($tblName, $mobile) {
         $this->db ->where('mobile', $mobile);
         $query = $this->db->get($tblName);
-		$this->db->close();
-        $this->db->initialize();
+		
         return $query->result_array();   
     }
 
     public function getAdminByMobile($tblName, $mobile) {
         $this->db ->where('adminMobile', $mobile);
         $query = $this->db->get($tblName);
-		$this->db->close();
-        $this->db->initialize();
+		
         return $query->result_array();   
     }
       
@@ -127,8 +122,7 @@ public function read_user_information($email) {
         $this->db->where('fromTime >=', $time);
         $this->db->where('toTime <=', $time);
         $query = $this->db->get($tblName);
-		$this->db->close();
-        $this->db->initialize();
+		
         return $query->result_array();   
     }
  

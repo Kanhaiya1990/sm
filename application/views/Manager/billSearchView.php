@@ -25,6 +25,9 @@
         width: 50px;
         height: 50px;
     }
+
+
+
 </style>
 
     <h1 style="display: none;">Welcome</h1><br/><br/><br/><br/><br/>    
@@ -46,7 +49,7 @@
                             <div class="row clearfix">
                             <!-- <div class="demo-masked-input"> -->
                                 
-                                  <div class="col-md-12 cust-tbl"> 
+                                  <div class="col-md-12"> 
                                     <div class="col-md-4">
                                         <b>Bill Number</b>
                                         <div class="input-group">
@@ -62,19 +65,20 @@
                                     </div>
                                   
                                         <div class="col-md-4">
-                                            <button id="searchInfo" class="btn btnStyle m-t-15 waves-effect">
+                                            <button id="searchInfo" class="btn btn-primary m-t-15 waves-effect">
                                                 <i class="material-icons">search</i> 
                                                 <span class="icon-name">
                                                  Search
                                                 </span>
                                             </button>
                                            <a href="<?php echo site_url('AdHocController/billSearch');?>">
-                                                <button type="button" class="btn btn-danger m-t-15 waves-effect">
+                                                <button type="button" class="btn btn-primary m-t-15 waves-effect">
                                                     <i class="material-icons">cancel</i> 
                                                     <span class="icon-name"> Cancel</span>
                                                 </button>
                                             </a> 
                                         </div>
+
                                         
                                     </div> 
                                     <div id="hideInfo" class="col-md-12"> 
@@ -113,7 +117,16 @@
                         $('#hideInfo').html(data);
                         $('#billNo').val('');
                         $('#billNo').focus();
-                    }  
+                    },
+                    beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                }   
                 });
             }
         }
@@ -143,7 +156,16 @@
                             $('#hideInfo').html(data);
                             // $('#billNo').val('');
                             // $('#billNo').focus();
-                        }  
+                        },
+                        beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                }   
                     });
                 }
             }

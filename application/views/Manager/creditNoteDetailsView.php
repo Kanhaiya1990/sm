@@ -365,7 +365,16 @@
                     $('#toBill').html(data);
                     $('#manualBill').html(data);
                     $('#addBillTextList').html(data);
-                }
+                },
+                beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                } 
             });
         }
     });
@@ -384,7 +393,16 @@
                 data : {allocationId: allocationId},
                 success: function(data){
                     $('#alData').html(data);
-                }
+                },
+                beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                } 
             });
         }
     });
@@ -414,7 +432,16 @@
                     $('#toBill').html(data);
                     $('#manualBill').html(data);
                     $('#addBillTextList').html(data);
-                }
+                },
+                beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                } 
             });
         }
     });
@@ -503,7 +530,16 @@
                             $('#TotalInvoiceAmt').text(total);
                             $('#cntchk').text(cnt);
                         }
-                    }
+                    },
+                    beforeSend: function(){
+                        $('.comman-ajax-loader').css("visibility", "visible");
+                    },
+                    complete: function(){
+                        $('.comman-ajax-loader').css("visibility", "hidden");
+                    },
+                    error: function(jqXHR, exception) {
+                        alert("Something Went Wrong, Please Try Again...!");
+                    } 
                 });
             }
         }else{
@@ -560,7 +596,16 @@
                             $('#TotalInvoiceAmt').text(total);
                             $('#cntchk').text(cnt);
                         }
-                    }
+                    },
+                    beforeSend: function(){
+                        $('.comman-ajax-loader').css("visibility", "visible");
+                    },
+                    complete: function(){
+                        $('.comman-ajax-loader').css("visibility", "hidden");
+                    },
+                    error: function(jqXHR, exception) {
+                        alert("Something Went Wrong, Please Try Again...!");
+                    } 
                 });
             }
         }
@@ -633,7 +678,16 @@
                             $('#TotalInvoiceAmt').text(total);
                             $('#cntchk').text(cnt);
                         }
-                    }
+                    },
+                    beforeSend: function(){
+                        $('.comman-ajax-loader').css("visibility", "visible");
+                    },
+                    complete: function(){
+                        $('.comman-ajax-loader').css("visibility", "hidden");
+                    },
+                    error: function(jqXHR, exception) {
+                        alert("Something Went Wrong, Please Try Again...!");
+                    } 
                 });
             }
         }else{
@@ -688,7 +742,16 @@
                             $('#TotalInvoiceAmt').text(total);
                             $('#cntchk').text(cnt);
                         }
-                    }
+                    },
+                    beforeSend: function(){
+                        $('.comman-ajax-loader').css("visibility", "visible");
+                    },
+                    complete: function(){
+                        $('.comman-ajax-loader').css("visibility", "hidden");
+                    },
+                    error: function(jqXHR, exception) {
+                        alert("Something Went Wrong, Please Try Again...!");
+                    } 
                 });
             }
         }
@@ -763,7 +826,16 @@
             success: function(data){
                 $('#tbodyForBillJournalData').append(data);
                 $('#addBillText').val('');
-            }
+            },
+            beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                } 
         });
     });
 </script>
@@ -780,7 +852,16 @@
             success: function(data){
                 $('#tbodyForEmployeeJournalData').append(data);
                 $('#addEmpText').val('');
-            }
+            },
+            beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                } 
         });
     });
 </script>
@@ -875,6 +956,7 @@
             alert('Amount not match with bills total amount');die();
         }
 
+
         $.ajax({
             url : "<?php echo site_url('AdHocController/finalDebitTransactionSubmit');?>",
             method : "POST",
@@ -883,7 +965,16 @@
                 // alert(data);die();
 
                 window.parent.location.reload(true);
-            }
+            },
+            beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                } 
         });
        
     });

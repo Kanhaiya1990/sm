@@ -15,7 +15,7 @@
         }
     }
 
-      /*.logo_prov {
+      .logo_prov {
         border-radius: 30px;
          border: 1px solid black;
         background: red;
@@ -23,7 +23,9 @@
         padding: 6px;
         width: 50px;
         height: 50px;
-    }*/
+    }
+
+
 
 </style>
 
@@ -35,25 +37,23 @@
                     <div class="card">
                         <div class="header">
                              <h2>
-                                 <p align="center">Income-Expenses Details</p>
+                                 <p align="center">Income-Expenses Details <br> <?php echo date("D, d-M-Y", strtotime($startDate));?> - <?php echo date("D, d-M-Y", strtotime($endDate));?></p>
                              </h2>
                          </div>
                     <div class="body">
                             
                     <div class="table-responsive">
-                      <div class="col-md-12 cust-tbl flex-div">
+                      <div class="col-md-12">
                           <form method="post" role="form" action="<?php echo site_url('accountant/AccountantController/periodIncomeExpense');?>">
                                 <label>From Date:</label>
-                                <input type="date" value="<?php echo $startDate; ?>" name="from_date" class="form-control dateCustom" required >
+                                <input type="date" value="<?php echo $startDate; ?>" name="from_date" required >
                                 <label>To Date:</label>
-                                <input type="date" value="<?php echo $endDate; ?>" name="to_date" class="form-control dateCustom" required>
-                                <button type="submit"  class="btn btn-primary btnStyle">Search</button>
+                                <input type="date" value="<?php echo $endDate; ?>" name="to_date" required>
+                                <button type="submit" class="btn btn-primary">Search</button>
                                 <a href="<?php echo site_url('accountant/AccountantController/periodIncomeExpense');?>">
-                                    <button type="button"  class="btn btn-danger">Cancel</button>
+                                    <button type="button" class="btn btn-primary">Cancel</button>
                                 </a> 
                           </form>
-
-                           <p align="right"><?php echo date("D, d-M-Y", strtotime($startDate));?> - <?php echo date("D, d-M-Y", strtotime($endDate));?></p>
                       </div>
                       <div class="col-md-12">
                         <!-- <table style="font-size: 12px;" class="table table-bordered table-striped table-hover" data-page-length='100'>
@@ -92,18 +92,20 @@
                                               
                                             <th class="float-right">
                                               <?php if(in_array($cm['name'],$cmpExpense[$no])){ 
-                                              echo ($cmpIncome[$no]['income']-$cmpExpense[$no]['expense']);
+
+                                                  echo ($cmpIncome[$no]['income']-$cmpExpense[$no]['expense']);
                                                } ?> 
                                             </th>
                                           <?php $no++; } ?>
 
                                         </tr>
-                                    
+                                        
+
                                     </thead>
 
                                   </table>
                                    -->
-                                <table class="table table-bordered cust-tbl" data-page-length='100'>
+                                <table style="font-size: 12px;" class="table table-bordered table-striped table-hover" data-page-length='100'>
                                     <thead>
                                        <tr>
                                             <th colspan="<?php echo count($company)+2; ?>"><center><b>Income</b></center></th>
@@ -210,9 +212,9 @@
                                     </tfoot>
                                 </table>
                             </div>
-                            <div class="col-md-12"></div> <div class="col-md-12"></div>
+ <div class="col-md-12"></div> <div class="col-md-12"></div>
                             <div class="col-md-12">
-                                <table class="table table-bordered cust-tbl" data-page-length='100'>
+                                <table style="font-size: 12px;" class="table table-bordered table-striped table-hover" data-page-length='100'>
                                     <thead>
                                         <tr>
                                             <th colspan="<?php echo count($company)+2; ?>"><center><b>Expense</b></center></th>
@@ -719,7 +721,16 @@ $(document).on('show.bs.modal','#myModal2', function () {
             success: function (data) {
                 alert(data);
                  location.reload(); 
-            }  
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            }     
         });
     }
 </script>

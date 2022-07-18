@@ -9,16 +9,23 @@ class ReportModel extends CI_Model {
     public function getdata($tableName)
     {
         $query=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
+
+
+    public function getDeliverySlipdata($tableName)
+    {
+        $this->db->where('isDeliverySlipBill',1);
+        $query=$this->db->get($tableName);
+        return $query->result_array();
+    }
+
 
     public function getSumByType($tableName,$id,$type){
         $sql="SELECT sum(paidAmount) as amt FROM `billpayments` WHERE billId=".$id." and paymentMode='".$type."' and isLostStatus !=1";    
         $query = $this->db->query($sql);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -29,8 +36,7 @@ class ReportModel extends CI_Model {
         $this->db->join('retailer','bills.retailerCode=retailer.code','left outer');
         $this->db->where('isDeliverySlipBill',0);
         $query=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -40,8 +46,7 @@ class ReportModel extends CI_Model {
         $this->db->select('retailerCode,retailerName');
         $this->db->where('isDeliverySlipBill',1);
         $query=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -58,16 +63,14 @@ class ReportModel extends CI_Model {
 
     public function show($tblName) {
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();    
     }
 
     public function getSalesman($tblName) {
         $this->db->where('designation','salesman');
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();    
     }
 
@@ -75,8 +78,7 @@ class ReportModel extends CI_Model {
         $this->db->distinct();
         $this->db->select('salesman');
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();    
     }
 
@@ -89,8 +91,7 @@ class ReportModel extends CI_Model {
     public function load($tblName, $id) {
         $this->db->where('id', $id);
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();   
     }
 
@@ -100,8 +101,7 @@ class ReportModel extends CI_Model {
         $this->db->where('DATE(billpayments.date) <=', $toDate);
         $this->db->where('billpayments.isAllocationClosed',0);
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();   
     }
 
@@ -112,8 +112,7 @@ class ReportModel extends CI_Model {
         $this->db->where('bills.date <=', $toDate);
         $this->db->where('billpayments.paidAmount >',0);
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();  
     }
 
@@ -124,8 +123,7 @@ class ReportModel extends CI_Model {
         $this->db->where('bills.date >=', $fromDate);
         $this->db->where('bills.date <=', $toDate);
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();  
     }
 
@@ -136,8 +134,7 @@ class ReportModel extends CI_Model {
         $this->db->where('bills.date >=', $fromDate);
         $this->db->where('bills.date <=', $toDate);
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();  
     }
 
@@ -147,8 +144,7 @@ class ReportModel extends CI_Model {
         $this->db->where('bills.date >=', $fromDate);
         $this->db->where('bills.date <=', $toDate);
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();  
     }
 
@@ -158,8 +154,7 @@ class ReportModel extends CI_Model {
         $this->db->where('bills.date >=', $fromDate);
         $this->db->where('bills.date <=', $toDate);
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();  
     }
 
@@ -174,8 +169,7 @@ class ReportModel extends CI_Model {
         $this->db->where('billpayments.isLostStatus',2);
         $this->db->where('billpayments.paidAmount !=',0);
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();  
     }
 
@@ -189,8 +183,7 @@ class ReportModel extends CI_Model {
         $this->db->where('billpayments.isLostStatus',2);
         $this->db->where('billpayments.paidAmount !=',0);
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();  
     }
 
@@ -205,8 +198,7 @@ class ReportModel extends CI_Model {
         $this->db->where('billpayments.paidAmount !=',0);
         $this->db->where('billpayments.tallystatus','Cheque_Change');
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();  
     }
 
@@ -220,8 +212,7 @@ class ReportModel extends CI_Model {
         $this->db->where('billpayments.paidAmount !=',0);
         $this->db->where('billpayments.tallystatus','Cheque_Change');
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();  
     }
 
@@ -237,8 +228,7 @@ class ReportModel extends CI_Model {
         // $this->db->where('billpayments.isLostStatus',2);
         $this->db->where('billpayments.tallyStatus','Cheque_Bounce');
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();  
     }
 
@@ -253,8 +243,7 @@ class ReportModel extends CI_Model {
         // $this->db->where('billpayments.isLostStatus',2);
         $this->db->where('billpayments.tallyStatus','Cheque_Bounce');
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();  
     }
 
@@ -270,8 +259,7 @@ class ReportModel extends CI_Model {
         // $this->db->where('billpayments.penalty >',0);
         $this->db->where('billpayments.tallyStatus','Cheque_Bounce_penalty');
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();  
     }
 
@@ -287,8 +275,7 @@ class ReportModel extends CI_Model {
         // $this->db->where('billpayments.penalty >',0);
         $this->db->where('billpayments.tallyStatus','Cheque_Bounce_penalty');
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();  
     }
 
@@ -302,8 +289,7 @@ class ReportModel extends CI_Model {
         $this->db->where('billpayments.paymentMode',$type);
         $this->db->where('billpayments.paidAmount !=',0);
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
     //    print_r($this->db->last_query());
         return $query->result_array();  
     }
@@ -318,8 +304,7 @@ class ReportModel extends CI_Model {
         $this->db->where('billpayments.paymentMode',$type);
         $this->db->where('billpayments.paidAmount !=',0);
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
     //    print_r($this->db->last_query());
         return $query->result_array();  
     }
@@ -335,8 +320,7 @@ class ReportModel extends CI_Model {
         $this->db->where('billpayments.paymentMode',$type);
         $this->db->where('billpayments.paidAmount !=',0);
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();  
     }
 
@@ -350,8 +334,7 @@ class ReportModel extends CI_Model {
         $this->db->where('billpayments.paymentMode',$type);
         $this->db->where('billpayments.paidAmount !=',0);
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();  
     }
 
@@ -366,8 +349,7 @@ class ReportModel extends CI_Model {
         $this->db->where('billpayments.paidAmount !=',0);
         // $this->db->where('billpayments.paymentMode',$type);
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         // echo $this->db->last_query();
         return $query->result_array();  
     }
@@ -382,8 +364,7 @@ class ReportModel extends CI_Model {
         $this->db->where('billpayments.paidAmount !=',0);
         // $this->db->where('billpayments.paymentMode',$type);
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         // echo $this->db->last_query();
         return $query->result_array();  
     }
@@ -396,8 +377,7 @@ class ReportModel extends CI_Model {
         $this->db->where('bills.compName', $company);
         $this->db->where('billpayments.paidAmount >',0);
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();  
     }
 
@@ -409,8 +389,7 @@ class ReportModel extends CI_Model {
         $this->db->where('DATE(billpayments.date) <=', $toDate);
         $this->db->where('billpayments.paidAmount >',0);
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();  
     }
 
@@ -423,8 +402,7 @@ class ReportModel extends CI_Model {
         $this->db->where('billpayments.paidAmount >',0);
         $this->db->where('bills.compName',$compName);
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();  
     }
 
@@ -439,16 +417,61 @@ class ReportModel extends CI_Model {
         $this->db->where('DATE(allocations.date) <=', $toDate);
         $this->db->where('billpayments.paidAmount !=',0);
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();  
     }
 
     public function getProductName($tblName,$name){
         $this->db->where('name',$name);
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
+        return $query->result_array();  
+    }
+
+    public function getProductDetail($tblName,$code,$name,$mrp){
+        $this->db->where('productCode',$code);
+        $this->db->where('name',$name);
+        $this->db->where('mrp',$mrp);
+        $query = $this->db->get($tblName);
+        return $query->result_array();  
+    }
+
+    public function getSelectedBillDetail($tblName,$fromBill,$toBill){
+        $this->db->select('id,billNo');
+        $this->db->where('bills.id >=',$fromBill);
+        $this->db->where('bills.id <=',$toBill);
+        $this->db->where('bills.isDeliverySlipBill',1);
+        $query = $this->db->get($tblName);
+        return $query->result_array();  
+    }
+
+    public function getFromToBillDetail($tblName,$fromBill,$toBill){
+        $this->db->where('bills.id >=',$fromBill);
+        $this->db->where('bills.id <=',$toBill);
+        $this->db->where('bills.isDeliverySlipBill',1);
+        $query = $this->db->get($tblName);
+        return $query->result_array();  
+    }
+
+    public function getBillDetailsWithBills($tblName,$fromBill,$toBill){
+        $this->db->select('sum(qty) as sumQty,sum(billsdetails.netAmount) as sumNetAmount,productCode,productName,mrp,sellingRate,sellingUnit,sellingQuantity,qtyUnit');
+        $this->db->join('billsdetails','bills.id=billsdetails.billId');
+        $this->db->where('bills.id >=',$fromBill);
+        $this->db->where('bills.id <=',$toBill);
+        $this->db->where('bills.isDeliverySlipBill',1);
+        $this->db->group_by('productCode,productName,mrp');
+        $query = $this->db->get($tblName);
+        
+        return $query->result_array();  
+    }
+    
+    public function getBillDetailsWithBillsById($tblName,$id){
+        $this->db->select('sum(qty) as sumQty,sum(billsdetails.netAmount) as sumNetAmount,productCode,productName,mrp,sellingRate,sellingUnit,sellingQuantity,qtyUnit,bills.billNo as bNo');
+        $this->db->join('billsdetails','bills.id=billsdetails.billId');
+        $this->db->where('bills.id',$id);
+        $this->db->group_by('productCode,productName,mrp');
+        $query = $this->db->get($tblName);
+        
         return $query->result_array();  
     }
 
@@ -460,8 +483,7 @@ class ReportModel extends CI_Model {
         $this->db->where('DATE(deliveryslip_pending_for_billing.createdAt) >=', $fromDate);
         $this->db->where('DATE(deliveryslip_pending_for_billing.createdAt) <=', $toDate);
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();  
     }
 
@@ -473,8 +495,7 @@ class ReportModel extends CI_Model {
         $this->db->where('DATE(deliveryslip_pending_for_billing.createdAt)', $date);
         $this->db->where('deliveryslip_pending_for_billing.productName',$name);
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();  
     }
 
@@ -484,8 +505,7 @@ class ReportModel extends CI_Model {
         $this->db->where('DATE(allocations.date) >=', $fromDate);
         $this->db->where('DATE(allocations.date) <=', $toDate);
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();  
     }
 
@@ -497,8 +517,7 @@ class ReportModel extends CI_Model {
         $this->db->where('allocationId',$allocationId);
         $this->db->where('paymentMode',$type);
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();   
     }
 
@@ -508,8 +527,7 @@ class ReportModel extends CI_Model {
         $this->db->join('billsdetails','billsdetails.id=allocation_sr_details.billItemId');
         $this->db->where('allocation_sr_details.allocationId',$allocationId);
          $query = $this->db->get($tblName);
-         $this->db->close();
-        $this->db->initialize();
+         
         return $query->result_array();  
     }
             
@@ -524,8 +542,7 @@ class ReportModel extends CI_Model {
         $this->db->where('DATE(bills.date) <=', $toDate);
         $this->db->where('billpayments.paidAmount !=',0);
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();  
     }
 
@@ -540,8 +557,7 @@ class ReportModel extends CI_Model {
         $this->db->where('billpayments.paidAmount !=',0);
         $this->db->where('bills.compName',$compName);
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();  
     }
     /////
@@ -551,8 +567,7 @@ class ReportModel extends CI_Model {
         $this->db->where('DATE(bills.date) >=', $fromDate);
         $this->db->where('DATE(bills.date) <=', $toDate);
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();  
     }
 
@@ -562,8 +577,7 @@ class ReportModel extends CI_Model {
         $this->db->where('DATE(bills.date) <=', $toDate);
         $this->db->where('bills.compName',$compName);
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();  
     }
     /////
@@ -575,8 +589,7 @@ class ReportModel extends CI_Model {
         $this->db->where('DATE(billpayments.date) <=', $toDate);
         $this->db->where('billpayments.paidAmount >',0);
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();  
     }
 
@@ -588,8 +601,7 @@ class ReportModel extends CI_Model {
         $this->db->where('billpayments.paidAmount >',0);
         $this->db->where('bills.compName',$compName);
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();  
     }
 
@@ -602,8 +614,7 @@ class ReportModel extends CI_Model {
         $this->db->where('bills.retailerName',$retailer);
         $this->db->where('bills.salesman',$salesman);
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -614,113 +625,8 @@ class ReportModel extends CI_Model {
         $this->db->where('DATE(bills.date) <=',$toDate);
         $this->db->where('bills.isDeliverySlipBill',1);
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
-    }
-	 
-	 public function frequentsrRetailers($tableName)
-    {
-       // $this->db->select('DISTINCT(allocation_sr_details.billId) as biId, bills.id as bid, bills.retailerName');
-        $this->db->select('DISTINCT(allocation_sr_details.billId) as biId, bills.*');
-        $this->db->join('bills','bills.id=allocation_sr_details.billId','left outer');
-        $this->db->order_by('bills.id','desc');
-        $this->db->limit(200);
-        $query=$this->db->get($tableName);
-        //$aa = $this->db->last_query(); print_r($aa); exit();
-        $this->db->close();
-        $this->db->initialize();
-        return $query->result_array();
-    }
-
-    public function frequentsrRetailerswithDate($tableName,$fromDate,$toDate)
-            {
-            //$first_date = date('Y-m-d', strtotime('first day of last month'));
-            //$last_date = date('Y-m-d', strtotime('last day of last month'));
-            //$first_date = date('Y-m-d',strtotime("-60 days"));
-    
-           $this->db->select('DISTINCT(allocation_sr_details.billId) as biId, bills.*');
-            $this->db->join('bills','bills.id=allocation_sr_details.billId','left outer');
-            $this->db->where('bills.date BETWEEN "'.$fromDate.'" AND "'.$toDate.'" ');
-            $this->db->order_by('bills.id','desc');
-            $query=$this->db->get($tableName);
-            //$aa = $this->db->last_query(); print_r($aa); exit();
-            $this->db->close();
-            $this->db->initialize();
-            return $query->result_array();
-            }
-
-
-    public function frequentsrSalesman($tableName)
-    {   $this->db->distinct('bills.salesman');
-        $this->db->select('allocation_sr_details.billId as biId, bills.id as bid, bills.salesman');
-        $this->db->join('bills','bills.id=allocation_sr_details.billId','left outer');
-        $this->db->group_by('bills.salesman');
-        $query=$this->db->get($tableName);
-     
-       // $aa = $this->db->last_query(); print_r($aa); exit();
-        $this->db->close();  
-        $this->db->initialize();
-        return $query->result_array();
-    }
-	
-	 public function multiplevisitorRetailer()
-    {
-        $this->db->select('DISTINCT(billpayments.billId) as biId, bills.id as bid, bills.retailerName as rname');
-        $this->db->join('bills','bills.id=billpayments.billId','left outer');
-        $query=$this->db->get('billpayments');
-       // $aa = $this->db->last_query(); print_r($aa); exit(); 
-       // $this->db->close(); 
-       // $this->db->initialize(); 
-        return $query->result_array(); 
-		
-		/*$this->db->select('DISTINCT(billpayments.billId) as biId, bills.id as bid, bills.retailerName as rname');
-        $this->db->join('billpayments','billpayments.billId=bills.id', 'left outer');
-		//$this->db->join('bills','bills.id=billpayments.billId','left outer');
-        $query = $this->db->get('bills');
-        $this->db->close();
-        $this->db->initialize();
-        return $query->result_array();*/
-    }
-	
-	//Overdue Bill Fetch Record
-    public function fetchBillRecord($tblName,$fromDate,$toDate)
-            {
-            //$first_date = date('Y-m-d', strtotime('first day of last month'));
-            //$last_date = date('Y-m-d', strtotime('last day of last month'));
-            $first_date = date('Y-m-d',strtotime("-60 days"));
-            $last_date   = date('Y-m-d',strtotime("now"));
-            $this->db->select('*');
-            $this->db->from($tblName);
-            $this->db->where('date BETWEEN "'.$first_date.'" AND "'.$last_date.'" ');
-			$this->db->where('pendingAmt !=',0); 
-            $query = $this->db->get();
-            $this->db->close();
-            $this->db->initialize();
-            return $query->result_array();
-            }
-	
-	//Retailer Account Statement Report
-	public function getRetailerDetailsUsingDates($tableName,$rname,$fromDate,$toDate){
-        $this->db->distinct();
-        $this->db->select('bills.*');
-        $this->db->from($tableName);
-        $this->db->where('retailerName', $rname);
-        $this->db->where('DATE(bills.date) >=', $fromDate);
-        $this->db->where('DATE(bills.date) <=', $toDate);
-        $this->db->order_by('id','desc');
-        $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
-        return $query->result_array();
-    }
-
-    public function loadBillsDetails($tblName, $id) {
-        $this->db->where('billId', $id);
-        $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
-        return $query->result_array();   
     }
 }
 ?>

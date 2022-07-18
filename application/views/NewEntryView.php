@@ -54,28 +54,38 @@ li{
 </style>
 
 <h1 style="display: none;">Welcome</h1><br/><br/><br/><br/><br/>
-<section class="col-md-12 box " style="height: auto;">
+<section class="col-md-12 box" style="height: auto;overflow-y: scroll;">
     <!-- <section class="content"> -->
         <div class="container-fluid">
             
             <div class="row clearfix" id="page">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
-                        <div class="header flex-div">
-                        <h2> New Cheque </h2>
-                        <p align="right">
-                        <button data-toggle="modal" data-target="#myModal" class="modalLink btn btn-primary btnStyle m-t-15 waves-effect">
-                        <span class="icon-name"> <i class="material-icons">add</i> Ad Hoc Cheques </span>
-                        </button>
-                        </p>
+                        <div class="header">
+                            <h2>
+                             New Cheque 
+                         </h2>
+                         <p align="right">
+
+                         <?php if($this->session->userdata['workRestrict']['status']=="yes"){?>
+                            <button class="modalLink btn btn-primary m-t-15 waves-effect" onclick="planUpgradeMsg()">
+                                <span class="icon-name"> <i class="material-icons">add</i> Ad Hoc Cheques </span>
+                              </button>
+                         <?php }else{ ?>
+                            <button data-toggle="modal" data-target="#myModal" class="modalLink btn btn-primary m-t-15 waves-effect">
+                                <span class="icon-name"> <i class="material-icons">add</i> Ad Hoc Cheques </span>
+                              </button>
+                         <?php } ?>
+                            
+                          </p>
                          
                      </div>
                      <div id="infoMessage"><?php echo $message;?></div>
                      <div class="body">
                       <div class="row">                                 
                         <div class="row m-t-20">
-                        <div class="col-md-9">
-                                <div>
+                            <div class="col-md-9">
+                                <div class="table-responsive">
                             <?php if($this->session->flashdata('msg')){ $msg=$this->session->flashdata('msg'); ?>
                                   <div class="alert alert-success">      
                                     <?php echo $msg['message'];?>
@@ -88,18 +98,18 @@ li{
                                   </div>
                             <?php } ?> 
                                   <!--   <table class="table table-striped table-bordered dataTable" data-page-length='100' id="tbl"> -->
-                                    <table class="table table-bordered  js-basic-example dataTable cust-tbl no-footer" data-page-length='100' id="tbl">
+                                    <table class="table table-bordered table-striped table-hover js-basic-example dataTable" data-page-length='100' id="tbl">
                                         <thead>
                                             
                                             <tr class="gray">
-                                                <th>No</th>
+                                                <th> S.No.</th>
                                                 <th style="display: none"> ID</th>
                                                 <th style="display: none"> Bill Amount</th>
                                                 <th> Bill No.</th>
                                                 <th> Date</th>
                                                 <th> Retailer Name</th>
                                                 <th> Payment Mode</th>
-                                                <th> Cheque/NEFT</th>
+                                                <th> Cheque/NEFT Amount</th>
                                                 <th style="display:none;"><?php echo $data['compName']; ?></th>
                                                  <th></th>
                                                  <th>Split</th>
@@ -127,16 +137,11 @@ li{
                                                  <td id="bpayId" style="display: none"><?php echo $data['bpayId']; ?></td>
                                                  <td style="display: none"><?php echo $data['netAmount']; ?></td>
                                                  <td><?php echo $data['billNo']; ?></td>
-                                                 <td class="noSpace"><?php
+                                                 <td><?php
                                                  $dt=date_create($data['date']);
                                                  $data['date'] = date_format($dt,'d-M-Y');
                                                  echo $data['date']; ?></td>
-                                                
-												 <td class="CellWithComment"><?php 
-													$retailerName=substr($data['retailerName'], 0, 20);
-													echo rtrim($retailerName);?>
-													<span class="CellComment"><?php echo $result =substr($data['retailerName'],0); ?></span>
-												</td>
+                                                 <td><?php echo $data['retailerName']; ?></td>
                                                  <td id="payMode"><?php echo $data['payMode']; ?></td>
                                                  <td align="right"><?php echo $data['paidAmt']; ?></td>
                                                  <td style="display:none;"><?php echo $data['compName']; ?></td>
@@ -157,7 +162,7 @@ li{
                            <div class="col-md-3 table-responsive">
 
                             
-                               <table class="table table-striped table-bordered cust-tbl">
+                               <table class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
                                         <th class="text-xs-center" colspan="4"> New Entry</th>
@@ -228,8 +233,8 @@ li{
                                     </tr>
                                     <tr>
                                         <td class="text-xs-right">
-                                            <label>Company :</label>
-                                            <input type="text" autocomplete="off" name="company1" id="company" placeholder="Enter Company" list="comp" class="form-control" required>
+                                            <label>Division :</label>
+                                            <input type="text" autocomplete="off" name="company1" id="company" placeholder="Enter Division" list="comp" class="form-control" required>
                                             <datalist id="comp">
                                                 <?php
                                                     foreach($company as $data){
@@ -249,7 +254,11 @@ li{
                                    
                                     <tr>
                                         <td class="text-xs-right">
-                                            <button type="button" id="sbDataInsert" class="btn btn-primary btnStyle margin btn-sm"> Add </button>  
+                                        <?php if($this->session->userdata['workRestrict']['status']=="yes"){?>
+                                            <button type="button" class="btn btn-primary waves-effect" onclick="planUpgradeMsg()"> Add </button>  
+                                        <?php }else{ ?>
+                                            <button type="button" id="sbDataInsert" class="btn btn-primary waves-effect"> Add </button>  
+                                        <?php } ?>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -277,15 +286,15 @@ li{
       <div class="modal-content">
         <div class="modal-header">
           <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
-           <center> <h3 class="modal-title">Ad Hoc Cheque</h3></center>
+           <center> <h3 class="modal-title">Ad Hoc Cheque</h3>  </center>
           </div>
           <div class="modal-body">
             <div class="row clearfix">
          <div class="col-md-12 table-responsive">
 
-                            <!-- <form method="post" role="form" action="<?php //echo site_url('CashAndChequeController/updateAddHocNewEntry'); ?>">  -->
+                            <!-- <form method="post" role="form" action="<?php echo site_url('CashAndChequeController/updateAddHocNewEntry'); ?>">  -->
                                
-                               <table class="table cust-tbl table-bordered">
+                               <table class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
                                         <th class="text-xs-center" colspan="4"> New Ad Hoc Cheque Entry</th>
@@ -324,6 +333,7 @@ li{
                                         <td class="text-xs-right">
                                             <label>Cheque :</label>
                                             <input type="date" name="chequeDate" id="theDates" class="form-control" required>
+
                                         </td>
 
                                         <td class="text-xs-right">
@@ -376,9 +386,9 @@ li{
                                     </tr>
                                     <tr>
                                         <td class="text-xs-right">
-                                        <button type="button" onclick="submitAdHocCheques();" id="insert-more" class="btn btnStyle waves-effect"> Add </button>
+                                            <button type="button" onclick="submitAdHocCheques();" id="insert-more" class="btn btn-success margin btn-sm"> Add </button>
 
-                                        <button data-dismiss="modal" type="button" class="btn btn-danger waves-effect">
+                                            <button data-dismiss="modal" type="button" class="btn btn-danger  waves-effect">
                                             <span class="icon-name">cancel</span>
                                         </button>
                                             <!-- <button type="button" onclick="clearText();" class="btn btn-success margin btn-sm"> Clear </button>  --> 
@@ -405,6 +415,9 @@ li{
           </div>
           <div id="up_limitid" class="modal-body">
             
+                                
+                                
+       
           </div>
       </div>
     </div>
@@ -422,7 +435,17 @@ li{
             success: function(data){
               // alert(data);die();
                 $('#up_limitid').html(data);
-            }
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            }            
+
         });
     });
 
@@ -570,7 +593,16 @@ li{
                 data:{"id" : id , "chequeStatus" : result.value},
                 success: function (response) {
                     $('#changeStatus').html(response);  
-                }
+                },
+                beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                } 
             });
         }
     });
@@ -712,7 +744,16 @@ function dupCheque(){
                   document.getElementById('dupchkerr').innerHTML = '';
                   return true;
                 }
-            }
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            } 
         });
       
     }else{
@@ -744,7 +785,16 @@ function dupNEFT(){
                   document.getElementById('dupeneftkerr').innerHTML = '';
                   return true;
                 }
-            }
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            } 
         });
     }
 }
@@ -782,7 +832,16 @@ function dupNEFT(){
                     document.getElementById('dupchkerr').innerHTML = '';
                     return true;
                   }
-              }
+              },
+              beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            } 
           });
         
       }
@@ -895,7 +954,16 @@ function dupChequeEntry(){
                 document.getElementById('chkNoErr').innerText = '';
                 return true;
               }
-            }
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            } 
         });
       
     }else{
@@ -926,7 +994,16 @@ function dupAdHocChequeEntry1(){
                 document.getElementById('chkNoErr1').innerText = '';
                 return true;
               }
-            }
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            } 
         });
 }
 
@@ -954,7 +1031,16 @@ function dupAdHocChequeEntry2(){
                 document.getElementById('chkNoErr2').innerText = '';
                 return true;
               }
-            }
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            } 
         });
 }
 
@@ -978,7 +1064,16 @@ function dupNeftEntry1(){
                 document.getElementById('neftNoErr1').innerHTML = '';
                 return true;
               }
-            }
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            } 
         });
 }
 
@@ -1002,7 +1097,16 @@ function dupNeftEntry2(){
                 document.getElementById('neftNoErr2').innerHTML = '';
                 return true;
               }
-            }
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            } 
         });
 }
 
@@ -1050,7 +1154,16 @@ function chkMsg(){
                 }else{
                     alert(data);
                 }
-            }
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            } 
         });
       }
 
@@ -1112,7 +1225,16 @@ function chkMsg(){
                                   }else{
                                       alert(data);
                                   }
-                              }
+                              },
+                              beforeSend: function(){
+                                    $('.comman-ajax-loader').css("visibility", "visible");
+                                },
+                                complete: function(){
+                                    $('.comman-ajax-loader').css("visibility", "hidden");
+                                },
+                                error: function(jqXHR, exception) {
+                                    alert("Something Went Wrong, Please Try Again...!");
+                                } 
                           });
                         } else {
                             window.location.href="<?php echo base_url();?>index.php/CashAndChequeController";
@@ -1141,10 +1263,28 @@ function chkMsg(){
                                   }else{
                                       alert(data);
                                   }
-                              }
+                              },
+                              beforeSend: function(){
+                                    $('.comman-ajax-loader').css("visibility", "visible");
+                                },
+                                complete: function(){
+                                    $('.comman-ajax-loader').css("visibility", "hidden");
+                                },
+                                error: function(jqXHR, exception) {
+                                    alert("Something Went Wrong, Please Try Again...!");
+                                } 
                           });
                       }
-                    }
+                    },
+                    beforeSend: function(){
+                        $('.comman-ajax-loader').css("visibility", "visible");
+                    },
+                    complete: function(){
+                        $('.comman-ajax-loader').css("visibility", "hidden");
+                    },
+                    error: function(jqXHR, exception) {
+                        alert("Something Went Wrong, Please Try Again...!");
+                    } 
                 });
             }
         }else if(mode==="NEFT"){
@@ -1182,7 +1322,16 @@ function chkMsg(){
                                   }else{
                                       alert(data);
                                   }
-                              }
+                              },
+                              beforeSend: function(){
+                                    $('.comman-ajax-loader').css("visibility", "visible");
+                                },
+                                complete: function(){
+                                    $('.comman-ajax-loader').css("visibility", "hidden");
+                                },
+                                error: function(jqXHR, exception) {
+                                    alert("Something Went Wrong, Please Try Again...!");
+                                } 
                           });
                         } else {
                             window.location.href="<?php echo base_url();?>index.php/CashAndChequeController";
@@ -1211,10 +1360,28 @@ function chkMsg(){
                                   }else{
                                       alert(data);
                                   }
-                              }
+                              },
+                              beforeSend: function(){
+                                    $('.comman-ajax-loader').css("visibility", "visible");
+                                },
+                                complete: function(){
+                                    $('.comman-ajax-loader').css("visibility", "hidden");
+                                },
+                                error: function(jqXHR, exception) {
+                                    alert("Something Went Wrong, Please Try Again...!");
+                                } 
                           });
                       }
-                    }
+                    },
+                    beforeSend: function(){
+                        $('.comman-ajax-loader').css("visibility", "visible");
+                    },
+                    complete: function(){
+                        $('.comman-ajax-loader').css("visibility", "hidden");
+                    },
+                    error: function(jqXHR, exception) {
+                        alert("Something Went Wrong, Please Try Again...!");
+                    } 
                 });
             }
         }

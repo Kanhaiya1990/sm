@@ -15,7 +15,7 @@
                         </div>
                         <div class="body">
                             <div class="table-responsive">
-                                <table class="table table-bordered dataTable js-exportable cust-tbl" data-page-length='100'>
+                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable" data-page-length='100'>
                                     <thead>
                                         <tr>
                                             <th>S. No.</th>

@@ -13,7 +13,7 @@
                                             
                             <div class="table-responsive">
                               <p id="res"></p>
-                                <table style="font-size: 14px" class="table cust-tbl" data-page-length='100'>
+                                <table style="font-size: 14px" class="table" data-page-length='100'>
                                     <thead>
                                         <tr>
                                             <th>Bills</th>
@@ -26,12 +26,12 @@
                                     <tbody>
                                         <tr id="sr_rep">
                                             <td><span><?php echo $days[1]['name']; ?></span></td>
-                                            <td>  <input type="text" id="text2" class="form-control" value="<?php echo $days[1]['days']; ?>" style="width:70px;height:25px">
+                                            <td>  <input type="text" id="text2" onkeypress="return isNumberWithoutDash(event)" class="form-control" value="<?php echo $days[1]['days']; ?>" style="width:70px;height:25px">
                                             </td>
                                             <td> days</td>
                                              <td>
                                                  <a id="btn-2" href="javascript:void();">
-                                                    <button class="btn btn-xs btnStyle waves-effect">
+                                                    <button class="btn btn-xs btn-primary waves-effect">
                                                         <i class="material-icons">save</i> 
                                                         <span class="icon-name"> Save</span>
                                                     </button>
@@ -40,12 +40,12 @@
                                         </tr>
                                         <tr id="sr_rep">
                                             <td><?php echo $days[2]['name']; ?></td>
-                                              <td><input type="text" id="text3" class="form-control" value="<?php echo $days[2]['days']; ?>" style="width:70px;height:25px">
+                                              <td><input type="text" id="text3" onkeypress="return isNumberWithoutDash(event)" class="form-control" value="<?php echo $days[2]['days']; ?>" style="width:70px;height:25px">
                                             </td>
                                             <td>days</td>
                                              <td>
                                                  <a id="btn-3" href="javascript:void();">
-                                                    <button class="btn btn-xs btnStyle waves-effect">
+                                                    <button class="btn btn-xs btn-primary waves-effect">
                                                         <i class="material-icons">save</i> 
                                                         <span class="icon-name"> Save</span>
                                                     </button>
@@ -55,12 +55,12 @@
                                     
                                         <tr id="sr_rep">
                                             <td><span><?php echo $days[0]['name']; ?></span></td>
-                                            <td><input type="text" class="form-control" id="billdays" name="billdays" value="<?php echo $companyDaysForBills[0]; ?>" style="width:70px;height:25px">
+                                            <td><input type="text" class="form-control" onkeypress="return isNumberWithoutDash(event)" id="billdays" name="billdays" value="<?php echo $companyDaysForBills[0]; ?>" style="width:70px;height:25px">
                                             </td>
                                             <td>days for all divisions</td>
                                              
                                              <td>
-                                            <button id="billDaysCompanyID" class="btn btn-xs btnStyle waves-effect">
+                                            <button id="billDaysCompanyID" class="btn btn-xs btn-primary waves-effect">
                                                 <i class="material-icons">save</i> 
                                                 <span class="icon-name"> Save</span>
                                             </button>
@@ -75,7 +75,7 @@
                         
                             <div class="table-responsive">
                               <p id="res"></p>
-                                <table class="table cust-tbl" data-page-length='100'>
+                                <table class="table" data-page-length='100'>
                                     <thead>
                                         <tr>
                                             <th>Company specific Retailers</th>
@@ -92,7 +92,7 @@
                                         <tr id="sr_rep">
                                             <td><span><?php echo $days[3]['name']; ?></span></td>
                                             <td><span><?php echo $cmp['name']; ?></span></td>
-                                            <td><input type="text" class="form-control" name="retailerDays[]" value="<?php if(!empty($companyDaysForRetailers)){ echo $companyDaysForRetailers[$no];}  ?>" onkeypress="return numbersonly(this, event);" style="width:70px;height:25px">
+                                            <td><input type="text" class="form-control" name="retailerDays[]" onkeypress="return isNumberWithoutDash(event)" value="<?php if(!empty($companyDaysForRetailers)){ echo $companyDaysForRetailers[$no];}  ?>" onkeypress="return numbersonly(this, event);" style="width:70px;height:25px">
                                             </td>
                                             <td></td>
                                         </tr>
@@ -112,7 +112,7 @@
                                         <tr>
                                         <td>
                                             <a id="retailerDaysCompanyID" href="javascript:void();">
-                                                <button class="btn btn-xs btnStyle waves-effect">
+                                                <button class="btn btn-xs btn-primary waves-effect">
                                                     <i class="material-icons">save</i> 
                                                     <span class="icon-name"> Save</span>
                                                 </button>
@@ -126,7 +126,7 @@
 
                             <div class="table-responsive">
                               <p id="res"></p>
-                                <table class="table cust-tbl" data-page-length='100'>
+                                <table class="table" data-page-length='100'>
                                      <thead>
                                         <tr>
                                             <th>Allocations</th>
@@ -139,12 +139,12 @@
                                         <tr id="sr_rep">
                                             <td><?php echo $days[9]['name']; ?></td>
                                             <td>
-                                              <input type="text" id="text5" class="form-control" value="<?php echo $days[9]['days']; ?>" style="width:70px;height:25px">
+                                              <input type="text" id="text5" class="form-control" onkeypress="return isNumberWithoutDash(event)" value="<?php echo $days[9]['days']; ?>" style="width:70px;height:25px">
                                             </td>
                                             <td><span> days</span></td>
                                              <td>
                                                  <a id="btn-5" data-id="" href="javascript:void();">
-                                                    <button class="btn btn-xs btnStyle waves-effect">
+                                                    <button class="btn btn-xs btn-primary waves-effect">
                                                         <i class="material-icons">save</i> 
                                                         <span class="icon-name"> Save</span>
                                                     </button>
@@ -154,12 +154,12 @@
                                         <tr id="sr_rep">
                                             <td><?php echo $days[4]['name']; ?></td>
                                             <td>
-                                              <input type="text" id="text6" class="form-control" value="<?php echo $days[4]['days']; ?>" style="width:70px;height:25px">
+                                              <input type="text" id="text6" class="form-control" onkeypress="return isNumberWithoutDash(event)" value="<?php echo $days[4]['days']; ?>" style="width:70px;height:25px">
                                             </td>
                                             <td><span> days</span></td>
                                              <td>
                                                  <a id="btn-6" href="javascript:void();">
-                                                    <button class="btn btn-xs btnStyle waves-effect">
+                                                    <button class="btn btn-xs btn-primary waves-effect">
                                                         <i class="material-icons">save</i> 
                                                         <span class="icon-name"> Save</span>
                                                     </button>
@@ -169,12 +169,12 @@
                                         <tr id="sr_rep">
                                             <td><?php echo $days[10]['name']; ?></td>
                                             <td>
-                                              <input type="text" id="godownText" class="form-control" value="<?php echo $days[10]['days']; ?>" style="width:70px;height:25px">
+                                              <input type="text" id="godownText" class="form-control" onkeypress="return isNumberWithoutDash(event)" value="<?php echo $days[10]['days']; ?>" style="width:70px;height:25px">
                                             </td>
                                             <td><span> days</span></td>
                                              <td>
                                                  <a id="btn-godownText" href="javascript:void();">
-                                                    <button class="btn btn-xs btnStyle waves-effect">
+                                                    <button class="btn btn-xs btn-primary waves-effect">
                                                         <i class="material-icons">save</i> 
                                                         <span class="icon-name"> Save</span>
                                                     </button>
@@ -188,7 +188,7 @@
 
                             <div class="table-responsive">
                               <p id="res"></p>
-                                <table class="table cust-tbl" data-page-length='100'>
+                                <table class="table" data-page-length='100'>
                                      <thead>
                                         <tr>
                                             <th>Cheques</th>
@@ -201,12 +201,12 @@
                                         <tr id="sr_rep">
                                             <td><?php echo $days[5]['name']; ?></td>
                                             <td>
-                                              <input type="text" id="text7" class="form-control" value="<?php echo $days[5]['days']; ?>" style="width:70px;height:25px">
+                                              <input type="text" id="text7" class="form-control" onkeypress="return isNumberWithoutDash(event)" value="<?php echo $days[5]['days']; ?>" style="width:70px;height:25px">
                                             </td>
                                             <td><span> days</span></td>
                                              <td>
                                                  <a id="btn-7" data-id="" href="javascript:void();">
-                                                    <button class="btn btn-xs btnStyle waves-effect">
+                                                    <button class="btn btn-xs btn-primary waves-effect">
                                                         <i class="material-icons">save</i> 
                                                         <span class="icon-name"> Save</span>
                                                     </button>
@@ -216,12 +216,12 @@
                                         <tr id="sr_rep">
                                             <td><?php echo $days[6]['name']; ?></td>
                                             <td>
-                                              <input type="text" id="text8" class="form-control" value="<?php echo $days[6]['days']; ?>" style="width:70px;height:25px">
+                                              <input type="text" id="text8" class="form-control" onkeypress="return isNumberWithoutDash(event)" value="<?php echo $days[6]['days']; ?>" style="width:70px;height:25px">
                                             </td>
                                             <td><span> days</span></td>
                                              <td>
                                                  <a id="btn-8" href="javascript:void();">
-                                                    <button class="btn btn-xs btnStyle waves-effect">
+                                                    <button class="btn btn-xs btn-primary waves-effect">
                                                         <i class="material-icons">save</i> 
                                                         <span class="icon-name"> Save</span>
                                                     </button>
@@ -232,13 +232,13 @@
                                          <tr id="sr_rep">
                                             <td><?php echo $days[7]['name']; ?></td>
                                             <td>
-                                              <input type="text" id="text9" class="form-control" value="<?php echo $days[7]['days']; ?>" style="width:70px;height:25px">
+                                              <input type="text" id="text9" class="form-control" onkeypress="return isNumberWithoutDash(event)" value="<?php echo $days[7]['days']; ?>" style="width:70px;height:25px">
 
                                             </td>
                                             <td><span> days</span></td>
                                              <td>
                                                  <a id="btn-9" href="javascript:void();">
-                                                    <button class="btn btn-xs btnStyle waves-effect">
+                                                    <button class="btn btn-xs btn-primary waves-effect">
                                                         <i class="material-icons">save</i> 
                                                         <span class="icon-name"> Save</span>
                                                     </button>
@@ -330,41 +330,86 @@ swal({
 <script type="text/javascript">
     $(document).on('click','#btn-1',function(){
         var days=$('#text1').val();
-         $.ajax({
-            url : "<?php echo site_url('admin/SettingsController/updatedDaysLimit');?>",
-            method : "POST",
-            data : {id: '1',days:days},
-            success: function(data){
-              alert('Record Updated');
-                location.reload(); 
-            }
-        });
+
+        if(days !=""){
+            $.ajax({
+                url : "<?php echo site_url('admin/SettingsController/updatedDaysLimit');?>",
+                method : "POST",
+                data : {id: '1',days:days},
+                success: function(data){
+                //   alert('Record Updated');
+                    // location.reload(); 
+                    toastr.success('Record updated', 'Success!');
+                },
+                beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                }   
+            });
+        }else{
+            toastr.error('Please enter value', 'Alert!');
+        }
     });
 
     $(document).on('click','#btn-2',function(){
         var days=$('#text2').val();
-         $.ajax({
-            url : "<?php echo site_url('admin/SettingsController/updatedDaysLimit');?>",
-            method : "POST",
-            data : {id: '2',days:days},
-            success: function(data){
-              alert('Record Updated');
-                location.reload(); 
-            }
-        });
+        if(days !=""){
+            $.ajax({
+                url : "<?php echo site_url('admin/SettingsController/updatedDaysLimit');?>",
+                method : "POST",
+                data : {id: '2',days:days},
+                success: function(data){
+                //   alert('Record Updated');
+                    // location.reload(); 
+                    toastr.success('Record updated', 'Success!');
+                },
+                beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                }   
+            });
+
+        }else{
+            toastr.error('Please enter value', 'Alert!');
+        }
     });
 
     $(document).on('click','#btn-3',function(){
         var days=$('#text3').val();
-         $.ajax({
-            url : "<?php echo site_url('admin/SettingsController/updatedDaysLimit');?>",
-            method : "POST",
-            data : {id: '3',days:days},
-            success: function(data){
-              alert('Record Updated');
-                location.reload(); 
-            }
-        });
+        if(days !=""){
+            $.ajax({
+                url : "<?php echo site_url('admin/SettingsController/updatedDaysLimit');?>",
+                method : "POST",
+                data : {id: '3',days:days},
+                success: function(data){
+                //   alert('Record Updated');
+                    // location.reload(); 
+                    toastr.success('Record updated', 'Success!');
+                },
+                beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                }   
+            });
+
+        }else{
+            toastr.error('Please enter value', 'Alert!');
+        }
     });
 
 </script>
@@ -373,15 +418,30 @@ swal({
 <script type="text/javascript">
      $(document).on('click','#btn-4',function(){
         var days=$('#text4').val();
-         $.ajax({
-            url : "<?php echo site_url('admin/SettingsController/updatedDaysLimit');?>",
-            method : "POST",
-            data : {id: '4',days:days},
-            success: function(data){
-              alert('Record Updated');
-                location.reload(); 
-            }
-        });
+        if(days !=""){
+            $.ajax({
+                url : "<?php echo site_url('admin/SettingsController/updatedDaysLimit');?>",
+                method : "POST",
+                data : {id: '4',days:days},
+                success: function(data){
+                //   alert('Record Updated');
+                    // location.reload(); 
+                    toastr.success('Record updated', 'Success!');
+                },
+                beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                }   
+            });
+
+        }else{
+            toastr.error('Please enter value', 'Alert!');
+        }
     });
 
 </script>
@@ -390,41 +450,86 @@ swal({
 <script type="text/javascript">
     $(document).on('click','#btn-5',function(){
         var days=$('#text5').val();
-         $.ajax({
-            url : "<?php echo site_url('admin/SettingsController/updatedDaysLimit');?>",
-            method : "POST",
-            data : {id: '10',days:days},
-            success: function(data){
-              alert('Record Updated');
-                location.reload(); 
-            }
-        });
+        if(days !=""){
+            $.ajax({
+                url : "<?php echo site_url('admin/SettingsController/updatedDaysLimit');?>",
+                method : "POST",
+                data : {id: '10',days:days},
+                success: function(data){
+                //   alert('Record Updated');
+                    // location.reload(); 
+                    toastr.success('Record updated', 'Success!');
+                },
+                beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                }   
+            });
+
+        }else{
+            toastr.error('Please enter value', 'Alert!');
+        }
     });
 
     $(document).on('click','#btn-6',function(){
         var days=$('#text6').val();
-         $.ajax({
-            url : "<?php echo site_url('admin/SettingsController/updatedDaysLimit');?>",
-            method : "POST",
-            data : {id: '5',days:days},
-            success: function(data){
-              alert('Record Updated');
-                location.reload(); 
-            }
-        });
+        if(days !=""){
+            $.ajax({
+                url : "<?php echo site_url('admin/SettingsController/updatedDaysLimit');?>",
+                method : "POST",
+                data : {id: '5',days:days},
+                success: function(data){
+                //   alert('Record Updated');
+                    // location.reload(); 
+                    toastr.success('Record updated', 'Success!');
+                },
+                beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                }   
+            });
+
+        }else{
+            toastr.error('Please enter value', 'Alert!');
+        }
     });
 
     $(document).on('click','#btn-godownText',function(){
         var days=$('#godownText').val();
-         $.ajax({
-            url : "<?php echo site_url('admin/SettingsController/updatedDaysLimit');?>",
-            method : "POST",
-            data : {id: '11',days:days},
-            success: function(data){
-              alert('Record Updated');
-                location.reload(); 
-            }
-        });
+        if(days !=""){
+            $.ajax({
+                url : "<?php echo site_url('admin/SettingsController/updatedDaysLimit');?>",
+                method : "POST",
+                data : {id: '11',days:days},
+                success: function(data){
+                //   alert('Record Updated');
+                    // location.reload(); 
+                    toastr.success('Record updated', 'Success!');
+                },
+                beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                }   
+            });
+
+        }else{
+            toastr.error('Please enter value', 'Alert!');
+        }
     });
 
 </script>
@@ -432,41 +537,86 @@ swal({
 <script type="text/javascript">
     $(document).on('click','#btn-7',function(){
         var days=$('#text7').val();
-         $.ajax({
-            url : "<?php echo site_url('admin/SettingsController/updatedDaysLimit');?>",
-            method : "POST",
-            data : {id: '6',days:days},
-            success: function(data){
-              alert('Record Updated');
-                location.reload(); 
-            }
-        });
+        if(days !=""){
+            $.ajax({
+                url : "<?php echo site_url('admin/SettingsController/updatedDaysLimit');?>",
+                method : "POST",
+                data : {id: '6',days:days},
+                success: function(data){
+                //   alert('Record Updated');
+                    // location.reload(); 
+                    toastr.success('Record updated', 'Success!');
+                },
+                beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                }   
+            });
+
+        }else{
+            toastr.error('Please enter value', 'Alert!');
+        }
     });
 
     $(document).on('click','#btn-8',function(){
         var days=$('#text8').val();
-         $.ajax({
-            url : "<?php echo site_url('admin/SettingsController/updatedDaysLimit');?>",
-            method : "POST",
-            data : {id: '7',days:days},
-            success: function(data){
-              alert('Record Updated');
-                location.reload(); 
-            }
-        });
+        if(days !=""){
+            $.ajax({
+                url : "<?php echo site_url('admin/SettingsController/updatedDaysLimit');?>",
+                method : "POST",
+                data : {id: '7',days:days},
+                success: function(data){
+                //   alert('Record Updated');
+                    // location.reload(); 
+                    toastr.success('Record updated', 'Success!');
+                },
+                beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                }   
+            });
+
+        }else{
+            toastr.error('Please enter value', 'Alert!');
+        }
     });
 
     $(document).on('click','#btn-9',function(){
         var days=$('#text9').val();
-         $.ajax({
-            url : "<?php echo site_url('admin/SettingsController/updatedDaysLimit');?>",
-            method : "POST",
-            data : {id: '8',days:days},
-            success: function(data){
-              alert('Record Updated');
-                location.reload(); 
-            }
-        });
+        if(days !=""){
+            $.ajax({
+                url : "<?php echo site_url('admin/SettingsController/updatedDaysLimit');?>",
+                method : "POST",
+                data : {id: '8',days:days},
+                success: function(data){
+                //   alert('Record Updated');
+                    // location.reload(); 
+                    toastr.success('Record updated', 'Success!');
+                },
+                beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                }   
+            });
+
+        }else{
+            toastr.error('Please enter value', 'Alert!');
+        }
     });
 
     $("input[type='text']").on("click", function () {
@@ -477,17 +627,31 @@ swal({
  <script type="text/javascript">
     $(document).on('click','#billDaysCompanyID',function(){
         var days= $("#billdays").val();
-        
+        if(days !=""){
         // alert(days);die();
-        $.ajax({
-            url : "<?php echo site_url('admin/SettingsController/updatedCompanyDaysLimit');?>",
-            method : "POST",
-            data : {id: '1',days:days},
-            success: function(data){
-              alert('Record Updated');
-                location.reload(); 
-            }
-        });
+            $.ajax({
+                url : "<?php echo site_url('admin/SettingsController/updatedCompanyDaysLimit');?>",
+                method : "POST",
+                data : {id: '1',days:days},
+                success: function(data){
+                //   alert('Record Updated');
+                    // location.reload(); 
+                    toastr.success('Record updated', 'Success!');
+                },
+                beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                }   
+            });
+
+        }else{
+            toastr.error('Please enter value', 'Alert!');
+        }
     });
  </script>
 
@@ -507,7 +671,9 @@ swal({
             }
         }
         if(companyCount != newArray.length){
-            alert('Please enter all details');die();
+            toastr.error('Please enter all details', 'Alert!');
+            // alert('Please enter all details');
+            die();
         }
 
         $.ajax({
@@ -515,9 +681,30 @@ swal({
             method : "POST",
             data : {id: '4',days:days},
             success: function(data){
-              alert('Record Updated');
-                location.reload(); 
-            }
+            //   alert('Record Updated');
+                // location.reload(); 
+                toastr.success('Record updated', 'Success!');
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            }   
         });
     });
  </script>
+
+<script>
+    function isNumberWithoutDash(evt) {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if ((charCode < 48 || charCode > 57) ) {
+            return false;
+        }
+        return true;
+    }
+</script>

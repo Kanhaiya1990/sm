@@ -34,13 +34,10 @@ li{
             <div class="row clearfix" id="page">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
-                      <div class="header flex-div">
+                      <div class="header">
                             <h2>
-                            Cheque Deposit Slip
+                            Cheque Deposit Slip :  <?php echo $title; ?>
                          </h2>
-                         <p class="m-b-0">
-                           <?php echo $title; ?>
-                         </p>
                       </div>
                      <div class="body">
                         
@@ -48,7 +45,7 @@ li{
                         <div class="row m-t-20">
                             <div class="col-md-12">
                               <div class="table-responsive">
-                                   <table id="#chk-reg-tbl" class="table table-bordered cust-tbl js-exportable dataTable" data-page-length="100" role="grid" aria-describedby="#chk-reg-tbl_info">
+                                   <table id="#chk-reg-tbl" style="font-size: 12px" class="table table-bordered table-striped table-hover js-exportable dataTable" data-page-length='100'>
                                     <thead>
                                         <tr>
                                             <th> Sr No.</th>

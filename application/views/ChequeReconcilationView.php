@@ -33,19 +33,21 @@ li{
       <div class="row clearfix" id="page">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <div class="card">
-            <div class="header flex-div">
+            <div class="header">
               <h2>
                Cheque Reconciliation
              </h2>
+             <div align="right">
               <p align="right">
-                  <button align="right" type="button" id="insert-ins" class="btn btn-xs btn-primary btnStyle m-t-15 waves-effect"> <i class="material-icons">save</i><span class="icon-name">Clear All</span></button>
+                  <button align="right" type="button" id="insert-ins" class="btn btn-xs btn-primary m-t-15 waves-effect"> <i class="material-icons">save</i><span class="icon-name">Clear All</span></button>
               </p>
-               <!-- <form method="post" role="form" enctype="multipart/form-data" action="<?php// echo site_url('CashAndChequeController/saveChequeReconcilation'); ?>"> 
+               <!-- <form method="post" role="form" enctype="multipart/form-data" action="<?php echo site_url('CashAndChequeController/saveChequeReconcilation'); ?>"> 
                                              
                       <button class="btn btn-primary m-t-15 waves-effect btn-sm">
                               <span class="icon-name">Save</span>
                       </button> 
               </form> -->
+            </div>
            </div>
            <div class="body">
             <div class="row">                                  
@@ -57,7 +59,7 @@ li{
                         <tr class="gray">
                         <th><input class="checkall" type="checkbox" name="selValue" id="basic_checkbox"/><label for="basic_checkbox"></label>Select All</th>
                                             
-                        <th>No</th>
+                        <th>S. No.</th>
                         <th>Retailer Name</th>
                         <th>Cheque No.</th>
                         <th>Cheque Date</th>
@@ -141,7 +143,7 @@ li{
                                 <!-- </a>      -->
                               
                               <td> 
-                                  <button data-toggle="modal" data-id="<?php echo $data['id'];?>" data-target="#myModal" class="identifyingClass btn btnStyle waves-effect" data-type="basic" id="taginfo">Bounced 
+                                  <button data-toggle="modal" data-id="<?php echo $data['id'];?>" data-target="#myModal" class="identifyingClass btn btn-primary waves-effect" data-type="basic" id="taginfo">Bounced 
                                   </button>
                               </td>
                           <?php }else{ 
@@ -241,7 +243,7 @@ li{
                       <tfoot>
                        <tr class="gray">
                         <th></th>
-                        <th>No</th>
+                        <th>S. No.</th>
                         <th>Retailer Name</th>
                         <th>Cheque No.</th>
                         <th>Cheque Date</th>
@@ -318,18 +320,6 @@ li{
 </div>
 </div>
 
-<!-- <script type="text/javascript">
-    $(function () {
-        $("#sbmt").click(function () {
-            var penalty = $('#penalty').val();
-            alert(penalty);
-            die();
-            if(penalty==null || penalty=="Select Penalty"){
-                alert('Please select Penalty');
-            }
-        })
-    });
-</script> -->
 <?php $this->load->view('/layouts/footerDataTable'); ?>
 <script type="text/javascript">
   function loadCustData() {  
@@ -349,6 +339,11 @@ li{
 </script>
 
 <script type="text/javascript">
+
+$(document).on('click','#sbmt',function(){
+    $("#sbmt").attr("disabled", true);
+});
+
 
 $(document).on('click','.identifyingClass',function(){
 
@@ -378,7 +373,16 @@ $(document).on('click','.identifyingClass',function(){
                   // $('#result_data').html(data);
                   // window.parent.location.reload(true);
                     // document.getElementById('err').innerHTML=data;
-                }  
+                },
+                beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                }   
             });
         }
 
@@ -475,7 +479,16 @@ $(document).on('click','.identifyingClass',function(){
                             $(this).attr('checked', false);
                         });      
                         window.location.href="<?php echo base_url();?>index.php/CashAndChequeController/ChequeReconcilation";
-                    }  
+                    },
+                    beforeSend: function(){
+                      $('.comman-ajax-loader').css("visibility", "visible");
+                  },
+                  complete: function(){
+                      $('.comman-ajax-loader').css("visibility", "hidden");
+                  },
+                  error: function(jqXHR, exception) {
+                      alert("Something Went Wrong, Please Try Again...!");
+                  }   
                 });
             }
         }else{

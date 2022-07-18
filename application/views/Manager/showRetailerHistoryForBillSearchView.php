@@ -70,15 +70,16 @@ tr.shown td.details-control {
                             <h2>
                              Retailer History
                             </h2>
+                       
                         </div>
                       
                         <div class="body">
                             
-                            <div class="row clearfix cust-tbl">
+                            <div class="row clearfix">
                             <!-- <div class="demo-masked-input"> -->
                                 
                                   <div class="col-md-12"> 
-                                    <div class="col-md-3">
+                                    <div class="col-md-6">
                                         <b>Retailer</b>
                                         <div class="input-group">
                                             <span class="input-group-addon">
@@ -153,25 +154,26 @@ tr.shown td.details-control {
                                     </div>
                                   
                                         <div class="col-md-3">
-                                            <button id="searchInfo" class="btn btn-xs btnStyle m-t-10 waves-effect">
+                                            <button id="searchInfo" class="btn btn-xs btn-primary m-t-15 waves-effect">
                                                 <i class="material-icons">search</i> 
                                                 <span class="icon-name">
-                                                 Search 
+                                                 Search
                                                 </span>
                                             </button>
                                            <a href="<?php echo site_url('AdHocController/retailerHistory');?>">
-                                                <button type="button" class="btn btn-sm btn-danger m-t-10 waves-effect">
+                                                <button type="button" class="btn btn-xs btn-primary m-t-15 waves-effect">
                                                     <i class="material-icons">cancel</i> 
                                                     <span class="icon-name"> Cancel</span>
                                                 </button>
                                             </a> 
-                                        </div>   
+                                        </div>
+
+                                        
                                     </div> 
                                     <div id="hideInfo" class="col-md-12"> 
-                                    <div class="table-responsive">
+                                        <div class="table-responsive">
 
-                                    <!-- <table style="font-size: 12px;" class="table table-bordered cust-tbl dataTable js-exportable" data-page-length='100'> -->
-                                    <table class="table table-bordered cust-tbl dataTable js-exportable" data-page-length="100" id="DataTables_Table_0">
+                                             <table style="font-size: 12px;" class="table table-bordered table-striped table-hover dataTable js-exportable" data-page-length='100'>
         <thead>
             <tr colspan="8">
                  <th>
@@ -218,42 +220,39 @@ tr.shown td.details-control {
 
         </tbody>
         </table>
-     <!-- <table id="xp" style="font-size: 12px;" class="table table-bordered cust-tbl dataTable js-exportable" data-page-length='100'> -->
-    <table id="xp" class="table table-bordered cust-tbl dataTable js-exportable" data-page-length="100" aria-describedby="xp_info">
+     <table id="xp" style="font-size: 12px;" class="table table-bordered table-striped table-hover dataTable js-exportable" data-page-length='100'>
         <thead>
             <tr>
                  <th> Bill No  </th>
-                 <th> Bill Date</th>
-                 <th> Salesman </th>
-                 <th> Amount </th>
+                 <th>Bill Date</th>
+                <th> Salesman </th>
+                 <th> Net Amount </th>
                  <th> SR  </th>
-                 <th> CD  </th>
+                  <th> CD  </th>
                  <th> Collection </th>
-                 <th> Office  </th>
-                 <th> Other  </th>
-                 <th> Debit </th>
-                 <th> Remaining  </th>
-                 <th> Penalty  </th>
-				 <!--<th> Cheque Penalty  </th>-->
-                 <th> Action  </th>
-                 <th> Status  </th>
+                 <th> Office Adj  </th>
+                 <th> Other Adj  </th>
+                  <th> Debit </th>
+                  <th> Remaining  </th>
+                  <th> Cheque Penalty  </th>
+                  <th> Action  </th>
+                  <th> Status  </th>
             </tr>
         </thead>
         <tfoot>
-            <tr> 
-                <th> Bill No  </th>
-                <th> Bill Date</th>
+            <tr>
+                 <th> Bill No  </th>
+                 <th>Bill Date</th>
                 <th> Salesman </th>
-                <th> Amount </th>
-                <th> SR  </th>
-                <th> CD  </th>
-                <th> Collection </th>
-                 <th> Office  </th>
-                 <th> Other  </th>
+                 <th> Net Amount </th>
+                 <th> SR  </th>
+                  <th> CD  </th>
+                 <th> Collection </th>
+                 <th> Office Adj  </th>
+                 <th> Other Adj  </th>
                   <th> Debit </th>
                   <th> Remaining  </th>
-				  <th> Penalty  </th>
-                  <!--<th> Cheque Penalty  </th>-->
+                  <th> Cheque Penalty  </th>
                   <th> Action  </th>
                   <th> Status </th>
             </tr>
@@ -277,17 +276,12 @@ tr.shown td.details-control {
                     <?php } ?>
                         
                         <td><?php echo $data['billNo']; ?></td>
-                        <td class="noSpace"><?php echo $createdDate; ?></td>
-                       
-						<td class="CellWithComment"><?php 
-						    $salesman=substr($data['salesman'], 0, 10);
-                            echo rtrim($salesman);?>
-							<span class="CellComment"><?php echo $result =substr($data['salesman'],0); ?></span>
-						</td>
+                        <td><?php echo $createdDate; ?></td>
+                        <td><?php echo $data['salesman']; ?></td>
                         <td><?php echo $data['netAmount']; ?></td>
                         <td><?php echo $data['SRAmt']; ?></td>
-                        <td><?php echo $data['cd']; ?></td>
-                        <td><?php echo $data['receivedAmt']; ?></td>
+                         <td><?php echo $data['cd']; ?></td>
+                         <td><?php echo $data['receivedAmt']; ?></td>
                         <td><?php echo $data['officeAdjustmentBillAmount']; ?></td>
                         <td><?php echo $data['otherAdjustment']; ?></td>
                         <td><?php echo $data['debit']; ?></td>
@@ -345,18 +339,18 @@ tr.shown td.details-control {
                             <a id="billHistory" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-code="<?php echo $data['retailerCode']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-route="<?php echo $data['routeName']; ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-toggle="modal" data-target="#billprocessModal"><button class="btn btn-xs bg-primary margin"><i class="material-icons">visibility</i> </button></a>
                             <a id="billHistoryProcess" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-code="<?php echo $data['retailerCode']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-route="<?php echo $data['routeName']; ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-toggle="modal" data-target="#retailerprocessModal"><button class="btn btn-xs bg-primary margin">Process</button></a>
                         </td> -->
-                        <td class="noSpace">
-                        <?php if($data['isAllocated']!=1 && $data['pendingAmt'] >0){ ?>
-                        <a id="prDetailsForAll" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-billDate="<?php echo $dt1; ?>" data-credAdj="<?php echo $data['creditAdjustment']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-route="<?php echo $data['routeName']; ?>" data-toggle="modal" data-target="#processModalForAll" ><button class="btn btn-xs process-btn waves-effect waves-float" data-toggle="tooltip" data-placement="bottom" title="Process"><i class="material-icons">touch_app</i></button></a>
+                        <td>
+                            <?php if($data['isAllocated']!=1 && $data['pendingAmt'] >0){ ?>
+                                <a id="prDetailsForAll" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-billDate="<?php echo $dt1; ?>" data-credAdj="<?php echo $data['creditAdjustment']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-route="<?php echo $data['routeName']; ?>" data-toggle="modal" data-target="#processModalForAll" ><button class="btn btn-xs btn-primary waves-effect waves-float" data-toggle="tooltip" data-placement="bottom" title="Process"><i class="material-icons">touch_app</i></button></a>
                                                
-                        <!-- <a id="prDetails" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-salesman="<?php echo $data['salesman']; ?>"  data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-toggle="modal" data-target="#processModal"><button class="btn btn-xs btn-primary waves-effect"><i class="material-icons">auto_fix_high</i> </button></a> -->
-                        <!-- <a id="billHistory" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-code="<?php echo $data['retailerCode']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-route="<?php echo $data['routeName']; ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-toggle="modal" data-target="#billprocessModal"><button class="btn btn-xs btn-primary waves-effect"><i class="material-icons">info</i> </button></a> -->
-                        <a href="<?php echo site_url('AdHocController/billHistoryInfo/'.$data['id']); ?>" class="btn btn-xs history-btn" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
-                        <a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs viewBill-btn" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
+                            <!-- <a id="prDetails" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-salesman="<?php echo $data['salesman']; ?>"  data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-toggle="modal" data-target="#processModal"><button class="btn btn-xs btn-primary waves-effect"><i class="material-icons">auto_fix_high</i> </button></a> -->
+                                <!-- <a id="billHistory" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-code="<?php echo $data['retailerCode']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-route="<?php echo $data['routeName']; ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-toggle="modal" data-target="#billprocessModal"><button class="btn btn-xs btn-primary waves-effect"><i class="material-icons">info</i> </button></a> -->
+                                &nbsp;<a href="<?php echo site_url('AdHocController/billHistoryInfo/'.$data['id']); ?>" class="btn btn-xs btn-primary" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
+                                &nbsp;<a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs  btn-primary" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
                                                   
-                        <?php  }else{ ?>
-                        <a href="<?php echo site_url('AdHocController/billHistoryInfo/'.$data['id']); ?>" class="btn btn-xs history-btn" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
-                            <a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs viewBill-btn" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
+                            <?php  }else{ ?>
+                                    &nbsp;&nbsp;<a href="<?php echo site_url('AdHocController/billHistoryInfo/'.$data['id']); ?>" class="btn btn-xs btn-primary" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
+                                    &nbsp;&nbsp;<a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs  btn-primary" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
                               <?php } ?>             
                         </td>
                         
@@ -410,7 +404,7 @@ tr.shown td.details-control {
                                     <b>Bill No : </b> <span id='bill_no'></span>
                                     <input type="hidden" id="currentBillNo" autocomplete="off" name="currentBillNo" class="form-control"> 
                                     <input type="hidden" id="currentBillId" autocomplete="off" name="currentBillId" class="form-control"> 
-                                    <input type="hidden" id="currentBillRetailer" autocomplete="off" name="currentBillRetailer" class="form-control">    
+                                     <input type="hidden" id="currentBillRetailer" autocomplete="off" name="currentBillRetailer" class="form-control">    
                                 </div> 
 
                                 <div class="col-md-3">
@@ -444,7 +438,10 @@ tr.shown td.details-control {
 </div>
 
 <?php $this->load->view('/layouts/footerDataTable'); ?>
+
 <?php $this->load->view('/layouts/processButtonView'); ?>
+
+
 
 <script type="text/javascript">
     $(document).on('keypress','#retailer',function(e){

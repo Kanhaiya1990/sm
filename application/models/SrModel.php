@@ -11,8 +11,7 @@ class SrModel extends CI_Model {
         $this->db->where('allocationId', $allocationId);
         $this->db->where('transactionStatus', $type);
         $resultset=$this->db->get($tableName); 
-        $this->db->close();
-        $this->db->initialize();
+        
         return $resultset->result_array();
     }
 
@@ -30,8 +29,7 @@ class SrModel extends CI_Model {
         $this->db->where('billpayments.otherAdjustmentApproval',0);
         $this->db->group_by('bills.id');
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -42,8 +40,7 @@ class SrModel extends CI_Model {
         // $this->db->where('status', 1);
         $this->db->where('isDeleted', 0);
         $resultset=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize(); 
+         
         return $resultset->result_array();
     }
 
@@ -51,8 +48,7 @@ class SrModel extends CI_Model {
         $this->db->where('billId', $billId);
         $this->db->where('allocationId', $allocationId);
         $this->db->where('transactionStatus', $type);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $this->db->update($tblName, $data);  
     }
 
@@ -72,8 +68,7 @@ class SrModel extends CI_Model {
         }else{
             $sql="SELECT sum(paidAmount) as amt FROM `billpayments` WHERE billId=".$id." and paymentMode='".$type."'";    
             $query = $this->db->query($sql);
-            $this->db->close();
-        $this->db->initialize();
+            
             return $query->result_array(); 
         }
         
@@ -98,8 +93,7 @@ class SrModel extends CI_Model {
         $this->db->order_by($orderField, $orderDirection);
         $this->db->limit($limit, $start);
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -120,8 +114,7 @@ class SrModel extends CI_Model {
         $this->db->group_by('bills.id');
         $this->db->order_by($orderField, $orderDirection);
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->num_rows();
     }
 
@@ -153,8 +146,7 @@ class SrModel extends CI_Model {
         $this->db->order_by($orderField, $orderDirection);
         $this->db->limit($limit, $start);
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -185,8 +177,7 @@ class SrModel extends CI_Model {
         $this->db->group_by('bills.id');
         $this->db->order_by($orderField, $orderDirection);
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->num_rows();
     }
 
@@ -211,8 +202,7 @@ class SrModel extends CI_Model {
         $this->db->order_by($orderField, $orderDirection);
         $this->db->limit($limit, $start);
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -236,8 +226,7 @@ class SrModel extends CI_Model {
         $this->db->group_by('bills.id');
         $this->db->order_by($orderField, $orderDirection);
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->num_rows();
     }
 
@@ -258,8 +247,7 @@ class SrModel extends CI_Model {
         $this->db->order_by($orderField, $orderDirection);
         $this->db->limit($limit, $start);
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -280,16 +268,14 @@ class SrModel extends CI_Model {
         $this->db->group_by('bills.id');
         $this->db->order_by($orderField, $orderDirection);
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->num_rows();
     }
 
     public function getdata($tableName)
     {
         $query=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -297,16 +283,14 @@ class SrModel extends CI_Model {
         $this->db->distinct();
         $this->db->select('salesman');
         $data=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $data->result_array();
     }
 
     public function loadRetailer($id) {
         $sql="select * from retailer where code='".$id."'";
         $query = $this->db->query($sql);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();   
     } 
     
@@ -316,8 +300,7 @@ class SrModel extends CI_Model {
         $this->db->where('fsStatus',0);
         $this->db->where('isAllocationComplete',0);
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -328,8 +311,7 @@ class SrModel extends CI_Model {
          $this->db->join('route','route.id=allocations.routId');
         $this->db->group_by('allocation_sr_details.allocationId');
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -339,8 +321,7 @@ class SrModel extends CI_Model {
         $this->db->join('billsdetails','billsdetails.id=allocation_sr_details.billItemId');
         $this->db->where('allocation_sr_details.allocationId',0);
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -350,8 +331,7 @@ class SrModel extends CI_Model {
         $this->db->join('billsdetails','billsdetails.id=allocation_sr_details.billItemId');
         $this->db->where('allocation_sr_details.allocationId',$id);
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -364,8 +344,7 @@ class SrModel extends CI_Model {
         $this->db->order_by('allocations.id','desc');
         $this->db->limit(1); 
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -382,8 +361,7 @@ class SrModel extends CI_Model {
         $this->db->order_by('allocations.id','desc');
         $this->db->limit(1); 
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -397,8 +375,7 @@ class SrModel extends CI_Model {
         $this->db->order_by('allocations.id','desc');
         $this->db->limit(1); 
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -412,8 +389,7 @@ class SrModel extends CI_Model {
         $this->db->order_by('allocations_officeadjustment.id','desc');
         $this->db->limit(1); 
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -426,8 +402,7 @@ class SrModel extends CI_Model {
         $this->db->order_by('allocations_officeadjustment.id','desc');
         $this->db->limit(1); 
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -437,8 +412,7 @@ class SrModel extends CI_Model {
         $this->db->join('route','route.id=allocations.routId');
         $this->db->where('allocations.id',$id);
         $query=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -455,8 +429,7 @@ class SrModel extends CI_Model {
         $this->db->where('billsdetails.managerSrStatus',2);
         $this->db->from($tableName);
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     } 
 
@@ -472,8 +445,7 @@ class SrModel extends CI_Model {
         $this->db->join('bills','bills.id=billsdetails.billId');
         $this->db->where('billsdetails.managerSrStatus',3);
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     } 
 
@@ -482,8 +454,7 @@ class SrModel extends CI_Model {
         $this->db->from('route');
         $this->db->where('code',$code);   
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -526,8 +497,7 @@ class SrModel extends CI_Model {
 
     public function show($tblName) {
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
      public function delete($tblName,$id)
@@ -538,24 +508,21 @@ class SrModel extends CI_Model {
     public function load($tblName, $id) {
         $this->db->where('id', $id);
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();   
     }
 
     public function getGstNo($tblName, $name) {
         $this->db->where('name', $name);
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();   
     }
 
     public function loadByBillId($tblName, $id) {
         $this->db->where('billId', $id);
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();   
     }
 
@@ -564,16 +531,14 @@ class SrModel extends CI_Model {
         $this->db->join('billsdetails','bills.id=billsdetails.billId');
         $this->db->where('billsdetails.id',$id);
         $result=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $result->result_array();
     }
      
     public function prodDetails($tableName,$name){
         $this->db->where('name',$name);
         $result=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $result->result_array();
     } 
      
@@ -582,8 +547,7 @@ class SrModel extends CI_Model {
         $this->db->select("bills.*,bills.retailerName as name");
         // $this->db->join("retailer","bills.retailerCode = retailer.code");
         $resultset=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $resultset->result_array();
     }
      public function getSalesReturnDS($tableName)
@@ -592,8 +556,7 @@ class SrModel extends CI_Model {
         // $this->db->join("retailer","bills.retailerCode = retailer.code");
         $this->db->where("billType","deliveryslip");
         $resultset=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $resultset->result_array();
     }
 
@@ -603,8 +566,7 @@ class SrModel extends CI_Model {
         $this->db->join("bills","billsdetails.billId = bills.id");
         // $this->db->join("retailer","bills.retailerCode = retailer.code");
         $resultset=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $resultset->result_array();
     }
     public function loadBillDetails($tableName, $id)
@@ -615,8 +577,7 @@ class SrModel extends CI_Model {
         $this ->db->where('billsdetails.billId', $id);
         // $this->db->order_by('billsdetails.date', 'desc');
         $resultset=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $resultset->result_array();
     }
 
@@ -627,8 +588,7 @@ class SrModel extends CI_Model {
         // $this->db->join("retailer","bills.retailerCode = retailer.code");
         $this ->db->where('billsdetails.id', $id);
         $resultset=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $resultset->result_array();
     }
 
@@ -666,8 +626,7 @@ class SrModel extends CI_Model {
         $this->db->like('FsBillStatus', 'SR');
          $this->db->not_like('FsBillStatus', 'FSR');
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
    }
 
@@ -688,8 +647,7 @@ class SrModel extends CI_Model {
         // $this->db->where('billsdetails.signBillAcceptStatus !=',2);
         //  $this->db->where('billsdetails.signBillAcceptStatus !=',1);
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -704,8 +662,7 @@ class SrModel extends CI_Model {
         $this->db->where('allocationsbills.allocationId',$id);
         $this->db->where('bills.isLostBill',0);
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -724,8 +681,7 @@ class SrModel extends CI_Model {
         // $this->db->where('billsdetails.signBillAcceptStatus !=',2);
         //  $this->db->where('billsdetails.signBillAcceptStatus !=',1);
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -738,8 +694,7 @@ class SrModel extends CI_Model {
         $this->db->where('allocationsbills.allocationId',$id);
         $this->db->like('FsBillStatus', 'Resend');
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
    }
 
@@ -756,8 +711,7 @@ class SrModel extends CI_Model {
         $this->db->where('billsdetails.managerSrStatus !=',3);
         $this->db->like('bills.fsbillStatus', 'FSR');
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
    }
 
@@ -767,8 +721,7 @@ class SrModel extends CI_Model {
         $this->db->where('billsdetails.id',$id);
         $this->db->from($tableName);
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
    }
 
@@ -778,8 +731,7 @@ class SrModel extends CI_Model {
         $this->db->join('bills','bills.id=billsdetails.billId');
         $this->db->where('billsdetails.billId',$id);
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
    }
 
@@ -790,8 +742,7 @@ class SrModel extends CI_Model {
         $this->db->join('allocations','allocations.id=allocationsbills.allocationId');
         $this->db->where('billsdetails.id',$id);
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
    }
 
@@ -804,8 +755,7 @@ class SrModel extends CI_Model {
         $this->db->join('bills','bills.id=billsdetails.billId');
         $this->db->where('billsdetails.id',$id);
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
    }
 
@@ -818,8 +768,7 @@ class SrModel extends CI_Model {
         $this->db->join('bills','bills.id=billsdetails.billId');
         $this->db->where('billsdetails.billId',$id);
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
    }
 
@@ -837,8 +786,7 @@ class SrModel extends CI_Model {
         // $this->db->not_like('FsBillStatus', 'FSR');
         $this->db->from($tableName);
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -855,8 +803,7 @@ class SrModel extends CI_Model {
         $this->db->where('allocations.id',$id);
         $this->db->like('FsBillStatus', 'FSR');
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
    }
 
@@ -874,8 +821,7 @@ class SrModel extends CI_Model {
         // $this->db->not_like('FsBillStatus', 'FSR');
         $this->db->from($tableName);
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
     
@@ -895,8 +841,7 @@ class SrModel extends CI_Model {
         // $this->db->not_like('FsBillStatus', 'FSR');
         $this->db->from($tableName);
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
     
@@ -915,8 +860,7 @@ class SrModel extends CI_Model {
         $this->db->like('FsBillStatus', 'FSR');
          $this->db->from($tableName);
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -933,8 +877,7 @@ class SrModel extends CI_Model {
         // $this->db->like('FsBillStatus', 'SR');
         // $this->db->not_like('FsBillStatus', 'FSR');
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -952,8 +895,7 @@ class SrModel extends CI_Model {
         // $this->db->where('allocations.id',$id);
         $this->db->like('FsBillStatus', 'FSR');
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
    }
 
@@ -978,16 +920,14 @@ class SrModel extends CI_Model {
     public function lostCheque($tblName){
         $qry="SELECT distinct bills.*,route.name as rname,employee.name as ename,billpayments.id as bpayId,billpayments.paidAmount as paidAmt,billpayments.paymentMode as payMode,DATE(billpayments.date) as bdate from billpayments join bills on bills.id=billpayments.billId join allocations on allocations.id=billpayments.allocationId join allocationsbills on allocations.id=allocationsbills.allocationId join route on route.id=allocations.routId join employee on employee.id=allocations.fieldstaffCode1 where (billpayments.id in (SELECT MAX(billpayments.id) from billpayments where billpayments.paymentMode='Cheque' and billpayments.isLostStatus=1 and billpayments.paidAmount >0 GROUP by billpayments.billId)) and bills.pendingAmt >0 GROUP by bills.id ORDER by billpayments.id desc";
         $query=$this->db->query($qry);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
      public function lostChequeWithComp($tblName,$comp){
         $qry="SELECT distinct bills.*,route.name as rname,employee.name as ename,billpayments.id as bpayId,billpayments.paidAmount as paidAmt,billpayments.paymentMode as payMode,DATE(billpayments.date) as bdate from billpayments join bills on bills.id=billpayments.billId join allocations on allocations.id=billpayments.allocationId join allocationsbills on allocations.id=allocationsbills.allocationId join route on route.id=allocations.routId join employee on employee.id=allocations.fieldstaffCode1 where (billpayments.id in (SELECT MAX(billpayments.id) from billpayments where billpayments.paymentMode='Cheque' and billpayments.isLostStatus=1 and billpayments.paidAmount >0 GROUP by billpayments.billId)) and bills.pendingAmt >0 and bills.compName='$comp' GROUP by bills.id ORDER by billpayments.id desc";
         $query=$this->db->query($qry);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
     
@@ -1007,16 +947,14 @@ class SrModel extends CI_Model {
         $this->db->where('billId', $billId);
         $this->db->where('allocationId', $allocationId);
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();  
     }
 
     public function lostNeft($tblName){
         $qry="SELECT distinct bills.*,employee.name as ename,billpayments.id as bpayId,billpayments.paidAmount as paidAmt,billpayments.paymentMode as payMode,DATE(billpayments.date) as bdate from bills join billpayments on bills.id=billpayments.billId join allocations on allocations.id=billpayments.allocationId join allocationsbills on allocations.id=allocationsbills.allocationId join employee on employee.id=allocations.fieldstaffCode1 where (billpayments.paymentMode='NEFT') and (billpayments.isLostStatus=1 and bills.pendingAmt >0) GROUP by bills.id ORDER by billpayments.id desc";
         $query=$this->db->query($qry);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
     
@@ -1030,8 +968,7 @@ class SrModel extends CI_Model {
     public function lostNeftWithComp($tblName,$comp){
         $qry="SELECT distinct bills.*,route.name as rname,employee.name as ename,billpayments.id as bpayId,billpayments.paidAmount as paidAmt,billpayments.paymentMode as payMode,DATE(billpayments.date) as bdate from billpayments join bills on bills.id=billpayments.billId join allocations on allocations.id=billpayments.allocationId join allocationsbills on allocations.id=allocationsbills.allocationId join route on route.id=allocations.routId join employee on employee.id=allocations.fieldstaffCode1 where (billpayments.id in (SELECT MAX(billpayments.id) from billpayments where billpayments.paymentMode='NEFT' and billpayments.isLostStatus=1 and billpayments.paidAmount >0 GROUP by billpayments.billId)) and bills.pendingAmt >0 and bills.compName='$comp' GROUP by bills.id ORDER by billpayments.id desc";
         $query=$this->db->query($qry);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -1061,8 +998,7 @@ class SrModel extends CI_Model {
         $this->db->where('bills.deliveryStatus !=',"cancelled");
         $this->db->group_by('bills.id');
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -1074,8 +1010,7 @@ class SrModel extends CI_Model {
         $this->db->where('bills.deliveryStatus !=',"cancelled");
         $this->db->group_by('bills.id');
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -1088,8 +1023,7 @@ class SrModel extends CI_Model {
         $this->db->where('bills.compName',$company);
         $this->db->group_by('bills.id');
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -1107,8 +1041,7 @@ class SrModel extends CI_Model {
         $this->db->order_by('allocations.id','asc');
         $this->db->group_by('bills.id');
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
    }
 
@@ -1127,8 +1060,7 @@ class SrModel extends CI_Model {
         $this->db->order_by('allocations.id','asc');
         $this->db->group_by('bills.id');
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
    }
 
@@ -1153,8 +1085,7 @@ class SrModel extends CI_Model {
         $this->db->order_by('allocations.id','desc');
         $this->db->group_by('bills.id');
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
    }
 
@@ -1180,8 +1111,7 @@ class SrModel extends CI_Model {
         $this->db->order_by('allocations.id','desc');
         $this->db->group_by('bills.id');
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
    }
 
@@ -1201,8 +1131,7 @@ class SrModel extends CI_Model {
          $this->db->order_by('allocations.id','desc');
         $this->db->group_by('bills.id');
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
    }
 
@@ -1227,8 +1156,7 @@ class SrModel extends CI_Model {
          $this->db->order_by('allocations.id','desc');
         $this->db->group_by('bills.id');
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
    }
 
@@ -1251,8 +1179,7 @@ class SrModel extends CI_Model {
          $this->db->order_by('allocations.id','desc');
         $this->db->group_by('bills.id');
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
    }
 
@@ -1278,8 +1205,7 @@ class SrModel extends CI_Model {
          $this->db->order_by('allocations.id','desc');
         $this->db->group_by('bills.id');
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
    }
    
@@ -1293,8 +1219,7 @@ class SrModel extends CI_Model {
         $this->db->where('bills.fsbillStatus','Resend');
         $this->db->where('bills.id',$id);
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
    }
    
@@ -1314,8 +1239,7 @@ class SrModel extends CI_Model {
         $this->db->like('FsBillStatus', 'SR');
          $this->db->not_like('FsBillStatus', 'FSR');
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
    }
 
@@ -1331,8 +1255,7 @@ class SrModel extends CI_Model {
         // $this->db->where('allocations.id',$id);
         $this->db->like('FsBillStatus', 'FSR');
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
    }
 
@@ -1351,8 +1274,7 @@ class SrModel extends CI_Model {
         $this->db->like('FsBillStatus', 'SR');
          $this->db->not_like('FsBillStatus', 'FSR');
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
    }
 
@@ -1369,8 +1291,7 @@ class SrModel extends CI_Model {
         // $this->db->where('allocations.id',$id);
         $this->db->like('FsBillStatus', 'FSR');
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
    }
    
@@ -1380,8 +1301,7 @@ class SrModel extends CI_Model {
         $this->db->where('billType', 'deliveryslip');
         $this->db->order_by('date', 'desc');
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();   
     } 
 }

@@ -14,7 +14,7 @@
                                 <div class="header">
                                     <h2 class="text-center">Office Details Master</h2>
                                 </div>
-                                <table class="table table-bordered cust-tbl" data-page-length='100'>
+                                <table  style="font-size: 14px" class="table" data-page-length='100'>
                                     <thead>
                                         <tr>
                                             <td><strong>Distributor Name</strong></td> <td><?php echo $bankDetails[0]['distributorName']; ?></td>
@@ -41,7 +41,7 @@
                                 <div class="header">
                                     <h2 class="text-center">Division Details</h2>
                                 </div>
-                                <table class="table table-bordered cust-tbl" data-page-length='100'>
+                                <table  style="font-size: 14px" class="table" data-page-length='100'>
                                     <thead>
                                         <tr>
                                             <td><strong>Divisions </strong></td><td><strong>Software</strong></td>
@@ -64,7 +64,7 @@
                                 <div class="header">
                                     <h2 class="text-center">Change Bank Details</h2>
                                 </div>
-                                <table class="table table-bordered cust-tbl" data-page-length='100'>
+                                <table  style="font-size: 12px" class="table" data-page-length='100'>
                                     <thead>
                                         <tr>
                                             <th>Bank Name</th>
@@ -87,7 +87,7 @@
 
                                             <td>
                                                  <a id="sr_pen_id" href="javascript:void();">
-                                                   <button class="btn btn-sm btnStyle waves-effect">
+                                                   <button class="btn btn-sm btn-primary waves-effect">
                                                         <i class="material-icons">save</i> 
                                                         <span class="icon-name"> Save</span>
                                                     </button>
@@ -189,9 +189,19 @@ swal({
             method : "POST",
             data : {id: '1',branch:branch,bankName:bankName,accountNo:accountNo},
             success: function(data){
-                alert('Details Updated');
-                location.reload(); 
-            }
+                toastr.success('Bank Details updated', 'Success!');
+                // alert('Details Updated');
+                // location.reload(); 
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            }   
         });
     });
 
@@ -218,7 +228,16 @@ swal({
                 success: function(data){
                   alert('Details Updated');
                     location.reload(); 
-                }
+                },
+                beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                }   
             });
         // }
       
@@ -238,13 +257,22 @@ swal({
             success: function(data){
               alert('Code Updated');
                 location.reload(); 
-            }
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            }   
         });
     });
 
-    $("input[type='text']").on("click", function () {
-       $(this).select();
-    });
+    // $("input[type='text']").on("click", function () {
+    //    $(this).select();
+    // });
  </script>
 
  <script>

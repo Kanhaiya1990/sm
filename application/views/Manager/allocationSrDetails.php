@@ -13,35 +13,26 @@ function goBack() {
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
-                        <div class="header flex-div">
-                            <h2><?php echo $title; ?></h2>
+                        <div class="header">
                             <h2>
-                               <button onclick="goBack();" class="btn btn-xs btnStyle margin"><i class="material-icons">keyboard_return</i></button></a> 
+                               <button onclick="goBack();" class="btn btn-xs bg-primary margin"><i class="material-icons">keyboard_return</i></button></a> <?php echo $title; ?>
                             </h2>
                         </div>
                         <div class="body">
                             <div>
-                                <div class="row">
                                 <?php if(!empty($allocationDetails)){ ?>
-                                <div class="col-md-2">
                                     Allocation : <b><?php echo $allocationDetails[0]['allocationCode']; ?> </b>
-                                </div>
-                                <div class="col-md-3"> 
+                                    &nbsp;&nbsp;
                                     Route : <b><?php echo $allocationDetails[0]['rname']; ?> </b>
-                                </div>
-                                <div class="col-md-2">  
+                                    &nbsp;&nbsp;
                                     Company : <b><?php echo $allocationDetails[0]['company']; ?> </b>
-                                </div>
-                                <div class="col-md-2"> 
+                                    &nbsp;&nbsp;
                                     Employee : <b><?php echo $allocationDetails[0]['ename']; ?> </b>
-                                </div>
                                 <?php } ?>
-                                </div>
-                            </div>
-                            <br>
+                            </div><br>
                             <div class="table-responsive">
                                 <input type="hidden" id="allocationId" value="<?php echo $allocationId; ?>">
-                                <table class="table table-bordered cust-tbl js-basic-example dataTable" data-page-length='100'>
+                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable" data-page-length='100'>
                                     <thead>
                                         <tr>
                                             <th>S. No.</th>

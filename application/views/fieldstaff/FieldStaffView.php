@@ -65,33 +65,28 @@ padding-bottom: 0PX;
                     <div class="card">
                         <div class="header">
                             
-                   <center><h2> Fieldstaff Hisab</h2>  </center>                         
+<center><h2> Fieldstaff Hisab</h2>  </center>                         
                         </div>
                         <div class="body">
                             <div class="col-md-12">
-                                <div class="col-md-5 cust-tbl">
-                                    <div class="col-md-6">
+                                <div class="col-md-6">
                                     <label id="allocation">Allocation : </label>
                                     <?php echo $allocations[0]['allocationCode'];
                                         $allocationID=$allocations[0]['id'];
                                         $allocationCode=$allocations[0]['allocationCode'];
                                        
                                     ?>
-                                    </div>
                                     <input id="current_allocation_Id" type="hidden" value="<?php echo $allocationID; ?>">
                                     <input id="current_emp_Id" type="hidden" value="<?php echo $allocations[0]['fieldStaffCode1']; ?>">
 
                                     <!-- <br /> -->
                                 <!-- </div>
                                 <div class="col-md-2"> -->
-                                    <div class="col-md-6">
                                     <label id="allocation">Company : </label>
-                                    <?php echo $allocations[0]['company']; ?>
-                                    </div>
+                                    <?php echo $allocations[0]['company'];     ?>
                                     <!-- <br /> -->
                                <!--  </div>
                                 <div class="col-sm-2"> -->
-                                    <div class="col-md-6">
                                     <label>Employees: </label>
                                         <?php
                                         $total=0;
@@ -129,10 +124,9 @@ padding-bottom: 0PX;
                                             }
                                             
                                         ?>
-                                     </div>
+                                    
                                 <!-- </div>
                                 <div class="col-md-2"> -->
-                                    <div class="col-md-6">
                                     <label id="route">Route : </label>
                                     <?php  
                                         $rID=explode(",",rtrim($allocations[0]['routId'],','));
@@ -144,16 +138,14 @@ padding-bottom: 0PX;
                                        }
                                         echo rtrim($routeName,',');
                                     ?>
-                                    </div>
                                     <br />
                                 </div>
-                                <div class="col-md-7 table-responsive">
+                                <div class="col-md-6 table-responsive">
 
-                                <!-- <table border="2px" style="font-size: 11px;width: 80%"> -->
-                                <table class="table table-bordered cust-tbl" style="font-size: 14px;">
+                                    <table border="2px" style="font-size: 11px;width: 80%">
                                         <tr class="gray">
                                             <th><center>Particulars</center></th>
-                                            <th><center>Total</center></th>
+                                            <th><center>Total Bills</center></th>
                                             <th><center>FSR</center></th>
                                             <th><center>Resend</center></th>
                                             <th><center>Delivered</center></th>
@@ -167,7 +159,7 @@ padding-bottom: 0PX;
                                         </tr>
                                          <tr class="gray">
                                             <th><center>Particulars</center></th>
-                                            <th><center>Total</center></th>
+                                            <th><center>Total Value</center></th>
                                             <th><center>Cash</center></th>
                                             <th><center>Cheque/NEFT</center></th>
                                             <th><center>Other Adj</center></th>
@@ -194,7 +186,7 @@ padding-bottom: 0PX;
                                                           
                                 <div class="row m-t-20">
                                     <div class="col-md-12">
-                                        <div>
+                                        <div class="table-responsive">
                                             <?php 
                                             if(!empty($this->session->flashdata('item'))){
                                                 $msg=$this->session->flashdata('item');
@@ -202,20 +194,20 @@ padding-bottom: 0PX;
                                             }
                                                 
                                             ?>
-                                           <!--  <table style="font-size: 12px" class="table table-striped table-bordered" id="tbl"> -->
-                                            <table class="table cust-tbl table-bordered" id="tbl">
+                                            <table style="font-size: 12px" class="table table-striped table-bordered" id="tbl">
                                                 <tr class="head">
                                                     <td colspan="12" style="background-color: whitesmoke;"><center><b>Current Supply Bills</b></center></td>
                                                 </tr>
                                                 <tr class="gray">
-                                                    <th>No</th>
+                                                    <th>S. No.</th>
                                                     <th>Bill No.</th>
                                                     <th>Bill Date</th>
-                                                    <th style="width: 250px;">Retailer Name</th>
-                                                    <th>Amount</th>
-                                                    <th>SR</th>
-                                                    <th>Collection</th>
-                                                    <th>Pending</th>
+                                                    <th>Retailer Name</th>
+                                                    <th>Bill Amount</th>
+                                                    <th>Today's SR</th>
+                                                    <th>Today's Collection</th>
+                                                   
+                                                    <th>Pending Amount</th>
                                                     <th>Status</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -240,15 +232,15 @@ padding-bottom: 0PX;
                                            if($data['fsbillStatus']=='Resend'){
 
                                     ?>
-                                        <tr style="background-color: #eeeeee;">
+                                        <tr style="background-color: #f1d7ec;">
                                         <?php } else if($data['fsbillStatus']=='Billed'){?>
-                                        <tr style="background-color: #eeeeee;">
+                                        <tr style="background-color: #ccdffa;">
                                         <?php } else if(!empty($data['fsbillStatus']) && ($data['fsbillStatus']==='FSR')){?>
-                                        <tr style="background-color: #eeeeee;">
+                                        <tr style="background-color: #fa7777;">
                                         <?php } else if(!empty($data['fsbillStatus']) && ($data['fsbillStatus']==='SR')){?>
                                         <tr>
                                         <?php } else if(!empty($data['fsbillStatus'])){?>
-                                        <tr style="background-color: #eeeeee;">
+                                        <tr style="background-color: #e3fab8;">
                                         <?php } ?>   
 
                                               <td><?php echo $no.' '; 
@@ -270,121 +262,126 @@ padding-bottom: 0PX;
                                                 $dt=date_create($data['date']);
                                                 $date = date_format($dt,'d-M-Y');
                                             ?>
-                                            <td class="noSpace"><?php echo $date; ?></td>
-                                            <td class="CellWithComment"><?php 	
-												$retailerName=substr($data['retailerName'], 0, 25);
-                                                echo rtrim($retailerName);?>
-											    <span class="CellComment"><?php echo $result =substr($data['retailerName'],0); ?></span>
-										    </td>
+                                            <td><?php echo $date; ?></td>
+                                            <td><?php echo $data['retailerName']; ?></td>
                                             <td align="right"><?php echo number_format($data['netAmount']);?></td>
                                             <td align="right"><?php echo number_format(($data['fsSrAmt']));?></td>
-                                            <td align="right"><?php echo number_format(($data['fsCashAmt']+$data['fsChequeAmt']+$data['fsNeftAmt']+$data['fsOtherAdjAmt']+$data['creditNoteJournalAmt'])-($data['debitNoteJournalAmt']+$data['debitNoteAmount']));?></td>
+                                            <td align="right"><?php echo number_format(($data['fsCashAmt']+$data['fsChequeAmt']+$data['fsNeftAmt']+$data['fsOtherAdjAmt']+$data['creditNoteJournalAmt'])-($data['debitNoteJournalAmt']));?></td>
                                             <td align="right"><?php echo number_format((($data['pendingAmt'])-($data['fsSrAmt'])));?></td>
                                             <td id="stCr"><?php echo $data['fsbillStatus'];?></td>
-                                            <td class="noSpace btns-td"> 
+                                            <td> 
                                                 <?php if(($data['fsbillStatus']=='Resend')){?>
                                             
-                                                <button style="font-size : 9px;" class="btn1 btn btn-xs waves-effect" data-type="basic" disabled><span>SR</span></button>
+                                                <button style="font-size : 9px;" class="btn-primary waves-effect" data-type="basic" disabled><span>SR</span></button>
                                             
-                                                <button style="font-size : 9px;" class="btn2 btn btn-xs waves-effect" data-type="basic" disabled><span>Cash</span></button>
+                                                <button style="font-size : 9px;" class="btn-primary waves-effect" data-type="basic" disabled><span>Cash</span></button>
                                             
-                                                <button style="font-size : 9px;" class="btn3 btn btn-xs waves-effect" data-type="basic" disabled><span>Cheque</span></button>
+                                                <button style="font-size : 9px;" class="btn-primary waves-effect" data-type="basic" disabled><span>Cheque</span></button>
 
-                                                <button style="font-size : 9px;" class="btn4 btn btn-xs waves-effect" data-type="basic" disabled><span>NEFT</span></button>
+                                                <button style="font-size : 9px;" class="btn-primary waves-effect" data-type="basic" disabled><span>NEFT</span></button>
 
-                                                <button style="font-size : 9px;" class="btn6 btn btn-xs waves-effect" data-type="basic" disabled><span>Other</span></button>
+                                                <button style="font-size : 9px;" class="btn-primary waves-effect" data-type="basic" disabled><span>Other</span></button>
+                                            
+
                                             <a>
-                                                <button style="font-size : 9px;" onclick="Resend(this,'current','<?php echo $data['id']; ?>');" id="rsn" class="btn5 btn btn-xs waves-effect" data-type="basic"><span>Resend</span></button>
+                                                <button style="font-size : 9px;" onclick="Resend(this,'current','<?php echo $data['id']; ?>');" id="rsn" class="btn-primary waves-effect" data-type="basic"><span>Resend</span></button>
                                             </a>
 
                                             <?php if($data['pendingAmt'] >0) {?>
-                                                <button onclick="Bill(this,'current','<?php echo $data['id']; ?>');" id="billCRStatus" style="font-size : 9px;" class="btn6 btn btn-xs waves-effect" data-type="basic" disabled><span>Bill</span></button>
+                                                <button onclick="Bill(this,'current','<?php echo $data['id']; ?>');" id="billCRStatus" style="font-size : 9px;" class="btn-primary waves-effect" data-type="basic" disabled><span>Bill</span></button>
                                             <?php }else { ?>
-                                                <button disabled id="billCRStatus" style="font-size : 9px;" class="btn btn6 waves-effect btn btn-xs" data-type="basic" disabled><span>Bill</span></button>
+                                                <button disabled id="billCRStatus" style="font-size : 9px;" class="btn-primary waves-effect" data-type="basic" disabled><span>Bill</span></button>
                                             <?php } ?>
 
                                              
                                         
                                              <a>
-                                                <button onclick="fsrDS(this,'current','<?php echo $data['id']; ?>','<?php echo $allocationID; ?>');" style="font-size : 9px;" id="fsrBtnDS" class="btn7 waves-effect btn btn-xs" data-type="basic" disabled><span>FSR</span></button>
+                                                <button onclick="fsrDS(this,'current','<?php echo $data['id']; ?>','<?php echo $allocationID; ?>');" style="font-size : 9px;" id="fsrBtnDS" class="btn-primary waves-effect" data-type="basic" disabled><span>FSR</span></button>
                                             </a>  
 
                                         <?php }else if(($data['fsbillStatus']=='FSR')){?>
                                             
-                                                <button style="font-size : 9px;" class="btn btn1 btn-xs waves-effect" data-type="basic" disabled><span>SR</span></button>
-                                        
-                                                <button style="font-size : 9px;" class="btn btn2 btn-xs waves-effect" data-type="basic" disabled><span>Cash</span></button>
+                                                <button style="font-size : 9px;" class="btn-primary waves-effect" data-type="basic" disabled><span>SR</span></button>
                                             
-                                                <button style="font-size : 9px;" class="btn btn3 btn-xs waves-effect" data-type="basic" disabled><span>Cheque</span></button>
+                                               
+                                            
+                                                <button style="font-size : 9px;" class="btn-primary waves-effect" data-type="basic" disabled><span>Cash</span></button>
+                                            
+                                                <button style="font-size : 9px;" class="btn-primary waves-effect" data-type="basic" disabled><span>Cheque</span></button>
 
-                                                <button style="font-size : 9px;" class="btn btn4 btn-xs waves-effect" data-type="basic" disabled><span>NEFT</span></button>
+                                                <button style="font-size : 9px;" class="btn-primary waves-effect" data-type="basic" disabled><span>NEFT</span></button>
 
-                                                <button style="font-size : 9px;" class="btn btn6 btn-xs waves-effect" data-type="basic" disabled><span>Other</span></button>
+                                                <button style="font-size : 9px;" class="btn-primary waves-effect" data-type="basic" disabled><span>Other</span></button>
 
                                             <a>
-                                                <button style="font-size : 9px;" onclick="Resend(this,'current','<?php echo $data['id']; ?>');" id="rsn" class="btn btn-xs btn5 waves-effect" data-type="basic" disabled><span>Resend</span></button>
+                                                <button style="font-size : 9px;" onclick="Resend(this,'current','<?php echo $data['id']; ?>');" id="rsn" class="btn-primary waves-effect" data-type="basic" disabled><span>Resend</span></button>
                                             </a>
 
                                             <?php if($data['pendingAmt'] >0) {?>
-                                                <button onclick="Bill(this,'current','<?php echo $data['id']; ?>');" id="billCRStatus" style="font-size : 9px;" class="btn btn-xs btn6 waves-effect" data-type="basic" disabled><span>Bill</span></button>
+                                                <button onclick="Bill(this,'current','<?php echo $data['id']; ?>');" id="billCRStatus" style="font-size : 9px;" class="btn-primary waves-effect" data-type="basic" disabled><span>Bill</span></button>
                                             <?php }else { ?>
-                                                <button disabled id="billCRStatus" style="font-size : 9px;" class="btn btn6 waves-effect btn-xs" data-type="basic" disabled><span>Bill</span></button>
+                                                <button disabled id="billCRStatus" style="font-size : 9px;" class="btn-primary waves-effect" data-type="basic" disabled><span>Bill</span></button>
                                             <?php } ?>
+
+                                             
+                                        
                                              <a>
-                                                <button onclick="fsrDS(this,'current','<?php echo $data['id']; ?>','<?php echo $allocationID; ?>');" style="font-size : 9px;" id="fsrBtnDS" class="btn btn7 waves-effect btn-xs" data-type="basic"><span>FSR</span></button>
+                                                <button onclick="fsrDS(this,'current','<?php echo $data['id']; ?>','<?php echo $allocationID; ?>');" style="font-size : 9px;" id="fsrBtnDS" class="btn-primary waves-effect" data-type="basic"><span>FSR</span></button>
                                             </a>  
                                             
                                         <?php }else{?>
                                             
                                              <a href="javascript:void()" class="srM" data-toggle="modal" data-status="<?php echo $data['fsbillStatus']; ?>" data-id="<?php echo $data['id']; ?>" data-allocation="<?php echo $allocationID;?>" data-target="#cpSrModal">
-                                                <button style="font-size : 9px;" class="btn btn-xs btn1 waves-effect" data-type="basic"><span>SR</span></button>
+                                                <button style="font-size : 9px;" class="btn-primary waves-effect" data-type="basic"><span>SR</span></button>
                                             </a>
                                             
                                             
                                             <a class="cashM" data-toggle="modal" data-status="<?php echo $data['fsbillStatus']; ?>" data-id="<?php echo $data['id']; ?>" data-allocation="<?php echo $allocationID;?>" data-target="#cpCashModal" href="javascript:void()">
-                                                <button style="font-size : 9px;" class="btn btn-xs btn2 waves-effect" data-type="basic"><span>Cash</span></button>
+                                                <button style="font-size : 9px;" class="btn-primary waves-effect" data-type="basic"><span>Cash</span></button>
                                             </a>
                                            
                                             <a class="chequeM" data-toggle="modal" data-status="<?php echo $data['fsbillStatus']; ?>" data-id="<?php echo $data['id']; ?>" data-allocation="<?php echo $allocationID;?>" data-target="#cpChequeModal" href="javascript:void()">
-                                                <button style="font-size : 9px;" class="btn btn-xs btn3 waves-effect" data-type="basic"><span>Cheque</span></button>
+                                                <button style="font-size : 9px;" class="btn-primary waves-effect" data-type="basic"><span>Cheque</span></button>
                                             </a>
 
                                              <a class="neftM" data-toggle="modal" data-status="<?php echo $data['fsbillStatus']; ?>" data-id="<?php echo $data['id']; ?>" data-allocation="<?php echo $allocationID;?>" data-target="#cpNeftModal" href="javascript:void()">
-                                                <button style="font-size : 9px;" class="btn btn-xs btn4 waves-effect" data-type="basic"><span>NEFT</span></button>
+                                                <button style="font-size : 9px;" class="btn-primary waves-effect" data-type="basic"><span>NEFT</span></button>
                                             </a>
 
                                             <a class="otherM" data-toggle="modal" data-status="<?php echo $data['fsbillStatus']; ?>" data-id="<?php echo $data['id']; ?>" data-allocation="<?php echo $allocationID;?>" data-target="#cpOtherModal" href="javascript:void()">
-                                                <button style="font-size : 9px;" class="btn btn-xs btn6 waves-effect" data-type="basic"><span>Other</span></button>
+                                                <button style="font-size : 9px;" class="btn-primary waves-effect" data-type="basic"><span>Other</span></button>
                                             </a>
 
 
                                         <?php if(empty($data['fsbillStatus']) || $data['fsbillStatus']=='Resend'){ ?>
                                              <a>
-                                                <button style="font-size : 9px;" onclick="Resend(this,'current','<?php echo $data['id']; ?>');" id="rsn" class="btn btn-xs btn5 waves-effect" data-type="basic"><span>Resend</span></button>
+                                                <button style="font-size : 9px;" onclick="Resend(this,'current','<?php echo $data['id']; ?>');" id="rsn" class="btn-primary waves-effect" data-type="basic"><span>Resend</span></button>
                                             </a>
                                         <?php }else{?>
                                             <a>
-                                                <button style="font-size : 9px;" onclick="Resend(this,'current','<?php echo $data['id']; ?>');" id="rsn" class="btn btn-xs btn5 waves-effect" data-type="basic" disabled><span>Resend</span></button>
+                                                <button style="font-size : 9px;" onclick="Resend(this,'current','<?php echo $data['id']; ?>');" id="rsn" class="btn-primary waves-effect" data-type="basic" disabled><span>Resend</span></button>
                                             </a>
                                         <?php }?>
 
                                         <?php if($data['pendingAmt'] >0) {?>
                                             <a>
-                                                <button onclick="Bill(this,'current','<?php echo $data['id']; ?>');" id="billCRStatus" style="font-size : 9px;" class="btn btn-xs btn6 waves-effect" data-type="basic"><span>Bill</span></button>
+                                                <button onclick="Bill(this,'current','<?php echo $data['id']; ?>');" id="billCRStatus" style="font-size : 9px;" class="btn-primary waves-effect" data-type="basic"><span>Bill</span></button>
                                             </a>
                                         <?php }else { ?>
                                             <a>
-                                                <button disabled id="billCRStatus" style="font-size : 9px;" class="btn btn-xs btn6 waves-effect" data-type="basic"><span>Bill</span></button>
+                                                <button disabled id="billCRStatus" style="font-size : 9px;" class="btn-primary waves-effect" data-type="basic"><span>Bill</span></button>
                                             </a>
                                         <?php } ?>
 
+                                            
+
                                          <?php if(empty($data['fsbillStatus']) || $data['fsbillStatus']=='SR'){ ?>
                                              <a>
-                                                <button onclick="fsrDS(this,'current','<?php echo $data['id']; ?>','<?php echo $allocationID; ?>');" style="font-size : 9px;" id="fsrBtnDS" class="btn btn7 waves-effect btn-xs" data-type="basic"><span>FSR</span></button>
+                                                <button onclick="fsrDS(this,'current','<?php echo $data['id']; ?>','<?php echo $allocationID; ?>');" style="font-size : 9px;" id="fsrBtnDS" class="btn-primary waves-effect" data-type="basic"><span>FSR</span></button>
                                             </a> 
                                         <?php }else{?>
                                             <a>
-                                                <button onclick="fsrDS(this,'current','<?php echo $data['id']; ?>','<?php echo $allocationID; ?>');" style="font-size : 9px;" id="fsrBtnDS" class="btn btn7 waves-effect btn-xs" data-type="basic" disabled><span>FSR</span></button>
+                                                <button onclick="fsrDS(this,'current','<?php echo $data['id']; ?>','<?php echo $allocationID; ?>');" style="font-size : 9px;" id="fsrBtnDS" class="btn-primary waves-effect" data-type="basic" disabled><span>FSR</span></button>
                                             </a> 
                                         <?php }?> 
                                             
@@ -397,7 +394,7 @@ padding-bottom: 0PX;
                                         }
                                     }
                                       ?> 
-                                  </tr> 
+                                  </tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -406,23 +403,22 @@ padding-bottom: 0PX;
                                     <div class="col-md-12">
                                         <div class="table-responsive">
                                             
-                                        <!-- <table style="font-size: 12px" class="table table-striped table-bordered" id="tbl1"> -->
-                                    <table class="table cust-tbl table-bordered" id="tbl1">
-                                        <!--Past Bills-->
-                                        <tr class="head">
-                                        <td colspan="12"  style="background-color: whitesmoke;"><center><b>Past Bills</b></center></td>
-                                        </tr>
+                                            <table style="font-size: 12px" class="table table-striped table-bordered" id="tbl1">
+                                            <!--Past Bills-->
+                                            <tr class="head">
+                                                <td colspan="12"  style="background-color: whitesmoke;"><center><b>Past Bills</b></center></td>
+                                            </tr>
                                             <tr class="gray">
-                                                <th>No</th>
+                                                <th>S. No.</th>
                                                 <th>Bill No.</th>
                                                 <th>Bill Date</th>
-                                                <th style="width: 250px;">Retailer Name</th>
+                                                <th>Retailer Name</th>
                                                 <th>Bill Amount</th>
                                                 <th>Past SR</th>
                                                 <th>Past Collection</th>
-                                                <th>SR</th>
-                                                <th>Collection</th>
-                                                <th>Amount</th>
+                                                <th>Today's SR</th>
+                                                <th>Today's Collection</th>
+                                                <th>Pending Amount</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
@@ -447,15 +443,15 @@ padding-bottom: 0PX;
                                      if($data['fsbillStatus']=='Resend'){
 
                                     ?>
-                                        <tr style="background-color: #eeeeee;">
+                                        <tr style="background-color: #f1d7ec;">
                                         <?php } else if($data['fsbillStatus']=='Billed'){?>
-                                        <tr style="background-color: #eeeeee;">
+                                        <tr style="background-color: #ccdffa;">
                                         <?php } else if(!empty($data['fsbillStatus']) && ($data['fsbillStatus']==='FSR')){?>
-                                        <tr style="background-color: #eeeeee;">
+                                        <tr style="background-color: #fa7777;">
                                         <?php } else if(!empty($data['fsbillStatus']) && ($data['fsbillStatus']==='SR')){?>
                                         <tr>
                                         <?php } else if(!empty($data['fsbillStatus'])){?>
-                                        <tr style="background-color: #eeeeee;">
+                                        <tr style="background-color: #e3fab8;">
                                         <?php } ?>   
 
                                          <td><?php echo $no.' '; 
@@ -470,99 +466,96 @@ padding-bottom: 0PX;
                                               ?></td>
                                             <td>
                                                 <?php echo $data['billNo']; ?>
-                                            </td class="noSpace">
+                                            </td>
                                              <?php
                                                 $dt=date_create($data['date']);
                                                 $date = date_format($dt,'d-M-Y');
                                             ?>
                                             <td><?php echo $date;?></td>
-                                            <td class="CellWithComment">
-											<?php 
-												$result1 =substr($data['retailerName'],0,20);
-											echo $result1; ?>
-											<?php if(strlen($data['retailerName'])>20){?>
-                                            <span class="CellComment"><?php echo $result =substr($data['retailerName'],0); ?></span>
-                                          <?php } ?>
-											</td>
+                                            <td><?php echo $data['retailerName'];?></td>
                                             <td align="right"><?php echo number_format($data['netAmount']);?></td>
                                             <td align="right"><?php echo number_format($data['SRAmt']);?></td>
                                             <!-- <td><?php echo $data['SRAmt'];?></td> -->
                                              <td><?php echo $data['receivedAmt']+$data['cd']+$data['debit']+$data['officeAdjustmentBillAmount']+$data['otherAdjustment'];?></td>
                                                <td align="right"><?php echo number_format(($data['fsSrAmt']-$data['creditNoteRenewal']));?></td>
-                                            <td align="right"><?php echo number_format($data['fsCashAmt']+$data['fsNeftAmt']+$data['fsChequeAmt']+$data['fsOtherAdjAmt']);?></td>
+                                            <!--<td align="right"><?php echo number_format($data['fsCashAmt']+$data['fsNeftAmt']+$data['fsChequeAmt']+$data['fsOtherAdjAmt']);?></td>-->
+                                             <td align="right"><?php echo number_format(($data['fsCashAmt']+$data['fsChequeAmt']+$data['fsNeftAmt']+$data['fsOtherAdjAmt']+$data['creditNoteJournalAmt'])-($data['debitNoteJournalAmt']));?></td>
+                                            
                                             <td align="right"><?php echo number_format((($data['pendingAmt'])-($data['fsSrAmt']-$data['creditNoteRenewal'])));?></td>
 
+
                                             <td id="stPass"><?php echo $data['fsbillStatus']; ?></td>
-                                             <td class="noSpace btns-td"> 
+                                             <td> 
                                             <?php if(($data['fsbillStatus']=='Resend')){  ?>
                                             
-                                                <button style="font-size : 9px;"  class="btn1 waves-effect" data-type="basic" disabled><span>SR</span></button>
+                                                <button style="font-size : 9px;"  class="btn-primary waves-effect" data-type="basic" disabled><span>SR</span></button>
                                             
-                                                <button style="font-size : 9px;" class="btn2 waves-effect" data-type="basic" disabled><span>Cash</span></button>
+                                               
+                                                <button style="font-size : 9px;" class="btn-primary waves-effect" data-type="basic" disabled><span>Cash</span></button>
 
-                                                <button style="font-size : 9px;" class="btn3 waves-effect" data-type="basic" disabled><span>Cheque</span></button>
+                                                <button style="font-size : 9px;" class="btn-primary waves-effect" data-type="basic" disabled><span>Cheque</span></button>
 
-                                                <button style="font-size : 9px;" class="btn4 waves-effect" data-type="basic" disabled><span>NEFT</span></button>
+                                                <button style="font-size : 9px;" class="btn-primary waves-effect" data-type="basic" disabled><span>NEFT</span></button>
                                             
-                                                <button style="font-size : 9px;" class="btn5 waves-effect" data-type="basic" disabled><span>Other</span></button>
+                                                <button style="font-size : 9px;" class="btn-primary waves-effect" data-type="basic" disabled><span>Other</span></button>
                                             
                                           
                                             <?php if($data['pendingAmt'] >0) {?>
-                                                <button style="font-size : 9px;" onclick="Bill(this,'pass','<?php echo $data['id']; ?>');" class="btn6 waves-effect" data-type="basic" disabled><span>Bill</span></button>
+                                                <button style="font-size : 9px;" onclick="Bill(this,'pass','<?php echo $data['id']; ?>');" class="btn-primary waves-effect" data-type="basic" disabled><span>Bill</span></button>
                                             <?php }else { ?>
-                                                <button style="font-size : 9px;" disabled class="btn6 waves-effect" data-type="basic" disabled><span>Bill</span></button>
+                                                <button style="font-size : 9px;" disabled class="btn-primary waves-effect" data-type="basic" disabled><span>Bill</span></button>
                                             <?php } ?>
 
                                         <?php }else if($data['fsbillStatus']=='FSR'){  ?>
                                             
-                                                <button style="font-size : 9px;"  class="btn1 waves-effect" data-type="basic" disabled><span>SR</span></button>
+                                                <button style="font-size : 9px;"  class="btn-primary waves-effect" data-type="basic" disabled><span>SR</span></button>
                                             
                                                
-                                                <button style="font-size : 9px;" class="btn2 waves-effect" data-type="basic" disabled><span>Cash</span></button>
+                                                <button style="font-size : 9px;" class="btn-primary waves-effect" data-type="basic" disabled><span>Cash</span></button>
 
-                                                <button style="font-size : 9px;" class="btn3 waves-effect" data-type="basic" disabled><span>Cheque</span></button>
+                                                <button style="font-size : 9px;" class="btn-primary waves-effect" data-type="basic" disabled><span>Cheque</span></button>
 
-                                                <button style="font-size : 9px;" class="btn4 waves-effect" data-type="basic" disabled><span>NEFT</span></button>
+                                                <button style="font-size : 9px;" class="btn-primary waves-effect" data-type="basic" disabled><span>NEFT</span></button>
                                             
-                                                <button style="font-size : 9px;" class="btn5 waves-effect" data-type="basic" disabled><span>Other</span></button>
+                                                <button style="font-size : 9px;" class="btn-primary waves-effect" data-type="basic" disabled><span>Other</span></button>
                                             
                                          
                                             <?php if($data['pendingAmt'] >0) {?>
-                                                <button style="font-size : 9px;" onclick="Bill(this,'pass','<?php echo $data['id']; ?>');" class="btn6 waves-effect" data-type="basic" disabled><span>Bill</span></button>
+                                                <button style="font-size : 9px;" onclick="Bill(this,'pass','<?php echo $data['id']; ?>');" class="btn-primary waves-effect" data-type="basic" disabled><span>Bill</span></button>
                                             <?php }else { ?>
-                                                <button style="font-size : 9px;" disabled class="btn6 waves-effect" data-type="basic" disabled><span>Bill</span></button>
+                                                <button style="font-size : 9px;" disabled class="btn-primary waves-effect" data-type="basic" disabled><span>Bill</span></button>
                                             <?php } ?>
                                             
                                         <?php }else{?>
                                             
                                             <a class="srM" data-toggle="modal" data-status="<?php echo $data['fsbillStatus']; ?>" data-target="#cpSrModal" data-id="<?php echo $data['id']; ?>" data-allocation="<?php echo $allocationID;?>" href="javascript:void()">
-                                                <button style="font-size : 9px;" class="btn1 waves-effect" data-type="basic"><span>SR</span></button>
+                                                <button style="font-size : 9px;" class="btn-primary waves-effect" data-type="basic"><span>SR</span></button>
                                             </a>
                                             
                                             
                                             <a class="cashM" data-toggle="modal" data-status="<?php echo $data['fsbillStatus']; ?>" data-id="<?php echo $data['id']; ?>" data-allocation="<?php echo $allocationID;?>" data-target="#cpCashModal" href="javascript:void()">
-                                                <button style="font-size : 9px;" class="btn2 waves-effect" data-type="basic"><span>Cash</span></button>
+                                                <button style="font-size : 9px;" class="btn-primary waves-effect" data-type="basic"><span>Cash</span></button>
                                             </a>
                                             
                                              <a class="chequeM" data-toggle="modal" data-status="<?php echo $data['fsbillStatus']; ?>" data-id="<?php echo $data['id']; ?>" data-allocation="<?php echo $allocationID;?>" data-target="#cpChequeModal" href="javascript:void()">
-                                                <button style="font-size : 9px;" class="btn3 waves-effect" data-type="basic"><span>Cheque</span></button>
+                                                <button style="font-size : 9px;" class="btn-primary waves-effect" data-type="basic"><span>Cheque</span></button>
                                             </a>
 
                                              <a class="neftM" data-toggle="modal" data-status="<?php echo $data['fsbillStatus']; ?>" data-id="<?php echo $data['id']; ?>" data-allocation="<?php echo $allocationID;?>" data-target="#cpNeftModal" href="javascript:void()">
-                                                <button style="font-size : 9px;" class="btn4 waves-effect" data-type="basic"><span>NEFT</span></button>
+                                                <button style="font-size : 9px;" class="btn-primary waves-effect" data-type="basic"><span>NEFT</span></button>
                                             </a>
 
                                             <a class="otherM" data-toggle="modal" data-status="<?php echo $data['fsbillStatus']; ?>" data-id="<?php echo $data['id']; ?>" data-allocation="<?php echo $allocationID;?>" data-target="#cpOtherModal" href="javascript:void()">
-                                                <button style="font-size : 9px;" class="btn5 waves-effect" data-type="basic"><span>Other</span></button>
+                                                <button style="font-size : 9px;" class="btn-primary waves-effect" data-type="basic"><span>Other</span></button>
                                             </a>
 
                                             <?php if($data['pendingAmt'] >0) {?>
                                                 <a>
-                                                <button style="font-size : 9px;" onclick="Bill(this,'pass','<?php echo $data['id']; ?>');" class="btn6 waves-effect" data-type="basic"><span>Bill</span></button>
+                                                <button style="font-size : 9px;" onclick="Bill(this,'pass','<?php echo $data['id']; ?>');" class="btn-primary waves-effect" data-type="basic"><span>Bill</span></button>
                                             </a>
                                             <?php }else { ?>
                                                 <a>
-                                                <button style="font-size : 9px;" disabled class="btn6 waves-effect" data-type="basic"><span>Bill</span></button>
+                                                <button style="font-size : 9px;" disabled class="btn-primary waves-effect" data-type="basic"><span>Bill</span></button>
                                             </a>
                                             <?php } ?>
                                            
@@ -587,13 +580,13 @@ padding-bottom: 0PX;
                                     <p>
 
                                      <a href="<?php echo site_url('fieldStaff/FieldStaffController/fieldStaff/'.$allocationID);?>">
-                                        <button type="button" id="insert-ins" class="btn btnStyle btn-primary m-t-15 waves-effect">
+                                        <button type="button" id="insert-ins" class="btn btn-primary m-t-15 waves-effect">
                                               <i class="material-icons">save</i> 
                                               <span class="icon-name">Save</span>
                                         </button>
                                      </a>         
                                             
-                                        <button type="button" onclick="checkStatus('<?php echo $allocationID;?>','<?php echo $allocationCode;?>');" class="btn btnStyle btn-primary m-t-15 waves-effect">
+                                        <button type="button" onclick="checkStatus('<?php echo $allocationID;?>','<?php echo $allocationCode;?>');" class="btn btn-primary m-t-15 waves-effect">
                                               <i class="material-icons">check</i> 
                                               <span class="icon-name">Save & Confirm</span>
                                         </button>
@@ -702,7 +695,16 @@ padding-bottom: 0PX;
                 success: function(data){
                   $('.mods').html(data);
 
-                }
+                },
+                beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                } 
             });
         }
        
@@ -728,7 +730,16 @@ padding-bottom: 0PX;
                 success: function(data){
                   $('.modss').html(data);
                   $('.cash-amt').trigger('focus');
-                }
+                },
+                beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                } 
             });
         }
     });
@@ -753,7 +764,16 @@ padding-bottom: 0PX;
                 success: function(data){
                   $('.modsss').html(data);
                   $('.chk-amt').trigger('focus');
-                }
+                },
+                beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                } 
             });
         }
     });
@@ -778,7 +798,16 @@ padding-bottom: 0PX;
                 success: function(data){
                   $('.modssss').html(data);
                   $('.neft-amt').trigger('focus');
-                }
+                },
+                beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                } 
             });
         }
     });
@@ -803,7 +832,16 @@ padding-bottom: 0PX;
                 success: function(data){
                   $('.otherModssss').html(data);
                   $('.other-amt').trigger('focus');
-                }
+                },
+                beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                } 
             });
         }
     });
@@ -881,7 +919,16 @@ padding-bottom: 0PX;
                     data:{"billStatus" : billStatus,"billId" : id,"current_allocation_Id":current_allocation_Id},
                     success: function (data) {
                         window.parent.location.reload(true);
-                    }  
+                    },
+                    beforeSend: function(){
+                        $('.comman-ajax-loader').css("visibility", "visible");
+                    },
+                    complete: function(){
+                        $('.comman-ajax-loader').css("visibility", "hidden");
+                    },
+                    error: function(jqXHR, exception) {
+                        alert("Something Went Wrong, Please Try Again...!");
+                    }   
                 });
             }else if(bill.text()!='' || bill.text()==billed){
                 var billStatus = '';
@@ -891,7 +938,16 @@ padding-bottom: 0PX;
                     data:{"billStatus" : billStatus,"billId" : id,"current_allocation_Id":current_allocation_Id},
                     success: function (data) {
                         window.parent.location.reload(true);
-                    }  
+                    },
+                    beforeSend: function(){
+                        $('.comman-ajax-loader').css("visibility", "visible");
+                    },
+                    complete: function(){
+                        $('.comman-ajax-loader').css("visibility", "hidden");
+                    },
+                    error: function(jqXHR, exception) {
+                        alert("Something Went Wrong, Please Try Again...!");
+                    }   
                 });
             }
         }
@@ -906,7 +962,16 @@ padding-bottom: 0PX;
                     data:{"billStatus" : billStatus,"billId" : id,"current_allocation_Id":current_allocation_Id},
                     success: function (data) {
                         window.parent.location.reload(true);
-                    }  
+                    },
+                    beforeSend: function(){
+                        $('.comman-ajax-loader').css("visibility", "visible");
+                    },
+                    complete: function(){
+                        $('.comman-ajax-loader').css("visibility", "hidden");
+                    },
+                    error: function(jqXHR, exception) {
+                        alert("Something Went Wrong, Please Try Again...!");
+                    }   
                 });
             }else if(pass.text()!='' || pass.text()==billed){
                 var billStatus = '';
@@ -916,7 +981,16 @@ padding-bottom: 0PX;
                     data:{"billStatus" : billStatus,"billId" : id,"current_allocation_Id":current_allocation_Id},
                     success: function (data) {
                         window.parent.location.reload(true);
-                    }  
+                    },
+                    beforeSend: function(){
+                        $('.comman-ajax-loader').css("visibility", "visible");
+                    },
+                    complete: function(){
+                        $('.comman-ajax-loader').css("visibility", "hidden");
+                    },
+                    error: function(jqXHR, exception) {
+                        alert("Something Went Wrong, Please Try Again...!");
+                    }   
                 });
             }
         }
@@ -931,7 +1005,16 @@ padding-bottom: 0PX;
                     data:{"billStatus" : billStatus,"billId" : id,"current_allocation_Id":current_allocation_Id},
                     success: function (data) {
                         window.parent.location.reload(true);
-                    }  
+                    },
+                    beforeSend: function(){
+                        $('.comman-ajax-loader').css("visibility", "visible");
+                    },
+                    complete: function(){
+                        $('.comman-ajax-loader').css("visibility", "hidden");
+                    },
+                    error: function(jqXHR, exception) {
+                        alert("Something Went Wrong, Please Try Again...!");
+                    }   
                 });
             }else if(cheque.text()!='' || cheque.text()==billed){
                var billStatus = '';
@@ -941,7 +1024,16 @@ padding-bottom: 0PX;
                     data:{"billStatus" : billStatus,"billId" : id,"current_allocation_Id":current_allocation_Id},
                     success: function (data) {
                         window.parent.location.reload(true);
-                    }  
+                    },
+                    beforeSend: function(){
+                        $('.comman-ajax-loader').css("visibility", "visible");
+                    },
+                    complete: function(){
+                        $('.comman-ajax-loader').css("visibility", "hidden");
+                    },
+                    error: function(jqXHR, exception) {
+                        alert("Something Went Wrong, Please Try Again...!");
+                    }   
                 });  
             }
         }
@@ -956,7 +1048,16 @@ padding-bottom: 0PX;
                     data:{"billStatus" : billStatus,"billId" : id,"current_allocation_Id":current_allocation_Id},
                     success: function (data) {
                         window.parent.location.reload(true);
-                    }  
+                    },
+                    beforeSend: function(){
+                        $('.comman-ajax-loader').css("visibility", "visible");
+                    },
+                    complete: function(){
+                        $('.comman-ajax-loader').css("visibility", "hidden");
+                    },
+                    error: function(jqXHR, exception) {
+                        alert("Something Went Wrong, Please Try Again...!");
+                    }   
                 });
             }else if(slip.text()!='' || slip.text()==billed){
                var billStatus = '';
@@ -966,7 +1067,16 @@ padding-bottom: 0PX;
                     data:{"billStatus" : billStatus,"billId" : id,"current_allocation_Id":current_allocation_Id},
                     success: function (data) {
                         window.parent.location.reload(true);
-                    }  
+                    },
+                    beforeSend: function(){
+                        $('.comman-ajax-loader').css("visibility", "visible");
+                    },
+                    complete: function(){
+                        $('.comman-ajax-loader').css("visibility", "hidden");
+                    },
+                    error: function(jqXHR, exception) {
+                        alert("Something Went Wrong, Please Try Again...!");
+                    }    
                 });
             }
         }
@@ -999,7 +1109,16 @@ padding-bottom: 0PX;
                         data:{"billStatus" : billStatus,"billId" : id,"current_allocation_Id":current_allocation_Id},
                         success: function (data) {
                             window.parent.location.reload(true);
-                        }  
+                        },
+                        beforeSend: function(){
+                            $('.comman-ajax-loader').css("visibility", "visible");
+                        },
+                        complete: function(){
+                            $('.comman-ajax-loader').css("visibility", "hidden");
+                        },
+                        error: function(jqXHR, exception) {
+                            alert("Something Went Wrong, Please Try Again...!");
+                        }     
                 });
             }else if(bill.text()!='' || bill.text()==resend){
                 var billStatus = '';
@@ -1009,7 +1128,16 @@ padding-bottom: 0PX;
                         data:{"billStatus" : billStatus,"billId" : id,"current_allocation_Id":current_allocation_Id},
                         success: function (data) {
                             window.parent.location.reload(true);
-                        }  
+                        },
+                        beforeSend: function(){
+                            $('.comman-ajax-loader').css("visibility", "visible");
+                        },
+                        complete: function(){
+                            $('.comman-ajax-loader').css("visibility", "hidden");
+                        },
+                        error: function(jqXHR, exception) {
+                            alert("Something Went Wrong, Please Try Again...!");
+                        }     
                 });
             }
         } 
@@ -1023,7 +1151,16 @@ padding-bottom: 0PX;
                         data:{"billStatus" : billStatus,"billId" : id,"current_allocation_Id":current_allocation_Id},
                         success: function (data) {
                             window.parent.location.reload(true);
-                        }  
+                        },
+                        beforeSend: function(){
+                            $('.comman-ajax-loader').css("visibility", "visible");
+                        },
+                        complete: function(){
+                            $('.comman-ajax-loader').css("visibility", "hidden");
+                        },
+                        error: function(jqXHR, exception) {
+                            alert("Something Went Wrong, Please Try Again...!");
+                        }     
                 });
             }else if(pass.text()!='' || pass.text()==resend){
                 var billStatus = '';
@@ -1033,7 +1170,16 @@ padding-bottom: 0PX;
                         data:{"billStatus" : billStatus,"billId" : id,"current_allocation_Id":current_allocation_Id},
                         success: function (data) {
                             window.parent.location.reload(true);
-                        }  
+                        },
+                        beforeSend: function(){
+                            $('.comman-ajax-loader').css("visibility", "visible");
+                        },
+                        complete: function(){
+                            $('.comman-ajax-loader').css("visibility", "hidden");
+                        },
+                        error: function(jqXHR, exception) {
+                            alert("Something Went Wrong, Please Try Again...!");
+                        }     
                 });
             }
         } 
@@ -1046,7 +1192,16 @@ padding-bottom: 0PX;
                         data:{"billStatus" : billStatus,"billId" : id,"current_allocation_Id":current_allocation_Id},
                         success: function (data) {
                             window.parent.location.reload(true);
-                        }  
+                        },
+                        beforeSend: function(){
+                            $('.comman-ajax-loader').css("visibility", "visible");
+                        },
+                        complete: function(){
+                            $('.comman-ajax-loader').css("visibility", "hidden");
+                        },
+                        error: function(jqXHR, exception) {
+                            alert("Something Went Wrong, Please Try Again...!");
+                        }     
                 });
             }else if(cheque.text()!='' || cheque.text()==resend){
                 var billStatus = '';
@@ -1056,7 +1211,16 @@ padding-bottom: 0PX;
                         data:{"billStatus" : billStatus,"billId" : id,"current_allocation_Id":current_allocation_Id},
                         success: function (data) {
                             window.parent.location.reload(true);
-                        }  
+                        },
+                        beforeSend: function(){
+                            $('.comman-ajax-loader').css("visibility", "visible");
+                        },
+                        complete: function(){
+                            $('.comman-ajax-loader').css("visibility", "hidden");
+                        },
+                        error: function(jqXHR, exception) {
+                            alert("Something Went Wrong, Please Try Again...!");
+                        }     
                 });
             }
         }  
@@ -1069,7 +1233,16 @@ padding-bottom: 0PX;
                         data:{"billStatus" : billStatus,"billId" : id,"current_allocation_Id":current_allocation_Id},
                         success: function (data) {
                             window.parent.location.reload(true);
-                        }  
+                        },
+                        beforeSend: function(){
+                            $('.comman-ajax-loader').css("visibility", "visible");
+                        },
+                        complete: function(){
+                            $('.comman-ajax-loader').css("visibility", "hidden");
+                        },
+                        error: function(jqXHR, exception) {
+                            alert("Something Went Wrong, Please Try Again...!");
+                        }     
                 });
             }else if(Slip.text()!='' || Slip.text()==resend){
                 var billStatus = '';
@@ -1079,7 +1252,16 @@ padding-bottom: 0PX;
                         data:{"billStatus" : billStatus,"billId" : id,"current_allocation_Id":current_allocation_Id},
                         success: function (data) {
                             window.parent.location.reload(true);
-                        }  
+                        },
+                        beforeSend: function(){
+                            $('.comman-ajax-loader').css("visibility", "visible");
+                        },
+                        complete: function(){
+                            $('.comman-ajax-loader').css("visibility", "hidden");
+                        },
+                        error: function(jqXHR, exception) {
+                            alert("Something Went Wrong, Please Try Again...!");
+                        }     
                 });
             }
         }
@@ -1183,7 +1365,16 @@ padding-bottom: 0PX;
                         data:{"billStatus" : billStatus,"billId" : id,"allocationId" : allocationId},
                         success: function (data) {
                             window.parent.location.reload(true);
-                        }  
+                        },
+                        beforeSend: function(){
+                            $('.comman-ajax-loader').css("visibility", "visible");
+                        },
+                        complete: function(){
+                            $('.comman-ajax-loader').css("visibility", "hidden");
+                        },
+                        error: function(jqXHR, exception) {
+                            alert("Something Went Wrong, Please Try Again...!");
+                        }     
                 });
             }else if(bill.text()!='' || bill.text()==FSR){
                 var billStatus = '';
@@ -1193,7 +1384,16 @@ padding-bottom: 0PX;
                         data:{"billStatus" : billStatus,"billId" : id,"allocationId" : allocationId},
                         success: function (data) {
                             window.parent.location.reload(true);
-                        }  
+                        },
+                        beforeSend: function(){
+                            $('.comman-ajax-loader').css("visibility", "visible");
+                        },
+                        complete: function(){
+                            $('.comman-ajax-loader').css("visibility", "hidden");
+                        },
+                        error: function(jqXHR, exception) {
+                            alert("Something Went Wrong, Please Try Again...!");
+                        }     
                 });
             }
         } 
@@ -1207,7 +1407,16 @@ padding-bottom: 0PX;
                         data:{"billStatus" : billStatus,"billId" : id},
                         success: function (data) {
                             window.parent.location.reload(true);
-                        }  
+                        },
+                        beforeSend: function(){
+                            $('.comman-ajax-loader').css("visibility", "visible");
+                        },
+                        complete: function(){
+                            $('.comman-ajax-loader').css("visibility", "hidden");
+                        },
+                        error: function(jqXHR, exception) {
+                            alert("Something Went Wrong, Please Try Again...!");
+                        }     
                 });
             }else if(pass.text()!='' || pass.text()==FSR){
                 var billStatus = '';
@@ -1217,7 +1426,16 @@ padding-bottom: 0PX;
                         data:{"billStatus" : billStatus,"billId" : id},
                         success: function (data) {
                             window.parent.location.reload(true);
-                        }  
+                        },
+                        beforeSend: function(){
+                            $('.comman-ajax-loader').css("visibility", "visible");
+                        },
+                        complete: function(){
+                            $('.comman-ajax-loader').css("visibility", "hidden");
+                        },
+                        error: function(jqXHR, exception) {
+                            alert("Something Went Wrong, Please Try Again...!");
+                        }     
                 });
             }
         } 
@@ -1230,7 +1448,16 @@ padding-bottom: 0PX;
                         data:{"billStatus" : billStatus,"billId" : id},
                         success: function (data) {
                             window.parent.location.reload(true);
-                        }  
+                        },
+                        beforeSend: function(){
+                            $('.comman-ajax-loader').css("visibility", "visible");
+                        },
+                        complete: function(){
+                            $('.comman-ajax-loader').css("visibility", "hidden");
+                        },
+                        error: function(jqXHR, exception) {
+                            alert("Something Went Wrong, Please Try Again...!");
+                        }       
                 });
             }else if(cheque.text()!='' || cheque.text()==FSR){
                 var billStatus = '';
@@ -1240,7 +1467,16 @@ padding-bottom: 0PX;
                         data:{"billStatus" : billStatus,"billId" : id},
                         success: function (data) {
                             window.parent.location.reload(true);
-                        }  
+                        },
+                        beforeSend: function(){
+                            $('.comman-ajax-loader').css("visibility", "visible");
+                        },
+                        complete: function(){
+                            $('.comman-ajax-loader').css("visibility", "hidden");
+                        },
+                        error: function(jqXHR, exception) {
+                            alert("Something Went Wrong, Please Try Again...!");
+                        }      
                 });
             }
         }  
@@ -1253,7 +1489,16 @@ padding-bottom: 0PX;
                         data:{"billStatus" : billStatus,"billId" : id},
                         success: function (data) {
                             window.parent.location.reload(true);
-                        }  
+                        },
+                        beforeSend: function(){
+                            $('.comman-ajax-loader').css("visibility", "visible");
+                        },
+                        complete: function(){
+                            $('.comman-ajax-loader').css("visibility", "hidden");
+                        },
+                        error: function(jqXHR, exception) {
+                            alert("Something Went Wrong, Please Try Again...!");
+                        }       
                 });
             }else if(Slip.text()!='' || Slip.text()==resend){
                 var billStatus = '';
@@ -1263,7 +1508,16 @@ padding-bottom: 0PX;
                         data:{"billStatus" : billStatus,"billId" : id},
                         success: function (data) {
                             window.parent.location.reload(true);
-                        }  
+                        },
+                        beforeSend: function(){
+                            $('.comman-ajax-loader').css("visibility", "visible");
+                        },
+                        complete: function(){
+                            $('.comman-ajax-loader').css("visibility", "hidden");
+                        },
+                        error: function(jqXHR, exception) {
+                            alert("Something Went Wrong, Please Try Again...!");
+                        }       
                 });
             }
         }
@@ -1384,7 +1638,16 @@ padding-bottom: 0PX;
             data : {billdetailId : billdetailId,billId:billId,returnedQty:returnedQty,returnedAmt:returnedAmt,allocationID:allocationID},
             success :function(data){
                 $('#msg').html('<span style="color: red;">'+data+'</span>');
-            }
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            }     
           });
     });
 </script>
@@ -1406,7 +1669,16 @@ padding-bottom: 0PX;
             data : {billdetailId : billdetailId,billId:billId,returnedQty:returnedQty,returnedAmt:returnedAmt,allocationID:allocationID},
             success :function(data){
                 $('#msg').html('<span style="color: red;">'+data+'</span>');
-            }
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            }     
           });
     });
 </script>

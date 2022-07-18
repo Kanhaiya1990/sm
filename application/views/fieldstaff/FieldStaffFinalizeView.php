@@ -24,13 +24,13 @@ padding-bottom: 0PX;
 <h1 style="display: none;">Welcome</h1><br/><br/><br/><br/><br/>
     <section class="col-md-12 box" style="height: auto;overflow-y: scroll;">
         <div class="container-fluid">
+            <div class="block-header">
+                <h2>Deliveryman Hisaab Master</h2>
+            </div>
               <!-- Basic Examples -->
             <div class="row clearfix" id="page">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
-                    <div class="flex-div header">
-                    <h2>Deliveryman Hisaab Master</h2>
-                    </div>
                        
                         <div class="body">
                             <form action="<?php echo site_url('fieldStaff/FieldStaffController/insertFinalizeRecord');?>" onsubmit="return chkEmpty();" method="post">
@@ -39,7 +39,7 @@ padding-bottom: 0PX;
                                     <div class="col-md-12 table-responsive">
                                         <input type="hidden" name="allocationId" value="<?php echo $allocationId;?>">
                                         <input type="hidden" name="allocationCode" value="<?php echo $allocationCode;?>">
-                                    <table class="table cust-tbl table-bordered">
+                                    <table class="table table-striped table-bordered" border="2px" style="font-size: 12px;width: 80%">
                                         <tr class="gray">
                                             <th><center>Particulars</center></th>
                                             <th><center>Total Bills</center></th>
@@ -81,7 +81,7 @@ padding-bottom: 0PX;
                                 </div>
                                     <div class="col-md-12 table-responsive">
                                         <div class="col-sm-5">
-                                            <table class="table cust-tbl table-bordered">
+                                            <table class="table table-striped table-bordered" style="font-size: 12px;">
                                             <thead>
                                                 <tr>
                                                     <th class="text-xs-center" colspan="3"><center>Total</center></th>
@@ -118,7 +118,7 @@ padding-bottom: 0PX;
                                                 
                                             </tbody>
                                         </table>
-                                        <table class="table cust-tbl table-bordered">
+                                        <table class="table table-striped table-bordered" style="font-size: 12px;">
                                             <thead>
                                                 <tr>
                                                     <th class="text-xs-center" colspan="4"><center>Expences</center></th>
@@ -163,7 +163,7 @@ padding-bottom: 0PX;
                                         </table>
                                         </div>
                                         <div class="col-sm-7">
-                                        <table class="table cust-tbl table-bordered">
+                                        <table class="table-striped table-bordered" style="font-size: 12px;">
                                             <thead>
                                                 <tr>
                                                     <th class="text-xs-center" colspan="6"><center>Notes</center></th>
@@ -288,17 +288,17 @@ padding-bottom: 0PX;
                                 if(((in_array('owner', $des) || in_array('senior_manager', $des) || in_array('manager', $des)))){
 
                             ?>
-                                        <button type="submit" id="insert-ins" class="btn btn-primary btnStyle m-t-15 waves-effect"> <i class="material-icons">save</i><span class="icon-name">Submit Hisab</span></button>
+                                        <button type="submit" id="insert-ins" class="btn btn-primary m-t-15 waves-effect"> <i class="material-icons">save</i><span class="icon-name">Submit Hisab</span></button>
                                    
                                         <a href="<?php echo site_url('AllocationByManagerController/openAllocations'); ?>">
-                                        <button type="button" class="btn btn-danger m-t-15 waves-effect"><i class="material-icons">cancel</i><span class="icon-name">Cancel</span></button>
+                                           <button type="button" class="btn btn-primary m-t-15 waves-effect"><i class="material-icons">cancel</i><span class="icon-name">Cancel</span></button>
                                         </a>
 
                                 <?php }else{ ?>
-                                        <button type="submit" id="insert-ins" class="btn btn-primary btnStyle m-t-15 waves-effect"> <i class="material-icons">save</i><span class="icon-name">Submit Hisab</span></button>
+                                        <button type="submit" id="insert-ins" class="btn btn-primary m-t-15 waves-effect"> <i class="material-icons">save</i><span class="icon-name">Submit Hisab</span></button>
                                    
                                         <a href="<?php echo site_url('fieldStaff/FieldStaffController/fieldStaff/'.$allocationId); ?>">
-                                        <button type="button" class="btn btn-danger m-t-15 waves-effect"><i class="material-icons">cancel</i><span class="icon-name">Cancel</span></button>
+                                           <button type="button" class="btn btn-primary m-t-15 waves-effect"><i class="material-icons">cancel</i><span class="icon-name">Cancel</span></button>
                                         </a>
                                 <?php } ?>
                                             </left> 
@@ -432,7 +432,16 @@ padding-bottom: 0PX;
             success: function (data) {
                 document.getElementById('insFin').innerHTML=data;
                 // window.parent.location.reload(true);
-            }  
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            }     
         });
     }
 

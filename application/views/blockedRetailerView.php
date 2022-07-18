@@ -40,14 +40,14 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     
                     <div class="card">
-                        <div class="header flex-div">
+                        <div class="header">
                             <h2>
                                Blocked Retailers
                             </h2>
                             <h2>
                                 <p align="right">
                                     <a href="<?php echo site_url('RetailerController/');?>">
-                                        <button type="submit" class="btn btnStyle m-t-15 waves-effect"><i class="material-icons">visibility</i>  Show Active Retailers </button>
+                                        <button type="submit" class="btn btn-primary m-t-15 waves-effect"><i class="material-icons">visibility</i>  Show Active Retailers </button>
                                     </a> 
                                 </p>
                           </h2>
@@ -55,10 +55,10 @@
                         </div>
                         <div class="body">
                             <div class="table-responsive">
-                                <table id="retTbl" class="table table-bordered cust-tbl js-basic-example dataTable" data-page-length='10'>
+                                <table id="retTbl" class="table table-bordered table-striped table-hover js-basic-example dataTable" data-page-length='10'>
                                     <thead>
                                         <tr>
-                                            <th>No</th>
+                                            <th>Sr.No</th>
                                             <th>Retailer Code</th>
                                             <th>Name</th>
                                             <th class="noExport">Action</th>
@@ -66,7 +66,7 @@
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>No</th>
+                                            <th>Sr.No</th>
                                             <th>Retailer Code</th>
                                             <th>Name</th> 
                                             <th class="noExport">Action</th>

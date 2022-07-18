@@ -12,6 +12,30 @@ class AllocationByManagerController extends CI_Controller {
 
 		if(isset($this->session->userdata['codeKeyData'])) {
 			$this->projectSessionName= $this->session->userdata['codeKeyData']['codeKeyValue'];
+			$this->baseUrl=$this->session->userdata['codeKeyData']['yourBaseUrl'];
+
+            if($this->baseUrl=="http://localhost/smartdistributor/" || $this->baseUrl=="https://siainc.in/kiasales/" || $this->baseUrl=="https://siainc.in/staging_kiasales/"){
+
+            }else{
+                $this->load->helper('url');
+                $url_parts = parse_url(current_url());
+                $siteUrl=explode('/',$url_parts['path']);//current url path
+        
+                $baseUrl=explode('/',$this->baseUrl);//base url path
+                
+                $siteDistributorName=trim($siteUrl[2]);
+                $baseDistributorName=trim($baseUrl[4]);
+                
+                if($siteDistributorName !="" && $baseDistributorName !=""){
+                    if($siteDistributorName==$baseDistributorName){
+                    //   
+                    }else{
+                    redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
+                    }
+                }else{
+                redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
+                }
+            }
 		}else{
 			$this->load->view('LoginView');
 		}
@@ -24,41 +48,71 @@ class AllocationByManagerController extends CI_Controller {
 		$emp=array_unique($emp);
 
 		$emp=implode(",",$emp);
-		$empName=$emp;
+
+		$empNameData=$emp;
+		
 		$emp=explode(",",$emp);
 		$empCount=count($emp);
 
+		$empName="";
 		$fieldStaffCode1=0;
 		$fieldStaffCode2=0;
 		$fieldStaffCode3=0;
 		$fieldStaffCode4=0;
 		for($i=0;$i<$empCount;$i++){
 			$empData['empData']=$this->AllocationByManagerModel->getEmpId('employee',$emp[$i]);
-			
-			if($i==0){
-				$fieldStaffCode1=$empData['empData'][0]['id'];
-			}else if($i==1){
-				$fieldStaffCode2=$empData['empData'][0]['id'];
-			}else if($i==2){
-				$fieldStaffCode3=$empData['empData'][0]['id'];
-			}else if($i==3){
-				$fieldStaffCode4=$empData['empData'][0]['id'];
+			if(!empty($empData['empData'])){
+				if($i==0){
+					$fieldStaffCode1=$empData['empData'][0]['id'];
+					if($empName==""){
+						$empName=$emp[$i];
+					}else{
+						$empName=$empName.','.$emp[$i];
+					}
+					
+				}else if($i==1){
+					$fieldStaffCode2=$empData['empData'][0]['id'];
+					if($empName==""){
+						$empName=$emp[$i];
+					}else{
+						$empName=$empName.','.$emp[$i];
+					}
+				}else if($i==2){
+					$fieldStaffCode3=$empData['empData'][0]['id'];
+					if($empName==""){
+						$empName=$emp[$i];
+					}else{
+						$empName=$empName.','.$emp[$i];
+					}
+				}else if($i==3){
+					$fieldStaffCode4=$empData['empData'][0]['id'];
+					if($empName==""){
+						$empName=$emp[$i];
+					}else{
+						$empName=$empName.','.$emp[$i];
+					}
+				}
 			}
 		}
 
-		$updateAllocationData=array(
-			"fieldStaffCode1"=>$fieldStaffCode1,
-			"fieldStaffCode2"=>$fieldStaffCode2,
-			"fieldStaffCode3"=>$fieldStaffCode3,
-			"fieldStaffCode4"=>$fieldStaffCode4,
-			"allocationEmployeeName"=>$empName
-		);
-		$this->AllocationByManagerModel->update('allocations',$updateAllocationData,$allocationId);
-		if($this->db->affected_rows()>0){
-			echo "Record Updated...!";
+		if($empName !=""){
+			$updateAllocationData=array(
+				"fieldStaffCode1"=>$fieldStaffCode1,
+				"fieldStaffCode2"=>$fieldStaffCode2,
+				"fieldStaffCode3"=>$fieldStaffCode3,
+				"fieldStaffCode4"=>$fieldStaffCode4,
+				"allocationEmployeeName"=>$empName
+			);
+			$this->AllocationByManagerModel->update('allocations',$updateAllocationData,$allocationId);
+			if($this->db->affected_rows()>0){
+				echo "Record Updated...!";
+			}else{
+				echo "Unable to update record...!";
+			}
 		}else{
-			echo "Unable to update record...!";
+			echo "Please select correct employeee...!";
 		}
+		
 	}
 
 	public function updateAllocationRoutes(){
@@ -67,40 +121,56 @@ class AllocationByManagerController extends CI_Controller {
 		$route=array_unique($route);
 		
 		$route=implode(",", $route);
-		$routeName=$route;
+		$routeNameData=$route;
 		$route=explode(",",$route);
 		$rtCount=count($route);
 
 
-
+		$routeName="";
+		$rID="";
+		$rCODE="";
 		$routeId='';
 		$routCode='';
 		$allocationRouteName="";
 		for($i=0;$i<$rtCount;$i++){
 			$routeData['routeData']=$this->AllocationByManagerModel->getRouteCodeByName('route',$route[$i]);
-			$rID=$routeData['routeData'][0]['id'];
-			$rCODE=$routeData['routeData'][0]['code'];
-			$routeId=$routeId."".$rID.",";
-			$routCode=$routCode."".$rCODE.",";
-			$allocationRouteName=$allocationRouteName.','.$route[$i];
+			if(!empty($routeData['routeData'])){
+				$rID=$routeData['routeData'][0]['id'];
+				$rCODE=$routeData['routeData'][0]['code'];
+				$routeId=$routeId."".$rID.",";
+				$routCode=$routCode."".$rCODE.",";
+				$allocationRouteName=$allocationRouteName.','.$route[$i];
+				if($routeName==""){
+					$routeName=$route[$i];
+				}else{
+					$routeName=$routeName.','.$route[$i];
+				}
+			}
+			
+			
 		}
 
 		$routeId = rtrim($routeId,',');
 		$routCode = rtrim($routCode,',');
 
-		// echo $routeId.' '.$routCode.' '.$routeName.' ';
+		// echo $routeId.' re 	 '.$routCode.' rr '.$routeName.' ';
 
-		$updateAllocationData=array(
-			"routId"=>$routeId,
-			"routeCode"=>$routCode,
-			"allocationRouteName"=>$routeName
-		);
-		$this->AllocationByManagerModel->update('allocations',$updateAllocationData,$allocationId);
-		if($this->db->affected_rows()>0){
-			echo "Record Updated...!";
+		if($routeId !=""){
+			$updateAllocationData=array(
+				"routId"=>$routeId,
+				"routeCode"=>$routCode,
+				"allocationRouteName"=>$routeName
+			);
+			$this->AllocationByManagerModel->update('allocations',$updateAllocationData,$allocationId);
+			if($this->db->affected_rows()>0){
+				echo "Record Updated...!";
+			}else{
+				echo "Unable to update record...!";
+			}
 		}else{
-			echo "Unable to update record...!";
+			echo "Please select Correct Route";
 		}
+		
 	}
 
 	public function removeRouteBillAddedByRoutes(){
@@ -165,7 +235,7 @@ class AllocationByManagerController extends CI_Controller {
 				            <td class="text-right" id="looop"><?php echo number_format($items['pendingAmt']); ?></td>
 				          <td class="text-right">0</td>
 				            <td>
-				            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-xs btn-danger waves-effect" data-type="basic">
+				            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-xs btn-primary waves-effect" data-type="basic">
 				            		<i class="material-icons">cancel</i></button>
 				            </td>
 		            </tr>
@@ -1410,7 +1480,7 @@ class AllocationByManagerController extends CI_Controller {
 			            <td></td>
 			            <td> 
 			            	<a>
-			            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-xs btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+			            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-xs btn-primary waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
 			            	</a>
 			        	</td>
 			        </tr>
@@ -1458,7 +1528,7 @@ class AllocationByManagerController extends CI_Controller {
 		            <td class="text-right" id="loop"><?php echo number_format($items['pendingAmt']); ?></td>
 		            <td></td>
 		            <td> <a>
-		            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-xs btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+		            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-xs btn-primary waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
 		            </a></td>
 		        </tr>
 		        <?php
@@ -1574,7 +1644,7 @@ class AllocationByManagerController extends CI_Controller {
 			            <td></td>
 			            <!-- <td><?php echo $items['creditAdjustment']; ?></td> -->
 			            <td> <a>
-			            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-xs btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+			            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-xs btn-primary waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
 			            </a></td>
 				    </tr>
 				    <?php
@@ -1621,7 +1691,7 @@ class AllocationByManagerController extends CI_Controller {
 		            <td></td>
 		            <!-- <td><?php echo $items['creditAdjustment']; ?></td> -->
 		            <td> <a>
-		            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-xs btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+		            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-xs btn-primary waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
 		            </a></td>
 		        </tr>
 		        <?php
@@ -1750,7 +1820,7 @@ public function getPastBills(){
 		            <td class="text-right" id="looop"><?php echo number_format($items['pendingAmt']); ?></td>
 		           <td></td>
 		            <td>
-		            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-xs btn-danger waves-effect" data-type="basic">
+		            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-xs btn-primary waves-effect" data-type="basic">
 		            		<i class="material-icons">cancel</i></button>
 		            	</td>
 		            </tr>
@@ -1804,7 +1874,7 @@ public function getPastBills(){
 		            <td><?php echo $items['creditAdjustment']; ?></td>
 		            <td></td>
 		            <td>
-		            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-xs btn-danger waves-effect" data-type="basic">
+		            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-xs btn-primary waves-effect" data-type="basic">
 		            		<i class="material-icons">cancel</i></button>
 		            	</td>
 		            </tr>
@@ -1914,7 +1984,7 @@ public function getPastBills(){
 				            <td><?php echo $items['pendingAmt']; ?></td>
 				            <td><?php echo $items['creditAdjustment']; ?></td>
 				            <td>
-				            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-xs btn-danger waves-effect" data-type="basic">
+				            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-xs btn-primary waves-effect" data-type="basic">
 				            		<i class="material-icons">cancel</i></button>
 				            	</td>
 				            </tr>
@@ -1950,7 +2020,7 @@ public function getPastBills(){
 				            <td><?php echo $items['pendingAmt']; ?></td>
 				            <td><?php echo $items['creditAdjustment']; ?></td>
 				            <td>
-				            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-xs btn-danger waves-effect" data-type="basic">
+				            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-xs btn-primary waves-effect" data-type="basic">
 				            		<i class="material-icons">cancel</i></button>
 			            	</td>
 			            </tr>
@@ -2018,7 +2088,7 @@ public function getPastBills(){
 			           		<td class="text-right" id="loop"><?php echo number_format($items['pendingAmt']); ?></td>
 			          		<td></td>
 				            <td>
-				            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-xs btn-danger waves-effect" data-type="basic">
+				            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-xs btn-primary waves-effect" data-type="basic">
 				            		<i class="material-icons">cancel</i></button>
 				            </td>
 			            </tr>
@@ -2090,7 +2160,7 @@ public function getPastBills(){
 		            <td><?php echo ($items['receivedAmt']-$items['paidCheque']); ?></td>
 		            <td><?php echo ($items['paidCheque']+$items['chPenalty']); ?></td>
 		            <td>
-		            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-xs btn-danger waves-effect" data-type="basic">
+		            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-xs btn-primary waves-effect" data-type="basic">
 		            		<i class="material-icons">cancel</i></button>
 		            	</td>
 		            </tr>
@@ -2149,7 +2219,7 @@ public function getPastBills(){
 			            <td><?php echo $items['pendingAmt']; ?></td>
 			            <td><?php echo $items['creditAdjustment']; ?></td>
 			            <td>
-			            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-xs btn-danger waves-effect" data-type="basic">
+			            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-xs btn-primary waves-effect" data-type="basic">
 			            		<i class="material-icons">cancel</i></button>
 			            	</td>
 			            </tr>
@@ -2177,11 +2247,14 @@ public function getPastBills(){
 						$routeData=$this->AllocationByManagerModel->getRouteCodeByName('route',$rname);
 						$routeID=$routeData[0]['id'];
 						$routeCode=$routeData[0]['code'];
-						
-				// 		$data['pastBills']=$this->AllocationByManagerModel->loadPastBillsByRouteCode('bills',$routeCode);
-						$data['pastBills']=$this->AllocationByManagerModel->loadPastBillsByRoute('bills',$rname);
-						// print_r($data['pastBills']);
 
+						$data['pastBills']=array();
+						if($routeCode ==""){
+							$data['pastBills']=$this->AllocationByManagerModel->loadPastBillsByRoute('bills',$rname);
+						}else{
+							$data['pastBills']=$this->AllocationByManagerModel->loadPastBillsByRouteCode('bills',$routeCode);
+						}
+					
 						// print_r($data['pastBills']);exit;
 						foreach($data['pastBills'] as $row){
 							$response[] = $row;
@@ -2248,7 +2321,7 @@ public function getPastBills(){
         		            <td class="text-right" id="looop"><?php echo number_format($items['pendingAmt']); ?></td>
         		          <td></td>
         		            <td>
-        		            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-xs btn-danger waves-effect" data-type="basic">
+        		            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-xs btn-primary waves-effect" data-type="basic">
         		            		<i class="material-icons">cancel</i></button>
         		            </td>
 		            </tr>
@@ -2314,7 +2387,7 @@ public function getPastBills(){
 		            <td><?php echo $items['pendingAmt']; ?></td>
 		            <td></td>
 		            <td>
-		            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-xs btn-danger waves-effect" data-type="basic">
+		            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-xs btn-primary waves-effect" data-type="basic">
 		            		<i class="material-icons">cancel</i></button>
 		            	</td>
 		            </tr>

@@ -14,14 +14,15 @@ function goBack() {
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
-                        <div class="header flex-div">
-                            <h2><?php echo $title; ?></h2>
-							<button onclick="goBack();" class="btn btn-xs btnStyle margin"><i class="material-icons">keyboard_return</i></button></a>
+                        <div class="header">
+                            <h2>
+                               <button onclick="goBack();" class="btn btn-xs bg-primary margin"><i class="material-icons">keyboard_return</i></button></a> <?php echo $title; ?>
+                            </h2>
                         </div>
                         <div class="body">
                             <div class="row">
                                 <p align="right">
-                                    <button type="button" id="insert-ins" class="btn btn-sm btnStyle m-t-15 waves-effect"> <i class="material-icons">save</i> 
+                                    <button type="button" id="insert-ins" class="btn btn-xs btn-primary m-t-15 waves-effect"> <i class="material-icons">save</i> 
                                               <span class="icon-name">Clear Selected</span>
                                     </button>
                                 </p>
@@ -30,12 +31,12 @@ function goBack() {
                             <div class="table-responsive">
 
                                 <input type="hidden" id="dateForSr" value="<?php echo $date; ?>">
-                                <table id="test" class="table table-bordered cust-tbl js-exportable dataTable" data-page-length='100'>
+                                <table id="test" style="font-size:11px" class="table table-bordered table-striped table-hover js-exportable dataTable" data-page-length='100'>
                                     <thead>
                                         <tr>
                                             <th><input class="checkall"  type="checkbox" name="selValue" id="basic_checkbox"/>
                                                             <label for="basic_checkbox"></label></th>
-                                            <th>No</th>
+                                            <th>S. No.</th>
                                              <!-- <th>SR/FSR Date</th> -->
                                             <th>Allocation Number</th>
                                             <th>Bill No.</th>
@@ -53,7 +54,7 @@ function goBack() {
                                     <tfoot>
                                         <tr>
                                             <th></th>
-                                            <th>No</th>
+                                            <th>S. No.</th>
                                             <!-- <th>SR/FSR Date</th> -->
                                             <th>Allocation Code</th>
                                             <th>Bill No.</th>
@@ -96,7 +97,6 @@ function goBack() {
                                                          <td><?php echo $data['billNo']; ?></td>
                                                          <td><?php echo $data['compName']; ?></td>
                                                          <td><?php echo $data['routeName']; ?></td>
-														 
                                                          <td><?php echo $data['salesman']; ?></td>
                                                          <td><?php echo $data['retailerName']; ?></td>
                                                          <td><?php echo $data['retailerCode']; ?></td>
@@ -221,7 +221,16 @@ function goBack() {
                     var date=$('#dateForSr').val();
 
                     window.location.href="<?php echo base_url();?>index.php/operator/OperatorController/pendingAllocationSrWithDate/"+date;
-                }  
+                },
+                beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                }     
             });
         }else{
             alert('Please select Bills.');
@@ -250,7 +259,16 @@ function goBack() {
                     alert("Selected Sale Returns are cleared.");
                     var date=$('#dateForSr').val();
                     window.location.href="<?php echo base_url();?>index.php/operator/OperatorController/pendingAllocationSrWithDate/"+date;
-                }  
+                },
+                beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                }     
             });
         }else{
             alert('Please select Bills.');
@@ -268,7 +286,16 @@ function goBack() {
             success: function (data) {
                 $('#tbl_data').html(data);
                 // window.location.reload(true);
-            }  
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            }     
         });
     }
 
@@ -281,7 +308,16 @@ function goBack() {
             success: function (data) {
                 $('#tbl_data').html(data);
                  // window.location.reload(true);
-            }  
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            }     
         });
     }
 </script>

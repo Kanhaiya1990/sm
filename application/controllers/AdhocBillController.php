@@ -12,6 +12,30 @@ class AdhocBillController extends CI_Controller {
 
         if(isset($this->session->userdata['codeKeyData'])) {
 			$this->projectSessionName= $this->session->userdata['codeKeyData']['codeKeyValue'];
+			$this->baseUrl=$this->session->userdata['codeKeyData']['yourBaseUrl'];
+
+            if($this->baseUrl=="http://localhost/smartdistributor/" || $this->baseUrl=="https://siainc.in/kiasales/" || $this->baseUrl=="https://siainc.in/staging_kiasales/"){
+
+            }else{
+                $this->load->helper('url');
+                $url_parts = parse_url(current_url());
+                $siteUrl=explode('/',$url_parts['path']);//current url path
+        
+                $baseUrl=explode('/',$this->baseUrl);//base url path
+                
+                $siteDistributorName=trim($siteUrl[2]);
+                $baseDistributorName=trim($baseUrl[4]);
+                
+                if($siteDistributorName !="" && $baseDistributorName !=""){
+                    if($siteDistributorName==$baseDistributorName){
+                    //   
+                    }else{
+                    redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
+                    }
+                }else{
+                redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
+                }
+            }
 		}else{
 			$this->load->view('LoginView');
 		}
@@ -984,7 +1008,7 @@ class AdhocBillController extends CI_Controller {
     ?>
     <!-- <form action="<?php echo site_url('BillTransactionController/updateSRCreditAdj');?>" method="post"> -->
     <div class="col-md-12">
-         <table id="SrTable" class="table table-bordered dataTable js-exportable cust-tbl" data-page-length='100'>
+         <table style="font-size: 12px" id="SrTable" class="table table-bordered table-striped table-hover" data-page-length='100'>
                 <span id="all_id" style="display:none"></span>
                 <thead>
                     <tr>
@@ -1074,14 +1098,14 @@ class AdhocBillController extends CI_Controller {
    
         <div class="col-md-12">
             <div class="col-md-4">
-                <button id="srBtn" type="button" class="btn btn-primary btnStyle m-t-15 waves-effect">
+                <button id="srBtn" type="button" class="btn btn-primary m-t-15 waves-effect">
                     <i class="material-icons">save</i> 
                     <span class="icon-name">
                      Save SR
                     </span>
                 </button>
                 <?php if($billsInfo[0]['receivedAmt'] == 0.00){ ?>
-                    <button type="button" id="fsrBtn" data-id="<?php echo $billId ?>" class="btn btn-primary btnStyle m-t-15 waves-effect">
+                    <button type="button" id="fsrBtn" data-id="<?php echo $billId ?>" class="btn btn-primary m-t-15 waves-effect">
                         <i class="material-icons">save</i> 
                         <span class="icon-name">
                          Save FSR
@@ -1089,7 +1113,7 @@ class AdhocBillController extends CI_Controller {
                     </button>
                 <?php } ?>
                
-                <button type="button" data-dismiss="modal" class="btn btn-danger m-t-15 waves-effect">
+                <button type="button" data-dismiss="modal" class="btn btn-primary m-t-15 waves-effect">
                     <i class="material-icons">cancel</i> 
                     <span class="icon-name"> Cancel</span>
                 </button>

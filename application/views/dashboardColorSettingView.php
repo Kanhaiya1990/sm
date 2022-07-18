@@ -16,7 +16,7 @@
                         <div class="body">
                             <div class="table-responsive">
                               <p id="res"></p>
-                                <table class="table cust-tbl" data-page-length='100'>
+                                <table class="table" data-page-length='100'>
                                     <tbody>
                                         <tr id="sr_rep">
                                             <td>Color for Dashboard : </td>
@@ -25,7 +25,7 @@
                                             </td>
                                              <td>
                                                  <a id="sr_pen_id" href="javascript:void();">
-                                                    <button class="btn btnStyle  waves-effect">
+                                                    <button class="btn btn-primary  waves-effect">
                                                         <i class="material-icons">save</i> 
                                                         <span class="icon-name"> Save</span>
                                                     </button>

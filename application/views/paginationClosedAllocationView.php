@@ -19,15 +19,15 @@
                                <br>
                             <div class="top-panel">
                               <div class="btn-group pull-right">
-                                <button type="button" class="btn btn-sm btn-primary btnStyle waves-effect dropdown-toggle" data-toggle="dropdown" style="padding: 7px 15px;">Export <span class="caret"></span></button>
+                                <button type="button" class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown">Export <span class="caret"></span></button>
                                 <ul class="dropdown-menu" role="menu">
                                   <!-- <li><a class="dataExport" data-type="csv">CSV</a></li> -->
                                   <li><a class="dataExport" data-type="excel">XLS</a></li>          
                                 </ul>
                               </div>
                             </div>
-                            <div>
-                              <div class="row cust-tbl">
+                            <div class="table-responsive">
+                              <div class="row">
                                 <div class="col-sm-3">
                                   <b>Search Anything</b>
                                   <div class="form-group">
@@ -51,7 +51,7 @@
                                   </div>
                                 </div>
                                 <div class="col-sm-3">
-                                  <a href="<?php echo site_url('AllocationByManagerController/closedAllocations'); ?>" class="btn btn-sm m-t-15 btn-danger waves-effect">
+                                  <a href="<?php echo site_url('AllocationByManagerController/closedAllocations'); ?>" class="btn btn-sm m-t-15 btn-primary waves-effect">
                                         <i class="material-icons">cancel</i> 
                                         <span class="icon-name"> Cancel</span>
                                     </a>
@@ -60,36 +60,36 @@
                             
                             <!-- <div class="table-responsive"> -->
                                 <?php echo $pagination; ?>
-                                <table id="outstanding_table" class="table table-bordered cust-tbl" data-page-length="100">
+                                <table id="outstanding_table" style="font-size: 11px" class="table table-bordered table-striped " data-page-length='100'>
                                     <thead>
                                         <tr>
-                                            <th>No</th>
-                                            <th style="width: 145px;" data-action="sort" data-title="allocationCode" data-direction="ASC">Allocation</th>
+                                            <th>Sr.No</th>
+                                            <th data-action="sort" data-title="allocationCode" data-direction="ASC">Allocation</th>
                                             <th data-action="sort" data-title="date" data-direction="ASC">Date</th>
                                             <th data-action="sort" data-title="allocationCode" data-direction="ASC">Route</th>
                                             <th class="MayBeLongColumn" data-action="sort" data-title="allocationCode" data-direction="ASC">Salesman</th>
-                                            <th style="width: 255px;" data-action="sort" data-title="allocationCode" data-direction="ASC">Deliveryman</th>
+                                            <th data-action="sort" data-title="allocationCode" data-direction="ASC">Deliveryman</th>
                                             <th data-action="sort" data-title="allocationCode" data-direction="ASC">Reference</th>
-                                            <th data-action="sort" data-title="totalCashAmt" data-direction="ASC">Cash</th>
-                                            <th data-action="sort" data-title="totalChequeNeftAmt" data-direction="ASC"> Cheque/NEFT</th>
-                                            <th data-action="sort" data-title="totalSRAmt" data-direction="ASC"> SR </th>
-                                            <th data-action="sort" data-title="totalSRAmt" data-direction="ASC">Other</th>
+                                            <th data-action="sort" data-title="totalCashAmt" data-direction="ASC">Total Cash Amt</th>
+                                            <th data-action="sort" data-title="totalChequeNeftAmt" data-direction="ASC">Total Cheque/NEFT Amt</th>
+                                            <th data-action="sort" data-title="totalSRAmt" data-direction="ASC"> Total SR Amt</th>
+                                            <th data-action="sort" data-title="totalSRAmt" data-direction="ASC">Total Other Adj Amt</th>
                                            
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>No</th>
+                                            <th>Sr.No</th>
                                             <th data-action="sort" data-title="allocationCode" data-direction="ASC">Allocation</th>
                                             <th data-action="sort" data-title="date" data-direction="ASC">Date</th>
                                             <th data-action="sort" data-title="allocationCode" data-direction="ASC">Route</th>
-                                            <th style="width: 255px;" data-action="sort" data-title="allocationCode" data-direction="ASC">Salesman</th>
+                                            <th data-action="sort" data-title="allocationCode" data-direction="ASC">Salesman</th>
                                             <th data-action="sort" data-title="allocationCode" data-direction="ASC">Deliveryman</th>
                                             <th data-action="sort" data-title="allocationCode" data-direction="ASC">Reference</th>
-                                            <th data-action="sort" data-title="totalCashAmt" data-direction="ASC">Cash</th>
-                                            <th data-action="sort" data-title="totalChequeNeftAmt" data-direction="ASC"> Cheque/NEFT</th>
-                                            <th data-action="sort" data-title="totalSRAmt" data-direction="ASC">SR</th>
-                                            <th data-action="sort" data-title="totalSRAmt" data-direction="ASC">Other</th>
+                                            <th data-action="sort" data-title="totalCashAmt" data-direction="ASC">Total Cash Amt</th>
+                                            <th data-action="sort" data-title="totalChequeNeftAmt" data-direction="ASC">Total Cheque/NEFT Amt</th>
+                                            <th data-action="sort" data-title="totalSRAmt" data-direction="ASC"> Total SR Amt</th>
+                                            <th data-action="sort" data-title="totalSRAmt" data-direction="ASC">Total Other Adj Amt</th>
                                            
                                         </tr>
                                     </tfoot>
@@ -148,15 +148,10 @@
                                                         $dt=date_create($data['date']);
                                                         $date = date_format($dt,'d-M-Y');
                                                     ?>
-                                                    <td class="noSpace"><?php echo $date; ?></td>
+                                                    <td><?php echo $date; ?></td>
                                                     <td><?php echo rtrim($data['allocationRouteName'],', '); ?></td> 
                                                     <td><?php echo rtrim($data['allocationEmployeeName'],', '); ?></td>
-                                                    <td class="CellWithComment"><?php //echo  rtrim($data['allocationSalesman'],', '); 
-													
-													 $allocationSalesman=substr($data['allocationSalesman'], 0, 20);
-                                                     echo rtrim($allocationSalesman);?>
-											         <span class="CellComment"><?php echo $result =substr($data['allocationSalesman'],0); ?></span>
-													</td>
+                                                    <td><?php echo rtrim($data['allocationSalesman'],', '); ?></td>
                                                     
                                                   <!--  <td><?php echo rtrim($routeName,', '); ?></td>
                                                     <td></td> 
@@ -174,19 +169,14 @@
                                                   <td>
                                                       <a href="<?php echo base_url().'index.php/AllocationByManagerController/CloseCompleteAllocation/'.$data['id']; ?>"><?php echo $data['allocationCode']; ?></a>
                                                   </td>
-                                                  <?php 
+                                                  <?php
                                                       $dt=date_create($data['date']);
                                                       $date = date_format($dt,'d-M-Y');
                                                   ?>
-                                                  <td class="noSpace"><?php echo $date; ?></td>
+                                                  <td><?php echo $date; ?></td>
                                                   <td><?php echo rtrim($data['allocationRouteName'],', '); ?></td> 
                                                   <td><?php echo rtrim($data['allocationEmployeeName'],', '); ?></td>
-                                                  <td class="CellWithComment"><?php //echo  rtrim($data['allocationSalesman'],', '); 
-													
-													 $allocationSalesman=substr($data['allocationSalesman'], 0, 20);
-                                                     echo rtrim($allocationSalesman);?>
-											         <span class="CellComment"><?php echo $result =substr($data['allocationSalesman'],0); ?></span>
-													</td>
+                                                  <td><?php echo rtrim($data['allocationSalesman'],', '); ?></td>
                                                   
                                                 <!--  <td><?php echo rtrim($routeName,', '); ?></td>
                                                   <td></td> 
@@ -208,23 +198,10 @@
                                                       $dt=date_create($data['date']);
                                                       $date = date_format($dt,'d-M-Y');
                                                   ?>
-                                                  <td class="noSpace"><?php echo $date; ?></td>
-                                                 
-												  <td class="CellWithComment"><?php //echo  rtrim($data['allocationSalesman'],', '); 
-													
-													 $allocationRouteName=substr($data['allocationRouteName'], 0, 10);
-                                                     echo rtrim($allocationRouteName);?>
-											         <span class="CellComment"><?php echo $result =substr($data['allocationRouteName'],0); ?></span>
-													</td>
+                                                  <td><?php echo $date; ?></td>
+                                                  <td><?php echo rtrim($data['allocationRouteName'],', '); ?></td> 
                                                   <td><?php echo rtrim($data['allocationEmployeeName'],', '); ?></td>
-                                                   
-                                                   
-												   <td class="CellWithComment"><?php //echo  rtrim($data['allocationSalesman'],', '); 
-													
-													 $allocationSalesman=substr($data['allocationSalesman'], 0, 15);
-                                                     echo rtrim($allocationSalesman);?>
-											         <span class="CellComment"><?php echo $result =substr($data['allocationSalesman'],0); ?></span>
-													</td>
+                                                  <td><?php echo rtrim($data['allocationSalesman'],', '); ?></td>
                                                   
                                                 <!--  <td><?php echo rtrim($routeName,', '); ?></td>
                                                   <td></td> 
@@ -310,7 +287,7 @@
         }
 
   </script>
- 
+
   <script type="text/javascript">
     $( document ).ready(function() {
       $(".dataExport").click(function() {

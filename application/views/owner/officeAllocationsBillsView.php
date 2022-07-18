@@ -39,20 +39,20 @@
                             </h2>
                             <h2>
                                 <p align="right">
-                                     <button class="btn btn-sm btnStyle bg-primary margin" onClick="window.location.reload();"><i class="material-icons">refresh</i></button>
+                                     <button class="btn btn-sm bg-primary margin" onClick="window.location.reload();"><i class="material-icons">refresh</i></button>
                                  <!--  <a href="<?php echo site_url('owner/OfficeAllocationController/addOfficeAllocationsBills');?>">
                                     <button type="submit" class="btn bg-primary margin"><i class="material-icons">person_add</i>  Add  </button></a>  -->
                                 </p> 
                             </h2>
                         </div>
                         <div class="body">
-                            <div class="tableFixHead">
-                                <table class="table table-bordered js-basic-example dataTable cust-tbl" data-page-length='100'>
+                            <div class="table-responsive tableFixHead">
+                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable" data-page-length='100'>
                                     <thead>
                                         <tr>
-                                            <th>No</th>
+                                            <th>S. No.</th>
                                             <th>Allocation No.</th>
-                                            <th>Company</th>
+                                            <th>Division</th>
                                             <th>Title</th>
                                             <th>Allocation Date</th>
                                             <th>Created By</th>
@@ -62,7 +62,7 @@
                                         <tr>
                                            <th>S. No.</th>
                                             <th>Allocation No.</th>
-                                            <th>Company</th>
+                                            <th>Division</th>
                                             <th>Title</th>
                                             <th>Allocation Date</th>
                                             <th>Created By</th>

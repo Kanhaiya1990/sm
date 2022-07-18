@@ -7,7 +7,7 @@
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
-                        <div class="flex-div header">
+                        <div class="header">
                             <center><h2>Closed Office Allocation Bills</h2>
                                
                             </center>
@@ -20,7 +20,7 @@
                                      <div class="col-md-12">
                                     <div class="col-md-12">
                                         <div class="table-responsive">
-                                            <table class="table table-bordered js-basic-example dataTable cust-tbl" id="tbl">
+                                            <table class="table table-striped table-bordered" id="tbl">
                                                 <tr class="head">
                                                     <td colspan="13" style="background-color: whitesmoke;"><center><b>Office Allocations Bills</b></center></td>
                                                 </tr>
@@ -60,7 +60,7 @@
                                                 <td><?php echo $items['pendingAmt']; ?></td>
                                                 <td><?php echo $items['a_amount']; ?></td>
                                                 <td><?php echo $items['a_type']; ?></td>
-                                                <td><a href="<?php echo site_url('AdHocController/billHistoryInfo/'.$items['id']); ?>" class="btn btn-xs history-btn" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
+                                                <td><a href="<?php echo site_url('AdHocController/billHistoryInfo/'.$items['id']); ?>" class="btn btn-xs btn-primary" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
                                                   </td>
                                                
                                             </tr>

@@ -12,6 +12,30 @@ class AllocationByProcessController extends CI_Controller {
 
 		if(isset($this->session->userdata['codeKeyData'])) {
 			$this->projectSessionName= $this->session->userdata['codeKeyData']['codeKeyValue'];
+			$this->baseUrl=$this->session->userdata['codeKeyData']['yourBaseUrl'];
+
+            if($this->baseUrl=="http://localhost/smartdistributor/" || $this->baseUrl=="https://siainc.in/kiasales/" || $this->baseUrl=="https://siainc.in/staging_kiasales/"){
+
+            }else{
+                $this->load->helper('url');
+                $url_parts = parse_url(current_url());
+                $siteUrl=explode('/',$url_parts['path']);//current url path
+        
+                $baseUrl=explode('/',$this->baseUrl);//base url path
+                
+                $siteDistributorName=trim($siteUrl[2]);
+                $baseDistributorName=trim($baseUrl[4]);
+                
+                if($siteDistributorName !="" && $baseDistributorName !=""){
+                    if($siteDistributorName==$baseDistributorName){
+                    //   
+                    }else{
+                    redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
+                    }
+                }else{
+                redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
+                }
+            }
 		}else{
 			$this->load->view('LoginView');
 		}
@@ -985,7 +1009,7 @@ class AllocationByProcessController extends CI_Controller {
 			            <td></td>
 			            <td> 
 			            	<a>
-			            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+			            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-primary waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
 			            	</a>
 			        	</td>
 			        </tr>
@@ -1033,8 +1057,8 @@ class AllocationByProcessController extends CI_Controller {
 		            <td><?php echo $items['pendingAmt']; ?></td>
 		            <td></td>
 		            <td> <a>
-		            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
-		            </a></td> 
+		            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-primary waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+		            </a></td>
 		        </tr>
 		        <?php
 		    }
@@ -1149,7 +1173,7 @@ class AllocationByProcessController extends CI_Controller {
 			            <td>0.00</td>
 			            <!-- <td><?php echo $items['creditAdjustment']; ?></td> -->
 			            <td> <a>
-			            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+			            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-primary waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
 			            </a></td>
 				    </tr>
 				    <?php
@@ -1196,7 +1220,7 @@ class AllocationByProcessController extends CI_Controller {
 		            <td>0.00</td>
 		            <!-- <td><?php echo $items['creditAdjustment']; ?></td> -->
 		            <td> <a>
-		            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+		            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-primary waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
 		            </a></td>
 		        </tr>
 		        <?php
@@ -1325,11 +1349,11 @@ public function getPastBills(){
 		            <td><?php echo $items['pendingAmt']; ?></td>
 		           <td></td>
 		            <td>
-		            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-danger waves-effect" data-type="basic">
+		            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-primary waves-effect" data-type="basic">
 		            		<i class="material-icons">cancel</i></button>
 		            	</td>
 		            </tr>
-		            <?php 
+		            <?php
 		        }
 
 		        $this->session->set_userdata("pastBillIDs",$pastBillIDs);
@@ -1379,7 +1403,7 @@ public function getPastBills(){
 		            <td><?php echo $items['creditAdjustment']; ?></td>
 		            <td></td>
 		            <td>
-		            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-danger waves-effect" data-type="basic">
+		            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-primary waves-effect" data-type="basic">
 		            		<i class="material-icons">cancel</i></button>
 		            	</td>
 		            </tr>
@@ -1489,7 +1513,7 @@ public function getPastBills(){
 				            <td><?php echo $items['pendingAmt']; ?></td>
 				            <td><?php echo $items['creditAdjustment']; ?></td>
 				            <td>
-				            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-danger waves-effect" data-type="basic">
+				            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-primary waves-effect" data-type="basic">
 				            		<i class="material-icons">cancel</i></button>
 				            	</td>
 				            </tr>
@@ -1525,7 +1549,7 @@ public function getPastBills(){
 				            <td><?php echo $items['pendingAmt']; ?></td>
 				            <td><?php echo $items['creditAdjustment']; ?></td>
 				            <td>
-				            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-danger waves-effect" data-type="basic">
+				            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-primary waves-effect" data-type="basic">
 				            		<i class="material-icons">cancel</i></button>
 			            	</td>
 			            </tr>
@@ -1593,7 +1617,7 @@ public function getPastBills(){
 			           		<td><?php echo $items['pendingAmt']; ?></td>
 			          
 				            <td>
-				            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-danger waves-effect" data-type="basic">
+				            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-primary waves-effect" data-type="basic">
 				            		<i class="material-icons">cancel</i></button>
 				            </td>
 			            </tr>
@@ -1665,7 +1689,7 @@ public function getPastBills(){
 		            <td><?php echo ($items['receivedAmt']-$items['paidCheque']); ?></td>
 		            <td><?php echo ($items['paidCheque']+$items['chPenalty']); ?></td>
 		            <td>
-		            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-danger waves-effect" data-type="basic">
+		            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-primary waves-effect" data-type="basic">
 		            		<i class="material-icons">cancel</i></button>
 		            	</td>
 		            </tr>
@@ -1724,7 +1748,7 @@ public function getPastBills(){
 			            <td><?php echo $items['pendingAmt']; ?></td>
 			            <td><?php echo $items['creditAdjustment']; ?></td>
 			            <td>
-			            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-danger waves-effect" data-type="basic">
+			            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-primary waves-effect" data-type="basic">
 			            		<i class="material-icons">cancel</i></button>
 			            	</td>
 			            </tr>
@@ -1817,7 +1841,7 @@ public function getPastBills(){
         		            <td><?php echo $items['pendingAmt']; ?></td>
         		          <td>0.00</td>
         		            <td>
-        		            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-danger waves-effect" data-type="basic">
+        		            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-primary waves-effect" data-type="basic">
         		            		<i class="material-icons">cancel</i></button>
         		            </td>
 		            </tr>
@@ -1879,7 +1903,7 @@ public function getPastBills(){
 		            <td><?php echo $items['pendingAmt']; ?></td>
 		            <td></td>
 		            <td>
-		            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-danger waves-effect" data-type="basic">
+		            	<button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-primary waves-effect" data-type="basic">
 		            		<i class="material-icons">cancel</i></button>
 		            	</td>
 		            </tr>

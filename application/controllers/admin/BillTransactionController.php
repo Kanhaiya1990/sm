@@ -11,12 +11,39 @@ class BillTransactionController extends CI_Controller{
 		
 		if(isset($this->session->userdata['codeKeyData'])) {
 			$this->projectSessionName= $this->session->userdata['codeKeyData']['codeKeyValue'];
+			$this->baseUrl=$this->session->userdata['codeKeyData']['yourBaseUrl'];
+
+            if($this->baseUrl=="http://localhost/smartdistributor/" || $this->baseUrl=="https://siainc.in/kiasales/" || $this->baseUrl=="https://siainc.in/staging_kiasales/"){
+
+            }else{
+                $this->load->helper('url');
+                $url_parts = parse_url(current_url());
+                $siteUrl=explode('/',$url_parts['path']);//current url path
+        
+                $baseUrl=explode('/',$this->baseUrl);//base url path
+                
+                $siteDistributorName=trim($siteUrl[2]);
+                $baseDistributorName=trim($baseUrl[4]);
+                
+                if($siteDistributorName !="" && $baseDistributorName !=""){
+                    if($siteDistributorName==$baseDistributorName){
+                    //   
+                    }else{
+                    redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
+                    }
+                }else{
+                redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
+                }
+            }
 		}else{
 			$this->load->view('LoginView');
 		}
 	}
 
 	public function index(){
+		$data['company']=$this->BillTransactionModel->getdata('company');
+        $data['bank']=$this->BillTransactionModel->getdata('bank');
+        $data['emp']=$this->BillTransactionModel->getdataActive('employee');
 		$data['bills']=$this->BillTransactionModel->getBills('bills');
 		$this->load->view('admin/billTransactionView',$data);
 	}
@@ -187,8 +214,8 @@ class BillTransactionController extends CI_Controller{
 						<td><input type="text" id="cashAmtType" name="cashAmtType" onkeypress="return isNumber(event)">
 						
 						<input type="hidden" id="amt_cash" name="amt_cash" value="<?php echo ($cash[0]['amt']+$totalCash); ?>"></td>
-						<td><input type="text" id="cashRemark" name="cashRemark"></td> 
-						<td><button id="cashAmtId" class="btn btn-xs btnStyle btn-primary" style="padding: 2px 4px;">Save</button></td>
+						<td><input type="text" id="cashRemark" name="cashRemark"></td>
+						<td><button id="cashAmtId" class="btn btn-xs btn-primary" width="50%">Save</button></td>
 					<tr>
 					<tr>
 						<td>Cheque</td>
@@ -198,12 +225,12 @@ class BillTransactionController extends CI_Controller{
 						<td><input type="text" id="chequeRemark" name="chequeRemark"></td>
 						
 					<?php if(empty($checkChequeStatus)){ ?>
-						<td><button id="neftAmtId" class="btn btn-xs btnStyle btn-primary" style="padding: 2px 4px;" >Save</button></td>
+						<td><button id="chequeAmtId" class="btn btn-xs btn-primary" >Save</button></td>
 					<?php }else{
 						if(!empty($checkChequeStatus)){
 							if($checkChequeStatus[0]['chequeStatus']=="Cleared"){
 					?>
-								<td><button id="chequeAmtId" class="btn btn-xs btnStyle btn-primary" style="padding: 2px 4px;">Save</button></td>
+								<td><button id="chequeAmtId" class="btn btn-xs btn-primary" >Save</button></td>
 					<?php	}else{
 								echo "<td>Please clear all Cheques</td>";
 							}
@@ -221,12 +248,12 @@ class BillTransactionController extends CI_Controller{
 						<td><input type="text" id="neftRemark" name="neftRemark"></td>
 
 					<?php if(empty($checkNeftStatus)){ ?>
-						<td><button id="neftAmtId" class="btn btn-xs btnStyle btn-primary" style="padding: 2px 4px;">Save</button></td>
+						<td><button id="neftAmtId" class="btn btn-xs btn-primary" >Save</button></td>
 					<?php }else{
 						if(!empty($checkNeftStatus)){
 							if($checkNeftStatus[0]['chequeStatus']=="Received"){
 					?>
-								<td><button id="neftAmtId" class="btn btnStyle btn-xs btn-primary" style="padding: 2px 4px;">Save</button></td>
+								<td><button id="neftAmtId" class="btn btn-xs btn-primary" >Save</button></td>
 					<?php	}else{
 								echo "<td>Please clear all NEFT's</td>";
 							}
@@ -242,7 +269,7 @@ class BillTransactionController extends CI_Controller{
 						<td><input type="text" id="srAmtType" name="srAmtType" onkeypress="return isNumber(event)">
 						<input type="hidden" id="amt_sr" name="amt_sr" value="<?php echo ($sr); ?>"></td>
 						<td><input type="text" id="srRemark" name="srRemark"></td>
-						<td><button id="srAmtId" class="btn btnStyle btn-xs btn-primary" style="padding: 2px 4px;">Save</button></td>
+						<td><button id="srAmtId" class="btn btn-xs btn-primary" >Save</button></td>
 					<tr>
 					<tr>
 						<td>Office Adjustment</td>
@@ -250,7 +277,7 @@ class BillTransactionController extends CI_Controller{
 						<td><input type="text" id="officeAdjAmtType" name="officeAdjAmtType" onkeypress="return isNumber(event)">
 						<input type="hidden" id="amt_ofcAdj" name="amt_ofcAdj" value="<?php echo ($ofcAdj[0]['amt']); ?>"></td>
 						<td><input type="text" id="ofcAdjRemark" name="ofcAdjRemark"></td>
-						<td><button id="ofcAdjAmtId" class="btn btnStyle btn-xs btn-primary" style="padding: 2px 4px;">Save</button></td>
+						<td><button id="ofcAdjAmtId" class="btn btn-xs btn-primary" >Save</button></td>
 					<tr>
 					<tr>
 						<td>Other Adjustment</td>
@@ -258,7 +285,7 @@ class BillTransactionController extends CI_Controller{
 						<td><input type="text" id="otherAdjAmtType" name="otherAdjAmtType" onkeypress="return isNumber(event)">
 						<input type="hidden" id="amt_otherAdj" name="amt_otherAdj" value="<?php echo ($otherAdj[0]['amt']); ?>"></td>
 						<td><input type="text" id="otherAdjRemark" name="otherAdjRemark"></td>
-						<td><button id="otrAdjAmtId" class="btn btnStyle btn-xs btn-primary" style="padding: 2px 4px;">Save</button></td>
+						<td><button id="otrAdjAmtId" class="btn btn-xs btn-primary" >Save</button></td>
 					<tr>
 					<tr>
 						<td>CD</td>
@@ -266,7 +293,7 @@ class BillTransactionController extends CI_Controller{
 						<td><input type="text" id="cdAmtType" name="cdAmtType" onkeypress="return isNumber(event)">
 						<input type="hidden" id="amt_cd" name="amt_cd" value="<?php echo ($cd[0]['amt']); ?>"></td>
 						<td><input type="text" id="cdRemark" name="cdRemark"></td>
-						<td><button id="cdAmtId" class="btn btnStyle btn-xs btn-primary" style="padding: 2px 4px;">Save</button></td> 
+						<td><button id="cdAmtId" class="btn btn-xs btn-primary" >Save</button></td>
 					<tr>
 					<tr>
 						<td>Debit</td>
@@ -274,7 +301,7 @@ class BillTransactionController extends CI_Controller{
 						<td><input type="text" id="debitAmtType" name="debitAmtType" onkeypress="return isNumber(event)">
 						<input type="hidden" id="amt_debit" name="amt_debit" value="<?php echo ($debit[0]['amt']); ?>"></td>
 						<td><input type="text" id="debitRemark" name="debitRemark"></td>
-						<td><button id="debitAmtId" class="btn btn-xs btnStyle btn-primary" style="padding: 2px 4px;">Save</button></td>
+						<td><button id="debitAmtId" class="btn btn-xs btn-primary" >Save</button></td>
 					<tr>
 		<?php
 				}

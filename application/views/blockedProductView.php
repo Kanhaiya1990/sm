@@ -8,14 +8,14 @@
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
-                        <div class="header flex-div">
+                        <div class="header">
                             <h2>
                                Inactive Products Details
                             </h2>
                            <h2>
                                 <p align="right">
                                     <a href="<?php echo site_url('DeliverySlipController/Products/');?>">
-                                        <button type="submit" class="btn btnStyle btn-primary m-t-15 waves-effect"><i class="material-icons">visibility</i>  Show Active Products </button>
+                                        <button type="submit" class="btn btn-primary m-t-15 waves-effect"><i class="material-icons">visibility</i>  Show Active Products </button>
                                     </a> 
                                 </p>
                           </h2>
@@ -25,10 +25,10 @@
                             <div class="table-responsive inner"> -->
                                 <div class="body outer">
                                     <div class="inner table-responsive">
-                                <table id="prodTbl" class="table table-bordered cust-tbl js-basic-example dataTable" data-page-length='100' >
+                                <table id="prodTbl" class="table table-bordered table-striped table-hover js-basic-example dataTable" data-page-length='100' >
                                     <thead>
                                         <tr>
-                                            <th>No</th>
+                                            <th>S. No.</th>
                                             <th>Product Code</th>
                                             <th>Product Name</th>
                                             <th>Product company</th>
@@ -73,7 +73,7 @@
                                             <td>
                                                <a href="<?php echo base_url().'index.php/ProductController/activateProduct/'.$data['id'];  ?>">
                                                     <b>
-                                                        <i class="material-icons" style="color: orange;">add_circle</i> 
+                                                        <i class="material-icons" style="color: blue;">add_circle</i> 
                                                     </b>
                                                 </a>  
                                                  <a id="deleted" 

@@ -25,7 +25,7 @@ if (isset($this->session->userdata['codeKeyData'])) {
   }
 }
 
-/*.logo_prov {
+.logo_prov {
     border-radius: 30px;
     border: 1px solid black;
     background: red;
@@ -33,7 +33,7 @@ if (isset($this->session->userdata['codeKeyData'])) {
     padding: 6px;
     width: 50px;
     height: 50px;
-}*/
+}
 </style>
 <style>
 
@@ -52,49 +52,75 @@ if (isset($this->session->userdata['codeKeyData'])) {
         <div class="row clearfix">
             <div class="col-lg-12">
                 <div class="card">
-                    <div class="header flex-div">
-                        
-                     <h2>Day Book Date: <?php echo date('d-M-Y');?></h2>
+                    <div class="header">
+                    
+                      <h2>
+                       <br>
+                       <p align="center">Day Book Date: <?php echo date('d-M-Y');?></p>
 
                        <p align="right">
-                       <button data-toggle="modal" data-target="#myMainCashBook" class="modalLink btn btn-primary btnStyle btn-xs m-t-15 waves-effect">
-                        <span class="icon-name"> <i class="material-icons">playlist_add</i><span>Transfer to Main Cash Book </span></span>
+                    <?php if($this->session->userdata['workRestrict']['status']=="yes"){?>
+                        <button class="btn btn-primary btn-xs m-t-15 waves-effect" onclick="planUpgradeMsg()">
+                                <span class="icon-name"> <i class="material-icons">playlist_add</i><span>Transfer to Main Cash Book </span></span>
                         </button> 
 
-                        <button data-toggle="modal" data-target="#exchangeModel" class="modalLink btn btn-primary btnStyle btn-xs m-t-15 waves-effect">
+                        <button  class="btn btn-primary btn-xs m-t-15 waves-effect" onclick="planUpgradeMsg()">
                             <span class="icon-name"> <i class="material-icons">add_circle_outline</i><span>Note Exchange</span> </span>
                         </button>
-                        <button data-toggle="modal" data-target="#myModal" class="modalLink btn btn-primary btnStyle btn-xs m-t-15 waves-effect">
+                        <button class="btn btn-primary btn-xs m-t-15 waves-effect" onclick="planUpgradeMsg()">
                             <span class="icon-name"> <i class="material-icons">add_circle_outline</i><span>Add Income</span> </span>
                         </button>
-                        <button data-toggle="modal" data-target="#myModal1" class="modalLink btn btn-primary btnStyle btn-xs m-t-15 waves-effect">
+                        <button class="btn btn-primary btn-xs m-t-15 waves-effect" onclick="planUpgradeMsg()">
                             <span class="icon-name"> <i class="material-icons">add_circle_outline</i><span>Add Expense </span></span>
                         </button>
-                        <button data-toggle="modal" data-target="#myModal2" class="modalLink btn btn-primary btnStyle btn-xs m-t-15 waves-effect">
+                        <button class="btn btn-primary btn-xs m-t-15 waves-effect" onclick="planUpgradeMsg()">
                             <span class="icon-name"> <i class="material-icons">playlist_add</i><span>Add Bank Deposit </span></span>
                         </button>
+                        <button class="btn btn-xs btn-primary m-t-15 waves-effect" onclick="planUpgradeMsg()">
+                            <span class="icon-name"> <i class="material-icons">https</i><span>Close Day Book </span></span>
+                        </button>
+                    <?php }else{ ?>   
+                            <button data-toggle="modal" data-target="#myMainCashBook" class="modalLink btn btn-primary btn-xs m-t-15 waves-effect">
+                                    <span class="icon-name"> <i class="material-icons">playlist_add</i><span>Transfer to Main Cash Book </span></span>
+                            </button> 
 
-                    <?php if($lastEntryDayBookCount == 0){ ?>
-                            <button onclick="rejecetCloseDayBookSubmit();" class="btn btn-xs btn-primary btnStyle m-t-15 waves-effect">
-                                <span class="icon-name"> <i class="material-icons">https</i><span>Close Day Book </span></span>
+                            <button data-toggle="modal" data-target="#exchangeModel" class="modalLink btn btn-primary btn-xs m-t-15 waves-effect">
+                                <span class="icon-name"> <i class="material-icons">add_circle_outline</i><span>Note Exchange</span> </span>
                             </button>
-                    <?php } else { 
-                              if($ownerExpenseCount > 0 || $ownerExpenseCountTo>0){ ?>
-                                  <button onclick="rejecetCloseDayBook();" class="btn btn-xs btn-primary btnStyle m-t-15 waves-effect">
-                                      <span class="icon-name"> <i class="material-icons">https</i><span>Close Day Book </span></span>
-                                  </button>
-                              <?php }else{ ?>
-                                  <button id="closeDayBookBtn"  data-toggle="modal" data-target="#closeDayModal" class="btn btn-xs btnStyle btn-primary m-t-15 waves-effect">
-                                      <span class="icon-name"> <i class="material-icons">https</i><span>Close Day Book </span></span>
-                                  </button>
-                    <?php 
-                                } 
-                          } 
-                    ?>
+                            <button data-toggle="modal" data-target="#myModal" class="modalLink btn btn-primary btn-xs m-t-15 waves-effect">
+                                <span class="icon-name"> <i class="material-icons">add_circle_outline</i><span>Add Income</span> </span>
+                            </button>
+                            <button data-toggle="modal" data-target="#myModal1" class="modalLink btn btn-primary btn-xs m-t-15 waves-effect">
+                                <span class="icon-name"> <i class="material-icons">add_circle_outline</i><span>Add Expense </span></span>
+                            </button>
+                            <button data-toggle="modal" data-target="#myModal2" class="modalLink btn btn-primary btn-xs m-t-15 waves-effect">
+                                <span class="icon-name"> <i class="material-icons">playlist_add</i><span>Add Bank Deposit </span></span>
+                            </button>
 
-                    </p>
-                    </div>
-                    <table class="table table-bordered cust-tbl js-basic-example mb-0" data-page-length='100'>
+                            <?php if($lastEntryDayBookCount == 0){ ?>
+                                <button onclick="rejecetCloseDayBookSubmit();" class="btn btn-xs btn-primary m-t-15 waves-effect">
+                                    <span class="icon-name"> <i class="material-icons">https</i><span>Close Day Book </span></span>
+                                </button>
+                            <?php } else { 
+                                if($ownerExpenseCount > 0 || $ownerExpenseCountTo>0){ ?>
+                                    <button onclick="rejecetCloseDayBook();"  class="btn btn-xs btn-primary m-t-15 waves-effect">
+                                        <span class="icon-name"> <i class="material-icons">https</i><span>Close Day Book </span></span>
+                                    </button>
+                                <?php }else{ ?>
+                                    <button id="closeDayBookBtn"  data-toggle="modal" data-target="#closeDayModal" class="btn btn-xs btn-primary m-t-15 waves-effect">
+                                        <span class="icon-name"> <i class="material-icons">https</i><span>Close Day Book </span></span>
+                                    </button>
+                        <?php 
+                                        } 
+                                } 
+                            } 
+                        ?>
+                       
+                         
+
+
+                    </p> <br>
+                    <table style="font-size: 12px" class="table table-bordered table-striped table-hover js-basic-example" data-page-length='100'>
                         <thead>
                             <tr>
                                 <th>Date</th>
@@ -120,8 +146,8 @@ if (isset($this->session->userdata['codeKeyData'])) {
                         </tbody>
                     </table>
 
-               
-            
+                </h2>
+            </div>
             <div class="body">
 
                 <div class="table-responsive">
@@ -131,7 +157,7 @@ if (isset($this->session->userdata['codeKeyData'])) {
                         echo '<p style="color:red">'.$msg['message'].'</p>';
                     }
                     ?> 
-                    <table class="table table-bordered js-basic-example dataTable cust-tbl" data-page-length='100'>
+                    <table style="font-size: 12px" class="table table-bordered table-striped table-hover js-basic-example dataTable" data-page-length='100'>
                         <thead>
                             <tr>
                                 <th>Date</th>
@@ -226,36 +252,21 @@ if (isset($this->session->userdata['codeKeyData'])) {
                                       ?>
                                       <tr>
                                         <?php if($dt['expenseOwnerApproval']==2 || $dt['bankDepositApproval']==2){ ?>
-                                            <td class="noSpace"><?php echo date("d-M-Y h:i a", strtotime($dt['date'])).'<span class="logo_prov">Rejected</span>';?></td>
-                                        <?php }else{ ?> 
-                                            <td class="noSpace"><?php echo date("d-M-Y h:i a", strtotime($dt['date']));?></td>
+                                            <td><?php echo date("d-M-Y h:i a", strtotime($dt['date'])).'<span class="logo_prov">Rejected</span>';?></td>
+                                        <?php }else{ ?>
+                                            <td><?php echo date("d-M-Y h:i a", strtotime($dt['date']));?></td>
                                         <?php  } ?>
 
                                         <td><?php if($allocationCode >0){echo $allocationCode; } ?></td>
 
-										<td class="CellWithComment"><?php 
-										$nature=substr($dt['nature'], 0, 10);
-										echo rtrim($nature);?>
-										<span class="CellComment"><?php echo $result =substr($dt['nature'],0); ?></span>
-									    </td>
-										
-										<td class="CellWithComment"><?php 
-										$ename=substr($ename, 0, 10);
-										echo rtrim($ename);?>
-										<span class="CellComment"><?php echo $result =substr($ename,0); ?></span>
-									    </td>
-										
+                                        <td><?php echo $dt['nature'];?></td>
+                                        <td><?php echo $ename;?></td>
                                         <td>
                                             <?php if(!empty($routeName)){
-                                           // echo $routeName;	
-										    $routeName=substr($routeName, 0, 10);
-										    echo rtrim($routeName);?>
-										    <span class="CellComment"><?php echo $result =substr($routeName,0); ?></span>
-                                          <?php }else{ 
-											$narration=substr($dt['narration'], 0, 10);
-										    echo rtrim($narration);?>
-										    <span class="CellComment"><?php echo $result =substr($dt['narration'],0); ?></span>
-                                           <?php } ?>
+                                                echo $routeName;
+                                            }else{ 
+                                                echo $dt['narration'];
+                                            } ?>
                                         </td>
 
                                        
@@ -290,30 +301,16 @@ if (isset($this->session->userdata['codeKeyData'])) {
 
                                  <?php if($dt['expenseOwnerApproval']==2 || $dt['bankDepositApproval']==2){ ?>
                                     <tr style="background-color:pink;">
-                                        <td class="noSpace"><?php echo date("d-M-Y h:i a", strtotime($dt['date'])).'<span class="logo_prov">Rejected</span>';?></td>
-                                    <?php }else{ ?> 
+                                        <td><?php echo date("d-M-Y h:i a", strtotime($dt['date'])).'<span class="logo_prov">Rejected</span>';?></td>
+                                    <?php }else{ ?>
                                         <tr>
-                                            <td class="noSpace"><?php echo date("d-M-Y h:i a", strtotime($dt['date']));?></td>
+                                            <td><?php echo date("d-M-Y h:i a", strtotime($dt['date']));?></td>
                                         <?php  } ?>
                                         <td><?php if($allocationCode >0){echo $allocationCode; } ?></td>
-										
-										<td class="CellWithComment noSpace"><?php 
-										$nature=substr($dt['nature'], 0, 10);
-										echo rtrim($nature);?>
-										<span class="CellComment"><?php echo $result =substr($dt['nature'],0); ?></span>
-									    </td>
-                                       
-										<td class="CellWithComment"><?php 
-										$ename1=substr($ename, 0, 10);
-										echo rtrim($ename1);?>
-										<span class="CellComment"><?php echo $result =substr($ename,0); ?></span>
-									    </td>
-                                      
-										<td class="CellWithComment"><?php 
-										$narration=substr($dt['narration'], 0, 20);
-										echo rtrim($narration);?>
-										<span class="CellComment"><?php echo $result =substr($dt['narration'],0); ?></span>
-									    </td>
+
+                                        <td><?php echo $dt['nature'];?></td>
+                                        <td><?php echo $ename;?></td>
+                                        <td><?php echo $dt['narration'];?></td>
                                     <?php if($dt['nature']==="Bank Deposit"){?>
                                            <td></td>
                                            <td align="right" style="color:#4DD608;"><?php echo number_format($dt['amount']);?></td>
@@ -373,7 +370,7 @@ if (isset($this->session->userdata['codeKeyData'])) {
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <center> <h3 class="modal-title">Transfer to Main Cash Book</h3> </center>
+                    <h3 class="modal-title text-center">Transfer to Main Cash Book</h3>
                 </div>
                 <div class="modal-body">
                     <form method="post" role="form" onsubmit="return checkMainCashBookAmount(this);" action="<?php echo site_url('owner/MainCashBookController/insertMainCashBookEntry');?>"> 
@@ -381,10 +378,9 @@ if (isset($this->session->userdata['codeKeyData'])) {
                             <div class="col-md-12">
                                 <div class="col-md-12">
                                     <p id="err-data" style="color:red"></p>
-                                    <table class="table table-bordered cust-tbl js-basic-example" data-page-length='100'>
+                                    <table style="font-size: 12px" class="table table-bordered table-striped table-hover js-basic-example" data-page-length='100'>
                                         <thead>
-                                            <!-- <tr style="background-color: #dfdddd;"> -->
-                                            <tr>
+                                            <tr style="background-color: #dfdddd;">
                                                 <th>Denomination</th>
                                                 <th><span class="pull-right">Available Notes</span></th>
                                                 <th><span class="pull-right"> Transfer to Main Cash Book</span></th>
@@ -517,14 +513,14 @@ if (isset($this->session->userdata['codeKeyData'])) {
                             <div class="row clearfix">
                                 <div class="col-md-12">
                                     <center>                                               
-                                        <button id="transferToMainCashBookButton" type="submit" class="btn btn-primary btnStyle m-t-15 waves-effect">
+                                        <button id="transferToMainCashBookButton" type="submit" class="btn btn-primary m-t-15 waves-effect">
                                             <i class="material-icons">save</i> 
                                             <span class="icon-name">
                                                 Save
                                             </span>
                                         </button> 
 
-                                        <button data-dismiss="modal" type="button" id="bnkClose" class="btn btn-sm btn-danger m-t-15 waves-effect">
+                                        <button data-dismiss="modal" type="button" id="bnkClose" class="btn btn-primary m-t-15 waves-effect">
                                             <i class="material-icons">cancel</i> 
                                             <span class="icon-name">
                                                 cancel
@@ -554,7 +550,7 @@ if (isset($this->session->userdata['codeKeyData'])) {
       <div class="modal-body">
         <form method="post" role="form" onsubmit="return checkIncomeCorrectInputs(this);" action="<?php echo site_url('manager/CashBookController/insertIncomeInflow');?>"> 
 
-            <div class="row cust-tbl clearfix">
+            <div class="row clearfix">
                 <div class="col-md-12">
 
                  <div class="col-md-4">
@@ -626,7 +622,7 @@ if (isset($this->session->userdata['codeKeyData'])) {
 <div class="col-md-12">
     <div class="col-md-1"></div>
     <div class="col-md-10">
-        <table class="table table-bordered cust-tbl js-basic-example" style="font-size: 13px;">
+        <table class="table table-bordered table-striped table-hover js-basic-example" style="font-size: 13px;">
             <thead>
                 <tr>
                     <th class="text-xs-center" colspan="6"><center>Notes</center></th>
@@ -743,14 +739,14 @@ if (isset($this->session->userdata['codeKeyData'])) {
 <div class="col-md-12">
 
     <center>                                               
-        <button id="incomeDisableButton" type="submit" class="btn btnStyle m-t-15 waves-effect">
+        <button id="incomeDisableButton" type="submit" class="btn btn-primary m-t-15 waves-effect">
             <i class="material-icons">save</i> 
             <span class="icon-name">
                 Save
             </span>
         </button> 
 
-        <button type="button" data-dismiss="modal" id="inClose"  class="btn btn-sm btn-danger m-t-15 waves-effect">
+        <button type="button" data-dismiss="modal" id="inClose"  class="btn btn-primary m-t-15 waves-effect">
             <i class="material-icons">cancel</i> 
             <span class="icon-name">
                 cancel
@@ -772,7 +768,7 @@ if (isset($this->session->userdata['codeKeyData'])) {
 
 
 
-<!-- Add Expense -->
+<!-- Add Income -->
 <div class="container">
   <div class="modal fade" id="myModal1" role="dialog" tabindex="-1">
     <div class="modal-dialog">
@@ -783,7 +779,7 @@ if (isset($this->session->userdata['codeKeyData'])) {
       </div>
       <div class="modal-body">
         <form method="post" role="form" onsubmit="return checkExpenseCorrectInputs(this);" action="<?php echo site_url('manager/CashBookController/insertIncomeOutflow');?>"> 
-            <div class="row clearfix cust-tbl">
+            <div class="row clearfix">
                 <div class="col-md-12">
                     <input type="hidden" value="<?php echo (($closingBal+$totalInflow)-($totalOutflow+$totalBankDeposit)+($diffContraEntry)); ?>" name="expenceData_amt" id="expenceData_amt" autocomplete="off" class="form-control">
 
@@ -791,6 +787,7 @@ if (isset($this->session->userdata['codeKeyData'])) {
                         <p>
                            <b>Category </b>
                        </p>
+
 
                        <input type="text" autocomplete="off" tabindex="1" placeholder="select category" list="categoryOutflowList" id="categoryOutflow" name="categoryOutflow" class="form-control" required> 
                        <datalist id="categoryOutflowList">
@@ -827,9 +824,14 @@ if (isset($this->session->userdata['codeKeyData'])) {
                         <?php endforeach ?> 
                     </datalist> 
                 </div>
+
+
+
             </div>   
 
+
             <div class="col-md-12">
+
                 <div class="col-md-4">                                       
                     <p>
                       <b> Amount </b>
@@ -857,7 +859,7 @@ if (isset($this->session->userdata['codeKeyData'])) {
 <div class="col-md-12">
     <div class="col-md-1"></div>
     <div class="col-md-10">
-        <table class="table table-bordered cust-tbl js-basic-example" style="font-size: 13px;">
+        <table class="table table-bordered table-striped table-hover js-basic-example" style="font-size: 13px;">
             <thead>
                 <tr>
                     <th class="text-xs-center" colspan="6"><center>Notes</center></th>
@@ -942,6 +944,7 @@ if (isset($this->session->userdata['codeKeyData'])) {
                 </tr>
                 <tr>
                     
+
                     <td>Total &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 
                     <td colspan="2" class="text-xs-right">
@@ -968,14 +971,14 @@ if (isset($this->session->userdata['codeKeyData'])) {
     <div class="col-md-12">
 
         <center>                                               
-            <button id="expenseDisableButton" type="submit" class="btn btnStyle m-t-15 waves-effect">
+            <button id="expenseDisableButton" type="submit" class="btn btn-primary m-t-15 waves-effect">
                 <i class="material-icons">save</i> 
                 <span class="icon-name">
                     Save
                 </span>
             </button> 
 
-            <button data-dismiss="modal" type="button" id="expClose" class="btn btn-sm btn-danger m-t-15 waves-effect">
+            <button data-dismiss="modal" type="button" id="expClose" class="btn btn-primary m-t-15 waves-effect">
                 <i class="material-icons">cancel</i> 
                 <span class="icon-name">
                     cancel
@@ -1007,7 +1010,7 @@ if (isset($this->session->userdata['codeKeyData'])) {
         <div class="row clearfix">
           <div class="col-md-12">
             <div class="col-md-4">
-                <table class="table table-bordered cust-tbl js-basic-example" data-page-length='100'>
+                <table style="font-size: 12px" class="table table-bordered table-striped table-hover js-basic-example" data-page-length='100'>
                     <thead>
                         <tr>
                          <th>Title</th>
@@ -1043,7 +1046,7 @@ if (isset($this->session->userdata['codeKeyData'])) {
         </table>
     </div>
     <div class="col-md-8">
-        <table style="font-size: 12px" class="table table-bordered cust-tbl js-basic-example" data-page-length='100'>
+        <table style="font-size: 12px" class="table table-bordered table-striped table-hover js-basic-example" data-page-length='100'>
             <thead>
                 <tr style="background-color: #dfdddd;">
                     <th>Denomination</th>
@@ -1203,14 +1206,14 @@ if (isset($this->session->userdata['codeKeyData'])) {
 <div class="row clearfix">
     <div class="col-md-12">
         <center>                                               
-            <button id="bankDepositDisableButton" type="submit" class="btn btnStyle m-t-15 waves-effect">
+            <button id="bankDepositDisableButton" type="submit" class="btn btn-primary m-t-15 waves-effect">
                 <i class="material-icons">save</i> 
                 <span class="icon-name">
                     Save
                 </span>
             </button> 
 
-            <button data-dismiss="modal" type="button" id="bnkClose" class="btn btn-sm btn-danger m-t-15 waves-effect">
+            <button data-dismiss="modal" type="button" id="bnkClose" class="btn btn-primary m-t-15 waves-effect">
                 <i class="material-icons">cancel</i> 
                 <span class="icon-name">
                     cancel
@@ -1237,7 +1240,7 @@ if (isset($this->session->userdata['codeKeyData'])) {
       <div class="modal-body">
         <div class="col-md-12">
             <div class="col-md-3">
-                <table class="table table-bordered cust-tbl js-basic-example" data-page-length='100'>
+                <table style="font-size: 12px" class="table table-bordered table-striped table-hover js-basic-example" data-page-length='100'>
                     <thead>
                         <tr>
                          <th>Title</th>
@@ -1273,7 +1276,7 @@ if (isset($this->session->userdata['codeKeyData'])) {
         </table>
     </div>
     <div class="col-md-6">
-        <table class="table table-bordered cust-tbl js-basic-example" style="font-size: 12px;" data-page-length='100'>
+        <table style="font-size: 12px" class="table table-bordered table-striped table-hover js-basic-example" data-page-length='100'>
             <thead>
                 <tr style="background-color: #dfdddd;">
                     <th>Donomination</th>
@@ -1394,7 +1397,7 @@ if (isset($this->session->userdata['codeKeyData'])) {
 
 
     <div class="col-md-3">
-        <table class="table table-bordered cust-tbl js-basic-example DataTable display nowrap" id="example" data-page-length='100'>
+        <table style="font-size: 11px" class="table table-bordered table-striped table-hover js-basic-example DataTable display nowrap" id="example" data-page-length='100'>
             <thead>
                 <tr>
                     <th colspan="2"><center>Day Book Details</center></th>
@@ -1428,20 +1431,22 @@ if (isset($this->session->userdata['codeKeyData'])) {
         </tbody>
     </table>
 </div>
+
 </div>
+
 
                     <div class="row clearfix">
                         <div class="col-md-12">
 
                             <center>                                               
-                                <button id="closeDayBookDisableButton" onclick="submitDayBook(this);" type="button" class="btn btnStyle m-t-15 waves-effect">
+                                <button id="closeDayBookDisableButton" onclick="submitDayBook(this);" type="button" class="btn btn-primary m-t-15 waves-effect">
                                     <i class="material-icons">save</i> 
                                     <span class="icon-name">
                                         Save
                                     </span>
                                 </button> 
 
-                                <button data-dismiss="modal" type="button" id="dayBClose" class="btn btn-sm btn-danger m-t-15 waves-effect">
+                                <button data-dismiss="modal" type="button" id="dayBClose" class="btn btn-primary m-t-15 waves-effect">
                                     <i class="material-icons">cancel</i> 
                                     <span class="icon-name">
                                         cancel
@@ -1509,7 +1514,7 @@ if (isset($this->session->userdata['codeKeyData'])) {
         </table>
     </div> -->
     <div class="col-md-12">
-        <table style="font-size: 12px" class="table table-bordered cust-tbl js-basic-example" data-page-length='100'>
+        <table style="font-size: 12px" class="table table-bordered table-striped table-hover js-basic-example" data-page-length='100'>
             <thead>
                 <tr style="background-color: #dfdddd;">
                     <th>Denomination</th>
@@ -1671,14 +1676,14 @@ if (isset($this->session->userdata['codeKeyData'])) {
 <div class="row clearfix">
     <div class="col-md-12">
         <center>                                               
-            <button id="exchDisButton" type="submit" class="btn btnStyle m-t-15 waves-effect">
+            <button id="exchDisButton" type="submit" class="btn btn-primary m-t-15 waves-effect">
                 <i class="material-icons">save</i> 
                 <span class="icon-name">
                     Save
                 </span>
             </button> 
 
-            <button data-dismiss="modal" type="button" id="noteExClose" class="btn btn-sm btn-danger m-t-15 waves-effect">
+            <button data-dismiss="modal" type="button" id="noteExClose" class="btn btn-primary m-t-15 waves-effect">
                 <i class="material-icons">cancel</i> 
                 <span class="icon-name">
                     cancel
@@ -1695,6 +1700,8 @@ if (isset($this->session->userdata['codeKeyData'])) {
 </div>
 
 <?php $this->load->view('/layouts/footerDataTable'); ?>
+
+
 
 <script type="text/javascript">
     $(document).on('hidden.bs.modal','#myModal',function(){
@@ -1755,7 +1762,16 @@ if (isset($this->session->userdata['codeKeyData'])) {
                 }else{
                     $('#compName').removeAttr('readonly',false);
                 }
-            }  
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            }     
         });
     });
 
@@ -1775,6 +1791,15 @@ if (isset($this->session->userdata['codeKeyData'])) {
                 }else{
                     $('#compNameOutflow').removeAttr('readonly',false);
                 }
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
             }  
         });
     });
@@ -2463,7 +2488,16 @@ function checkExpenseAmount(){
                   success: function (data) {
                       alert(data);
                       location.reload(); 
-                  }  
+                  },
+                  beforeSend: function(){
+                        $('.comman-ajax-loader').css("visibility", "visible");
+                    },
+                    complete: function(){
+                        $('.comman-ajax-loader').css("visibility", "hidden");
+                    },
+                    error: function(jqXHR, exception) {
+                        alert("Something Went Wrong, Please Try Again...!");
+                    }  
               });
 
               // alert('Amount is more than remaining amount.'+diff);
@@ -2483,7 +2517,16 @@ function checkExpenseAmount(){
                       success: function (data) {
                           alert(data);
                           location.reload(); 
-                      }  
+                      },
+                      beforeSend: function(){
+                            $('.comman-ajax-loader').css("visibility", "visible");
+                        },
+                        complete: function(){
+                            $('.comman-ajax-loader').css("visibility", "hidden");
+                        },
+                        error: function(jqXHR, exception) {
+                            alert("Something Went Wrong, Please Try Again...!");
+                        }  
                   });
                 }
               }else{
@@ -2494,7 +2537,16 @@ function checkExpenseAmount(){
                       success: function (data) {
                           alert(data);
                           location.reload(); 
-                      }  
+                      },
+                      beforeSend: function(){
+                            $('.comman-ajax-loader').css("visibility", "visible");
+                        },
+                        complete: function(){
+                            $('.comman-ajax-loader').css("visibility", "hidden");
+                        },
+                        error: function(jqXHR, exception) {
+                            alert("Something Went Wrong, Please Try Again...!");
+                        }    
                   });
               }
           }

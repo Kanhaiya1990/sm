@@ -191,7 +191,14 @@
                                                 if(((in_array('owner', $des)) || (in_array('manager', $des)) || (in_array('senior_manager', $des))) && (($data['fsStatus']==0) || ($data['fsStatus']==2))){
                               ?>
                                             <td>
-                                              <center><a href="<?php echo base_url().'index.php/fieldStaff/FieldStaffController/fieldStaff/'.$data['id']; ?>"><i class="material-icons">add</i></a></center>
+                                            <?php if($this->session->userdata['workRestrict']['status']=="yes"){?>
+                                              <button class="btn btn-xs btn-primary waves-effect waves-float" onclick="planUpgradeMsg()">
+                                              <center><a href="javascript:void();"><i class="material-icons">add</i></center>
+                                              </button>
+                                            <?php }else{ ?> 
+                                                <center><a href="<?php echo base_url().'index.php/fieldStaff/FieldStaffController/fieldStaff/'.$data['id']; ?>"><i class="material-icons">add</i></a></center>
+                                            <?php } ?>
+
                                             </td>
                                   <?php      }else{
                                   ?>
@@ -204,13 +211,22 @@
                                           if(($data['fsStatus']==0) && ($data['isMobileAllocation']==1) && ($data['isApproved']==1)){  ?>
                                   ?>
                                           <td>
+                                          <?php if($this->session->userdata['workRestrict']['status']=="yes"){?>
+                                            <center><a href="javascript:void();"><i class="material-icons">add</i></a></center>
+                                          <?php }else{ ?>
                                             <center><a href="<?php echo base_url().'index.php/fieldStaff/FieldStaffController/fieldStaff/'.$data['id']; ?>"><i class="material-icons">add</i></a></center>
+                                          <?php } ?>
+
                                           </td>
                                   <?php
                                           }else if(($data['fsStatus']==0) && ($data['isMobileAllocation']==0) && ($data['isApproved']==0)){
                                   ?>
                                           <td>
+                                          <?php if($this->session->userdata['workRestrict']['status']=="yes"){?>
+                                            <center><a href="javascript:void();"><i class="material-icons">add</i></a></center>
+                                          <?php }else{ ?>
                                             <center><a href="<?php echo base_url().'index.php/fieldStaff/FieldStaffController/fieldStaff/'.$data['id']; ?>"><i class="material-icons">add</i></a></center>
+                                            <?php } ?>
                                           </td>
                                   <?php          
                                           }else{

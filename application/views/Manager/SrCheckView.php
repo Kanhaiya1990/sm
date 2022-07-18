@@ -27,42 +27,36 @@
             <div class="row clearfix">
                 <div class="col-lg-12">
                     <div class="card">
-                        <div class="header flex-div" style="border-bottom: 0;">
+                        <div class="header">
                            <center> <h2>
                               Signed Bills
                             </h2></center>
+                            <br>
+                             <h2>
+                                <span><b>Allocation No : </b><?php echo $BillInfo[0]['allocationCode']; ?></span>&nbsp;&nbsp;
+                                <span><b>Company : </b><?php echo $BillInfo[0]['company']; ?></span>&nbsp;&nbsp;
+                                <span><b>Route : </b><?php echo $BillInfo[0]['rname']; ?></span>&nbsp;&nbsp;
+                                <span><b>Employee : </b><?php echo $BillInfo[0]['ename']; ?></span>&nbsp;&nbsp;
+                                <div align="right">
 
-                             <div align="right">
                                 <form method="post" role="form" enctype="multipart/form-data" action="<?php echo site_url('manager/SrCheckController/finalSrBillStatus/'.$idAllocated); ?>"> 
                                            
-                                        <button class="btn btn-danger m-t-15 waves-effect btn-sm">
+                                        <button class="btn btn-primary m-t-15 waves-effect btn-sm">
                                                 <span class="icon-name">Close</span>
                                         </button> 
 
-                                        <button type="button" id="insert-ins" class="btn btn-sm btn-primary btnStyle m-t-15 waves-effect">
+                                        <button type="button" id="insert-ins" class="btn btn-sm btn-primary m-t-15 waves-effect">
                                               <span class="icon-name">Clear Selected</span>
                                         </button>
                                 </form>
-                                </div> 
+                                   
                                 </div>
-                           
-                            <div class="row cust-tbl" style="padding: 0 20px;">
-                                <div class="col-md-4" style="margin-bottom: 15px;">
-                                <span><b>Allocation No : </b><?php echo $BillInfo[0]['allocationCode']; ?></span></div>
-                                <div class="col-md-4" style="margin-bottom: 15px;">
-                                <span><b>Company : </b><?php echo $BillInfo[0]['company']; ?></span></div>
-                                <div class="col-md-4" style="margin-bottom: 15px;">
-                                <span><b>Route : </b><?php echo $BillInfo[0]['rname']; ?></span></div>
-                                <div class="col-md-4" style="margin-bottom: 15px;">
-                                <span><b>Employee : </b><?php echo $BillInfo[0]['ename']; ?></span></div>
-                               
-                            </div>
-                        
-                        
+                            </h2>
+                        </div>
                         <div class="body">
                             <div class="table-responsive">
                             <input type="hidden" name="alnum" value="<?php echo $idAllocated; ?>" id="alnum"/>
-                                <table id="crTbl" class="table table-bordered cust-tbl js-basic-example dataTable" data-page-length="25">
+                                <table style="font-size: 12px"  id="crTbl" class="table table-bordered table-striped table-hover js-basic-example dataTable" data-page-length='25'>
                                     <thead>
                                         <tr>
                                             <th colspan="14" class="text-center">Signed Bill Check</th>
@@ -85,20 +79,20 @@
                                     <!--</thead>-->
                                     <thead>
                                         <tr>
-                                            <th>No</th>
+                                             <th>S. No.</th>
                                             <th>Bill No</th>
-                                            <th class="noSpace">Retailer Name</th>
-                                            <th>Bill</th>
-                                            <th class="noSpace">Past SR</th>
-                                            <th class="noSpace">Past Coll</th>
-                                            <th>SR</th>
-                                            <th>Coll</th>
-                                            <th>Other</th>
-                                            <th>Pending</th>
-                                            <th>Modes</th> 
+                                            <th>Retailer Name</th>
+                                            <th>Bill Amount</th>
+                                            <th>Past SR</th>
+                                            <th>Past Collection</th>
+                                            <th>Today SR</th>
+                                            <th>Today Collection</th>
+                                            <th>Today Other Adjustment</th>
+                                            <th>Pending Amount</th>
+                                            <th>Payment Modes</th>
                                             <th><label for="basic_checkbox"><b>Received</b></label></th>
-                                            <th class="noSpace"><label for="basic_checkbox_forNotReceived"><b>Not Received</b></label></th>
-                                            <th class="noSpace">Lost Bill Remark</th>
+                                            <th><label for="basic_checkbox_forNotReceived"><b>Not Received</b></label></th>
+                                            <th>Lost Bill Remark</th>
                                         </tr>
                                     </thead>
                                     
@@ -118,11 +112,7 @@
                                         <tr>
                                             <td><?php echo $no;?></td>
                                             <td><?php echo $data['billNo'];?></td>
-											<td class="CellWithComment"><?php 	
-												$retailerName=substr($data['retailerName'], 0, 10);
-                                                echo rtrim($retailerName);?>
-											    <span class="CellComment"><?php echo $result =substr($data['retailerName'],0); ?></span>
-										    </td>
+                                            <td><?php echo $data['retailerName'];?></td>
                                             <td align="right"><?php echo number_format($data['netAmount']); ?></td>
                                             <?php if($allocations[0]['gkStatus']==1){ ?>
                                             <td align="right">
@@ -163,23 +153,23 @@
                                             } 
                                         ?>
                                             <td>
-                                            <?php if($data['isLostBill'] == 0){ ?>
-                                            <!-- <button data-toggle="modal" data-target="#billRemarkModal" data-type="basic" data-id="<?php echo $data["id"]; ?>" data-name="<?php echo $idAllocated; ?>" data-id="<?php echo $data['id']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-billDate="<?php echo $dt; ?>" data-credAdj="<?php echo $data['creditAdjustment']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-route="<?php echo $data['routeName']; ?>" style="font-size : 11px;" id="signedCancel" class="identifyingClass btn btn-xs btn-primary waves-effect"><i class="material-icons">cancel</i> 
-                                            </button> -->
-                                            <input class="checkhour" type="checkbox" name="selValue" onclick="checkForReceive(<?php echo $data['id']; ?>)" value="<?php echo $idAllocated.':'.$data['id'].':'.$no; ?>" id="basic_checkbox_<?php echo $data['id']; ?>" />
-                                            <label for="basic_checkbox_<?php echo $data['id']; ?>"></label>
+                                                <?php if($data['isLostBill'] == 0){ ?>
+                                                    <!-- <button data-toggle="modal" data-target="#billRemarkModal" data-type="basic" data-id="<?php echo $data["id"]; ?>" data-name="<?php echo $idAllocated; ?>" data-id="<?php echo $data['id']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-billDate="<?php echo $dt; ?>" data-credAdj="<?php echo $data['creditAdjustment']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-route="<?php echo $data['routeName']; ?>" style="font-size : 11px;" id="signedCancel" class="identifyingClass btn btn-xs btn-primary waves-effect"><i class="material-icons">cancel</i> 
+                                                    </button> -->
+                                                    <input class="checkhour" type="checkbox" name="selValue" onclick="checkForReceive(<?php echo $data['id']; ?>)" value="<?php echo $idAllocated.':'.$data['id'].':'.$no; ?>" id="basic_checkbox_<?php echo $data['id']; ?>" />
+                                                    <label for="basic_checkbox_<?php echo $data['id']; ?>"></label>
    
-                                            <?php }else if($data['isLostBill'] == 1){ ?>
-                                            <i class="material-icons">check</i>
-                                            <?php } ?>  
+                                                <?php }else if($data['isLostBill'] == 1){ ?>
+                                                  <i class="material-icons">check</i>
+                                                <?php } ?>
+                                                
                                             </td>
-											
                                             <td>
                                                 <?php if($data['isLostBill'] == 0){ ?>
                                                     <!-- <button data-toggle="modal" data-target="#billRemarkModal" data-type="basic" data-id="<?php echo $data["id"]; ?>" data-name="<?php echo $idAllocated; ?>" data-id="<?php echo $data['id']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-billDate="<?php echo $dt; ?>" data-credAdj="<?php echo $data['creditAdjustment']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-route="<?php echo $data['routeName']; ?>" style="font-size : 11px;" id="signedCancel" class="identifyingClass btn btn-xs btn-primary waves-effect"><i class="material-icons">cancel</i> 
                                                     </button> -->
-                                                    <input class="customchkClose" type="checkbox" name="selValueForNotReceived" value="<?php echo $idAllocated.':'.$data['id'].':'.$no;; ?>" onclick="checkForNotReceive(<?php echo $data['id']; ?>)" id="basic_checkbox_forNotReceived<?php echo $data['id']; ?>" />
-                                                    <label for="basic_checkbox_forNotReceived<?php echo $data['id']; ?>"></label> 
+                                                    <input class="checkhourForNotReceived chk-col-red" type="checkbox" name="selValueForNotReceived" value="<?php echo $idAllocated.':'.$data['id'].':'.$no;; ?>" onclick="checkForNotReceive(<?php echo $data['id']; ?>)" id="basic_checkbox_forNotReceived<?php echo $data['id']; ?>" />
+                                                    <label for="basic_checkbox_forNotReceived<?php echo $data['id']; ?>"></label>
                                                
                                                 <?php } else if($data['isLostBill'] == 2){ ?>
                                                     <i class="material-icons">cancel</i> 
@@ -243,17 +233,16 @@
                                     <tr>
                                         <td><?php echo $n;?></td>
                                         <td><?php echo $data['billNo'];?></td>
-                                        <td class="CellWithComment"><?php 
+                                        <td><?php 
                                             $retailerName=substr($data['retailerName'], 0, 20);
                                             echo $retailerName;?>
-											<span class="CellComment"><?php echo $result =substr($data['retailerName'],20); ?></span>
                                         </td>
                                         <td><?php echo $data['salesmanName'];?></td>
                                         <td><?php echo $data['ename'];?></td>
                                         <td class="text-right"><?php echo number_format($data['paidAmount']);?></td>
                                         <td>
                                             <input type="text" id="paidAmount<?php echo $data['id'] ?>" style="width:50%" value="<?php echo $amt; ?>" >
-                                            <button onclick="statusOtherAdjustment(this,'<?php echo $data['paidAmount']; ?>','<?php echo $data['id']; ?>','<?php echo $data['bid']; ?>','<?php echo $idAllocated;?>');" class="btn btn-primary waves-effect btn-sm">Save</button>
+                                            <button id="tmpSubmit" onclick="statusOtherAdjustment(this,'<?php echo $data['paidAmount']; ?>','<?php echo $data['id']; ?>','<?php echo $data['bid']; ?>','<?php echo $idAllocated;?>');" class="btn btn-primary waves-effect btn-sm">Save</button>
                                         </td>
                                     </tr>
                                     <?php
@@ -388,7 +377,16 @@
                 data:{"allocationId":allocatedID},
                 success: function (data) {
                     parent.history.back();
-                }  
+                },
+                beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                }   
             });
         }else{
             alert('Please complete process');
@@ -430,7 +428,16 @@
                     location.reload(); 
                     // parent.history.back();
                     // window.location.href="<?php echo base_url();?>index.php/manager/SrCheckController/LoadSrCheckDetails/"+allocatedId;
-                }  
+                },
+                beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                }     
             });
         }
 
@@ -578,7 +585,16 @@ $(document).on('click','#signedCancel',function(){
                    
                     window.location.href="<?php echo base_url();?>index.php/manager/SrCheckController/finalSrBillStatus/"+allocationNumber;
                     // location.reload(true);    
-                }  
+                },
+                beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                }     
             });
         }else{
             alert('Please select Bills.');
@@ -599,7 +615,16 @@ function signedOkStatus(e,id,allocatedId){
                     // location.reload(); 
                     // parent.history.back();
                     // window.location.href="<?php echo base_url();?>index.php/manager/SrCheckController/LoadSrCheckDetails/"+allocatedId;
-                }  
+                },
+                beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                }     
             });
         }
 
@@ -658,6 +683,10 @@ function signedOkStatus(e,id,allocatedId){
 
 <script>
     function statusOtherAdjustment(t,oldPayment,billPaymentId,billId,allocationId){
+        var btn = document.getElementById('tmpSubmit');
+        btn.disabled = true;
+        btn.innerText = 'Processing...'
+
         var paidAmount=$('#paidAmount'+billPaymentId).val();
         var allocationNumber=$("#alnum").val();
        
@@ -674,7 +703,16 @@ function signedOkStatus(e,id,allocatedId){
             success: function (data) {
                 window.location.href="<?php echo base_url();?>index.php/manager/SrCheckController/finalSrBillStatus/"+allocationNumber;
                 // window.parent.location.reload(true);
-            }  
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            }     
         });
     } 
 </script>

@@ -11,7 +11,7 @@
     } );
 </script>
 
-<script src="https://code.jquery.com/jquery-1.12.1.js"  integrity="sha256-VuhDpmsr9xiKwvTIHfYWCIQ84US9WqZsLfR4P7qF6O8=" crossorigin="anonymous"></script>
+<script   src="https://code.jquery.com/jquery-1.12.1.js"   integrity="sha256-VuhDpmsr9xiKwvTIHfYWCIQ84US9WqZsLfR4P7qF6O8="   crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style type="text/css">
 .selectStyle select {
@@ -49,23 +49,23 @@ li{
                             <div class="row m-t-20">
                                 <div class="col-md-12">
                                     <div class="table-responsive">
-                                    <table class="table table-bordered dataTable js-exportable cust-tbl" data-page-length="100" style="font-size: 13px;" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                        <table style="font-size:12px" class="table table-bordered table-striped table-hover dataTable js-exportable" data-page-length='100'>
                                             <thead>
                                             <tr class="gray">
-                                                <th class="noSpace"> Return Cheque</th>
-                                                <th class="noSpace"> Bounce Date</th>
-                                                <th class="noSpace"> Retailer Name</th>
+                                                <th> Return Cheque</th>
+                                                <th> Bounce Date</th>
+                                                <th> Retailer Name</th>
                                                 <th> Bill No.</th>
                                                  <th> Bill Date</th>
-                                                 <th class="noSpace"> Cheque No.</th>
-                                                 <th class="noSpace"> Cheque Date</th>
-                                                  <th> Amount</th>
+                                                 <th> Cheque No.</th>
+                                                 <th> Cheque Date</th>
+                                                  <th> Cheque Amount</th>
                                                 <th> Company</th>
                                                 
                                                 <th> Reason </th>
                                                 <th class="text-right"> Penalty</th>
                                                 
-                                                <th class="text-right"> Pending </th>   
+                                                <th class="text-right"> Pending Amount</th>   
                                                 <th> Current Status </th>
                                             </tr>
                                           </thead>
@@ -121,7 +121,7 @@ li{
                                                           $id = $data['id'];
                                             ?>
                                                             <a href="<?php echo site_url('CashAndChequeController/updateStatusBounced/'.$id);?>">
-                                                              <button class="btn btn-primary btnStyle waves-effect btn-sm" data-type="basic">
+                                                              <button class="btn btn-primary waves-effect btn-sm" data-type="basic">
                                                                 <i class="material-icons">check</i>
                                                               </button></a>  
                                             <?php         } ?>
@@ -149,30 +149,30 @@ li{
                                                   // }
                                                   // $rname= trim($rname,',');
                                               ?>
-                                                  <td class="noSpace">
+                                                  <td>
                                                     <?php
                                                     $dt=date_create($data['chequeStatusDate']);
                                                     $data['chequeDate'] = date_format($dt,'d-M-Y');
                                                     echo $data['chequeDate']; ?>
                                                   </td> 
-                                                        
-												  <td class="CellWithComment"><?php 
-													$retailerName=substr($data['retailerName'], 0, 12);
-													echo rtrim($retailerName);?>
-													<span class="CellComment"><?php echo $result =substr($data['retailerName'],0); ?></span>
-												  </td>
-                                                  <td>
+                                                        <td>
+                                                        <?php
+                                                           echo $data['retailerName'];
+                                                        ?>
+                                                          
+                                                        </td>
+                                                        <td>
                                                     <?php
                                                     echo $data['billNo'];
                                                     ?>
                                                   </td> 
-                                                  <td class="noSpace"><?php
+                                                  <td><?php
                                                   $dt=date_create($billDate);
                                                   $data['billDate'] = date_format($dt,'d-M-Y');
                                                   echo $data['billDate']; ?>
                                                 </td>
                                                     <td><?php echo $data['chequeNo']; ?></td>
-                                                    <td class="noSpace"><?php
+                                                    <td><?php
                                                     $dt=date_create($data['chequeDate']);
                                                     $data['chequeDate'] = date_format($dt,'d-M-Y');
                                                     echo $data['chequeDate']; ?>
@@ -180,11 +180,7 @@ li{
                                                   <td align="right"><?php echo number_format($data['sumAmount']); ?></td>  
                                                   <td><?php echo $data['compName'];?></td>
                                                    
-												<td class="CellWithComment"><?php 
-													$statusBouncedReason=substr($data['statusBouncedReason'], 0, 12);
-													echo rtrim($statusBouncedReason);?>
-													<span class="CellComment"><?php echo $result =substr($data['statusBouncedReason'],0); ?></span>
-												  </td>
+                                                <td><?php echo $data['statusBouncedReason'];?></td>
                                                 <td class="text-right"><?php echo number_format($data['penaltyAmount']); ?></td>
                                               
                                                 <?php 
@@ -224,19 +220,19 @@ li{
                                        </tbody>
                                         <tfoot>
                                             <tr class="gray">
-                                                <th class="noSpace"> Return Cheque </th>
-                                                <th class="noSpace"> Bounce Date </th>
-                                                <th class="noSpace"> Retailer Name</th>
+                                                <th> Return Cheque </th>
+                                                <th> Bounce Date </th>
+                                                <th> Retailer Name</th>
                                                 <th> Bill No.</th>
                                                  <th> Bill Date</th>
-                                                 <th class="noSpace"> Cheque No.</th>
-                                                 <th class="noSpace"> Cheque Date</th>
-                                                  <th>Amount</th>
+                                                 <th> Cheque No.</th>
+                                                 <th> Cheque Date</th>
+                                                  <th> Cheque Amount</th>
                                                 <th> Company</th>
                                                 <th> Reason </th>
                                                 <th class="text-right"> Penalty</th>
                                                
-                                                <th class="text-right"> Pending</th>   
+                                                <th class="text-right"> Pending Amount</th>   
                                                 <th> Current Status </th>
                                                 
                                             </tr>
@@ -286,12 +282,12 @@ li{
                                      <div class="col-md-12">
                                         <!-- <div class="row clearfix"> -->
                                             <div class="col-md-12">
-                                                <button type="submit" class="btn btn-primary btnStyle m-t-15 waves-effect">
+                                                <button type="submit" class="btn btn-primary m-t-15 waves-effect">
                                                     <i class="material-icons">save</i> 
                                                     <span class="icon-name">Save</span>
                                                 </button>
                                                
-                                                    <button data-dismiss="modal" type="button" class="btn btn-danger m-t-15 waves-effect">
+                                                    <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
                                                         <i class="material-icons">cancel</i> 
                                                         <span class="icon-name"> Cancel</span>
                                                     </button>

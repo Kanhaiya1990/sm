@@ -15,6 +15,10 @@
     } );
 </script>
 
+
+
+
+
 <style type="text/css">
 .selectStyle select {
    background: transparent;
@@ -55,15 +59,13 @@ li{
                       <div class="row">                                 
                         <div class="row m-t-20">
                             <div class="col-md-12">
-                            <div class="table-responsive">
-                            <!--  <table class="table table-bordered table-striped table-hover dataTable js-exportable" data-page-length='100'> -->
-                            <table id="#chk-reg-tbl" class="table table-bordered cust-tbl js-exportable dataTable" data-page-length="100" role="grid" aria-describedby="#chk-reg-tbl_info">
+                                   <table class="table table-bordered table-striped table-hover dataTable js-exportable" data-page-length='100'>
                                         <!-- <?php print_r($retailer); ?> -->
                                         <thead>
                                         <tr class="gray">
-                                            <th>No</th>
-                                            <th> Cheque Deposit Transaction No </th>
-                                            <th>Total Amount</th>
+                                            <th> Sr No.</th>
+                                             <th> Cheque Deposit Transaction No </th>
+                                             <th>Total Amount</th>
                                             <th> No. Of Cheques  </th>
                                             <th>Company</th>
                                             <th>Cheque Deposited Till</th>
@@ -98,7 +100,7 @@ li{
                                                   <?php
                                                     if(!empty($data['filePath'])){
                                                   ?>
-                                                  <a target="_blank" href="<?php echo base_url().'assets/deliveryslips/'.$data['filePath']; ?>" class="btn btn-xs buttons-pdf btn-primary" data-toggle="tooltip" data-placement="bottom" title="Download PDF"><i class="material-icons">download</i></a>
+                                                  <a target="_blank" href="<?php echo base_url().'assets/deliveryslips/'.$data['filePath']; ?>" class="btn btn-xs  btn-primary" data-toggle="tooltip" data-placement="bottom" title="Download PDF"><i class="material-icons">download</i></a>
  
                                                   <?php
                                                     }
@@ -116,17 +118,17 @@ li{
                                         </tbody>
                                     <tfoot>
                                            <tr class="gray">
-                                            <th>No</th>
-                                            <th> Cheque Deposit Transaction No </th>
-                                            <th>Total Amount</th>
+                                            <th> Sr No.</th>
+                                             <th> Cheque Deposit Transaction No </th>
+                                             <th>Total Amount</th>
                                             <th> No. Of Cheques  </th>
-                                            <th>Company</th>
+                                             <th>Company</th>
                                             <th>Cheque Deposited Till</th>
                                             <th> Download File</th>
                                         </tr>
                                     </tfoot>    
                             </table>
-                        </div>
+                        
                     </div>
                 </div>
                                   
@@ -153,10 +155,10 @@ li{
                       <div class="row">                                 
                         <div class="row m-t-20">
                             <div class="col-md-12">
-                                <table class="table table-bordered cust-tbl dataTable" data-page-length='100'>
+                                <table class="table table-bordered table-striped table-hover dataTable" data-page-length='100'>
                                         <thead>
                                         <tr class="gray">
-                                            <th>No</th>
+                                            <th> Sr No.</th>
                                             <th>Party</th>
                                              <th> Cheque No </th>
                                             <th> Amount  </th>

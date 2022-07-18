@@ -12,6 +12,30 @@ class CashBookController extends CI_Controller {
 
         if(isset($this->session->userdata['codeKeyData'])) {
 			$this->projectSessionName= $this->session->userdata['codeKeyData']['codeKeyValue'];
+			$this->baseUrl=$this->session->userdata['codeKeyData']['yourBaseUrl'];
+
+            if($this->baseUrl=="http://localhost/smartdistributor/" || $this->baseUrl=="https://siainc.in/kiasales/" || $this->baseUrl=="https://siainc.in/staging_kiasales/"){
+
+            }else{
+                $this->load->helper('url');
+                $url_parts = parse_url(current_url());
+                $siteUrl=explode('/',$url_parts['path']);//current url path
+        
+                $baseUrl=explode('/',$this->baseUrl);//base url path
+                
+                $siteDistributorName=trim($siteUrl[2]);
+                $baseDistributorName=trim($baseUrl[4]);
+                
+                if($siteDistributorName !="" && $baseDistributorName !=""){
+                    if($siteDistributorName==$baseDistributorName){
+                    //   
+                    }else{
+                    redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
+                    }
+                }else{
+                redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
+                }
+            }
 		}else{
 			$this->load->view('LoginView');
 		}
@@ -77,6 +101,7 @@ class CashBookController extends CI_Controller {
 
     public function allocationWiseCashBook($id){
         $data['bills']=$this->CashBookModel->getAllocatedBills('bills',$id);
+
         $data['allocations']=$this->CashBookModel->load('allocations',$id);
 
         //dynamic names
@@ -1954,6 +1979,8 @@ class CashBookController extends CI_Controller {
         $cashTotal=trim($this->input->post('cashTotal'));
         $finalcashTotal=trim($this->input->post('cashTotal'));
 
+        // echo $phyCash.' '.$cashTotal;exit;
+
         $finalPhysicalAmount=$phyCash;
         $finalPhysicalShortAmount=$shortAmount;
 
@@ -2026,7 +2053,7 @@ class CashBookController extends CI_Controller {
                       <h4 class="modal-title">Debit Allocation Short Amount from Employee</h4>
                     </div>
                     <div class="modal-body">
-                        <div class="col-md-12 cust-tbl">
+                        <div class="col-md-12">
                         <p id="totAmt">Short Amount is : <?php echo $shortAmount;?></p>
                         <input type="hidden" id="totalCalAmt" name="totalCalAmt" value="<?php echo $shortAmount; ?>">
                         <input type="hidden" id="dbt_cashTotal" name="cashTotal" value="<?php echo $cashTotal; ?>">
@@ -2034,21 +2061,21 @@ class CashBookController extends CI_Controller {
                      </div>
                         <br>
                         <div class="col-md-6">
-                        <span>Select Employee :</span> 
+                            <span>Select Employee :</span> 
                         <input type="text" autocomplete="off" placeholder="select employee" list="empNameList" id="empCm" name="addEmp" class="form-control"> 
-                          <datalist id="empNameList">
-                            <?php foreach ($emp as $req_item){ ?>
-                            <option id="<?php echo $req_item['id'] ?>" value="<?php echo $req_item['name'] ?>" />
-                            <?php } ?> 
-                          </datalist> 
+                                    <datalist id="empNameList">
+                                    <?php foreach ($emp as $req_item){ ?>
+                                        <option id="<?php echo $req_item['id'] ?>" value="<?php echo $req_item['name'] ?>" />
+                                      <?php } ?> 
+                                    </datalist> 
                                     
                         </div>
 
                         <div class="col-md-4">
-                            <button type="button" class="btn btn-primary btnStyle m-t-20" onclick="addNewRow();">Add</button><br><br>
+                            <button type="button" class="btn btn-primary m-t-20" onclick="addNewRow();">Add</button><br><br>
                         </div>
                        
-                        <table id="myRowTable" class="table table-bordered cust-tbl display nowrap">
+                        <table id="myRowTable" class="table table-striped table-hover js-basic-example DataTable display nowrap">
                           <?php 
                                 for($i=0;$i<$countEmp;$i++){
                                     $emp=$this->CashBookModel->getOnlyName('employee',$staff[$i]);
@@ -2070,7 +2097,7 @@ class CashBookController extends CI_Controller {
  <td><input id='empAmtComment' type="text" name="empAmtComment[]" value=""></td>
                              <td><input id="dbt_empId" type="hidden" onkeypress="return numbersonly(this, event);"
  name="empId[]" value="<?php echo $staff[$i]; ?>"></td>
-                            <td><button class="btn btn-xs btn-danger" style="float:right;" onclick="Delete(this);"><i class="fa fa-close"></i></button></td>
+                            <td><button style="float:right;" onclick="Delete(this);"><i class="fa fa-close"></i></button></td>
 
                         </tr>
                           <?php  
@@ -2082,8 +2109,8 @@ class CashBookController extends CI_Controller {
                         <label for="basic_checkbox_1">Need to send SMS?</label> -->
                         <div id="err" style="color:red"></div><br>
 
-                        <input id="btn_dbt" type="button" class="btn btn-primary btnStyle btn-sm waves-effect" value="Debit">
-                        <input type="button" data-dismiss="modal" class="btn btn-danger btn-sm waves-effect" value="Cancel">
+                        <input id="btn_dbt" type="button" class="btn btn-primary btn-sm waves-effect" value="Debit">
+                        <input type="button" data-dismiss="modal" class="btn btn-primary btn-sm waves-effect" value="Cancel">
                     </div>
     <?php   
         }else{
@@ -2177,6 +2204,7 @@ class CashBookController extends CI_Controller {
                         $this->CashBookModel->insert('expences',$inputData);
                     }
                 }else{
+                    // echo "hey kp";exit;
                     //dynamic names
                     $d1=$this->CashBookModel->load('categories_income_expenses',12);
                     $d2=$this->CashBookModel->load('categories_income_expenses',13);
@@ -2264,10 +2292,438 @@ class CashBookController extends CI_Controller {
 
                 $remAmount=$balance;
                 $cashTaken=$phyCash;
+
+                // echo $cashTaken;exit;
                 
                 $cashTotalFinal=$this->input->post('cashTotal');
 
                 if($cashTaken>0.00){
+                    $insertData=array('collectedAmt'=>$finalPhysicalAmount,'balanceAmt'=>$finalPhysicalShortAmount,'note2000' =>$note2000,'note500' => $note500,'note200' => $note200,'note100' => $note100,'note50' => $note50,'note20' => $note20,'note10' => $note10,'coins' => $coin,'updatedBy'=>$userid);
+                    $this->CashBookModel->updateNotesDetails('notesdetails',$insertData,$allocationId);
+                    if($remAmount<=0){
+                        $upData=array('cashChequeStatus'=>'1','isAllocationComplete'=>'1','allocationCloseAt'=>date('Y-m-d H:i:sa'),'allocationClosedBy'=>$userid);
+                        $this->CashBookModel->update('allocations',$upData,$allocationId);
+                        if($this->db->affected_rows()>0){
+                            $upBillCompData=array('status'=>0);
+                            $this->CashBookModel->updateAllocationBillsStatus('allocationsbills',$upBillCompData,$allocationId);
+
+                            if($allocationId>0){
+                                $alDataForAllocation=array(
+                                    'isAllocationClosed'=>1,
+                                    'allocationCloseDate'=>date('Y-m-d H:i:sa')
+                                );
+                                $this->CashBookModel->updateAllocationBillsStatus('billpayments',$alDataForAllocation,$allocationId);
+                                $this->CashBookModel->updateAllocationBillsStatus('bill_transaction_history',$alDataForAllocation,$allocationId);
+                            }
+
+                            $allocatedBills=$this->CashBookModel->getAllocatedBills('bills',$allocationId);
+                            if(!empty($allocatedBills)){
+                                $totalCash=0.0;
+                                $totalCheque=0.0;
+                                $totalNeft=0.0;
+                                $totalSr=0.0;
+                                foreach($allocatedBills as $b){
+                                    $totalCash=$totalCash+$b['fsCashAmt'];
+                                    $totalCheque=$totalCheque+$b['fsChequeAmt'];
+                                    $totalNeft=$totalNeft+$b['fsNeftAmt'];
+                                    $totalSr=$totalSr+$b['fsSrAmt'];
+                                    $penAmount=$b['pendingAmt'];
+
+                                    $bstatus=$b['fsbillStatus'];
+
+                                    $realSR=0.0;
+                                    $realReceive=0.0;
+                                    $realSR=($b['SRAmt'])+($b['fsSrAmt']);
+                                    $realReceive=($b['receivedAmt'])+($b['fsCashAmt']+$b['fsNeftAmt']+$b['fsChequeAmt']);
+
+                                    if($bstatus==="Resend"){
+                                        $upBillData=array('billType'=>'','fsBillStatus'=>'','fsCashAmt'=>'0','fsSrAmt'=>'0','fsNeftAmt'=>'0','fsChequeAmt'=>'0','fsOtherAdjAmt'=>'0','statusLostChequeNeft'=>'0','receivedAmt'=>$realReceive,'isAllocated'=>0);
+                                        $this->CashBookModel->update('bills',$upBillData,$b['id']);
+                                    }else{
+                                        $upBillData=array('fsBillStatus'=>'','fsCashAmt'=>'0','fsSrAmt'=>'0','fsNeftAmt'=>'0','fsChequeAmt'=>'0','fsOtherAdjAmt'=>'0','statusLostChequeNeft'=>'0','pendingAmt'=>$penAmount,'receivedAmt'=>$realReceive,'isAllocated'=>0);
+                                        $this->CashBookModel->update('bills',$upBillData,$b['id']);
+                                    }
+                                   
+                                }
+                                $totalCheque=$totalCheque+$totalNeft;
+                                //total collected total update for allocations.
+                                $upAllocationData=array('totalCashAmt'=>$totalCash,'totalChequeNeftAmt'=>$totalCheque,'totalSRAmt'=>$totalSr);
+                                $this->CashBookModel->update('allocations',$upAllocationData,$allocationId);
+                                
+                                $allocationData=$this->CashBookModel->load('allocations',$allocationId);
+                                if(!empty($allocationData)){
+                                    if($allocationData[0]['fieldStaffCode1'] > 0){
+                                        $employeeDetails=$this->CashBookModel->load('employee',$allocationData[0]['fieldStaffCode1']);
+                                        $employeeMobile=$employeeDetails[0]['mobile'];
+                                        $employeeName=$employeeDetails[0]['name'];
+                                        $transactionDate=date('M d, Y H:i a');
+                                        
+                                        $companyDetails=$this->CashBookModel->getdata('office_details');
+                                        $officeName=$companyDetails[0]['distributorName'];
+                                        $distributorCode=$companyDetails[0]['distributorCode'];
+                                        
+                                        $jsonData=array(
+                                            "flow_id"=>"618d086aff89a71b142e37e2",
+                                            "sender"=>"SIAInc",
+                                            "mobiles"=>'91'.$employeeMobile,
+                                            "amount"=>number_format($totalCash),
+                                            "distributorname"=>$officeName,
+                                            "allocationnumber"=>$allocationData[0]['allocationCode'],
+                                            "route"=>substr($allocationData[0]['allocationRouteName'],0,20),
+                                            "Allocationshortcash"=>""
+                                        );
+                    
+                                        $jsonData=json_encode($jsonData);
+                                        $curl = curl_init();
+                                        curl_setopt_array($curl, array(
+                                            CURLOPT_URL => "https://api.msg91.com/api/v5/flow/",
+                                            CURLOPT_RETURNTRANSFER => true,
+                                            CURLOPT_ENCODING => "",
+                                            CURLOPT_MAXREDIRS => 10,
+                                            CURLOPT_TIMEOUT => 30,
+                                            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                                            CURLOPT_CUSTOMREQUEST => "POST",
+                                            CURLOPT_POSTFIELDS => $jsonData,
+                                            CURLOPT_HTTPHEADER => array("authkey: 291106Atbm2KHoWhat5d99ec46","content-type: application/JSON"),
+                                        ));
+                                        $response = curl_exec($curl);
+                                        $err = curl_error($curl);
+                                        curl_close($curl);
+                                    }
+                                    
+                                    if($allocationData[0]['fieldStaffCode2'] > 0){
+                                        $employeeDetails=$this->CashBookModel->load('employee',$allocationData[0]['fieldStaffCode2']);
+                                        $employeeMobile=$employeeDetails[0]['mobile'];
+                                        $employeeName=$employeeDetails[0]['name'];
+                                        $transactionDate=date('M d, Y H:i a');
+                                        
+                                        $companyDetails=$this->CashBookModel->getdata('office_details');
+                                        $officeName=$companyDetails[0]['distributorName'];
+                                        $distributorCode=$companyDetails[0]['distributorCode'];
+                                        
+                                        $jsonData=array(
+                                             "flow_id"=>"618d086aff89a71b142e37e2",
+                                            "sender"=>"SIAInc",
+                                            "mobiles"=>'91'.$employeeMobile,
+                                            "amount"=>number_format($totalCash),
+                                            "distributorname"=>$officeName,
+                                            "allocationnumber"=>$allocationData[0]['allocationCode'],
+                                            "route"=>substr($allocationData[0]['allocationRouteName'],0,20),
+                                            "Allocationshortcash"=>""
+                                        );
+                    
+                                        $jsonData=json_encode($jsonData);
+                                        $curl = curl_init();
+                                        curl_setopt_array($curl, array(
+                                            CURLOPT_URL => "https://api.msg91.com/api/v5/flow/",
+                                            CURLOPT_RETURNTRANSFER => true,
+                                            CURLOPT_ENCODING => "",
+                                            CURLOPT_MAXREDIRS => 10,
+                                            CURLOPT_TIMEOUT => 30,
+                                            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                                            CURLOPT_CUSTOMREQUEST => "POST",
+                                            CURLOPT_POSTFIELDS => $jsonData,
+                                            CURLOPT_HTTPHEADER => array("authkey: 291106Atbm2KHoWhat5d99ec46","content-type: application/JSON"),
+                                        ));
+                                        $response = curl_exec($curl);
+                                        $err = curl_error($curl);
+                                        curl_close($curl);
+                                    }
+                                    
+                                    if($allocationData[0]['fieldStaffCode3'] > 0){
+                                        $employeeDetails=$this->CashBookModel->load('employee',$allocationData[0]['fieldStaffCode3']);
+                                        $employeeMobile=$employeeDetails[0]['mobile'];
+                                        $employeeName=$employeeDetails[0]['name'];
+                                        $transactionDate=date('M d, Y H:i a');
+                                        
+                                        $companyDetails=$this->CashBookModel->getdata('office_details');
+                                        $officeName=$companyDetails[0]['distributorName'];
+                                        $distributorCode=$companyDetails[0]['distributorCode'];
+                                        
+                                        $jsonData=array(
+                                             "flow_id"=>"618d086aff89a71b142e37e2",
+                                            "sender"=>"SIAInc",
+                                            "mobiles"=>'91'.$employeeMobile,
+                                            "amount"=>number_format($totalCash),
+                                            "distributorname"=>$officeName,
+                                            "allocationnumber"=>$allocationData[0]['allocationCode'],
+                                            "route"=>substr($allocationData[0]['allocationRouteName'],0,20),
+                                            "Allocationshortcash"=>""
+                                        );
+                    
+                                        $jsonData=json_encode($jsonData);
+                                        $curl = curl_init();
+                                        curl_setopt_array($curl, array(
+                                            CURLOPT_URL => "https://api.msg91.com/api/v5/flow/",
+                                            CURLOPT_RETURNTRANSFER => true,
+                                            CURLOPT_ENCODING => "",
+                                            CURLOPT_MAXREDIRS => 10,
+                                            CURLOPT_TIMEOUT => 30,
+                                            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                                            CURLOPT_CUSTOMREQUEST => "POST",
+                                            CURLOPT_POSTFIELDS => $jsonData,
+                                            CURLOPT_HTTPHEADER => array("authkey: 291106Atbm2KHoWhat5d99ec46","content-type: application/JSON"),
+                                        ));
+                                        $response = curl_exec($curl);
+                                        $err = curl_error($curl);
+                                        curl_close($curl);
+                                    }
+                                    
+                                    if($allocationData[0]['fieldStaffCode4'] > 0){
+                                        $employeeDetails=$this->CashBookModel->load('employee',$allocationData[0]['fieldStaffCode4']);
+                                        $employeeMobile=$employeeDetails[0]['mobile'];
+                                        $employeeName=$employeeDetails[0]['name'];
+                                        $transactionDate=date('M d, Y H:i a');
+                                        
+                                        $companyDetails=$this->CashBookModel->getdata('office_details');
+                                        $officeName=$companyDetails[0]['distributorName'];
+                                        $distributorCode=$companyDetails[0]['distributorCode'];
+                                        
+                                        $jsonData=array(
+                                             "flow_id"=>"618d086aff89a71b142e37e2",
+                                            "sender"=>"SIAInc",
+                                            "mobiles"=>'91'.$employeeMobile,
+                                            "amount"=>number_format($totalCash),
+                                            "distributorname"=>$officeName,
+                                            "allocationnumber"=>$allocationData[0]['allocationCode'],
+                                            "route"=>substr($allocationData[0]['allocationRouteName'],0,20),
+                                            "Allocationshortcash"=>""
+                                        );
+                    
+                                        $jsonData=json_encode($jsonData);
+                                        $curl = curl_init();
+                                        curl_setopt_array($curl, array(
+                                            CURLOPT_URL => "https://api.msg91.com/api/v5/flow/",
+                                            CURLOPT_RETURNTRANSFER => true,
+                                            CURLOPT_ENCODING => "",
+                                            CURLOPT_MAXREDIRS => 10,
+                                            CURLOPT_TIMEOUT => 30,
+                                            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                                            CURLOPT_CUSTOMREQUEST => "POST",
+                                            CURLOPT_POSTFIELDS => $jsonData,
+                                            CURLOPT_HTTPHEADER => array("authkey: 291106Atbm2KHoWhat5d99ec46","content-type: application/JSON"),
+                                        ));
+                                        $response = curl_exec($curl);
+                                        $err = curl_error($curl);
+                                        curl_close($curl);
+                                    }
+                                }
+                            }
+                        }
+                    }else{
+                       
+                        $upData=array('cashChequeStatus'=>'1','isAllocationComplete'=>'1','allocationCloseAt'=>date('Y-m-d H:i:sa'),'allocationClosedBy'=>$userid);
+                        $this->CashBookModel->update('allocations',$upData,$allocationId);
+                        if($this->db->affected_rows()>0){
+                            $upBillCompData=array('status'=>0);
+                            $this->CashBookModel->updateAllocationBillsStatus('allocationsbills',$upBillCompData,$allocationId);
+
+                            if($allocationId>0){
+                                $alDataForAllocation=array(
+                                    'isAllocationClosed'=>1,
+                                    'allocationCloseDate'=>date('Y-m-d H:i:sa')
+                                );
+                                $this->CashBookModel->updateAllocationBillsStatus('billpayments',$alDataForAllocation,$allocationId);
+                                $this->CashBookModel->updateAllocationBillsStatus('bill_transaction_history',$alDataForAllocation,$allocationId);
+                            }
+
+                            $allocatedBills=$this->CashBookModel->getAllocatedBills('bills',$allocationId);
+                            if(!empty($allocatedBills)){
+                                $totalCash=0.0;
+                                $totalCheque=0.0;
+                                $totalNeft=0.0;
+                                $totalSr=0.0;
+                                foreach($allocatedBills as $b){
+                                    $totalCash=$totalCash+$b['fsCashAmt'];
+                                    $totalCheque=$totalCheque+$b['fsChequeAmt'];
+                                    $totalNeft=$totalNeft+$b['fsNeftAmt'];
+                                    $totalSr=$totalSr+$b['fsSrAmt'];
+                                    $penAmount=$b['pendingAmt'];
+
+                                    $bstatus=$b['fsbillStatus'];
+
+                                    $realSR=0.0;
+                                    $realReceive=0.0;
+                                    $realSR=($b['SRAmt'])+($b['fsSrAmt']);
+                                    $realReceive=($b['receivedAmt'])+($b['fsCashAmt']+$b['fsNeftAmt']+$b['fsChequeAmt']);
+
+                                    if($bstatus==="Resend"){
+                                        $upBillData=array('billType'=>'','fsBillStatus'=>'','fsCashAmt'=>'0','fsSrAmt'=>'0','fsNeftAmt'=>'0','fsChequeAmt'=>'0','fsOtherAdjAmt'=>'0','statusLostChequeNeft'=>'0','receivedAmt'=>$realReceive,'isAllocated'=>0);
+                                        $this->CashBookModel->update('bills',$upBillData,$b['id']);
+                                    }else{
+                                        $upBillData=array('fsBillStatus'=>'','fsCashAmt'=>'0','fsSrAmt'=>'0','fsNeftAmt'=>'0','fsChequeAmt'=>'0','fsOtherAdjAmt'=>'0','statusLostChequeNeft'=>'0','pendingAmt'=>$penAmount,'receivedAmt'=>$realReceive,'isAllocated'=>0);
+                                        $this->CashBookModel->update('bills',$upBillData,$b['id']);
+                                    }
+                                   
+                                }
+                                $totalCheque=$totalCheque+$totalNeft;
+                                //total collected total update for allocations.
+                                $upAllocationData=array('totalCashAmt'=>$totalCash,'totalChequeNeftAmt'=>$totalCheque,'totalSRAmt'=>$totalSr);
+                                $this->CashBookModel->update('allocations',$upAllocationData,$allocationId);
+                                
+                                $allocationData=$this->CashBookModel->load('allocations',$allocationId);
+                                if(!empty($allocationData)){
+                                    if($allocationData[0]['fieldStaffCode1'] > 0){
+                                        $employeeDetails=$this->CashBookModel->load('employee',$allocationData[0]['fieldStaffCode1']);
+                                        $employeeMobile=$employeeDetails[0]['mobile'];
+                                        $employeeName=$employeeDetails[0]['name'];
+                                        $transactionDate=date('M d, Y H:i a');
+                                        
+                                        $companyDetails=$this->CashBookModel->getdata('office_details');
+                                        $officeName=$companyDetails[0]['distributorName'];
+                                        $distributorCode=$companyDetails[0]['distributorCode'];
+                                        
+                                        $jsonData=array(
+                                             "flow_id"=>"618d086aff89a71b142e37e2",
+                                            "sender"=>"SIAInc",
+                                            "mobiles"=>'91'.$employeeMobile,
+                                            "amount"=>number_format($totalCash),
+                                            "distributorname"=>$officeName,
+                                            "allocationnumber"=>$allocationData[0]['allocationCode'],
+                                            "route"=>substr($allocationData[0]['allocationRouteName'],0,20),
+                                            "Allocationshortcash"=>""
+                                        );
+                    
+                                        $jsonData=json_encode($jsonData);
+                                        $curl = curl_init();
+                                        curl_setopt_array($curl, array(
+                                            CURLOPT_URL => "https://api.msg91.com/api/v5/flow/",
+                                            CURLOPT_RETURNTRANSFER => true,
+                                            CURLOPT_ENCODING => "",
+                                            CURLOPT_MAXREDIRS => 10,
+                                            CURLOPT_TIMEOUT => 30,
+                                            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                                            CURLOPT_CUSTOMREQUEST => "POST",
+                                            CURLOPT_POSTFIELDS => $jsonData,
+                                            CURLOPT_HTTPHEADER => array("authkey: 291106Atbm2KHoWhat5d99ec46","content-type: application/JSON"),
+                                        ));
+                                        $response = curl_exec($curl);
+                                        $err = curl_error($curl);
+                                        curl_close($curl);
+                                    }
+                                    
+                                    if($allocationData[0]['fieldStaffCode2'] > 0){
+                                        $employeeDetails=$this->CashBookModel->load('employee',$allocationData[0]['fieldStaffCode2']);
+                                        $employeeMobile=$employeeDetails[0]['mobile'];
+                                        $employeeName=$employeeDetails[0]['name'];
+                                        $transactionDate=date('M d, Y H:i a');
+                                        
+                                        $companyDetails=$this->CashBookModel->getdata('office_details');
+                                        $officeName=$companyDetails[0]['distributorName'];
+                                        $distributorCode=$companyDetails[0]['distributorCode'];
+                                        
+                                        $jsonData=array(
+                                            "flow_id"=>"618d086aff89a71b142e37e2",
+                                            "sender"=>"SIAInc",
+                                            "mobiles"=>'91'.$employeeMobile,
+                                            "amount"=>number_format($totalCash),
+                                            "distributorname"=>$officeName,
+                                            "allocationnumber"=>$allocationData[0]['allocationCode'],
+                                            "route"=>substr($allocationData[0]['allocationRouteName'],0,20),
+                                            "Allocationshortcash"=>""
+                                        );
+                    
+                                        $jsonData=json_encode($jsonData);
+                                        $curl = curl_init();
+                                        curl_setopt_array($curl, array(
+                                            CURLOPT_URL => "https://api.msg91.com/api/v5/flow/",
+                                            CURLOPT_RETURNTRANSFER => true,
+                                            CURLOPT_ENCODING => "",
+                                            CURLOPT_MAXREDIRS => 10,
+                                            CURLOPT_TIMEOUT => 30,
+                                            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                                            CURLOPT_CUSTOMREQUEST => "POST",
+                                            CURLOPT_POSTFIELDS => $jsonData,
+                                            CURLOPT_HTTPHEADER => array("authkey: 291106Atbm2KHoWhat5d99ec46","content-type: application/JSON"),
+                                        ));
+                                        $response = curl_exec($curl);
+                                        $err = curl_error($curl);
+                                        curl_close($curl);
+                                    }
+                                    
+                                    if($allocationData[0]['fieldStaffCode3'] > 0){
+                                        $employeeDetails=$this->CashBookModel->load('employee',$allocationData[0]['fieldStaffCode3']);
+                                        $employeeMobile=$employeeDetails[0]['mobile'];
+                                        $employeeName=$employeeDetails[0]['name'];
+                                        $transactionDate=date('M d, Y H:i a');
+                                        
+                                        $companyDetails=$this->CashBookModel->getdata('office_details');
+                                        $officeName=$companyDetails[0]['distributorName'];
+                                        $distributorCode=$companyDetails[0]['distributorCode'];
+                                        
+                                        $jsonData=array(
+                                             "flow_id"=>"618d086aff89a71b142e37e2",
+                                            "sender"=>"SIAInc",
+                                            "mobiles"=>'91'.$employeeMobile,
+                                            "amount"=>number_format($totalCash),
+                                            "distributorname"=>$officeName,
+                                            "allocationnumber"=>$allocationData[0]['allocationCode'],
+                                            "route"=>substr($allocationData[0]['allocationRouteName'],0,20),
+                                            "Allocationshortcash"=>""
+                                        );
+                    
+                                        $jsonData=json_encode($jsonData);
+                                        $curl = curl_init();
+                                        curl_setopt_array($curl, array(
+                                            CURLOPT_URL => "https://api.msg91.com/api/v5/flow/",
+                                            CURLOPT_RETURNTRANSFER => true,
+                                            CURLOPT_ENCODING => "",
+                                            CURLOPT_MAXREDIRS => 10,
+                                            CURLOPT_TIMEOUT => 30,
+                                            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                                            CURLOPT_CUSTOMREQUEST => "POST",
+                                            CURLOPT_POSTFIELDS => $jsonData,
+                                            CURLOPT_HTTPHEADER => array("authkey: 291106Atbm2KHoWhat5d99ec46","content-type: application/JSON"),
+                                        ));
+                                        $response = curl_exec($curl);
+                                        $err = curl_error($curl);
+                                        curl_close($curl);
+                                    }
+                                    
+                                    if($allocationData[0]['fieldStaffCode4'] > 0){
+                                        $employeeDetails=$this->CashBookModel->load('employee',$allocationData[0]['fieldStaffCode4']);
+                                        $employeeMobile=$employeeDetails[0]['mobile'];
+                                        $employeeName=$employeeDetails[0]['name'];
+                                        $transactionDate=date('M d, Y H:i a');
+                                        
+                                        $companyDetails=$this->CashBookModel->getdata('office_details');
+                                        $officeName=$companyDetails[0]['distributorName'];
+                                        $distributorCode=$companyDetails[0]['distributorCode'];
+                                        
+                                        $jsonData=array(
+                                             "flow_id"=>"618d086aff89a71b142e37e2",
+                                            "sender"=>"SIAInc",
+                                            "mobiles"=>'91'.$employeeMobile,
+                                            "amount"=>number_format($totalCash),
+                                            "distributorname"=>$officeName,
+                                            "allocationnumber"=>$allocationData[0]['allocationCode'],
+                                            "route"=>substr($allocationData[0]['allocationRouteName'],0,20),
+                                            "Allocationshortcash"=>""
+                                        );
+                    
+                                        $jsonData=json_encode($jsonData);
+                                        $curl = curl_init();
+                                        curl_setopt_array($curl, array(
+                                            CURLOPT_URL => "https://api.msg91.com/api/v5/flow/",
+                                            CURLOPT_RETURNTRANSFER => true,
+                                            CURLOPT_ENCODING => "",
+                                            CURLOPT_MAXREDIRS => 10,
+                                            CURLOPT_TIMEOUT => 30,
+                                            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                                            CURLOPT_CUSTOMREQUEST => "POST",
+                                            CURLOPT_POSTFIELDS => $jsonData,
+                                            CURLOPT_HTTPHEADER => array("authkey: 291106Atbm2KHoWhat5d99ec46","content-type: application/JSON"),
+                                        ));
+                                        $response = curl_exec($curl);
+                                        $err = curl_error($curl);
+                                        curl_close($curl);
+                                    }
+                                }
+                                
+                            }
+                        }
+                    }
+                }else if($cashTaken==0){
                     $insertData=array('collectedAmt'=>$finalPhysicalAmount,'balanceAmt'=>$finalPhysicalShortAmount,'note2000' =>$note2000,'note500' => $note500,'note200' => $note200,'note100' => $note100,'note50' => $note50,'note20' => $note20,'note10' => $note10,'coins' => $coin,'updatedBy'=>$userid);
                     $this->CashBookModel->updateNotesDetails('notesdetails',$insertData,$allocationId);
                     if($remAmount<=0){
@@ -2822,7 +3278,7 @@ class CashBookController extends CI_Controller {
             $emp=$this->input->post('empId');
             $debAmt=$this->input->post('empAmt');
             $empAmtComment=$this->input->post('empAmtComment');
-            
+            $i=0;
             for($i=0;$i<count($emp);$i++){
                 if($debAmt[$i]>0){
                     $debitedAmt=$debitedAmt+$debAmt[$i];

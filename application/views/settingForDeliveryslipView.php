@@ -16,20 +16,20 @@
                         <div class="body">
                             <div class="table-responsive">
                               <p id="res"></p>
-                                <table class="table cust-tbl" data-page-length='100'>
+                                <table class="table" data-page-length='100'>
                                     <tbody>
                                         <tr id="sr_rep">
                                             <td> 
                                               <div class="demo-radio-button">
-                                                  <input name="percentPenalty" value="yes" type="radio" class="with-gap radio-col-red" id="sr_percent" <?php if($setting[0]["propertyValue"]=="yes"){ echo "checked"; } ?>/>
+                                                  <input name="percentPenalty" value="yes" type="radio" class="with-gap percentPenalty" id="sr_percent" <?php if($setting[0]["propertyValue"]=="yes"){ echo "checked"; } ?>/>
                                                   <label for="sr_percent">Show Retailer Code And Address</label>
-                                                  <br><input name="percentPenalty" value="no" type="radio" id="sr_fixed" class="with-gap radio-col-red" <?php if($setting[0]["propertyValue"]=="no"){ echo "checked"; } ?>/>
+                                                  <br><input name="percentPenalty" value="no" type="radio" id="sr_fixed" class="with-gap percentPenalty" <?php if($setting[0]["propertyValue"]=="no"){ echo "checked"; } ?>/>
                                                   <label for="sr_fixed">Hide Retailer Code And Address</label>
                                               </div>
                                             </td>
                                              <td>
                                                  <a id="sr_pen_id" href="javascript:void();">
-                                                    <button class="btn btn-sm btnStyle  waves-effect">
+                                                    <button class="btn btn-sm btn-primary  waves-effect">
                                                         <i class="material-icons">save</i> 
                                                         <span class="icon-name"> Save</span>
                                                     </button>
@@ -51,20 +51,20 @@
                         <div class="body">
                             <div class="table-responsive">
                               <p id="res"></p>
-                                <table class="table cust-tbl" data-page-length='100'>
+                                <table class="table" data-page-length='100'>
                                     <tbody>
                                         <tr id="sr_rep">
                                             <td> 
                                               <div class="demo-radio-button">
-                                                  <input name="otherAdj" value="yes" type="radio" class="with-gap radio-col-red" id="sr_percent1" <?php if($setting[2]["propertyValue"]=="yes"){ echo "checked"; } ?>/>
+                                                  <input name="otherAdj" value="yes" type="radio" class="with-gap otherAdj" id="sr_percent1" <?php if($setting[2]["propertyValue"]=="yes"){ echo "checked"; } ?>/>
                                                   <label for="sr_percent1">Show Other Adjustment to Manager</label>
-                                                  <br><input name="otherAdj" value="no" type="radio" id="sr_fixed1" class="with-gap radio-col-red" <?php if($setting[2]["propertyValue"]=="no"){ echo "checked"; } ?>/>
+                                                  <br><input name="otherAdj" value="no" type="radio" id="sr_fixed1" class="with-gap otherAdj" <?php if($setting[2]["propertyValue"]=="no"){ echo "checked"; } ?>/>
                                                   <label for="sr_fixed1">Show Other Adjustment to Godownkeeper</label>
                                               </div>
                                             </td>
                                              <td>
                                                  <a id="other_adj_id" href="javascript:void();">
-                                                    <button class="btn btn-sm btnStyle  waves-effect">
+                                                    <button class="btn btn-sm btn-primary  waves-effect">
                                                         <i class="material-icons">save</i> 
                                                         <span class="icon-name"> Save</span>
                                                     </button>

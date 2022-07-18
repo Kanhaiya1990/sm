@@ -12,14 +12,14 @@
                             <h2>Salesman Linking</h2>
                         </div>
                         <div class="body">
-                            <!--<div class="table-responsive"> -->
+                            <div class="table-responsive">
                                 <?php if($responce = $this->session->flashdata('Successfully')): ?>
                                       <div class="box-header">
                                          <div class="alert alert-success"><?php echo $responce;?></div>
                                       </div>
                                   <?php endif;?>
                                   <br>
-                                <table class="table table-bordered cust-tbl js-basic-example dataTable no-footer" data-page-length='50'>
+                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable" data-page-length='100'>
                                     <thead>
                                         <tr>
                                             <th>S No.</th>
@@ -57,12 +57,12 @@
                                               <?php echo $status; ?>
                                             </td>
                                             <td>
-                                                <a style="text-decoration: none !important;" id="salesman-id" data-code="<?php echo $data['salesmanCode']; ?>" data-name="<?php echo $data['salesman']; ?>" data-toggle="modal" data-target="#modal-lg" class="btn btn-sm process-btn">
-                                                    <b><i class="material-icons">edit</i></b>
+                                                <a id="salesman-id" data-code="<?php echo $data['salesmanCode']; ?>" data-name="<?php echo $data['salesman']; ?>" data-toggle="modal" data-target="#modal-lg">
+                                                    <i class="btn btn-xs btn-primary material-icons">edit</i>
                                                 </a>
                                             <?php if($status !=""){ ?>
-                                                <a style="text-decoration: none !important;" href="<?php echo site_url('admin/EmployeeController/cancelSalesmanLinking/'.$data['salesmanCode'].'/'.$data['salesman']); ?>" class="btn btn-sm btn-danger">
-                                                    <b><i class="material-icons">cancel</i></b>
+                                                <a href="<?php echo site_url('admin/EmployeeController/cancelSalesmanLinking/'.$data['salesmanCode']); ?>">
+                                                    <i class="btn btn-xs btn-danger material-icons">cancel</i>
                                                 </a>
                                             <?php } ?>
                                             </td>
@@ -73,7 +73,7 @@
                                   ?>
                                   </tbody>
                                 </table>
-                            <!--</div> -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -95,7 +95,7 @@
       </div>
       <div class="modal-body">
         <form action="<?php echo site_url('admin/EmployeeController/insertSalesmanLinking'); ?>" method="post">
-                <div class="card-body cust-tbl">
+                <div class="card-body">
                   <input type="hidden" id="emp-code" readonly name="salesmancode" value="" class="form-control">
                   <input type="hidden" id="emp-name" readonly name="salesmanname" value="" class="form-control">
                       <div class="form-group">
@@ -132,7 +132,7 @@
                       
                 </div>
                 <div class="card-footer">
-                  <button id="salesSubmit" type="submit" class="btn btnStyle">Submit</button>
+                  <button id="salesSubmit" type="submit" class="btn btn-primary">Submit</button>
                   <button id="closeModalId" type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
               </form>
@@ -194,7 +194,16 @@
                   $("#salesSubmit").attr("disabled", true);
                     // alert(data);
                 }
-            }  
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            }     
         });
     });
 </script>

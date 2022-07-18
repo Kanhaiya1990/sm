@@ -57,30 +57,27 @@ tr.shown td.details-control {
                     <div class="table-responsive">
                         <div class="col-md-12">
    
-                    <table class="table table-bordered dataTable js-exportable cust-tbl" data-page-length='100' id="xp">
+                    <table class="table table-bordered table-striped table-hover dataTable js-exportable" data-page-length='100' id="xp">
                         <thead>
                          <tr data-key-1="Value 1" data-key-2="Value 2">
                             <th></th>
-                            <th>No</th>
+                            <th>Sr.No</th>
                             <th>Retailer Name</th>
                             <th>Retailer Code</th>
                             <th>Salesman</th>
-                            <th>Nos</th>
-                            <th class="text-right">Balance</th>
-                            <!--<th class="text-right">Balance Due</th>-->
+                            <th>No of Bills</th>
+                            <th class="text-right">Balance Due</th>
                         </tr>
                         </thead>
                         <tfoot>
                         <tr data-key-1="Value 1" data-key-2="Value 2">
                             <th></th>
-                            <th>No</th>
+                            <th>Sr.No</th>
                             <th>Retailer Name</th>
                             <th>Retailer Code</th>
                             <th>Salesman</th>
-                            <th>Nos</th>
-							<!--<th>No of Bills</th>-->
-							<th class="text-right">Balance</th>
-                            <!--<th class="text-right">Balance Due</th>-->
+                            <th>No of Bills</th>
+                            <th class="text-right">Balance Due</th>
                         </tr>
                         </tfoot>
                         <tbody>
@@ -177,8 +174,8 @@ $(document).ready(function () {
                     // alert(d);
                     tbody += '<tr><td>' + d.billNo + '</td><td>' + d.date + '</td><td>' + d.retailerName + '</td><td>' + d.salesman + '</td><td align="right">' + d.netAmount + '</td><td align="right">' + d.SRAmt + '</td><td align="right">' + d.receivedAmt + '</td><td align="right">' + d.pendingAmt + '</td><td align="left">' + d.status + '</td></tr>';
                 });
-            console.log('<table class="table table-bordered dataTable js-exportable cust-tbl display nowrap">' + thead + tbody + '</table>');
-            callback($('<table class="table table-bordered dataTable js-exportable cust-tbl display nowrap">' + thead + tbody + '</table>')).show();
+            console.log('<table class="table table-bordered table-striped table-hover js-basic-example DataTable display nowrap">' + thead + tbody + '</table>');
+            callback($('<table class="table table-bordered table-striped table-hover js-basic-example DataTable display nowrap">' + thead + tbody + '</table>')).show();
         },
         error: function () {
             $('#output').html('Bummer: there was an error!');

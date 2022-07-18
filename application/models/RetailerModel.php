@@ -8,8 +8,7 @@ class RetailerModel extends CI_Model {
     public function getdata($tableName)
     {
         $query=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -29,8 +28,7 @@ class RetailerModel extends CI_Model {
         $this->db->order_by($orderField, $orderDirection);
         $this->db->limit($limit, $start);
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
 
@@ -47,8 +45,7 @@ class RetailerModel extends CI_Model {
         $this->db->where('retailer_kia.isActive',1);
         $this->db->order_by($orderField, $orderDirection);
         $query=$this->db->get();
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->num_rows();
     }
 
@@ -59,8 +56,7 @@ class RetailerModel extends CI_Model {
     {
         $this->db->where('isActive', 1);
         $data=$this->db->get($tableName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $data->result_array();
     }
 
@@ -68,8 +64,7 @@ class RetailerModel extends CI_Model {
         $this->db->where('retailerCode',$retailerCode);
         $this->db->where('name',$name);
         $query=$this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();
     }
     
@@ -117,8 +112,7 @@ class RetailerModel extends CI_Model {
     public function load($tblName, $id) {
         $this->db->where('id', $id);
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();   
     }
     
@@ -126,8 +120,7 @@ class RetailerModel extends CI_Model {
         $this->db->select('id'); 
         $this->db->from($tblName);
         $this->db->where('name',$name); 
-        $this->db->close();
-        $this->db->initialize();  
+          
         return $this->db->get()->result_array();
     }
 
@@ -148,8 +141,7 @@ class RetailerModel extends CI_Model {
 
     public function show($tblName) {
         $query = $this->db->get($tblName);
-        $this->db->close();
-        $this->db->initialize();
+        
         return $query->result_array();    
     }
      public function delete($tblName,$id)

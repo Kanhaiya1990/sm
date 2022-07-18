@@ -25,14 +25,12 @@ function goBack() {
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
-                        <div class="header flex-div">
-                            <h2><?php echo $title; ?></h2>
+                        <div class="header">
                             <h2>
-                               <button onclick="goBack();" class="btn btn-xs btnStyle margin"><i class="material-icons">keyboard_return</i></button>
+                               <button onclick="goBack();" class="btn btn-xs bg-primary margin"><i class="material-icons">keyboard_return</i></button></a> <?php echo $title; ?>
                             </h2>
-                        </div>
                             <br>
-                            <p class="cust-tbl">
+                           <p>
                                 <?php if(!empty($allDetails)){ ?>
                                     <span>
                                         Allocation : 
@@ -58,12 +56,17 @@ function goBack() {
                                 <?php } ?>
                                 </p> 
                                 <p align="right">
-                                    <button align="right" type="button" id="insert-ins" class="btn btn-xs btnStyle m-t-15 waves-effect"> <i class="material-icons">save</i><span class="icon-name">Save Selected</span></button>
+                                    <button align="right" type="button" id="insert-ins" class="btn btn-xs btn-primary m-t-15 waves-effect"> <i class="material-icons">save</i><span class="icon-name">Save Selected</span></button>
                                 </p>
 
+                            
+                        </div>
+
+
+                        
                         <div class="body">
                             <div class="row" id="default_tbl">
-                                <table class="table cust-tbl table-bordered">
+                                <table style="font-size: 12px" class="table table-bordered">
                                     <thead>
                                         <tr>
                                             <th colspan="9"><center><h6>Total Collection</h6></center></th>
@@ -99,7 +102,7 @@ function goBack() {
                             </div>
                             
                              <div class="row" id="runclick" style="display:none;">
-                                <table class="table cust-tbl table-bordered">
+                                <table style="font-size: 12px" class="table  table-bordered">
                                     <thead>
                                         <tr>
                                             <th colspan="9"><center><h6>Total Collection</h6></center></th>
@@ -137,7 +140,7 @@ function goBack() {
                             <div class="row">
                             <div class="table-responsive">
                                 <input type="hidden" id="allocationId" value="<?php echo $allocationId; ?>">
-                                <table id="test" class="table table-bordered cust-tbl js-exportable dataTable" data-page-length='100'>
+                                <table style="font-size: 12px" id="test" class="table table-bordered table-striped table-hover js-exportable dataTable" data-page-length='100'>
                                     <thead>
                                         <tr>
                                             <th><input class="checkall" type="checkbox" name="selValue" id="basic_checkbox"/>
@@ -301,7 +304,16 @@ function goBack() {
                         $(this).attr('checked', false);
                     });      
                     window.location.href="<?php echo base_url();?>index.php/operator/OperatorController/pendingCollection";
-                }  
+                },
+                beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                }     
             });
         }else{
             alert('Please select Bills.');
@@ -320,7 +332,16 @@ function goBack() {
             success: function (data) {
                 $('#tbl_data').html(data);
                 // window.location.reload(true);
-            }  
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            }     
         });
     }
 
@@ -333,7 +354,16 @@ function goBack() {
             success: function (data) {
                 $('#tbl_data').html(data);
                  // window.location.reload(true);
-            }  
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            }     
         });
     }
 </script>

@@ -25,19 +25,21 @@ function goBack() {
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
-                        <div class="header flex-div">
-                            <h2>Pending Billing</h2>
+                        <div class="header">
+                            <h2>
+                               <button onclick="goBack();" class="btn btn-xs bg-primary margin"><i class="material-icons">keyboard_return</i></button></a> Pending Billing
+                            </h2>
+                            <br>
+                           
                             <p align="right">
-                               <button align="right" type="button" id="insert-ins" class="btn btn-xs btnStyle m-t-15 waves-effect"> <i class="material-icons">save</i><span class="icon-name">Save Selected</span></button>
-                               <button onclick="goBack();" class="btn btn-xs m-t-15 btnStyle margin"><i class="material-icons">keyboard_return</i></button>
+                                <button align="right" type="button" id="insert-ins" class="btn btn-xs btn-primary m-t-15 waves-effect"> <i class="material-icons">save</i><span class="icon-name">Save Selected</span></button>
                             </p>
-                            
                         </div>
                         
                         <div class="body">
                             <div class="row">
                             <div class="table-responsive">
-                                <table id="test" class="table table-bordered cust-tbl js-exportable dataTable" data-page-length='100'>
+                                <table style="font-size: 12px" id="test" class="table table-bordered table-striped table-hover js-exportable dataTable" data-page-length='100'>
                                     <thead>
                                         <tr>
                                             <th><input class="checkall" type="checkbox" name="selValue" id="basic_checkbox"/><label for="basic_checkbox"></label></th>
@@ -123,7 +125,16 @@ function goBack() {
                             $(this).attr('checked', false);
                         });      
                         window.location.href="<?php echo base_url();?>index.php/DeliverySlipController/pendingForBilling";
-                    }  
+                    },
+                    beforeSend: function(){
+                        $('.comman-ajax-loader').css("visibility", "visible");
+                    },
+                    complete: function(){
+                        $('.comman-ajax-loader').css("visibility", "hidden");
+                    },
+                    error: function(jqXHR, exception) {
+                        alert("Something Went Wrong, Please Try Again...!");
+                    }     
                 });
             }
         }else{

@@ -91,7 +91,7 @@ tr.shown td.details-control {
                             <div class="row clearfix">
                             <!-- <div class="demo-masked-input"> -->
                                 <form method="post" role="form" action="<?php echo base_url('index.php/AdHocController/allRetailerHistory'); ?>"> 
-                                  <div class="col-md-12 cust-tbl"> 
+                                  <div class="col-md-12"> 
 
                                     <?php
                                         $retName="";
@@ -99,7 +99,7 @@ tr.shown td.details-control {
                                             $retName=$bills[0]['retailerName'].' : '.$bills[0]['routeName'].' : '.$bills[0]['compName'].' : '.$bills[0]['retailerCode'];
                                         }
                                     ?>
-                                    <div class="col-md-5">
+                                    <div class="col-md-6">
                                         <b>Retailer</b>
                                         <div class="input-group">
                                             <span class="input-group-addon">
@@ -122,6 +122,8 @@ tr.shown td.details-control {
                                             <p id="billNo_Id"></p>
                                         </div>
                                     </div>
+
+                                    
 
                                     <div class="col-md-2">
                                         <b>From Date</b>
@@ -149,8 +151,8 @@ tr.shown td.details-control {
                                         </div>
                                     </div>
                                   
-                                        <div class="col-md-3">
-                                             <button type="submit" class="btn btnStyle m-t-25 waves-effect">
+                                        <div class="col-md-2">
+                                             <button type="submit" class="btn btn-xs btn-primary m-t-25 waves-effect">
                                                 <i class="material-icons">search</i> 
                                                 <span class="icon-name">
                                                  Search
@@ -163,7 +165,7 @@ tr.shown td.details-control {
                                                 </span>
                                             </button> -->
                                            <a href="<?php echo site_url('AdHocController/allRetailerHistory');?>">
-                                                <button type="button" class="btn btn-danger m-t-25 waves-effect">
+                                                <button type="button" class="btn btn-xs btn-danger m-t-25 waves-effect">
                                                     <i class="material-icons">cancel</i> 
                                                     <span class="icon-name"> Cancel</span>
                                                 </button>
@@ -176,7 +178,7 @@ tr.shown td.details-control {
                                 </form>
                                     <div id="hideInfo" class="col-md-12"> 
 
-     <table class="table table-bordered cust-tbl" data-page-length='100'>
+     <table style="font-size: 12px;" class="table table-bordered table-striped table-hover" data-page-length='100'>
         <thead>
             <tr colspan="8">
                  <th>
@@ -226,7 +228,7 @@ tr.shown td.details-control {
 
         <hr class="dotted">
 
-        <div class="row cust-tbl">
+        <div class="row">
             <?php echo $pagination; ?> 
 
             <div class="col-sm-3">
@@ -254,12 +256,12 @@ tr.shown td.details-control {
               </div>
             </div>
             <div class="col-sm-3">
-              <a href="<?php echo site_url('AdHocController/allRetailerHistory'); ?>" class="btn m-t-25 btn-danger waves-effect">
+              <a href="<?php echo site_url('AdHocController/allRetailerHistory'); ?>" class="btn btn-xs m-t-25 btn-danger waves-effect">
                     <i class="material-icons">cancel</i> 
                     <span class="icon-name"> Cancel</span>
                 </a>
                 &nbsp;&nbsp;
-                <a class="btn m-t-25 btnStyle"  href="<?php echo site_url(); ?>/AdHocController/retailerBillsExport"> 
+                <a class="btn btn-xs m-t-25 btn-primary"  href="<?php echo site_url(); ?>/AdHocController/retailerBillsExport"> 
                     <i class="material-icons">download</i> 
                     <span class="icon-name"> Export</span></a>
             
@@ -272,7 +274,7 @@ tr.shown td.details-control {
             
           </div>
         </div>   -->                    
-     <table class="table table-bordered cust-tbl" data-page-length='25'>
+     <table style="font-size: 12px;" class="table table-bordered table-striped table-hover" data-page-length='25'>
         <thead>
             <tr class="gray">
                 <th data-action="sort" data-direction="ASC" data-title="billNo"> Bill No  </th>
@@ -332,18 +334,19 @@ tr.shown td.details-control {
                     <?php } ?>
                         
                         <td><?php echo $data['billNo']; ?></td>
-                        <td class="noSpace"><?php echo $createdDate; ?></td>
+                        <td><?php echo $createdDate; ?></td>
                         <td><?php echo $data['salesman']; ?></td>
-                        <td><?php echo $eName; ?></td>
+                         <td><?php echo $eName; ?></td>
                         <td class="text-right"><?php echo number_format($data['netAmount']); ?></td>
                         <td class="text-right"><?php echo number_format($data['SRAmt']); ?></td>
-                        <td class="text-right"><?php echo number_format($data['cd']); ?></td>
-                        <td class="text-right"><?php echo number_format($data['receivedAmt']); ?></td>
+                         <td class="text-right"><?php echo number_format($data['cd']); ?></td>
+                         <td class="text-right"><?php echo number_format($data['receivedAmt']); ?></td>
                         <td class="text-right"><?php echo number_format($data['officeAdjustmentBillAmount']); ?></td>
                         <td class="text-right"><?php echo number_format($data['otherAdjustment']); ?></td>
                         <td class="text-right"><?php echo number_format($data['debit']); ?></td>
                         <td class="text-right"><?php if($data['deliveryStatus']=="cancelled"){ echo "0"; }else{ echo number_format($data['pendingAmt']); } ?></td>
                         <td class="text-right"><?php echo number_format($data['chequePenalty']); ?></td>
+
                         <td>
                         <?php 
                         if($data['deliveryStatus']=="cancelled"){
@@ -439,7 +442,7 @@ tr.shown td.details-control {
                             <a id="billHistory" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-code="<?php echo $data['retailerCode']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-route="<?php echo $data['routeName']; ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-toggle="modal" data-target="#billprocessModal"><button class="btn btn-xs bg-primary margin"><i class="material-icons">visibility</i> </button></a>
                             <a id="billHistoryProcess" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-code="<?php echo $data['retailerCode']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-route="<?php echo $data['routeName']; ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-toggle="modal" data-target="#retailerprocessModal"><button class="btn btn-xs bg-primary margin">Process</button></a>
                         </td> -->
-                        <td class="noSpace">
+                              <td>
                         <?php
                         if($data['isAllocated']!=1 && $data['pendingAmt'] >0 && $data['deliveryStatus'] !=="cancelled"){
 
@@ -449,25 +452,24 @@ tr.shown td.details-control {
 
                             if ((in_array('operator', $des))) { 
                     ?>
-                        <a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs viewBill-btn" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
+                                &nbsp;&nbsp;<a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs  btn-primary" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
                                                
                     <?php
                             }else{
                     ?>
-                    <a id="prDetailsForAll" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-billDate="<?php echo $createdDate; ?>" data-credAdj="<?php echo $data['creditAdjustment']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-route="<?php echo $data['routeName']; ?>" data-toggle="modal" data-target="#processModalForAll" ><button class="btn btn-xs process-btn waves-effect waves-float" data-toggle="tooltip" data-placement="bottom" title="Process"><i class="material-icons">touch_app</i></button></a>
+                    <a id="prDetailsForAll" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-billDate="<?php echo $createdDate; ?>" data-credAdj="<?php echo $data['creditAdjustment']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-route="<?php echo $data['routeName']; ?>" data-toggle="modal" data-target="#processModalForAll" ><button class="btn btn-xs btn-primary waves-effect waves-float" data-toggle="tooltip" data-placement="bottom" title="Process"><i class="material-icons">touch_app</i></button></a>
 
-                    <!-- <a id="prDetails" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-code="<?php echo $data['retailerCode']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-route="<?php echo $data['routeName']; ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-toggle="modal" data-target="#processModal"><button class="btn btn-xs  btn-primary"><i class="material-icons">touch_app</i></button></a> -->
-                    &nbsp;&nbsp;<a target="_blank" href="<?php echo site_url('AdHocController/billHistoryInfo/'.$data['id']); ?>" class="btn btn-xs history-btn" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
-                    &nbsp;&nbsp;<a target="_blank" href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs viewBill-btn" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
+                            <!-- <a id="prDetails" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-code="<?php echo $data['retailerCode']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-route="<?php echo $data['routeName']; ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-toggle="modal" data-target="#processModal"><button class="btn btn-xs  btn-primary"><i class="material-icons">touch_app</i></button></a> -->
+                    &nbsp;&nbsp;<a target="_blank" href="<?php echo site_url('AdHocController/billHistoryInfo/'.$data['id']); ?>" class="btn btn-xs btn-primary" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
+                    &nbsp;&nbsp;<a target="_blank" href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs  btn-primary" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
                                                
                       <?php }
 
                         }else{
                             
                     ?>
-                    <a target="_blank" href="<?php echo site_url('AdHocController/billHistoryInfo/'.$data['id']); ?>" class="btn btn-xs history-btn" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
-                    
-                    <a target="_blank" href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs viewBill-btn" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
+                        &nbsp;&nbsp;<a target="_blank" href="<?php echo site_url('AdHocController/billHistoryInfo/'.$data['id']); ?>" class="btn btn-xs btn-primary" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
+                        &nbsp;&nbsp;<a target="_blank" href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs  btn-primary" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
                    
                     <?php
                         }
@@ -521,7 +523,7 @@ tr.shown td.details-control {
                 <div class="demo-masked-input">
                     <div class="row clearfix">
                         <div class="row">
-                            <div class="col-md-12 cust-tbl">
+                            <div class="col-md-12">
                                 <div class="col-md-3">
                                     <b>Bill No : </b> <span id='bill_no'></span>
                                     <input type="hidden" id="currentBillNo" autocomplete="off" name="currentBillNo" class="form-control"> 
@@ -635,7 +637,16 @@ tr.shown td.details-control {
             data:{billNo:billNo,billId:id},
             success: function (data) {
                 $('#hideBillHistoryInfo').html(data);
-            }  
+            },
+            beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                }    
         });
        
 

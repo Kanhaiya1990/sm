@@ -36,26 +36,20 @@
                            <h2>
                              Cash & Cheque Master
                           </h2><br>
-                         
-                          <div class="row cust-tbl" style="display: flex;align-items: center;">
-                              <div class="col-md-3"<b>Allocation No.:</b> <?php echo $allocations[0]['allocationCode']; ?></div>
-                              <div class="col-md-2"<b>Company :</b> <?php echo $allocations[0]['company']; ?></div>
-                              <div class="col-md-3" <b>Deliveryman Name :</b> <?php echo $emp1[0]['name']; ?></div>
-                              <div class="col-md-3"<b>Route Name :</b> <?php echo $route[0]['name']; ?></div>
-                              <div class="col-md-2">
-                              <button data-toggle="modal" data-aId="<?php echo $notes[0]['id'];?>" data-id="<?php echo $notes[0]['allocationId'];?>" id="modalLinkBtn" data-target="#myModal" class=" btn btn-primary btnStyle m-t-15 waves-effect">
-                              <i class="material-icons">save</i><span class="icon-name">  Save & Confirm </span>
-                            </button>
-                              </div>
-                          </div>
-                          
-                          <div class="row" style="display: flex;align-items: center;">
+                          <p>
+                          <tr>
+                              <td><span style="color:blue">Allocation No.:</span> <?php echo $allocations[0]['allocationCode']; ?></td>
+                              <td><span style="color:blue">Company :</span> <?php echo $allocations[0]['company']; ?></td>
+                              <td> <span style="color:blue">Deliveryman Name :</span> <?php echo $emp1[0]['name']; ?></td>
+                              <td><span style="color:blue">Route Name :</span> <?php echo $route[0]['name']; ?></td>
+                          </tr>
+                          </p>
                           <p align="right">
                            <!--  <button  onclick="totalCollect('<?php echo $notes[0]['id'];?>','<?php echo $notes[0]['allocationId'];?>');" class="btn btn-primary m-t-15 waves-effect">
                                 <span class="icon-name"> Save </span>
                             </button> -->
-                            <div class="col-md-8 table-responsive">
-                              <table class="table table-bordered cust-tbl display nowrap" style="width: 100%">
+                            <div class="col-md-6 table-responsive">
+                              <table border="2px" style="font-size: 11px;width: 80%">
                                   <tr class="gray">
                                       <th><center>Particulars</center></th>
                                       <th><center>Total Bills</center></th>
@@ -94,13 +88,16 @@
                                   </tr>
                               </table>
                             </div>
+                          
                          
                            <!--  <button data-toggle="modal" data-aId="<?php echo $notes[0]['id'];?>" data-id="<?php echo $notes[0]['allocationId'];?>" data-target="#myModal" class="modalLink btn btn-primary m-t-15 waves-effect">
                                 <span class="icon-name"> Save & Confirm </span>
                             </button>
-                           -->   
+ -->
+                            <button data-toggle="modal" data-aId="<?php echo $notes[0]['id'];?>" data-id="<?php echo $notes[0]['allocationId'];?>" id="modalLinkBtn" data-target="#myModal" class=" btn btn-primary m-t-15 waves-effect">
+                                <i class="material-icons">save</i><span class="icon-name"> Close Allocation </span>
+                            </button>
                         </p>
-                      </div>
 
                         </div>
                         <div class="body">
@@ -110,11 +107,11 @@
 
                                 <div class="col-md-12">
                                   <div class="col-md-7">
-                                <table id="recTblIds" class="table table-bordered cust-tbl display nowrap" data-page-length='100'>
+                                <table id="recTblIds" style="font-size: 11px" class="table table-bordered table-striped table-hover display nowrap" data-page-length='100'>
                                     <thead>
                                     <tr>
                                         <th colspan="5"><center>Cheque/NEFT Reconciliation</center></th>
-                                        <th> <button type="button" id="insert-ins" class="btn btn-sm btn-primary btnStyle m-t-15 waves-effect">
+                                        <th> <button type="button" id="insert-ins" class="btn btn-sm btn-primary m-t-15 waves-effect">
                                               <span class="icon-name">Clear Selected</span>
                                     </button></th>
                                     </tr>
@@ -144,13 +141,8 @@
                                       <tr>  
                                           
                                           <td><?php echo $itm['billNo']?></td>
-                                         
-										  <td class="CellWithComment"><?php 	
-										    $retailerName=substr($itm['retailerName'], 0, 15);
-                                            echo rtrim($retailerName);?>
-											<span class="CellComment"><?php echo $result =substr($itm['retailerName'],0); ?></span>
-										  </td>
-                                          <td><?php echo $billD[0]['paidAmount']; ?></td>
+                                           <td><?php echo $itm['retailerName']?></td>
+                                          <td class="text-right"><?php echo number_format($billD[0]['paidAmount']); ?></td>
                                           <td><?php echo 'NEFT';?></td>
                                           
                                           <td>
@@ -177,7 +169,7 @@
                                             <!-- <button style="font-size: 11px" id="neftNotReceived" onclick="updateChequeNeft(this,'<?php echo $itm['id'];?>','<?php echo $itm['fsNeftAmt']?>','NEFT','<?php echo $allocations[0]['id'];?>')" class="btn btn-primary btn-sm waves-effect">
                                                 <span class="icon-name">Not Received</span>
                                             </button>  -->
-                                            <input class="customchkClose" onclick="checkForNotReceive(<?php echo $billD[0]['id']; ?>)" type="checkbox" name="selValueForNotReceived" value="<?php echo $allocations[0]['id'].':'.$itm['id'].':'.$itm['fsNeftAmt'].':'.'NEFT'; ?>" id="basic_checkbox_neft_notReceived<?php echo $billD[0]['id']; ?>" />
+                                            <input class="checkhourForNotReceived chk-col-red" onclick="checkForNotReceive(<?php echo $billD[0]['id']; ?>)" type="checkbox" name="selValueForNotReceived" value="<?php echo $allocations[0]['id'].':'.$itm['id'].':'.$itm['fsNeftAmt'].':'.'NEFT'; ?>" id="basic_checkbox_neft_notReceived<?php echo $billD[0]['id']; ?>" />
                                             <label for="basic_checkbox_neft_notReceived<?php echo $billD[0]['id']; ?>"></label>
                                           
                                           <?php } else if($billD[0]['isLostStatus'] == 1){ ?>
@@ -206,7 +198,7 @@
                                           <tr>
                                             <td><?php echo $itm['billNo']?></td>
                                           <td><?php echo $itm['retailerName']?></td>
-                                           <td><?php echo $billD[0]['paidAmount']; ?></td>
+                                           <td class="text-right"><?php echo number_format($billD[0]['paidAmount']); ?></td>
                                           <td><?php echo 'Cheque'; ?></td>
                                           
 
@@ -218,8 +210,8 @@
                                               <!-- <button style="font-size: 11px" id="chequeNotReceived" onclick="updateChequeNeft(this,'<?php echo $itm['id'];?>','<?php echo $itm['fsChequeAmt']?>','Cheque','<?php echo $allocations[0]['id'];?>')" class="btn btn-primary btn-sm waves-effect">
                                                   <span class="icon-name">Not Received</span>
                                               </button>  -->
-                                              <input class="checkhour" type="checkbox" onclick="checkForReceive(<?php echo $billD[0]['id']; ?>)" name="selValue" value="<?php echo $allocations[0]['id'].':'.$itm['id'].':'.$itm['fsChequeAmt'].':'.'Cheque'; ?>" id="basic_checkbox_neft<?php echo $billD[0]['id']; ?>" />
-                                              <label for="basic_checkbox_neft<?php echo $billD[0]['id']; ?>"></label>
+                                                  <input class="checkhour" type="checkbox" onclick="checkForReceive(<?php echo $billD[0]['id']; ?>)" name="selValue" value="<?php echo $allocations[0]['id'].':'.$itm['id'].':'.$itm['fsChequeAmt'].':'.'Cheque'; ?>" id="basic_checkbox_neft<?php echo $billD[0]['id']; ?>" />
+                                                  <label for="basic_checkbox_neft<?php echo $billD[0]['id']; ?>"></label>
                                             
                                             <?php } else if($billD[0]['isLostStatus'] == 2){ ?>
                                                 <i class="material-icons">check</i> 
@@ -234,7 +226,7 @@
                                               <!-- <button style="font-size: 11px" id="chequeNotReceived" onclick="updateChequeNeft(this,'<?php echo $itm['id'];?>','<?php echo $itm['fsChequeAmt']?>','Cheque','<?php echo $allocations[0]['id'];?>')" class="btn btn-primary btn-sm waves-effect">
                                                   <span class="icon-name">Not Received</span>
                                               </button>  -->
-                                              <input class="customchkClose" type="checkbox" onclick="checkForNotReceive(<?php echo $billD[0]['id']; ?>)" name="selValueForNotReceived" value="<?php echo $allocations[0]['id'].':'.$itm['id'].':'.$itm['fsChequeAmt'].':'.'Cheque'; ?>" id="basic_checkbox_neft_notReceived<?php echo $billD[0]['id']; ?>" />
+                                              <input class="checkhourForNotReceived chk-col-red" type="checkbox" onclick="checkForNotReceive(<?php echo $billD[0]['id']; ?>)" name="selValueForNotReceived" value="<?php echo $allocations[0]['id'].':'.$itm['id'].':'.$itm['fsChequeAmt'].':'.'Cheque'; ?>" id="basic_checkbox_neft_notReceived<?php echo $billD[0]['id']; ?>" />
                                               <label for="basic_checkbox_neft_notReceived<?php echo $billD[0]['id']; ?>"></label>
                                             <?php }else if($billD[0]['isLostStatus'] == 1){ ?>
                                                 <i class="material-icons">cancel</i> 
@@ -260,7 +252,7 @@
                             </div>
                                 
                             <div class="col-md-5">
-                                <table id="recTblId" class="table table-bordered cust-tbl js-basic-example DataTable display nowrap dataTable" data-page-length='100'>
+                                <table id="recTblId" style="font-size: 11px" class="table table-bordered table-striped table-hover js-basic-example DataTable display nowrap" data-page-length='100'>
                                     <thead>
                                         <tr>
                                             <th colspan="2"><center>Other Expenses</center></th>
@@ -282,17 +274,17 @@
                                               </td>
                                             <td>
                                               <?php if(!empty($notes)){ ?>
-                                                <button style="font-size: 11px" id="parkingReceive" onclick="updateParkingAllow('parking','<?php echo $notes[0]['id'];?>','<?php echo $notes[0]['allocationId'];?>');" class="btn btnStyle btn-sm waves-effect">
+                                                <button style="font-size: 11px" id="parkingReceive" onclick="updateParkingAllow('parking','<?php echo $notes[0]['id'];?>','<?php echo $notes[0]['allocationId'];?>');" class="btn btn-primary btn-sm waves-effect">
                                                     <span class="icon-name">Allow</span>
                                                 </button> 
-                                                <button style="font-size: 11px" id="parkingNotReceive" onclick="updateParkingDisAllow('parking','<?php echo $notes[0]['id'];?>','<?php echo $notes[0]['allocationId'];?>');notReceived('parking','<?php echo $notes[0]['parking'];?>');" class="btn btn-danger btn-sm waves-effect">
+                                                <button style="font-size: 11px" id="parkingNotReceive" onclick="updateParkingDisAllow('parking','<?php echo $notes[0]['id'];?>','<?php echo $notes[0]['allocationId'];?>');notReceived('parking','<?php echo $notes[0]['parking'];?>');" class="btn btn-primary btn-sm waves-effect">
                                                     <span class="icon-name">Disallow</span>
                                                 </button> 
                                                 <?php }else{?>
-                                                  <button style="font-size: 11px" id="parkingReceive" onclick="removeMe(this);" disabled="" class="btn btn-primary btnStyle btn-sm waves-effect">
+                                                  <button style="font-size: 11px" id="parkingReceive" onclick="removeMe(this);" disabled="" class="btn btn-primary btn-sm waves-effect">
                                                     <span class="icon-name">Allow</span>
                                                 </button> 
-                                                <button style="font-size: 11px" id="parkingNotReceive" onclick="removeMe(this);" disabled="" class="btn btn-danger btn-sm waves-effect">
+                                                <button style="font-size: 11px" id="parkingNotReceive" onclick="removeMe(this);" disabled="" class="btn btn-primary btn-sm waves-effect">
                                                     <span class="icon-name">Disallow</span>
                                                 </button>
                                                 <?php } ?>
@@ -326,17 +318,17 @@
                                               </td>
                                              <td>
                                                <?php if(!empty($notes)){ ?>
-                                                <button style="font-size: 11px" id="cngReceived" onclick="updateCngAllow('cng','<?php echo $notes[0]['id'];?>','<?php echo $notes[0]['allocationId'];?>');" class="btn btn-primary btnStyle btn-sm waves-effect">
+                                                <button style="font-size: 11px" id="cngReceived" onclick="updateCngAllow('cng','<?php echo $notes[0]['id'];?>','<?php echo $notes[0]['allocationId'];?>');" class="btn btn-primary btn-sm waves-effect">
                                                     <span class="icon-name">Allow</span>
                                                 </button> 
-                                                <button style="font-size: 11px" id="cngNotReceived" onclick="updateCngDisAllow('cng','<?php echo $notes[0]['id'];?>','<?php echo $notes[0]['allocationId'];?>');notReceived('cng','<?php echo $notes[0]['cng'];?>');" class="btn btn-danger btn-sm waves-effect">
+                                                <button style="font-size: 11px" id="cngNotReceived" onclick="updateCngDisAllow('cng','<?php echo $notes[0]['id'];?>','<?php echo $notes[0]['allocationId'];?>');notReceived('cng','<?php echo $notes[0]['cng'];?>');" class="btn btn-primary btn-sm waves-effect">
                                                     <span class="icon-name">Disallow</span>
                                                 </button> 
                                                  <?php }else{?>
-                                                     <button style="font-size: 11px" id="cngReceived" onclick="removeMe(this);" disabled="" class="btn btn-primary btnStyle btn-sm waves-effect">
+                                                     <button style="font-size: 11px" id="cngReceived" onclick="removeMe(this);" disabled="" class="btn btn-primary btn-sm waves-effect">
                                                     <span class="icon-name">Allow</span>
                                                   </button> 
-                                                  <button style="font-size: 11px" id="cngNotReceived" onclick="removeMe(this);" disabled="" class="btn btn-danger btn-sm waves-effect">
+                                                  <button style="font-size: 11px" id="cngNotReceived" onclick="removeMe(this);" disabled="" class="btn btn-primary btn-sm waves-effect">
                                                       <span class="icon-name">Disallow</span>
                                                   </button> 
                                                   <?php } ?>
@@ -368,17 +360,17 @@
                                               </td>
                                              <td>
                                               <?php if(!empty($notes)){ ?>
-                                                <button style="font-size: 11px" id="challanReceive" onclick="updateChallanAllow('challan','<?php echo $notes[0]['id'];?>','<?php echo $notes[0]['allocationId'];?>');" class="btn btn-primary btnStyle btn-sm waves-effect">
+                                                <button style="font-size: 11px" id="challanReceive" onclick="updateChallanAllow('challan','<?php echo $notes[0]['id'];?>','<?php echo $notes[0]['allocationId'];?>');" class="btn btn-primary btn-sm waves-effect">
                                                     <span class="icon-name">Allow</span>
                                                 </button> 
-                                                <button style="font-size: 11px" id="challanNotReceive" onclick="updateChallanDisAllow('challan','<?php echo $notes[0]['id'];?>','<?php echo $notes[0]['allocationId'];?>');notReceived('challan','<?php echo $notes[0]['challan'];?>');" class="btn btn-danger btn-sm waves-effect">
+                                                <button style="font-size: 11px" id="challanNotReceive" onclick="updateChallanDisAllow('challan','<?php echo $notes[0]['id'];?>','<?php echo $notes[0]['allocationId'];?>');notReceived('challan','<?php echo $notes[0]['challan'];?>');" class="btn btn-primary btn-sm waves-effect">
                                                     <span class="icon-name">Disallow</span>
                                                 </button> 
                                                  <?php }else{?>
-                                                    <button style="font-size: 11px" id="challanReceive" onclick="removeMe(this);" disabled="" class="btn btn-primary btnStyle btn-sm waves-effect">
+                                                    <button style="font-size: 11px" id="challanReceive" onclick="removeMe(this);" disabled="" class="btn btn-primary btn-sm waves-effect">
                                                     <span class="icon-name">Allow</span>
                                                 </button> 
-                                                <button style="font-size: 11px" id="challanNotReceive" onclick="removeMe(this);" disabled="" class="btn btn-danger btn-sm waves-effect">
+                                                <button style="font-size: 11px" id="challanNotReceive" onclick="removeMe(this);" disabled="" class="btn btn-primary btn-sm waves-effect">
                                                     <span class="icon-name">Disallow</span>
                                                 </button> 
                                                  <?php } ?>
@@ -406,8 +398,8 @@
                         </div>
                         <div class="col-md-12">
 
-                          <div class="col-md-5">
-                                <table class="table table-bordered cust-tbl js-basic-example DataTable display nowrap" id="example" data-page-length='100'>
+                          <div class="col-md-6">
+                                <table style="font-size: 11px" class="table table-bordered table-striped table-hover js-basic-example DataTable display nowrap" id="example" data-page-length='100'>
                                     <thead>
                                         <tr>
                                             <th colspan="2"><center>Cash and Cheque Reconciliation</center></th>
@@ -441,7 +433,7 @@
                                     </tbody>
                                   </table>
 
-                                  <table class="table table-bordered cust-tbl js-basic-example DataTable" id="example" data-page-length='100'>
+                                  <table style="font-size: 11px" class="table table-bordered table-striped table-hover js-basic-example DataTable display nowrap" id="example" data-page-length='100'>
                                     
                                     <tbody>
                                         <tr>
@@ -459,7 +451,7 @@
                                       </tbody>
                                     </table>
 
-                                    <table class="table table-bordered cust-tbl js-basic-example DataTable" id="example" data-page-length='100'>
+                                    <table style="font-size: 11px" class="table table-bordered table-striped table-hover js-basic-example DataTable display nowrap" id="example" data-page-length='100'>
                                     
                                     <tbody>
                                         <tr>
@@ -470,7 +462,7 @@
                                         
                                         <tr>
                                             <td id="shortCashStatus">Excess/Short</td>
-                                            <td align="right" id="shortCash"><span id='shCash' style='color:red;font-weight: 300;'>
+                                            <td align="right" id="shortCash"><span id='shCash' style='color:red;font-size:11px;'>
                                               <?php
                                                   if(!empty($notes)){
                                                       if($notes[0]['balanceAmt'] !=0){
@@ -488,14 +480,14 @@
                                 </table>
                             </div>
                                 
-                            <div class="col-md-7">
-                                <table class="table table-bordered cust-tbl js-basic-example DataTable" data-page-length='100'>
+                            <div class="col-md-6">
+                                <table style="font-size: 11px" class="table table-bordered table-striped table-hover js-basic-example DataTable" data-page-length='100'>
                                     <thead>
                                     <tr>
                                         <th><center>Denominations</center></th>
-                                        <th style="width: 140px;"><center>As per Supplier</center></th>
+                                        <th><center>As per Supplier</center></th>
                                         <th><center>Value</center></th>
-                                        <th style="width: 230px;"><center>Received by Accountant</center></th>
+                                        <th><center>Received by Accountant</center></th>
                                         <th><center>Value</center></th>
                                     </tr>
                                     </thead>
@@ -637,7 +629,7 @@
             }
         });
         if(!chk){
-          $("#myRowTable").append("<tr><td>"+empName+"</td><td><input id='empAmt' type='text' name='empAmt[]'> <td><input id='empAmtComment' type='text' name='empAmtComment[]'></td><td><input type='hidden' id='dbt_empId' name='empId[]' value="+empId+"></td><td><button class='btn btn-xs btn-danger' style='float: right;' onclick='Delete(this);'><i class='fa fa-close'></i></button></td></tr>");
+          $("#myRowTable").append("<tr><td>"+empName+"</td><td><input id='empAmt' type='text' name='empAmt[]'> <td><input id='empAmtComment' type='text' name='empAmtComment[]'></td><td><input type='hidden' id='dbt_empId' name='empId[]' value="+empId+"></td><td><button style='float: right;' onclick='Delete(this);'><i class='fa fa-close'></i></button></td></tr>");
         }
         $('#empCm').val('');
         
@@ -986,7 +978,17 @@
           success: function (data) {
             // alert(data);
             $('#updateLost').html(data);
-          }  
+          },
+          beforeSend: function(){
+              $('.comman-ajax-loader').css("visibility", "visible");
+          },
+          complete: function(){
+              $('.comman-ajax-loader').css("visibility", "hidden");
+          },
+          error: function(jqXHR, exception) {
+              alert("Something Went Wrong, Please Try Again...!");
+          } 
+
       });
   }
 
@@ -1003,7 +1005,16 @@
           data:{"id" : id,"amt" : amt,"mode":mode,"allocationId":allocationId},
           success: function (data) {
             $('#updateLost').html(data);
-          }  
+          },
+          beforeSend: function(){
+              $('.comman-ajax-loader').css("visibility", "visible");
+          },
+          complete: function(){
+              $('.comman-ajax-loader').css("visibility", "hidden");
+          },
+          error: function(jqXHR, exception) {
+              alert("Something Went Wrong, Please Try Again...!");
+          }   
       });
   }
 
@@ -1016,7 +1027,16 @@
           success: function (data) {
             $('#updateNotesList').html(data);
             location.reload(true); 
-          }  
+          },
+          beforeSend: function(){
+              $('.comman-ajax-loader').css("visibility", "visible");
+          },
+          complete: function(){
+              $('.comman-ajax-loader').css("visibility", "hidden");
+          },
+          error: function(jqXHR, exception) {
+              alert("Something Went Wrong, Please Try Again...!");
+          }   
       });
   }
 
@@ -1029,7 +1049,16 @@
           success: function (data) {
             $('#updateNotesList').html(data);
             location.reload(true); 
-          }  
+          },
+          beforeSend: function(){
+              $('.comman-ajax-loader').css("visibility", "visible");
+          },
+          complete: function(){
+              $('.comman-ajax-loader').css("visibility", "hidden");
+          },
+          error: function(jqXHR, exception) {
+              alert("Something Went Wrong, Please Try Again...!");
+          }   
       });
   }
 
@@ -1042,7 +1071,16 @@
           success: function (data) {
             $('#updateNotesList').html(data);
             location.reload(true); 
-          }  
+          },
+          beforeSend: function(){
+              $('.comman-ajax-loader').css("visibility", "visible");
+          },
+          complete: function(){
+              $('.comman-ajax-loader').css("visibility", "hidden");
+          },
+          error: function(jqXHR, exception) {
+              alert("Something Went Wrong, Please Try Again...!");
+          }   
       });
   }
 
@@ -1055,7 +1093,16 @@
           success: function (data) {
             $('#updateNotesList').html(data);
             location.reload(true); 
-          }  
+          },
+          beforeSend: function(){
+              $('.comman-ajax-loader').css("visibility", "visible");
+          },
+          complete: function(){
+              $('.comman-ajax-loader').css("visibility", "hidden");
+          },
+          error: function(jqXHR, exception) {
+              alert("Something Went Wrong, Please Try Again...!");
+          }   
       });
   }
 
@@ -1068,7 +1115,16 @@
           success: function (data) {
             $('#updateNotesList').html(data);
             location.reload(true); 
-          }  
+          },
+          beforeSend: function(){
+              $('.comman-ajax-loader').css("visibility", "visible");
+          },
+          complete: function(){
+              $('.comman-ajax-loader').css("visibility", "hidden");
+          },
+          error: function(jqXHR, exception) {
+              alert("Something Went Wrong, Please Try Again...!");
+          }   
       });
   }
 
@@ -1081,7 +1137,16 @@
           success: function (data) {
             $('#updateNotesList').html(data);
             location.reload(true); 
-          }  
+          },
+          beforeSend: function(){
+              $('.comman-ajax-loader').css("visibility", "visible");
+          },
+          complete: function(){
+              $('.comman-ajax-loader').css("visibility", "hidden");
+          },
+          error: function(jqXHR, exception) {
+              alert("Something Went Wrong, Please Try Again...!");
+          } 
       });
   }
 
@@ -1096,7 +1161,16 @@
           data:{"id" : id,"allocationId" : allocationId,"phyCash" : phyCash,"expenses":expenses,"cashTotal" :cashTotal},
           success: function (data) {
               window.history.go(-1);
-          }  
+          },
+          beforeSend: function(){
+              $('.comman-ajax-loader').css("visibility", "visible");
+          },
+          complete: function(){
+              $('.comman-ajax-loader').css("visibility", "hidden");
+          },
+          error: function(jqXHR, exception) {
+              alert("Something Went Wrong, Please Try Again...!");
+          }   
       });
   }
  </script>
@@ -1245,7 +1319,16 @@
                         $('#cashierDataMocal').html(data);
                       }
                   }
-                }
+                },
+                beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                } 
             });
           }else{
             die();
@@ -1280,7 +1363,16 @@
                         $('#cashierDataMocal').html(data);
                       }
                 }
-              }
+              },
+              beforeSend: function(){
+                  $('.comman-ajax-loader').css("visibility", "visible");
+              },
+              complete: function(){
+                  $('.comman-ajax-loader').css("visibility", "hidden");
+              },
+              error: function(jqXHR, exception) {
+                  alert("Something Went Wrong, Please Try Again...!");
+              } 
           });
         }
       }else{
@@ -1348,7 +1440,16 @@
                 window.location.href="<?php echo base_url();?>index.php/AllocationByManagerController/openAllocations";
                 // window.history.go(-1);
                 
-            }  
+            },
+            beforeSend: function(){
+                $('.comman-ajax-loader').css("visibility", "visible");
+            },
+            complete: function(){
+                $('.comman-ajax-loader').css("visibility", "hidden");
+            },
+            error: function(jqXHR, exception) {
+                alert("Something Went Wrong, Please Try Again...!");
+            }   
         });
     });
 </script>
@@ -1388,7 +1489,16 @@
                     
                     location.reload(true);    
                     // window.location.href="<?php echo base_url();?>index.php/operator/OperatorController/pendingSr";
-                }  
+                },
+                beforeSend: function(){
+                    $('.comman-ajax-loader').css("visibility", "visible");
+                },
+                complete: function(){
+                    $('.comman-ajax-loader').css("visibility", "hidden");
+                },
+                error: function(jqXHR, exception) {
+                    alert("Something Went Wrong, Please Try Again...!");
+                } 
             });
         }else{
             alert('Please select Bills.');
@@ -1401,7 +1511,16 @@ $.ajax({
           data:{"id" : id,"amt" : amt,"mode":mode,"allocationId":allocationId},
           success: function (data) {
             $('#updateLost').html(data);
-          }  
+          },
+          beforeSend: function(){
+              $('.comman-ajax-loader').css("visibility", "visible");
+          },
+          complete: function(){
+              $('.comman-ajax-loader').css("visibility", "hidden");
+          },
+          error: function(jqXHR, exception) {
+              alert("Something Went Wrong, Please Try Again...!");
+          }   
       });
     
 </script>

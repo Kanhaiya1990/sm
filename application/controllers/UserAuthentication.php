@@ -19,6 +19,29 @@ Class UserAuthentication extends CI_Controller {
 		$this->form_validation->set_rules('email', 'Username', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean');
 
+		$this->load->model('PaymentGatewayModel');
+		$officeDetails=$this->PaymentGatewayModel->getdata('office_details');
+        $distributorCode=$officeDetails[0]['distributorCode'];
+
+        $distributorInfo=$this->PaymentGatewayModel->getUserByCode('distributors_details',$distributorCode);
+        $validTill=$distributorInfo[0]['validTill'];
+
+		$days=0;
+
+        $id=0;
+		$now = time(); // or your date as well
+		$your_date = strtotime($validTill);
+		$datediff = $your_date - $now;
+
+		$days= round($datediff / (60 * 60 * 24));
+		
+		if($days < (-20)){
+			$this->session->set_flashdata('msg', array('error_message' => 'Validity of grace period has elapsed. Please contact SIA Inc to restore access.'));
+			return redirect('UserAuthentication');
+		}
+		
+		$this->load->model('LoginDatabase');
+
 		//for dynamic color for dashboard
 		$color=$this->LoginDatabase->load('tbl_settings',2);
 		$colorValue="#F44336";
@@ -61,7 +84,8 @@ Class UserAuthentication extends CI_Controller {
 				}
 
 				$sessionData = array(
-					'codeKeyValue' => $projectSessionName
+					'codeKeyValue' => $projectSessionName,
+					'yourBaseUrl'=>base_url()
 				);
 				// print_r($sessionData);exit;
 				$this->session->set_userdata('codeKeyData', $sessionData);
@@ -86,7 +110,6 @@ Class UserAuthentication extends CI_Controller {
 				}
 				
 				$result = $this->LoginDatabase->login($data);
-				// echo $result;exit;
 				if ($result == TRUE)
 				{
 					$projectSessionName="";
@@ -97,7 +120,8 @@ Class UserAuthentication extends CI_Controller {
 					}
 					
 					$sessionData = array(
-						'codeKeyValue' => $projectSessionName
+						'codeKeyValue' => $projectSessionName,
+						'yourBaseUrl'=>base_url()
 					);
 					$this->session->set_userdata('codeKeyData', $sessionData);
 
@@ -163,7 +187,8 @@ Class UserAuthentication extends CI_Controller {
 					}
 
 					$sessionData = array(
-						'codeKeyValue' => $projectSessionName
+						'codeKeyValue' => $projectSessionName,
+						'yourBaseUrl'=>base_url()
 					);
 					$this->session->set_userdata('codeKeyData', $sessionData);
 
@@ -192,6 +217,12 @@ Class UserAuthentication extends CI_Controller {
 	public function logout(){
 		$this->session->sess_destroy();
 		$data['message_display'] = 'Successfully Logout';
+		$this->load->view('LoginView', $data);
+	}
+
+	public function randomlogout(){
+		$this->session->sess_destroy();
+		$data['message_display'] = 'You are not authorise to access this page. Login with valid credentials.';
 		$this->load->view('LoginView', $data);
 	}
 
@@ -342,14 +373,12 @@ Class UserAuthentication extends CI_Controller {
 	public function createPassword(){
 		$mobile=trim($this->input->post('mobile'));
 		$user=$this->LoginDatabase->getUserByMobile('employee',$mobile);
-		
+		$role=$user[0]['designation'];
+		$name=$user[0]['name'];
 		$otp=$this->generatePassword(4);
 		if(empty($user)){
 			echo "account not available with this mobile number";
 		}else{
-
-			$role=$user[0]['designation'];
-			$name=$user[0]['name'];
 			
 		    $jsonData=array(
 				"flow_id"=>"6149ce45aceddb251b4636e7",
