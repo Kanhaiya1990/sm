@@ -33,15 +33,15 @@ li{
       <div class="row clearfix" id="page">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <div class="card">
-            <div class="header">
+            <div class="header flex-div">
               <h2>
                Cheque Reconciliation
              </h2>
              <div align="right">
               <p align="right">
-                  <button align="right" type="button" id="insert-ins" class="btn btn-xs btn-primary m-t-15 waves-effect"> <i class="material-icons">save</i><span class="icon-name">Cleared Selected Cheques</span></button>
+                  <button align="right" type="button" id="insert-ins" class="btn btn-xs btn-primary btnStyle m-t-15 waves-effect"> <i class="material-icons">save</i><span class="icon-name">Cleared Selected Cheques</span></button>
               </p>
-               <!-- <form method="post" role="form" enctype="multipart/form-data" action="<?php echo site_url('CashAndChequeController/saveChequeReconcilation'); ?>"> 
+               <!-- <form method="post" role="form" enctype="multipart/form-data" action="<?php //echo site_url('CashAndChequeController/saveChequeReconcilation'); ?>"> 
                                              
                       <button class="btn btn-primary m-t-15 waves-effect btn-sm">
                               <span class="icon-name">Save</span>
@@ -53,10 +53,10 @@ li{
             <div class="row">                                  
               <div class="row m-t-20">
                 <div class="col-md-12">
-                  <div class="table-responsive">
+                  <div class="cust-tbl">
 
                     <div class="row">
-                      <div class="col-sm-3">
+                      <div class="col-sm-2">
                         <b>Search Anything</b>
                         <div class="form-group">
                           <div class="form-line">
@@ -65,7 +65,7 @@ li{
                         </div>
                       </div>
 
-                      <div class="col-sm-3">
+                      <div class="col-sm-2">
                         <b>Range</b>
                         <div class="form-group">
                           <select class="form-control" id="limitRows" onchange="sendRequest();">
@@ -79,17 +79,17 @@ li{
                         </div>
                       </div>
                       <div class="col-sm-2">
-                        <a href="<?php echo site_url('CashAndChequeController/ChequeReconcilation'); ?>" class="btn btn-sm m-t-15 btn-primary waves-effect">
+                        <a href="<?php echo site_url('CashAndChequeController/ChequeReconcilation'); ?>" class="btn btn-sm m-t-15 btn-danger waves-effect">
                               <i class="material-icons">cancel</i> 
                               <span class="icon-name"> Cancel</span>
                           </a>
                       </div>
 
-                      <div class="col-sm-4" id="default_tbl">
-                        <table class="table table-bordered table-striped">
+                      <div class="col-sm-6 cust-tbl" id="default_tbl">
+                        <table class="table table-bordered">
                           <tr>
-                            <th align="right">Total Cheques</th>
-                            <th align="right">Total Cheque Amount</th>
+                            <th align="right">Cheques</th>
+                            <th align="right">Cheque Amount</th>
                             <th align="right">Selected Cheques </th>
                             <th align="right">Selected Cheque Amount</th>
                           <tr>
@@ -102,11 +102,11 @@ li{
                         </table>
                       </div>
 
-                      <div class="col-sm-4" id="runclick" style="display:none;">
-                        <table class="table table-bordered table-striped">
+                      <div class="col-sm-6 cust-tbl" id="runclick" style="display:none;">
+                        <table class="table table-bordered">
                           <tr>
-                            <th align="right">Total Cheques</th>
-                            <th align="right">Total Cheque Amount</th>
+                            <th align="right">Cheques</th>
+                            <th align="right">Cheque Amount</th>
                             <th align="right">Selected Cheques </th>
                             <th align="right">Selected Cheque Amount</th>
                           <tr>
@@ -125,7 +125,7 @@ li{
                     </div>
 
                     <?php echo $pagination; ?>
-                    <table style="font-size:12px" class="table table-bordered table-striped table-hover dataTable" data-page-length='100' id="tbl">
+                    <table class="table table-bordered cust-tbl dataTable" data-page-length='100' id="tbl">
                       <thead>
 
                    <!--  <tr>
@@ -144,9 +144,9 @@ li{
                   </tr> -->
 
                       <tr class="gray">
-                        <th><input class="checkall" type="checkbox" name="selValue" id="basic_checkbox"/><label for="basic_checkbox"></label>Select All</th>
+                        <th><input class="checkall" type="checkbox" name="selValue" id="basic_checkbox"/><label for="basic_checkbox"></label>All</th>
                                             
-                        <th>S. No.</th>
+                        <th>No</th>
                         <th data-action="sort" data-title="retailerName" data-direction="ASC">Retailer Name</th>
                         <th data-action="sort" data-title="chequeNo" data-direction="ASC">Cheque No.</th>
                         <th data-action="sort" data-title="chequeDate" data-direction="ASC">Cheque Date</th>
@@ -156,7 +156,7 @@ li{
                         <th data-action="sort" data-title="compName" data-direction="ASC">Company</th>
                         <th data-action="sort" data-title="billNo" data-direction="ASC">Bill No.</th>
                         <th data-action="sort" data-title="chequeStatus" data-direction="ASC">Current Status</th>
-                        <!-- <th>Change Status</th> -->
+                        <!-- <th>Change Status </th> -->
                         <th>Change Status</th>
                         </tr>
                     </thead>
@@ -237,7 +237,7 @@ li{
                                 <!-- </a>      -->
                               
                               <td> 
-                                  <button data-toggle="modal" data-id="<?php echo $data['id'];?>" data-target="#myModal" class="identifyingClass btn btn-primary waves-effect" data-type="basic" id="taginfo">Bounced 
+                                  <button data-toggle="modal" data-id="<?php echo $data['id'];?>" data-target="#myModal" class="identifyingClass btn btnStyle waves-effect" data-type="basic" id="taginfo">Bounced 
                                   </button>
                               </td>
                           <?php }else{ 
@@ -264,8 +264,8 @@ li{
                       <tfoot>
                        <tr class="gray">
                         <th></th>
-                        <th>S. No.</th>
-                       <th data-action="sort" data-title="retailerName" data-direction="ASC">Retailer Name</th>
+                        <th>No</th>
+                        <th data-action="sort" data-title="retailerName" data-direction="ASC">Retailer Name</th>
                         <th data-action="sort" data-title="chequeNo" data-direction="ASC">Cheque No.</th>
                         <th data-action="sort" data-title="chequeDate" data-direction="ASC">Cheque Date</th>
                         <th data-action="sort" data-title="chequeStatusDate" data-direction="ASC">Deposit Date</th>
@@ -301,7 +301,7 @@ li{
           <div class="modal-body">
          <form id="frms" method="post" role="form" action="<?php echo site_url('CashAndChequeController/updateStatusReturned/');?>"> 
         <input type="hidden" name="billID" id="hiddenValue" value="">
-        <div class="col-md-12">
+        <div class="col-md-12 cust-tbl">
         
           <div class="col-md-6">
                   <b>Reason</b>
@@ -328,7 +328,7 @@ li{
         </div>
         <div class="col-md-12">
           <div class="col-md-2">
-              <button id="sbmt" type="submit" class="btn btn-success btn-sm"> Submit </button>
+              <button id="sbmt" type="submit" class="btn btn-success btnStyle btn-sm"> Submit </button>
           </div>
           <div class="col-md-2">
              <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>

@@ -27,8 +27,6 @@ padding-bottom: 0PX;
     width: 50px;
     height: 50px;
 }
-
-
 </style>
 
 <style>
@@ -51,15 +49,14 @@ padding-bottom: 0PX;
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
-                            <h2>
-                                
+                            <h2> 
                                Allocation By Manager
                             </h2>
                            
                         </div>
                         <div class="body">
                             <div class="row">
-                                <table class="table table-bordered table-striped table-hover" data-page-length='100'>
+                                <table class="table table-bordered cust-tbl table-striped" data-page-length='100'>
                                     <thead>
                                         <tr>
                                             <th>Bill Count</th>
@@ -75,7 +72,7 @@ padding-bottom: 0PX;
                                 </table>
                             </div>
 
-                            <div class="row">
+                            <div class="row cust-tbl-form">
                                 <div class="col-md-2">
                                     <!--<label>Allocation : </label>-->
                                     <!--<label id="allocation" style="display:none">-->
@@ -95,7 +92,7 @@ padding-bottom: 0PX;
                                    <label>Employee Name:</label>
                                     <input type="text" id="eName" autocomplete="off" list="empList" name="eName[]" class="form-control" placeholder="Enter Emp Name"><br>
 
-                                     <button type="button" id="eAdd" class="btn btn-primary margin btn-sm"> Add </button>
+                                     <button type="button" id="eAdd" class="btn btnStyle btn-primary margin btn-sm"> Add </button>
                                                           
                                     <br><br>    
 
@@ -113,12 +110,12 @@ padding-bottom: 0PX;
                                         ?>
                                     </datalist>
                                     <br>
-                                     <button type="button" id="rAdd" class="btn btn-primary margin btn-sm"> Add </button>
+                                     <button type="button" id="rAdd" class="btn btnStyle btn-primary margin btn-sm"> Add </button>
                                 </div>
                                 <div class="col-md-3">
                                 
                                  <br><br>
-                                       <label> Reference:</label>
+                                    <label> Reference:</label>
                                      <input type="text" id="reference" name="reference" class="form-control" placeholder="Enter Reference" required> <br>
                                 <datalist id="cmpList">
                                     <?php
@@ -155,10 +152,10 @@ padding-bottom: 0PX;
                                 <div class="col-md-7">
 
                                     <!-- CURRENT SUPPLY-->
-                                    <div class="col-md-5 table-responsive">
+                                    <div class="col-md-5">
                                          <?php echo validation_errors(); ?>
                                         <?php echo form_open_multipart('AllocationByManagerController/getCurrentBills') ?>
-                                        <table class="table table-striped table-bordered">
+                                        <table class="table  table-striped table-bordered cust-tbl">
                                             <thead>
                                                 <tr>
                                                     <th class="text-xs-center" colspan="4"><center>Current Supply</center></th>
@@ -186,7 +183,7 @@ padding-bottom: 0PX;
                                                 
                                                 <tr>
                                                      <td class="text-xs-right">
-                                                        <button type="button" id="insert-more" class="btn btn-primary margin btn-sm"> Add Current Bills </button><br />                                                      
+                                                        <button type="button" id="insert-more" class="btn btnStyle btn-primary margin btn-sm"> Add Current Bills </button><br />                                                      
                                                     </td>
                                                 </tr>
                                             
@@ -209,7 +206,7 @@ padding-bottom: 0PX;
                                             
                                                 <tr>
                                                      <td class="text-xs">
-                                                        <button type="button" id="shw_routeBills" class="btn btn-primary margin btn-sm">Show</button>
+                                                        <button type="button" id="shw_routeBills" class="btn btnStyle btn-primary margin btn-sm">Show</button>
                                                          <button type="button" onclick="clearPast();" id="rmv_routeBills" class="btn btn-danger margin btn-sm">Cancel</button>
                                                     </td>
                                                 </tr>
@@ -222,7 +219,7 @@ padding-bottom: 0PX;
                                     <div class="col-md-7 table-responsive">
                                         <!-- <?php echo validation_errors(); ?>
                                         <?php echo form_open_multipart('AllocationByManagerController/getPastBills') ?> -->
-                                        <table class="table table-striped table-bordered">
+                                        <table class="table  table-striped table-bordered cust-tbl">
                                             <thead>
                                                 <tr>
                                                     <th class="text-xs-center" colspan="5"><center>Additional Bills</center></th>
@@ -238,26 +235,23 @@ padding-bottom: 0PX;
                                                         </datalist>
                                                     </td>
                                                     <td class="text-xs-right">
-                                                        <button type="button" id="insert-more1" class="btn btn-primary margin btn-sm"> Add </button><br />                                                      
+                                                        <button type="button" id="insert-more1" class="btn btn-primary btnStyle margin btn-sm"> Add </button><br />                                                      
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2">Past Bills</td>
                                                     <td colspan="2">
 
-                                                        <input type="text" id="pName" list="pstBill" autocomplete="off" name="pName" class="form-control" placeholder="Enter Bill No">  
-                                                        <datalist id="pstBill">
+                                                    <input type="text" id="pName" list="pstBill" autocomplete="off" name="pName" class="form-control" placeholder="Enter Bill No">  
+                                                    <datalist id="pstBill">
                                                            
-                                                        </datalist>      
+                                                    </datalist>      
                                                       
                                                     </td>
                                                     <td>
-                                                         <button type="button" id="insert-past" class="btn btn-primary margin btn-sm"> Add </button>
+                                                         <button type="button" id="insert-past" class="btn btnStyle btn-primary margin btn-sm"> Add </button>
                                                     </td>
                                                 </tr>
-
-                                                
-                                                
                                                 <tr>
                                                     <td colspan="2">Delivery Challans</td>
                                                     <td colspan="2">
@@ -276,7 +270,7 @@ padding-bottom: 0PX;
                                                       
                                                     </td>
                                                      <td>
-                                                         <button type="button" id="insert-delivery" class="btn btn-primary margin btn-sm"> Add </button>
+                                                         <button type="button" id="insert-delivery" class="btn btn-primary btnStyle margin btn-sm"> Add </button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -284,12 +278,7 @@ padding-bottom: 0PX;
                                                      <label>Selected Routes</label>
                                                     <ul class="list-group" id="route_list" multiple="multiple"></ul>
                                                  </td>
-                                                
-                                               
                                                 </tr>
-                                                
-                                               
-                                                
                                             </tbody>
                                         </table>
                                       
@@ -303,7 +292,7 @@ padding-bottom: 0PX;
                                 <div class="row m-t-20">
                                     <div class="col-md-12">
                                         <div class="table-responsive">
-                                            <table class="table table-striped table-bordered" id="tbl">
+                                            <table class="table table-striped cust-tbl table-bordered" id="tbl">
                                                 <tr class="head">
                                                     <td colspan="12" style="background-color: whitesmoke;"><center><b>Current Supply Bills</b></center></td>
                                                 </tr>
@@ -330,7 +319,7 @@ padding-bottom: 0PX;
                                     <div class="col-md-12">
                                         <div class="table-responsive">
                                             
-                                            <table class="table table-striped table-bordered">
+                                            <table class="table table-striped cust-tbl table-bordered">
                                             <tr class="head">
                                                 <td colspan="12"  style="background-color: whitesmoke;"><center><b>Past Bills</b></center></td>
                                             </tr>
@@ -351,7 +340,6 @@ padding-bottom: 0PX;
                                             <tbody id="result_past">
                                             </tbody>
                                            
-                                           
                                             </table>
                                         </div>
                                     </div>
@@ -362,13 +350,13 @@ padding-bottom: 0PX;
                                         <p id="ins"></p>
                                         <p>
                                             
-                                        <button type="button" id="insert-ins" class="btn btn-primary m-t-15 waves-effect">
+                                        <button type="button" id="insert-ins" class="btn btn-xs btnStyle m-t-15 waves-effect">
                                               <i class="material-icons">save</i> 
                                               <span class="icon-name"> Save</span>
                                         </button>
 
                                             <a href="<?php echo site_url('AllocationByManagerController/openAllocations');?>">
-                                                <button type="button" class="btn btn-danger m-t-15 waves-effect">
+                                                <button type="button" class="btn btn-sm btn-danger m-t-15 waves-effect">
                                                     <i class="material-icons">cancel</i> 
                                                     <span class="icon-name"> Close </span>
                                                 </button>
@@ -436,16 +424,7 @@ function(isConfirm) {
                 data:{"rmId" : rmId},
                 success: function (response) {
                     // $('#result_data').html(response);    
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }   
+                }
         });
     }
 
@@ -460,16 +439,7 @@ function(isConfirm) {
                 type: "post",
                 data:{"name" : name},
                 success: function (response) {
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }   
+                }
         });
     }
 </script>
@@ -631,16 +601,7 @@ function(isConfirm) {
                 success: function (response) {
                     // alert(response);
                     $('#result_past').html(response);  
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }   
+                }
             });
         }
          // $(currentEl).closest('tr').remove();
@@ -683,16 +644,7 @@ function changeStatusForCurrentBills(id)
                 data:{"id" : id , "status" : result.value,"from" : from,"to" :to},
                 success: function (response) {
                     $('#result_data').html(response);  
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }   
+                }
             });
         }
 
@@ -733,16 +685,7 @@ function changeStatusForPastBills(id)
                 data:{"id" : id , "status" : result.value,"pName" : pName},
                 success: function (response) {
                     $('#result_past').html(response);  
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }   
+                }
             });
         }
     });
@@ -763,25 +706,12 @@ function changeStatusForPastBills(id)
             alert("Please enter From/To BillNo");
         }else{
             $.ajax({
-                
             type: "POST",
             url:"<?php echo site_url('AllocationByManagerController/getCurrentBills');?>",
                 data:{"from" : from , "to" : to},
                 success: function (data) {
-                    $('#result_data').html(data);
-                },
-                beforeSend: function(){
-                    $('#insert-more').prop('disabled',true);
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                     $('#insert-more').prop('disabled',false);
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                   
-                    alert("Something Went Wrong, Please Try Again...!");
-                }  
+                  $('#result_data').html(data);
+                } 
             });
             $('#cmpName').prop('disabled',true);
             $('#from').val('');
@@ -804,24 +734,12 @@ function changeStatusForPastBills(id)
                 $('#from').focus();
             }else{
                 $.ajax({
-                    type: "POST",
-                    url:"<?php echo site_url('AllocationByManagerController/getCurrentBills');?>",
+                type: "POST",
+                url:"<?php echo site_url('AllocationByManagerController/getCurrentBills');?>",
                     data:{"from" : from , "to" : to},
                     success: function (data) {
-                        $('#result_data').html(data);
-                    },
-                    beforeSend: function(){
-                        $('#to').prop('disabled',true);
-                        $('.comman-ajax-loader').css("visibility", "visible");
-                    },
-                    complete: function(){
-                        $('#to').prop('disabled',false);
-                        $('.comman-ajax-loader').css("visibility", "hidden");
-                    },
-                    error: function(jqXHR, exception) {
-                        
-                        alert("Something Went Wrong, Please Try Again...!");
-                    }   
+                      $('#result_data').html(data);
+                    } 
                 });
                 $('#cmpName').prop('disabled',true);
                 $('#from').val('');
@@ -848,19 +766,7 @@ function changeStatusForPastBills(id)
                   $('#frmBill').html(data);
                   $('#toBill').html(data);
                   $('#addBill').html(data);
-                },
-                beforeSend: function(){
-                    $('#cmpName').prop('disabled',true);
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('#cmpName').prop('disabled',false);
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    
-                    alert("Something Went Wrong, Please Try Again...!");
-                }     
+                }  
             });
         }
 });
@@ -877,18 +783,7 @@ function changeStatusForPastBills(id)
                 data:{"cmpName" : cmpName},
                 success: function (data) {
                   $('#pstBill').html(data);
-                },
-                beforeSend: function(){
-                    $('#cmpName').prop('disabled',true);
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('#cmpName').prop('disabled',false);
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }      
+                }  
             });
         }
 });
@@ -908,18 +803,7 @@ function changeStatusForPastBills(id)
                 data:{"cmpName" : cmpName},
                 success: function (data) {
                   $('#chBill').html(data);
-                },
-                beforeSend: function(){
-                    $('#cmpName').prop('disabled',true);
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('#cmpName').prop('disabled',false);
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }      
+                }  
             });
         }
 });
@@ -937,18 +821,7 @@ function changeStatusForPastBills(id)
                 data:{"cmpName" : cmpName},
                 success: function (data) {
                   $('#delBill').html(data);
-                },
-                beforeSend: function(){
-                    $('#cmpName').prop('disabled',true);
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('#cmpName').prop('disabled',false);
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }      
+                }  
             });
         }
 });
@@ -967,19 +840,7 @@ function changeStatusForPastBills(id)
                 data:{"addBill" : addBill},
                 success: function (data) {
                   $('#result_data').html(data);
-                },
-                beforeSend: function(){
-                    $('#insert-more1').prop('disabled',true);
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('#insert-more1').prop('disabled',false);
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }    
-
+                }  
             });
                 $('#cmpName').prop('disabled',true);
                 $('#addBill').val('');
@@ -1002,18 +863,7 @@ function changeStatusForPastBills(id)
                     data:{"addBill" : addBill},
                     success: function (data) {
                       $('#result_data').html(data);
-                    },
-                    beforeSend: function(){
-                        $('#addBill').prop('disabled',true);
-                        $('.comman-ajax-loader').css("visibility", "visible");
-                    },
-                    complete: function(){
-                        $('#addBill').prop('disabled',false);
-                        $('.comman-ajax-loader').css("visibility", "hidden");
-                    },
-                    error: function(jqXHR, exception) {
-                        alert("Something Went Wrong, Please Try Again...!");
-                    }    
+                    }  
                 });
                     $('#addBill').val('');
                     calfunction();
@@ -1079,18 +929,7 @@ function changeStatusForPastBills(id)
                 success: function (data) {
                     // alert(data);
                   $('#result_past').html(data);
-                },
-                beforeSend: function(){
-                    $('#insert-past').prop('disabled',true);
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('#insert-past').prop('disabled',false);
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }      
+                }  
             });
             $('#cmpName').prop('disabled',true);
             $('#pName').val('');
@@ -1115,18 +954,7 @@ function changeStatusForPastBills(id)
                     success: function (data) {
                         // alert(data);
                       $('#result_past').html(data);
-                    },
-                    beforeSend: function(){
-                        $('#p').prop('disabled',true);
-                        $('.comman-ajax-loader').css("visibility", "visible");
-                    },
-                    complete: function(){
-                        $('#p').prop('disabled',false);
-                        $('.comman-ajax-loader').css("visibility", "hidden");
-                    },
-                    error: function(jqXHR, exception) {
-                        alert("Something Went Wrong, Please Try Again...!");
-                    }    
+                    }  
                 });
                     $('#pName').val('');
                     calfunction();
@@ -1150,18 +978,7 @@ function changeStatusForPastBills(id)
                 data:{"delBill" : delBill,"routeName" : routeName},
                 success: function (data) {
                   $('#result_data').html(data);
-                },
-                beforeSend: function(){
-                    $('#insert-delivery').prop('disabled',true);
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('#insert-delivery').prop('disabled',false);
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }      
+                }  
             });
             $('#cmpName').prop('disabled',true);
             $('#delBillNo').val('');
@@ -1186,18 +1003,7 @@ function changeStatusForPastBills(id)
                     data:{"delBill" : delBill,"routeName" : routeName},
                     success: function (data) {
                       $('#result_data').html(data);
-                    },
-                    beforeSend: function(){
-                        $('#delBillNo').prop('disabled',true);
-                        $('.comman-ajax-loader').css("visibility", "visible");
-                    },
-                    complete: function(){
-                        $('#delBillNo').prop('disabled',false);
-                        $('.comman-ajax-loader').css("visibility", "hidden");
-                    },
-                    error: function(jqXHR, exception) {
-                        alert("Something Went Wrong, Please Try Again...!");
-                    }      
+                    }  
                 });
                 $('#delBillNo').val('');
                 calfunction();
@@ -1226,18 +1032,7 @@ function changeStatusForPastBills(id)
                 data:{"routeName" : routeNamesArr},
                 success: function (data) {
                   $('#result_past').html(data);
-                },
-                beforeSend: function(){
-                    $('#shw_routeBills').prop('disabled',true);
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('#shw_routeBills').prop('disabled',false);
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }    
+                }  
             });
            $('#rtBillNo').val('');  
            calfunction(); 
@@ -1267,18 +1062,7 @@ function changeStatusForPastBills(id)
                     data:{"routeName" : routeNamesArr},
                     success: function (data) {
                       $('#result_past').html(data);
-                    },
-                    beforeSend: function(){
-                        $('#rtBillNo').prop('disabled',true);
-                        $('.comman-ajax-loader').css("visibility", "visible");
-                    },
-                    complete: function(){
-                        $('#rtBillNo').prop('disabled',false);
-                        $('.comman-ajax-loader').css("visibility", "hidden");
-                    },
-                    error: function(jqXHR, exception) {
-                        alert("Something Went Wrong, Please Try Again...!");
-                    }      
+                    }  
                 });
                $('#rtBillNo').val('');  
                calfunction(); 
@@ -1299,16 +1083,7 @@ function changeStatusForPastBills(id)
                         data:{"routeName" : routeName},
                         success: function (data) {
                           $('#result_past').html(data);
-                        },
-                        beforeSend: function(){
-                            $('.comman-ajax-loader').css("visibility", "visible");
-                        },
-                        complete: function(){
-                            $('.comman-ajax-loader').css("visibility", "hidden");
-                        },
-                        error: function(jqXHR, exception) {
-                            alert("Something Went Wrong, Please Try Again...!");
-                        }      
+                        }  
                     });
                    $('#rtBillNo').val('');   
                 }
@@ -1351,18 +1126,7 @@ function changeStatusForPastBills(id)
                         alert(data);
                         // alert('Record Saved...!');
                         window.location.href="<?php echo base_url();?>index.php/AllocationByManagerController/openAllocations";
-                    },
-                    beforeSend: function(){
-                         $('#insert-ins').prop('disabled',true);
-                        $('.comman-ajax-loader').css("visibility", "visible");
-                    },
-                    complete: function(){
-                         $('#insert-ins').prop('disabled',false);
-                        $('.comman-ajax-loader').css("visibility", "hidden");
-                    },
-                    error: function(jqXHR, exception) {
-                        alert("Something Went Wrong, Please Try Again...!");
-                    }      
+                    }  
                 });
             }else{
                 alert('Please select Employee/Route');
@@ -1400,18 +1164,7 @@ function changeStatusForPastBills(id)
                     data:{"emp":emp,"allocationCode" : allocationCode,"reference" : reference,"routeName" : routeName,"rtName":rtName},
                     success: function (data) {
                       $('#ins').html(data);
-                    },
-                    beforeSend: function(){
-                         $('#update-ins').prop('disabled',true);
-                        $('.comman-ajax-loader').css("visibility", "visible");
-                    },
-                    complete: function(){
-                         $('#update-ins').prop('disabled',true);
-                        $('.comman-ajax-loader').css("visibility", "hidden");
-                    },
-                    error: function(jqXHR, exception) {
-                        alert("Something Went Wrong, Please Try Again...!");
-                    }      
+                    }  
                 });
             }else{
                 alert('Please select Employee/Route');
@@ -1433,24 +1186,16 @@ function changeStatusForPastBills(id)
             alert("Please enter Route Name");
         }else{
             $.ajax({
-                type:'post',
-                url:'<?php echo site_url('mypage/check_code/'); ?>',
-                data:{ref_code: ref_code},
-                success:function(msg){
+                 type:'post',
+                 url:'<?php echo site_url('mypage/check_code/'); ?>',
+                 data:{ref_code: ref_code},
+                 success:function(msg){
                      if(msg.indexOf('value does exist') > -1)
                          $('#msg').html('<span style="color: green;">'+msg+"</span>");    
                      else $('#msg').html('<sapn style="color:red;">Value does not exist</span>');
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }    
+                 }
             });
         }
     });
 </script>
+

@@ -40,62 +40,53 @@
                             </h2>
                             <?php if(((in_array('owner', $des) || in_array('operator', $des) || in_array('cashier', $des) || in_array('accountant', $des) || in_array('senior_manager', $des) || in_array('manager', $des)))) { ?>
                             <h2>
-
-                              <?php if($this->session->userdata['workRestrict']['status']=="yes"){?>
                                 <p align="right">
-                                    <button class="btn btn-sm bg-primary margin" onClick="window.location.reload();"><i class="material-icons">refresh</i></button>
-                                    <button class="btn bg-primary margin" onclick="planUpgradeMsg()"><i class="material-icons">person_add</i>  Add New Allocation </button>
-                                    <button class="btn bg-primary margin" onclick="planUpgradeMsg()"><i class="material-icons">person_add</i>  Add Office Allocation </button>
-                                </p> 
-                              <?php }else{ ?>
-                                <p align="right">
-                                     <button class="btn btn-sm bg-primary margin" onClick="window.location.reload();"><i class="material-icons">refresh</i></button>
+                                     <button class="btn btn-sm btnStyle bg-primary margin" onClick="window.location.reload();"><i class="material-icons">refresh</i></button>
                                   <a href="<?php echo site_url('AllocationByManagerController/Add');?>">
-                                    <button class="btn bg-primary margin" ><i class="material-icons">person_add</i>  Add New Allocation </button></a>
+                                    <button class="btn btnStyle bg-primary margin"><i class="material-icons">person_add</i>  Add New Allocation </button></a>
                                   <a href="<?php echo site_url('manager/OfficeAllocationController/addOfficeAllocationsBills');?>">
-                                    <button class="btn bg-primary margin" ><i class="material-icons">person_add</i>  Add Office Allocation </button></a>  
+                                    <button class="btn btnStyle bg-primary margin"><i class="material-icons">person_add</i>  Add Office Allocation </button></a>  
                                 </p> 
-                              <?php } ?>
-                                
                             </h2>
 
                           <?php } ?>
                         </div>
                         <div class="body">
                             <div class="table-responsive tableFixHead">
-                                <table style="font-size: 12px" class="table table-bordered table-striped table-hover js-basic-example dataTable" data-page-length='100'>
+                            <!-- <table style="font-size: 12px" class="table table-bordered table-striped table-hover js-basic-example dataTable" data-page-length='100'> -->
+                            <table class="table table-bordered js-basic-example dataTable cust-tbl" data-page-length="25" id="DataTables_Table_0">
                                     <thead>
                                         <tr>
-                                            <th>S. No.</th>
-                                            <th>Allocation No.</th>
+                                            <th style="width: 40px;">No.</th>
+                                            <th style="width: 91px;">Allocation ID</th>
                                             <th>Division</th>
                                             <th>Route</th>
                                             <th>Employees</th>
-                                            <th>Salesman</th>
-                                            <th>Allocation Amount</th>
-                                            <th>No of Bills</th>
-                                            <th>Deliveryman</th>
-                                            <th>Manager Review</th>
-                                            <th>SR Check</th>
-                                            <th>Bills Check</th>
-                                            <th>Cash & Cheques</th>
+                                            <th style="width: 90px;">Salesman</th>
+                                            <th>Amount</th>
+                                            <th>Nos</th>
+                                            <th>Hisab</th>
+                                            <th>Review</th>
+                                            <th>SR</th>
+                                            <th>Bills</th>
+                                            <th>Cashier</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                           <th>S. No.</th>
-                                            <th>Allocation No.</th>
+                                            <th style="width: 40px;">No.</th>
+                                            <th style="width: 91px;">Allocation ID</th>
                                             <th>Division</th>
                                             <th>Route</th>
                                             <th>Employees</th>
-                                            <th>Salesman</th>
-                                            <th>Allocation Amount</th>
-                                            <th>No of Bills</th>
-                                            <th>Deliveryman</th>
-                                            <th>Manager Review</th>
-                                            <th>SR Check</th>
-                                            <th>Bills Check</th>
-                                            <th>Cash & Cheques</th>
+                                            <th style="width: 90px;">Salesman</th>
+                                            <th>Amount</th>
+                                            <th>Nos</th>
+                                            <th>Hisab</th>
+                                            <th>Review</th>
+                                            <th>SR</th>
+                                            <th>Bills</th>
+                                            <th>Cashier</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -118,7 +109,7 @@
                                             <?php } ?>
                                             <td><?php echo $no; ?></td>
 
-                                            <td>
+                                            <td class="noSpace btns-td">
                                             <?php  if($data['fsStatus']==0){ ?>
                                                 <a href="<?php echo base_url().'index.php/AllocationByManagerController/CompleteAllocation/'.$data['id']; ?>"><?php echo $data['allocationCode']; ?></a>
                                             <?php }else{ ?>
@@ -128,18 +119,25 @@
                                             </td>
                                             <td><?php echo $data['company']; ?></td>
                                             
-                                            <td>
+                                            <td class="noSpace btns-td CellWithComment">
                                             <?php 
+
+                                              $names = substr($data['allocationRouteName'],0,10);
                                                 if($data['fsStatus']==0){ ?>
-                                                  <a href="javascript:void();" data-routeallocationid="<?php echo $data['id']; ?>" data-name="<?php echo rtrim($data['allocationRouteName'],', '); ?>" data-toggle="modal" data-target="#routeLinkModal" class="routeLink"><?php echo rtrim($data['allocationRouteName'],', '); ?></a>
+                                                  <a href="javascript:void();" data-routeallocationid="<?php echo $data['id']; ?>" data-name="<?php echo rtrim($data['allocationRouteName'],', '); ?>" data-toggle="modal" data-target="#routeLinkModal" class="routeLink">
+                                                    <?php echo rtrim($names,', '); ?></a>
                                             <?php 
                                                 }else{
-                                                  echo rtrim($data['allocationRouteName'],', ');
+                                                  echo rtrim($names,', '); 
                                                 } 
                                             ?>
+                                             <?php if(strlen($data['allocationRouteName'])>11){?>
+                                             <span class="CellComment"><?php echo $result =substr($data['allocationRouteName'],0); ?></span>
+                                            <?php } ?>
                                             </td> 
-                                            <td>
+                                            <td class="noSpace btns-td CellWithComment">
                                               <?php 
+                                              $result1 =substr($data['allocationEmployeeName'],0,10);
                                                 if($data['fsStatus']==0){ 
                                                   $ename= rtrim($data['allocationEmployeeName'],', ');
                                                   $ename=(explode(",",$ename));
@@ -147,26 +145,35 @@
                                                   $ename=(implode(",",$ename));
                                                   // echo $ename;    
                                               ?>
-                                                  <a href="javascript:void();" data-empallocationid="<?php echo $data['id']; ?>" data-name="<?php echo $ename; ?>"  data-toggle="modal" data-target="#empLinkModal" class="empLink"><?php if($data['allocationEmployeeName'] !=""){ echo  rtrim($data['allocationEmployeeName'],', '); }else { echo "Please Add"; }; ?></a>
+                                                  <a href="javascript:void();" data-empallocationid="<?php echo $data['id']; ?>" data-name="<?php echo $ename; ?>"  data-toggle="modal" data-target="#empLinkModal" class="empLink"><?php echo rtrim($result1,', '); ?></a>
                                             <?php 
                                                 }else{
-                                                  $ename= rtrim($data['allocationEmployeeName'],', ');
+                                                  $ename= rtrim($result1,', ');
                                                   $ename=(explode(",",$ename));
                                                   $ename = array_unique($ename);
                                                   $ename=(implode(",",$ename));
                                                   echo $ename;
                                                 } 
                                             ?>
+                                            <?php if(strlen($data['allocationEmployeeName'])>11){?>
+                                            <span class="CellComment"><?php echo $result =substr($data['allocationEmployeeName'],0); ?></span>
+                                          <?php } ?>
                                             </td>
-                                            <td>
-                                              <?php 
+
+                                            <td class="CellWithComment">
+                                              <?php
+                                               $result1 =substr($data['allocationSalesman'],0,12); 
                                                   // echo rtrim($data['allocationSalesman'],', '); 
-                                                  $ename= rtrim($data['allocationSalesman'],', ');
+                                                 // $ename= rtrim($data['allocationSalesman'],', ');
+                                                  $ename= rtrim($result1,', ');
                                                   $ename=(explode(",",$ename));
                                                   $ename = array_unique($ename);
                                                   $ename=(implode(",",$ename));
                                                   echo $ename;
                                               ?>
+                                               <?php if(strlen($data['allocationSalesman'])>13){?>
+                                              <span class="CellComment"><?php echo $result =substr($data['allocationSalesman'],0); ?></span>
+                                            <?php } ?>
                                             </td>
                                             <td align="right"><?php echo number_format($data['allocationTotalAmount']); ?></td>
                                             <td><?php echo $data['allocationBillCount']  ; ?></td>
@@ -314,7 +321,7 @@
         <h5 class="modal-title"><center>Edit Employee Details</center></h5>
       </div>
       <div class="modal-body">
-        <div class="col-md-12">
+        <div class="col-md-12 cust-tbl">
           <div class="col-md-5">
             <input type="hidden" id="allocationIdForEmp" autocomplete="off" name="allocationIdForEmp">   
             <label>Employee Name:</label>
@@ -329,7 +336,7 @@
                           }
                       ?>
               </datalist>
-              <button type="button" id="eAdd" class="btn btn-sm btn-primary">Add</button>
+              <button type="button" id="eAdd" class="btn btnStyle btn-sm btn-primary">Add</button>
            </div>
            
            <div class="col-md-7">
@@ -339,8 +346,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" id="empSubmit" class="btn btn-sm btn-primary">Save changes</button>
-        <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Close</button>
+        <button type="button" id="empSubmit" class="btn btnStyle btn-sm btn-primary">Save changes</button>
+        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -354,7 +361,7 @@
         <h5 class="modal-title"><center>Edit Route Details</center></h5>
       </div>
       <div class="modal-body">
-        <div class="col-md-12">
+        <div class="col-md-12 cust-tbl">
           <div class="col-md-5">
               <input type="hidden" id="allocationIdForRoute" autocomplete="off" name="allocationIdForRoute">   
               <label> Route:</label>
@@ -370,7 +377,7 @@
                   ?>
               </datalist>
               <br>
-              <button type="button" id="rAdd" class="btn btn-sm btn-primary ">Add</button>
+              <button type="button" id="rAdd" class="btn btnStyle btn-sm btn-primary ">Add</button>
           </div>
 
           <div class="col-md-7">
@@ -381,8 +388,8 @@
         
       </div>
       <div class="modal-footer">
-        <button type="button" id="routeSubmit" class="btn btn-sm btn-primary">Save changes</button>
-        <button type="button" class="btn btn-sm btn-primary" data-dismiss="modal">Close</button>
+        <button type="button" id="routeSubmit" class="btn btn-sm btnStyle btn-primary">Save changes</button>
+        <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>

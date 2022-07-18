@@ -14,50 +14,10 @@ class ReportController extends CI_Controller {
         ini_set('memory_limit', '-1');
 
         if(isset($this->session->userdata['codeKeyData'])) {
-			$this->projectSessionName= $this->session->userdata['codeKeyData']['codeKeyValue'];
-			$this->baseUrl=$this->session->userdata['codeKeyData']['yourBaseUrl'];
-
-            if($this->baseUrl=="http://localhost/smartdistributor/" || $this->baseUrl=="https://siainc.in/kiasales/" || $this->baseUrl=="https://siainc.in/staging_kiasales/"){
-
-            }else{
-                $this->load->helper('url');
-                $url_parts = parse_url(current_url());
-                $siteUrl=explode('/',$url_parts['path']);//current url path
-        
-                $baseUrl=explode('/',$this->baseUrl);//base url path
-                
-                $siteDistributorName=trim($siteUrl[2]);
-                $baseDistributorName=trim($baseUrl[4]);
-                
-                if($siteDistributorName !="" && $baseDistributorName !=""){
-                    if($siteDistributorName==$baseDistributorName){
-                    //   
-                    }else{
-                    redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
-                    }
-                }else{
-                redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
-                }
-            }
-		}else{
-			$this->load->view('LoginView');
-		}
-    }
-    
-    public function textRecordForItem(){
-            $this->load->model('ExcelModel');
-        
-            $billId='81356';
-            $productCode='12470350';
-            $productName='NAN PRO 1 IF BIB 24x400g INNWB037 IN';
-            $mrp=690;
-            $qty=1;
-            $netAmount=633.03;
-             
-            $getBillDetail=$this->ExcelModel->getAllBillDetailsInLastEntries('billsdetails',$billId,$productCode,$productName,$mrp,$qty,$netAmount);
-            echo $this->db->last_query(); 
-            // echo $this->db->query(); 
-         
+            $this->projectSessionName= $this->session->userdata['codeKeyData']['codeKeyValue'];
+        }else{
+            $this->load->view('LoginView');
+        }
     }
 
     //Datewise bill collection
@@ -574,73 +534,6 @@ class ReportController extends CI_Controller {
         $this->load->view('reports/stockMovementReportView',$data);
     }
 
-    public function productLoadingSheetReport(){
-        // $data['bills']=$this->ReportModel->getDeliverySlipdata('bills');  
-        $this->load->view('reports/productLoadingSheetReportView');
-    }
-
-    public function addManualBill(){
-        $billId=trim($this->input->post('billId'));
-        $bill=$this->ReportModel->load('bills',$billId); 
-        if(!empty($bill)){
-            $no=0;
-            foreach($bill as $data){
-                $no++;
-        ?>
-        <tr>
-            <td>
-                <?php echo $data['billNo'];?>
-                <input type="hidden" id="selectedBillId[]" name="selectedBillId[]" value="<?php echo $data['id']; ?>"> 
-            </td>
-            <td><?php echo $data['date'];?></td>
-            <td><?php echo $data['retailerName'];?></td>
-            <td><?php echo $data['salesman'];?></td>
-            <td><?php echo $data['netAmount'];?></td>
-            <td><?php echo $data['pendingAmt'];?></td>
-            <td>
-                <button onclick="removeMe(this,'<?php echo $data['id'];?>');" class="btn btn-xs btn-primary waves-effect" data-type="basic">
-                    <i class="material-icons">cancel</i>
-                </button>
-            </td>
-        </tr>
-        
-        <?php
-            }
-        }
-    }
-
-    public function addFromToBill(){
-        $fromBillId=trim($this->input->post('fromBillId'));
-        $toBillId=trim($this->input->post('toBillId'));
-
-        $billsData=$this->ReportModel->getFromToBillDetail('bills',$fromBillId,$toBillId); 
-        if(!empty($billsData)){
-            $no=0;
-            foreach($billsData as $data){
-                $no++;
-        ?>
-        <tr>
-            <td>
-                <?php echo $data['billNo'];?>
-                <input type="hidden" id="selectedBillId[]" name="selectedBillId[]" value="<?php echo $data['id']; ?>"> 
-            </td>
-            <td><?php echo $data['date'];?></td>
-            <td><?php echo $data['retailerName'];?></td>
-            <td><?php echo $data['salesman'];?></td>
-            <td><?php echo $data['netAmount'];?></td>
-            <td><?php echo $data['pendingAmt'];?></td>
-            <td>
-                <button onclick="removeMe(this,'<?php echo $data['id'];?>');" class="btn btn-xs btn-primary waves-effect" data-type="basic">
-                    <i class="material-icons">cancel</i>
-                </button>
-            </td>
-        </tr>
-        
-        <?php
-            }
-        }
-    }
-
     //Stock Movement Report Excel 
     public function deliveryslipProductReport(){
         $fromDate=$this->input->post('fromDate');
@@ -762,388 +655,50 @@ class ReportController extends CI_Controller {
         $writer->save('php://output');
         
     }
+    
+    public function frequentsrRetailersReportView(){
+        $data['retailerSR']=$this->ReportModel->frequentsrRetailers('allocation_sr_details');
+        $this->load->view('reports/frequentSRRetailersReportView',$data);
+    }
+	
+	public function showDetails(){
+     $first_date = trim($this->input->post('value'));
+     $last_date   = date('Y-m-d',strtotime("now")); 
+     $data['retailerSRs'] = $this->ReportModel->frequentsrRetailerswithDate('allocation_sr_details',$first_date,$last_date); 
+     //print_r($data['retailerSRs']); exit();
+     $this->load->view('reports/frequentSRRetailerFilterView',$data);
+    }
 
-
-    //Loading Sheet Report Excel 
-    public function loadingSheetProductReport(){
-        $fromBill=$this->input->post('fromBill');
-        $toBill=$this->input->post('toBill');
-       
-        //billId range
-        $fromBillId=$this->input->post('fromBillId');
-        $toBillId=$this->input->post('toBillId');
+    public function frequentsrSalesmanReportView(){
+        $data['salesmanSR']=$this->ReportModel->frequentsrSalesman('allocation_sr_details');
+        $this->load->view('reports/frequentSRSalesmanReportView',$data);
+    }
+    
+    public function multipleVisitorRetailerReportView(){
+        $data['mutliVisitRetailer']=$this->ReportModel->multiplevisitorRetailer();
         
+        print_r($data['mutliVisitRetailer']); exit();
+        $this->load->view('reports/multipleVisitorRetailerReportView',$data);
+    }
+    
+    public function OverdueBillsReports(){   
         $fromDate=$this->input->post('fromDate');
         $toDate=$this->input->post('toDate');
-    
-        //manually added bills
-        $selectedIds=$this->input->post('selectedIds');
-        $selectedIds=explode(',',$selectedIds);
-
-        $selBillNo="";
-        if($fromBillId =="" && $toBillId =="" && (empty($selectedIds))){
-            return redirect('reports/ReportController/productLoadingSheetReport');
-        }else{
-            $billInfo=array();//for bills id storage
-            $dataArray=array();//for sold products 
-
-            if($fromBillId !=="" && $toBillId !==""){
-                $productDetails=$this->ReportModel->getBillDetailsWithBills('bills',$fromBillId,$toBillId); 
-                $billsData=$this->ReportModel->getSelectedBillDetail('bills',$fromBillId,$toBillId); 
-
-                $billInfo=array();
-                if(!empty($billsData)){
-                    //store bill id's
-                    foreach($billsData as $item){
-                        array_push($billInfo,$item['id']);
-                        if($selBillNo==""){
-                            $selBillNo=$item['billNo'];
-                        }else{
-                            $selBillNo=$selBillNo.','.$item['billNo'];
-                        }
-                        
-                    }
-
-                    //get product info for each bill
-                    foreach ($productDetails as $element) {
-                        $name=trim($element['productName']);
-                        $code=trim($element['productCode']);
-                        $mrp=(int)$element['mrp'];
-                        $prod=$this->ReportModel->getProductDetail('products',$code,$name,$mrp);
-                        if(!empty($prod)){
-                            //calculate quantity and amount for each product
-                            $countValue=$prod[0]['unitOne']*$prod[0]['unitTwo']*$prod[0]['unitThree'];
-                            $countValueForBox=$prod[0]['unitOne']*$prod[0]['unitTwo']*$prod[0]['unitThree'];
-                            $cases=0;
-                            $box=0;
-                            $pcs=0;
-                            if($element['sumQty'] <$prod[0]['unitOne']*$prod[0]['unitTwo']){
-                                $pcs=($element['sumQty']*$prod[0]['unitThree']);
-                            }else{
-                                if($prod[0]['unitFilter']=="u1"){
-                                    $cases=(int)($element['sumQty']/$countValue);
-                                    $newPcs=$element['sumQty']-($cases*$countValue);
-                                    $pcs=$newPcs;
-                                }else{
-                                    $cases=(int)($element['sumQty']/$countValue);
-                                    $newValue=$element['sumQty']-($cases*$countValue);
-                                    $box=(int)($newValue/$prod[0]['unitOne']);
-                                    $newPcs=$element['sumQty']-($cases*$countValue)-($box*$prod[0]['unitOne']);
-                                    $pcs=$newPcs;
-                                }
-                            }
-            
-                            //store info into an array
-                            $dataArr=array(
-                                'productCode'=>$element['productCode'],
-                                'productName'=>$element['productName'],
-                                'mrp'=>$element['mrp'],
-                                'unitOne'=>$prod[0]['unitOne'],
-                                'unitTwo'=>$prod[0]['unitTwo'],
-                                'sumQty'=>$element['sumQty'],
-                                'cases'=>$cases,
-                                'box'=>$box,
-                                'pcs'=>$pcs,
-                                'sumNetAmount'=>$element['sumNetAmount']
-                            );
-            
-                            array_push($dataArray,$dataArr);//add product info into new array
-                        }
-                    }
-                }
-            }
-            
-            if(!empty($selectedIds)){
-                foreach($selectedIds as $data){
-                    $bId=trim($data);
-                    if($bId !=""){
-                        if(in_array($bId,$billInfo) == false){//check manual bill id is already present or notin an array
-                            array_push($billInfo,$bId);
-                            $detail=$this->ReportModel->getBillDetailsWithBillsById('bills',$bId);
-
-                            if($selBillNo==""){
-                                $selBillNo=$detail[0]['bNo'];
-                            }else{
-                                $selBillNo=$selBillNo.','.$detail[0]['bNo'];
-                            }
-
-                            //get product info for each bill
-                            foreach ($detail as $element) {
-                                //calculate quantity and amount for each product
-                                $name=trim($element['productName']);
-                                $code=trim($element['productCode']);
-                                $mrp=(int)$element['mrp'];
-                                $prod=$this->ReportModel->getProductDetail('products',$code,$name,$mrp);
-                                if(!empty($prod)){
-                                    $countValue=$prod[0]['unitOne']*$prod[0]['unitTwo']*$prod[0]['unitThree'];
-                                    $countValueForBox=$prod[0]['unitOne']*$prod[0]['unitTwo']*$prod[0]['unitThree'];
-                                    $cases=0;
-                                    $box=0;
-                                    $pcs=0;
-                                    
-                                    if($element['sumQty'] <$prod[0]['unitOne']*$prod[0]['unitTwo']){
-                                        $pcs=($element['sumQty']*$prod[0]['unitThree']);
-                                    }else{
-                                        if($prod[0]['unitFilter']=="u1"){
-                                            $cases=(int)($element['sumQty']/$countValue);
-                                            $newPcs=$element['sumQty']-($cases*$countValue);
-                                            $pcs=$newPcs;
-                                        }else{
-                                            $cases=(int)($element['sumQty']/$countValue);
-                                            $newValue=$element['sumQty']-($cases*$countValue);
-                                            $box=(int)($newValue/$prod[0]['unitOne']);
-                                            $newPcs=$element['sumQty']-($cases*$countValue)-($box*$prod[0]['unitOne']);
-                                            $pcs=$newPcs;
-                                        }
-                                    }
-                                
-                                     //store info into an array
-                                    $dataArr=array(
-                                        'productCode'=>$element['productCode'],
-                                        'productName'=>$element['productName'],
-                                        'mrp'=>$element['mrp'],
-                                        'unitOne'=>$prod[0]['unitOne'],
-                                        'unitTwo'=>$prod[0]['unitTwo'],
-                                        'sumQty'=>$element['sumQty'],
-                                        'cases'=>$cases,
-                                        'box'=>$box,
-                                        'pcs'=>$pcs,
-                                        'sumNetAmount'=>$element['sumNetAmount']
-                                    );
-                    
-                                    array_push($dataArray,$dataArr);//add product info into new array
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            //merge if duplicate products details
-            $result=array();
-            foreach ($dataArray as $value) {
-                if(isset($result[$value["productCode"]])){
-                    $result[$value["productCode"]]["sumQty"]+=$value["sumQty"];
-                    $result[$value["productCode"]]["cases"]+=$value["cases"];
-                    $result[$value["productCode"]]["box"]+=$value["box"];
-                    $result[$value["productCode"]]["pcs"]+=$value["pcs"];
-                    $result[$value["productCode"]]["sumNetAmount"]+=$value["sumNetAmount"];
-                } else {
-                    $result[$value["productCode"]]=$value;
-                }
-            }
-
-            $file="Loading_Sheet_Report.xlsx";
-            $newFileName= $file;
-            $spreadsheet = new Spreadsheet();
-            $spreadsheet->setActiveSheetIndex(0);
-
-            foreach (range('A','J') as $col) {
-                $spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
-            }
-
-            $spreadsheet->getActiveSheet()->SetCellValue('B1', 'From : '.date('d M Y',strtotime($fromDate)).' To : '.date('d M Y',strtotime($toDate)));
-            $spreadsheet->getActiveSheet()->SetCellValue('B2', 'Selected Bill Numbers :');
-            // $spreadsheet->getActiveSheet()->SetCellValue('A3', );
-            $spreadsheet->getActiveSheet()->SetCellValue('B3', $selBillNo);
-            // $spreadsheet->getActiveSheet()->SetCellValue('B3', '');
-            $spreadsheet->getActiveSheet()->SetCellValue('A5', 'S. No.');
-            $spreadsheet->getActiveSheet()->SetCellValue('B5', 'Product Code');
-            $spreadsheet->getActiveSheet()->SetCellValue('C5', 'Product Name');
-            $spreadsheet->getActiveSheet()->SetCellValue('D5', 'MRP');
-            $spreadsheet->getActiveSheet()->SetCellValue('E5', 'Pcs In Box');
-            $spreadsheet->getActiveSheet()->SetCellValue('F5', 'Box In Case');
-            $spreadsheet->getActiveSheet()->SetCellValue('G5', 'Total Quantity In Pcs');
-            $spreadsheet->getActiveSheet()->SetCellValue('H5', 'Case');
-            $spreadsheet->getActiveSheet()->SetCellValue('I5', 'Box');
-            $spreadsheet->getActiveSheet()->SetCellValue('J5', 'Pcs');
-            $spreadsheet->getActiveSheet()->SetCellValue('K5', 'Amount');
-
-            $no=0;
-            $num=1;
-            $rowCount = 6;
-            if(!empty($result)){
-                foreach($result as $element){
-                    $spreadsheet->getActiveSheet()->SetCellValue('A' . $rowCount, $num);
-                    $spreadsheet->getActiveSheet()->SetCellValue('B' . $rowCount, $element['productCode']);
-                    $spreadsheet->getActiveSheet()->SetCellValue('C' . $rowCount, $element['productName']);
-                    $spreadsheet->getActiveSheet()->SetCellValue('D' . $rowCount, $element['mrp']);
-                    $spreadsheet->getActiveSheet()->SetCellValue('E' . $rowCount, $element['unitOne']);
-                    $spreadsheet->getActiveSheet()->SetCellValue('F' . $rowCount, $element['unitTwo']);
-                    $spreadsheet->getActiveSheet()->SetCellValue('G' . $rowCount, $element['sumQty']);
-                    $spreadsheet->getActiveSheet()->SetCellValue('H' . $rowCount, $element['cases']);
-                    $spreadsheet->getActiveSheet()->SetCellValue('I' . $rowCount, $element['box']);
-                    $spreadsheet->getActiveSheet()->SetCellValue('J' . $rowCount, $element['pcs']);
-                    $spreadsheet->getActiveSheet()->SetCellValue('K' . $rowCount, $element['sumNetAmount']);
-
-                    $rowCount++;
-                    $no++;
-                    $num++;
-                }
-            }
-
-            // foreach ($productDetails as $element) {
-            //     $name=trim($element['productName']);
-            //     $code=trim($element['productCode']);
-            //     $mrp=(int)$element['mrp'];
-            //     $prod=$this->ReportModel->getProductDetail('products',$code,$name,$mrp);
-            //     if(!empty($prod)){
-            //         $countValue=$prod[0]['unitOne']*$prod[0]['unitTwo']*$prod[0]['unitThree'];
-            //         $countValueForBox=$prod[0]['unitOne']*$prod[0]['unitTwo']*$prod[0]['unitThree'];
-            //         $cases=0;
-            //         $box=0;
-            //         $pcs=0;
-            //         if($element['sumQty'] <$prod[0]['unitOne']*$prod[0]['unitTwo']){
-            //             $pcs=($element['sumQty']*$prod[0]['unitThree']);
-            //         }else{
-            //             if($prod[0]['unitFilter']=="u1"){
-            //                 $cases=(int)($element['sumQty']/$countValue);
-            //                 $newPcs=$element['sumQty']-($cases*$countValue);
-            //                 $pcs=$newPcs;
-            //             }else{
-            //                 $cases=(int)($element['sumQty']/$countValue);
-            //                 $newValue=$element['sumQty']-($cases*$countValue);
-            //                 $box=(int)($newValue/$prod[0]['unitOne']);
-            //                 $newPcs=$element['sumQty']-($cases*$countValue)-($box*$prod[0]['unitOne']);
-            //                 $pcs=$newPcs;
-            //             }
-            //         }
-
-            //         $spreadsheet->getActiveSheet()->SetCellValue('A' . $rowCount, $num);
-            //         $spreadsheet->getActiveSheet()->SetCellValue('B' . $rowCount, $element['productCode']);
-            //         $spreadsheet->getActiveSheet()->SetCellValue('C' . $rowCount, $element['productName']);
-            //         $spreadsheet->getActiveSheet()->SetCellValue('D' . $rowCount, $element['mrp']);
-            //         $spreadsheet->getActiveSheet()->SetCellValue('E' . $rowCount, $prod[0]['unitOne']);
-            //         $spreadsheet->getActiveSheet()->SetCellValue('F' . $rowCount, $prod[0]['unitTwo']);
-            //         $spreadsheet->getActiveSheet()->SetCellValue('G' . $rowCount, $element['sumQty']);
-            //         $spreadsheet->getActiveSheet()->SetCellValue('H' . $rowCount, $cases);
-            //         $spreadsheet->getActiveSheet()->SetCellValue('I' . $rowCount, $box);
-            //         $spreadsheet->getActiveSheet()->SetCellValue('J' . $rowCount, $pcs);
-            //         $spreadsheet->getActiveSheet()->SetCellValue('K' . $rowCount, $element['sumNetAmount']);
-            //     }
-            //     $rowCount++;
-            //     $no++;
-            //     $num++;
-            // }
-            
-            
-        
-            $writer = new Xlsx($spreadsheet);
-            $fileName=$file;
-            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-            header('Content-Disposition: attachment; filename="'. urlencode($fileName).'"');
-            $writer->save('php://output');
-        }
-        
+        $data['fetchTotalRecords']=$this->ReportModel->fetchBillRecord('bills',$fromDate,$toDate);
+        $this->load->view('reports/OverdueBillsView',$data);
     }
 
-    //Loading Sheet Report Excel 
-    public function downloadLoadingSheetProductReport($fromDate,$toDate,$selectedIds){
-        $fromDate=urldecode($fromDate);
-        $toDate=urldecode($toDate);
-        $selectedIds=urldecode($selectedIds);
-
-        // echo $fromDate.' '.$toDate;
-        // print_r($selectedIds);
-
-        // $fromDate=$this->input->post('fromDate');
-        // $toDate=$this->input->post('toDate');
-        // $selectedIds=$this->input->post('billIds');
-
-        // print_r($selectedIds);exit;
-        $selectedIds=explode(',',$selectedIds);
-
-        // print_r($selectedIds);exit;
-
-        $selBillNo="";
-        if((empty($selectedIds))){
-            return redirect('reports/ReportController/productLoadingSheetReport');
+    public function OverdueBillsReport(){
+        $fromDate=$this->input->post('fromDate');
+        $toDate=$this->input->post('toDate');
+        $billDetails=$this->ReportModel->fetchBillRecord('bills',$fromDate,$toDate);
+        //print_r($billDetails); exit();
+        if(empty($billDetails)){
+            echo "empty data";
         }else{
-            $billInfo=array();//for bills id storage
-            $dataArray=array();//for sold products 
-            
-            if(!empty($selectedIds)){
-                foreach($selectedIds as $data){
-                    $bId=trim($data);
-                    if($bId !=""){
-                        if(in_array($bId,$billInfo) == false){//check manual bill id is already present or notin an array
-                            array_push($billInfo,$bId);
-                            $detail=$this->ReportModel->getBillDetailsWithBillsById('bills',$bId);
-
-                            if($selBillNo==""){
-                                $selBillNo=$detail[0]['bNo'];
-                            }else{
-                                $selBillNo=$selBillNo.','.$detail[0]['bNo'];
-                            }
-
-                            //get product info for each bill
-                            foreach ($detail as $element) {
-                                //calculate quantity and amount for each product
-                                $name=trim($element['productName']);
-                                $code=trim($element['productCode']);
-                                $mrp=(int)$element['mrp'];
-                                $prod=$this->ReportModel->getProductDetail('products',$code,$name,$mrp);
-                                if(!empty($prod)){
-                                    $countValue=$prod[0]['unitOne']*$prod[0]['unitTwo']*$prod[0]['unitThree'];
-                                    $countValueForBox=$prod[0]['unitOne']*$prod[0]['unitTwo']*$prod[0]['unitThree'];
-                                    $cases=0;
-                                    $box=0;
-                                    $pcs=0;
-                                    
-                                    if($element['sumQty'] <$prod[0]['unitOne']*$prod[0]['unitTwo']){
-                                        $pcs=($element['sumQty']*$prod[0]['unitThree']);
-                                    }else{
-                                        if($prod[0]['unitFilter']=="u1"){
-                                            $cases=(int)($element['sumQty']/$countValue);
-                                            $newPcs=$element['sumQty']-($cases*$countValue);
-                                            $pcs=$newPcs;
-                                        }else{
-                                            $cases=(int)($element['sumQty']/$countValue);
-                                            $newValue=$element['sumQty']-($cases*$countValue);
-                                            $box=(int)($newValue/$prod[0]['unitOne']);
-                                            $newPcs=$element['sumQty']-($cases*$countValue)-($box*$prod[0]['unitOne']);
-                                            $pcs=$newPcs;
-                                        }
-                                    }
-                                
-                                     //store info into an array
-                                    $dataArr=array(
-                                        'productCode'=>$element['productCode'],
-                                        'productName'=>$element['productName'],
-                                        'mrp'=>$element['mrp'],
-                                        'unitOne'=>$prod[0]['unitOne'],
-                                        'unitTwo'=>$prod[0]['unitTwo'],
-                                        'sumQty'=>$element['sumQty'],
-                                        'cases'=>$cases,
-                                        'box'=>$box,
-                                        'pcs'=>$pcs,
-                                        'sumNetAmount'=>$element['sumNetAmount']
-                                    );
-                    
-                                    array_push($dataArray,$dataArr);//add product info into new array
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            //merge if duplicate products details
-            $result=array();
-            foreach ($dataArray as $value) {
-                if(isset($result[$value["productCode"]])){
-                    $result[$value["productCode"]]["sumQty"]+=$value["sumQty"];
-                    $result[$value["productCode"]]["cases"]+=$value["cases"];
-                    $result[$value["productCode"]]["box"]+=$value["box"];
-                    $result[$value["productCode"]]["pcs"]+=$value["pcs"];
-                    $result[$value["productCode"]]["sumNetAmount"]+=$value["sumNetAmount"];
-                } else {
-                    $result[$value["productCode"]]=$value;
-                }
-            }
-
-            $file="Loading_Sheet_Report.xlsx";
+            $file="Overdue_Bills_Report.xlsx";
             $newFileName= $file;
+
             $spreadsheet = new Spreadsheet();
             $spreadsheet->setActiveSheetIndex(0);
 
@@ -1151,44 +706,38 @@ class ReportController extends CI_Controller {
                 $spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
             }
 
-            $spreadsheet->getActiveSheet()->SetCellValue('B1', 'From : '.date('d M Y',strtotime($fromDate)).' To : '.date('d M Y',strtotime($toDate)));
-            $spreadsheet->getActiveSheet()->SetCellValue('B2', 'Selected Bill Numbers :');
-            // $spreadsheet->getActiveSheet()->SetCellValue('A3', );
-            $spreadsheet->getActiveSheet()->SetCellValue('B3', $selBillNo);
-            // $spreadsheet->getActiveSheet()->SetCellValue('B3', '');
-            $spreadsheet->getActiveSheet()->SetCellValue('A5', 'S. No.');
-            $spreadsheet->getActiveSheet()->SetCellValue('B5', 'Product Code');
-            $spreadsheet->getActiveSheet()->SetCellValue('C5', 'Product Name');
-            $spreadsheet->getActiveSheet()->SetCellValue('D5', 'MRP');
-            $spreadsheet->getActiveSheet()->SetCellValue('E5', 'Pcs In Box');
-            $spreadsheet->getActiveSheet()->SetCellValue('F5', 'Box In Case');
-            $spreadsheet->getActiveSheet()->SetCellValue('G5', 'Total Quantity In Pcs');
-            $spreadsheet->getActiveSheet()->SetCellValue('H5', 'Case');
-            $spreadsheet->getActiveSheet()->SetCellValue('I5', 'Box');
-            $spreadsheet->getActiveSheet()->SetCellValue('J5', 'Pcs');
-            $spreadsheet->getActiveSheet()->SetCellValue('K5', 'Amount');
+            $spreadsheet->getActiveSheet()->SetCellValue('A1', 'S. No.');
+            $spreadsheet->getActiveSheet()->SetCellValue('B1', 'Bill Date');
+            $spreadsheet->getActiveSheet()->SetCellValue('C1', 'Bill Number');
+            $spreadsheet->getActiveSheet()->SetCellValue('D1', 'Company');
+            $spreadsheet->getActiveSheet()->SetCellValue('E1', 'Retailer Name');
+            $spreadsheet->getActiveSheet()->SetCellValue('F1', 'Route Name');
+            $spreadsheet->getActiveSheet()->SetCellValue('G1', 'Salesman Name');
+            $spreadsheet->getActiveSheet()->SetCellValue('H1', 'Bill Amount');
+            $spreadsheet->getActiveSheet()->SetCellValue('I1', 'Pending Amount');
+            $spreadsheet->getActiveSheet()->SetCellValue('J1', 'Cash/Cheque/NEFT');
+            
 
             $no=0;
             $num=1;
-            $rowCount = 6;
-            if(!empty($result)){
-                foreach($result as $element){
-                    $spreadsheet->getActiveSheet()->SetCellValue('A' . $rowCount, $num);
-                    $spreadsheet->getActiveSheet()->SetCellValue('B' . $rowCount, $element['productCode']);
-                    $spreadsheet->getActiveSheet()->SetCellValue('C' . $rowCount, $element['productName']);
-                    $spreadsheet->getActiveSheet()->SetCellValue('D' . $rowCount, $element['mrp']);
-                    $spreadsheet->getActiveSheet()->SetCellValue('E' . $rowCount, $element['unitOne']);
-                    $spreadsheet->getActiveSheet()->SetCellValue('F' . $rowCount, $element['unitTwo']);
-                    $spreadsheet->getActiveSheet()->SetCellValue('G' . $rowCount, $element['sumQty']);
-                    $spreadsheet->getActiveSheet()->SetCellValue('H' . $rowCount, $element['cases']);
-                    $spreadsheet->getActiveSheet()->SetCellValue('I' . $rowCount, $element['box']);
-                    $spreadsheet->getActiveSheet()->SetCellValue('J' . $rowCount, $element['pcs']);
-                    $spreadsheet->getActiveSheet()->SetCellValue('K' . $rowCount, $element['sumNetAmount']);
-
-                    $rowCount++;
-                    $no++;
-                    $num++;
-                }
+            $rowCount = 2;
+            foreach ($billDetails as $element) {
+              // print_r($element['date']); exit();
+                $date=date('d-M-Y',strtotime($element['date']));
+                $spreadsheet->getActiveSheet()->SetCellValue('A' . $rowCount, $num);
+                $spreadsheet->getActiveSheet()->SetCellValue('B' . $rowCount, $date);
+                $spreadsheet->getActiveSheet()->SetCellValue('C' . $rowCount, $element['billNo']);
+                $spreadsheet->getActiveSheet()->SetCellValue('D' . $rowCount, $element['compName']);
+                $spreadsheet->getActiveSheet()->SetCellValue('E' . $rowCount, $element['retailerName']);
+                $spreadsheet->getActiveSheet()->SetCellValue('F' . $rowCount, $element['routeName']);
+                $spreadsheet->getActiveSheet()->SetCellValue('G' . $rowCount, $element['salesman']);
+                $spreadsheet->getActiveSheet()->SetCellValue('H' . $rowCount, $element['netAmount']);
+                $spreadsheet->getActiveSheet()->SetCellValue('I' . $rowCount, $element['pendingAmt']);
+                $spreadsheet->getActiveSheet()->SetCellValue('J' . $rowCount, $element['receivedAmt']);
+                
+                $rowCount++;
+                $no++;
+                $num++;
             }
         
             $writer = new Xlsx($spreadsheet);
@@ -1197,6 +746,69 @@ class ReportController extends CI_Controller {
             header('Content-Disposition: attachment; filename="'. urlencode($fileName).'"');
             $writer->save('php://output');
         }
-        
     }
+
+    public function RetailerAccountStatementReport()
+    {
+        $data['retailer']=$this->ReportModel->getdata('retailer_kia');
+        $this->load->view('reports/retailerAccountStatementView',$data);
+    }
+
+   public function retailorWiseBillReport(){
+        $retailer=trim($this->input->post('retailer'));
+        $fromDate=trim($this->input->post('fromDate'));
+        $toDate=trim($this->input->post('toDate'));
+        $data['billInfo']=$this->ReportModel->getRetailerDetailsUsingDates('bills',$retailer,$fromDate,$toDate); 
+        $this->load->view('reports/retailerAccountStatementdetails',$data);
+   }
+
+   public function showBillDetails(){
+    $bid=trim($this->input->post('id')); 
+    $billsdetails = $this->ReportModel->loadBillsDetails('billpayments', $bid);
+   // print_r($billsdetails); exit();
+    ?>
+
+   <table class="table table-bordered js-exportable dataTable cust-tbl" data-page-length='100'>
+        <thead>
+            <tr>
+                <th>Sr.No</th>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Payment Mode</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>Sr.No</th>
+                <th>Date</th> 
+                <th>Amount</th> 
+                <th>Payment Mode</th>
+            </tr>
+        </tfoot>
+                                
+        <tbody>
+            <?php
+            if(!empty($billsdetails)){
+            $no=0;
+            foreach ($billsdetails as $data){
+            $no++; 
+            $bill_date=date('d-M-Y',strtotime($data['date']));
+            ?>
+            <tr>
+                <td><?php echo $no; ?></td>
+                <td><?php echo $bill_date; ?></td>
+                <td><?php echo $data['paidAmount']; ?></td>
+                <td><?php echo $data['paymentMode'];?></td>
+            </tr>  
+
+            <?php
+             }
+             }else{ ?>
+            <tr><td>No data available</td></tr>
+            <?php  } ?>
+        </tbody>
+        </table>
+
+    <?php 
+   }
 }

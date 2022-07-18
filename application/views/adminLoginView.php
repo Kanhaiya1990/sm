@@ -22,6 +22,7 @@
 
     <!-- Custom Css -->
     <link href="<?php echo base_url('assets/css/style.css');?>" rel="stylesheet">
+    <link href="<?php echo base_url('assets/css/custom.css');?>" rel="stylesheet">
      <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/login-sliders/css/demo.css');?>" />
     <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/login-sliders/css/style2.css');?>" />
     <script type="text/javascript" src="js/modernizr.custom.86080.js"></script>
@@ -105,7 +106,7 @@
                             <!-- <button type="submit" class="btn btn-block bg-primary waves-effect" >SIGN IN</button> -->
                         </div>
                          <div class="col-xs-12 p-t-5">
-                            <button type="submit" class="btn btn-block bg-primary waves-effect" >SIGN IN</button>
+                            <button type="submit" class="btn btn-block btnStyle waves-effect" >SIGN IN</button>
                         </div>
                     </div>
                    <!--  <div class="row m-t-15 m-b--20">

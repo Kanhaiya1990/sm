@@ -10,14 +10,16 @@ class CashBookModel extends CI_Model {
     {
         $this->db->order_by('id','desc');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
     public function getDynamicNames($tblName,$type){
         $this->db->where('type', $type);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();  
     }
 
@@ -28,7 +30,8 @@ class CashBookModel extends CI_Model {
         $this->db->where('DATE(expences.date) >=', $fromDate);
         $this->db->where('DATE(expences.date) <=', $toDate);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -39,7 +42,8 @@ class CashBookModel extends CI_Model {
         $this->db->limit(10);
         $this->db->order_by('id','desc');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -49,7 +53,8 @@ class CashBookModel extends CI_Model {
         $this->db->join('employee','main_cashbook_expences.updatedBy=employee.id');
         $this->db->order_by('id','desc');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -59,7 +64,8 @@ class CashBookModel extends CI_Model {
         $this->db->where('paidAmount', $amount);
         $this->db->where('paymentMode', $mode);
         $resultset=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -67,14 +73,16 @@ class CashBookModel extends CI_Model {
         $this->db->where('designation','owner');
         $this->db->where('status',1);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
     public function getSuspenseDetail($tableName,$code){
         $this->db->where('code',$code);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -83,7 +91,8 @@ class CashBookModel extends CI_Model {
         // $this->db->where('expenseOwnerApproval',1);
         $this->db->where('bankDepositApproval',1);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -96,7 +105,8 @@ class CashBookModel extends CI_Model {
         $this->db->where('emptransactions.ownerApprovalStatus !=',2);
          // $this->db->where('employee.isSalaryEmp', 1);
         $resultset=$this->db->get($tableName); 
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -106,7 +116,8 @@ class CashBookModel extends CI_Model {
         $this->db->join('company','company.id=employee.companyId','left outer');
         $this->db->where('employee.id',$id);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -120,7 +131,8 @@ class CashBookModel extends CI_Model {
         $this->db->group_end();
         $this->db->where('expences.isCloseDayBook',0);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -133,7 +145,8 @@ class CashBookModel extends CI_Model {
         $this->db->group_end();
         $this->db->where('expences.isCloseDayBook',0);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -141,7 +154,8 @@ class CashBookModel extends CI_Model {
         $this->db->select('sum(note2000) as note2000,sum(note500) as note500,sum(note200) as note200,sum(note100) as note100,sum(note50) as note50,sum(note20) as note20,sum(note10) as note10,sum(coins) as coins,sum(collectedAmount) as collectedAmt');
         $this->db->where('transactionType','expense');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -149,7 +163,8 @@ class CashBookModel extends CI_Model {
         $this->db->select('sum(note2000) as note2000,sum(note500) as note500,sum(note200) as note200,sum(note100) as note100,sum(note50) as note50,sum(note20) as note20,sum(note10) as note10,sum(coins) as coins,sum(collectedAmount) as collectedAmt');
         $this->db->where('transactionType','income');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -162,7 +177,8 @@ class CashBookModel extends CI_Model {
         $this->db->group_end();
         $this->db->where('expences.isCloseDayBook',0);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -171,7 +187,8 @@ class CashBookModel extends CI_Model {
         $this->db->order_by('id','desc');
         $this->db->limit(1);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -180,7 +197,8 @@ class CashBookModel extends CI_Model {
         $this->db->order_by('id','desc');
         $this->db->limit(1);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -190,7 +208,8 @@ class CashBookModel extends CI_Model {
         $this->db->where('isDeleted','0');
         $this->db->where('ownerApproval','1');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -199,7 +218,8 @@ class CashBookModel extends CI_Model {
     public function getInfo($tableName)
     {
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -208,7 +228,8 @@ class CashBookModel extends CI_Model {
         $this->db->group_by('DATE(date)');
         $this->db->order_by('DATE(date)','desc');
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();  
     }
 
@@ -219,7 +240,8 @@ class CashBookModel extends CI_Model {
         $this->db->group_by('DATE(date)');
         $this->db->order_by('DATE(date)','desc');
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();  
     }
 
@@ -227,14 +249,16 @@ class CashBookModel extends CI_Model {
     {
         $this->db->where('type',$type);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
     public function checkExpenseData($tblName){
         $this->db->where('expenseOwnerApproval',1);
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -277,7 +301,8 @@ class CashBookModel extends CI_Model {
         $date=date('Y-m-d');
         $this->db->where('DATE(closeDayBookDate)',$date);
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -285,7 +310,8 @@ class CashBookModel extends CI_Model {
         $this->db->select('SUM(parking) AS parking,SUM(challan) AS challan,SUM(cng) AS cng');
         $this->db->where('DATE(notesdetails.updatedAt)<=',$date);
         $resultset=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -294,7 +320,8 @@ class CashBookModel extends CI_Model {
     public function calculateExpense($allocationId){
         $query="SELECT parking,challan,cng,expenseOwnerApproval FROM `notesdetails` WHERE allocationId=".$allocationId;
         $data=$this->db->query($query);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $data->result_array();
     }
 
@@ -304,14 +331,16 @@ class CashBookModel extends CI_Model {
     public function calculateTotalIncome($name){
         $query="SELECT sum(amount) as inflowTotal FROM `expences` WHERE (inoutStatus='Inflow' and nature !='Contra Entry' and nature !='Bank Deposit' and nature !='Disallowed Advance Reversal' and nature !='Disallowed Expense Credit' and nature !='Disallowed Bank Deposit') and isCloseDayBook=0 and expenseOwnerApproval !=2";
         $data=$this->db->query($query);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $data->result_array();
     }
 
     public function calculateTotalIncomeByDaybook($name){
         $query="SELECT sum(amount) as inflowTotal FROM `expences` WHERE (inoutStatus='Inflow' and nature !='Contra Entry' and nature !='Bank Deposit' and nature !='Disallowed Advance Reversal' and nature !='Disallowed Expense Credit' and nature !='Disallowed Bank Deposit') and closeDayBookName='".$name."' and expenseOwnerApproval !=2";
         $data=$this->db->query($query);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $data->result_array();
     }
 
@@ -319,7 +348,8 @@ class CashBookModel extends CI_Model {
     public function calculateTotalIncomeByDaybookDate($date){
         $query="SELECT sum(amount) as inflowTotal FROM `expences` WHERE (inoutStatus='Inflow' and nature !='Contra Entry' and nature !='Bank Deposit' and nature !='Disallowed Advance Reversal' and nature !='Disallowed Expense Credit' and nature !='Disallowed Bank Deposit') and DATE(date)='".$date."' and expenseOwnerApproval !=2";
         $data=$this->db->query($query);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $data->result_array();
     }
 
@@ -327,7 +357,8 @@ class CashBookModel extends CI_Model {
     public function calculateTotalPeriodIncomeByDaybookDate($fdate,$tdate){
         $query="SELECT sum(amount) as inflowTotal FROM `expences` WHERE (inoutStatus='Inflow' and nature !='Contra Entry' and nature !='Bank Deposit' and nature !='Disallowed Advance Reversal' and nature !='Disallowed Expense Credit' and nature !='Disallowed Bank Deposit') and (DATE(date)>='".$fdate."' and DATE(date)<='".$tdate."') and expenseOwnerApproval !=2";
         $data=$this->db->query($query);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $data->result_array();
     }
 
@@ -391,63 +422,72 @@ class CashBookModel extends CI_Model {
     public function calculateTotalIncomeByDate($date){
         $query="SELECT sum(amount) as inflowTotal FROM `expences` WHERE (inoutStatus='Inflow' and nature !='Contra Entry' and nature !='Bank Deposit' and nature !='Disallowed Advance Reversal' and nature !='Disallowed Expense Credit' and nature !='Disallowed Bank Deposit') and (isCloseDayBook=0 and DATE(expences.date)<='".$date."') and expenseOwnerApproval !=2";
         $data=$this->db->query($query);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $data->result_array();
     }
 
     public function calculateTotalOutflow($date){
         $query="SELECT sum(amount) as outflowTotal FROM `expences` WHERE (inoutStatus='Outflow' and nature !='Contra Entry' and nature !='Bank Deposit') and isCloseDayBook=0 and expenseOwnerApproval !=2";
         $data=$this->db->query($query);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $data->result_array();
     }
 
     public function calculateTotalOutflowByDaybook($name){
         $query="SELECT sum(amount) as outflowTotal FROM `expences` WHERE (inoutStatus='Outflow' and nature !='Contra Entry' and nature !='Bank Deposit') and closeDayBookName='".$name."' and expenseOwnerApproval !=2";
         $data=$this->db->query($query);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $data->result_array();
     }
 
     public function calculateOutflowContraEntryForDayBook($date){
         $query="SELECT sum(amount) as outflowTotal FROM `expences` WHERE (inoutStatus='Outflow') and (isContraEntry=1) and (isCloseDayBook=0)";
         $data=$this->db->query($query);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $data->result_array();
     }
 
     public function calculateInflowContraEntryForDayBook($date){
         $query="SELECT sum(amount) as inflowTotal FROM `expences` WHERE (inoutStatus='Inflow') and (isContraEntry=1) and (isCloseDayBook=0)";
         $data=$this->db->query($query);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $data->result_array();
     }
 
     public function calculatePastOutflowContraEntryForDayBook($daybookName){
         $query="SELECT sum(amount) as outflowTotal FROM `expences` WHERE (inoutStatus='Outflow') and (isContraEntry=1) and closeDayBookName='".$daybookName."'";
         $data=$this->db->query($query);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $data->result_array();
     }
 
     public function calculatePastInflowContraEntryForDayBook($daybookName){
         $query="SELECT sum(amount) as inflowTotal FROM `expences` WHERE (inoutStatus='Inflow') and (isContraEntry=1) and closeDayBookName='".$daybookName."'";
         $data=$this->db->query($query);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $data->result_array();
     }
 
     public function calculateOutflowContraEntry($date){
         $query="SELECT sum(amount) as outflowTotal FROM `main_cashbook_expences` WHERE (inoutStatus='Outflow')";
         $data=$this->db->query($query);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $data->result_array();
     }
 
     public function calculateInflowContraEntry($date){
         $query="SELECT sum(amount) as inflowTotal FROM `main_cashbook_expences` WHERE (inoutStatus='Inflow') and (isBankDepositReturn=0)";
         $data=$this->db->query($query);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $data->result_array();
     }
 
@@ -461,7 +501,8 @@ class CashBookModel extends CI_Model {
     public function calculateTotalOutflowByDaybookDate($date){
         $query="SELECT sum(amount) as outflowTotal FROM `expences` WHERE (inoutStatus='Outflow' and nature !='Contra Entry' and nature !='Bank Deposit') and DATE(date)='".$date."' and expenseOwnerApproval !=2";
         $data=$this->db->query($query);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $data->result_array();
     }
 
@@ -469,7 +510,8 @@ class CashBookModel extends CI_Model {
     public function calculateTotalPeriodOutflowByDaybookDate($fdate,$tdate){
         $query="SELECT sum(amount) as outflowTotal FROM `expences` WHERE (inoutStatus='Outflow' and nature !='Contra Entry' and nature !='Bank Deposit') and (DATE(date)>='".$fdate."' and DATE(date)<='".$tdate."') and expenseOwnerApproval !=2";
         $data=$this->db->query($query);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $data->result_array();
     }
 
@@ -477,21 +519,24 @@ class CashBookModel extends CI_Model {
     public function calculateTotalOutflowByDate($date){
         $query="SELECT sum(amount) as outflowTotal FROM `expences` WHERE (inoutStatus='Outflow' and nature !='Contra Entry' and nature !='Bank Deposit') and (isCloseDayBook=0 and DATE(expences.date)<='".$date."') and expenseOwnerApproval !=2";
         $data=$this->db->query($query);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $data->result_array();
     }
 
     public function calculateTotalBankDeposit($date){
         $query="SELECT sum(amount) as bankflowTotal FROM `expences` WHERE (inoutStatus='Outflow' and nature ='Bank Deposit') and (isCloseDayBook=0 and bankDepositApproval !=2)";
         $data=$this->db->query($query);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $data->result_array();
     }
 
     public function calculateTotalBankDepositByDaybook($name){
         $query="SELECT sum(amount) as bankflowTotal FROM `expences` WHERE (inoutStatus='Outflow' and nature ='Bank Deposit') and closeDayBookName='".$name."' and bankDepositApproval !=2";
         $data=$this->db->query($query);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $data->result_array();
     }
 
@@ -499,14 +544,16 @@ class CashBookModel extends CI_Model {
     public function calculateTotalBankDepositByDaybookDate($date){
         $query="SELECT sum(amount) as bankflowTotal FROM `expences` WHERE (inoutStatus='Outflow' and nature ='Bank Deposit') and DATE('closeBookDayDate')='".$date."' and bankDepositApproval !=2";
         $data=$this->db->query($query);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $data->result_array();
     }
 
     public function calculateTotalBankDepositByDate($date){
         $query="SELECT sum(amount) as bankflowTotal FROM `expences` WHERE (inoutStatus='Outflow' and nature ='Bank Deposit') and (isCloseDayBook=0 and DATE(expences.date)<='".$date."') and bankDepositApproval !=2";
         $data=$this->db->query($query);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $data->result_array();
     }
 
@@ -517,7 +564,8 @@ class CashBookModel extends CI_Model {
         $this->db->where('isCloseDayBook',0);
         $this->db->order_by('id', 'DESC');
         $resultset=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -528,7 +576,8 @@ class CashBookModel extends CI_Model {
         $this->db->where('DATE(date) <=',$date);
         $this->db->order_by('id', 'DESC');
         $resultset=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -539,7 +588,8 @@ class CashBookModel extends CI_Model {
         $this->db->where('DATE(date) <=',$date);
         $this->db->order_by('id', 'DESC');
         $resultset=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -549,7 +599,8 @@ class CashBookModel extends CI_Model {
         $this->db->where('expences.nature',$nature);
         // $this->db->order_by('DATE(expences.date)', 'DESC');
         $resultset=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -560,7 +611,8 @@ class CashBookModel extends CI_Model {
         $this->db->where('DATE(date) <=',$date);
         // $this->db->order_by('DATE(expences.date)', 'DESC');
         $resultset=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -572,7 +624,8 @@ class CashBookModel extends CI_Model {
         $this->db->where('isCloseDayBook',0);
         $this->db->where('amount >',0);
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -584,7 +637,8 @@ class CashBookModel extends CI_Model {
         $this->db->where('closeDayBookName',$name);
         $this->db->order_by('expences.date');
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -598,7 +652,8 @@ class CashBookModel extends CI_Model {
         $this->db->order_by('expences.date');
         $this->db->order_by('expences.isCloseDayBook',1);
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -613,7 +668,8 @@ class CashBookModel extends CI_Model {
         $this->db->order_by('expences.date');
         $this->db->order_by('expences.isCloseDayBook',1);
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -626,7 +682,8 @@ class CashBookModel extends CI_Model {
         $this->db->where('notesdetails.expenseOwnerApproval',1);
         $this->db->where('expences.isCloseDayBook',0);
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -640,7 +697,8 @@ class CashBookModel extends CI_Model {
         $this->db->where('expences.isCloseDayBook',0);
         $this->db->where('DATE(expences.date)',$date);
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -655,7 +713,8 @@ class CashBookModel extends CI_Model {
         $this->db->where('DATE(expences.date) >=',$fdate);
         $this->db->where('DATE(expences.date) <=',$tdate);
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -667,7 +726,8 @@ class CashBookModel extends CI_Model {
         $this->db->where('expences.isCloseDayBook',0);
         $this->db->where('expences.nature !=','Bank Deposit');
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -680,7 +740,8 @@ class CashBookModel extends CI_Model {
         $this->db->where('expences.nature !=','Bank Deposit');
         $this->db->where('DATE(expences.date)',$date);
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -694,7 +755,8 @@ class CashBookModel extends CI_Model {
         $this->db->where('DATE(expences.date) >=',$fdate);
         $this->db->where('DATE(expences.date) <=',$tdate);
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -707,14 +769,16 @@ class CashBookModel extends CI_Model {
         $this->db->where('isCloseDayBook',0);
          $this->db->where('DATE(date) <=',$date);
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
     public function getCategories($tblName,$type){
         $this->db->where('type',$type);
         $res=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $res->result_array();
     }   
     
@@ -725,7 +789,8 @@ class CashBookModel extends CI_Model {
         $this->db->join("employee","expences.employeeId = employee.id");
         $this->db->where('closeDayBookName',$closeDayBookName);
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -736,7 +801,8 @@ class CashBookModel extends CI_Model {
         $this->db->join("route","route.id = allocations.routId");
         $this->db->where('allocations.id',$id);
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
     
@@ -749,7 +815,8 @@ class CashBookModel extends CI_Model {
         $this->db->where('isCloseDayBook',0);
         // $this->db->join("employee","expences.employeeId = employee.id");
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
     
@@ -760,7 +827,8 @@ class CashBookModel extends CI_Model {
         $this->db->where('category !=',"");
         $this->db->where('isCloseDayBook',0);
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -771,7 +839,8 @@ class CashBookModel extends CI_Model {
         $this->db->where("billType","deliveryslip");
         $this->db->order_by("date","desc");
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
      public function getBillCR($tableName,$id)
@@ -782,7 +851,8 @@ class CashBookModel extends CI_Model {
         $this->db->where("bills.id",$id);
 
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -816,7 +886,8 @@ class CashBookModel extends CI_Model {
         $this ->db->where('billsdetails.billId', $id);
         // $this->db->order_by('billsdetails.date', 'desc');
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -834,7 +905,8 @@ class CashBookModel extends CI_Model {
         $this->db->where('billId', $billId);
         $this->db->where('allocationId', $allocationId);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();  
     }
 
@@ -853,7 +925,8 @@ class CashBookModel extends CI_Model {
    public function chkBillsStatus($tblName, $id,$type) {
         $this->db->where('billId', $id);
         $resultset=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -880,7 +953,8 @@ class CashBookModel extends CI_Model {
         $this->db->where('paidAmount', $amount);
         $this->db->where('paymentMode', $mode);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();  
     }
 
@@ -889,14 +963,16 @@ class CashBookModel extends CI_Model {
         $this->db->where('allocationId', $alId);
         $this->db->where('paymentMode', $mode);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();  
     }
 
 
     public function show($tblName) {
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();    
     }
      public function delete($tblName,$id)
@@ -907,14 +983,16 @@ class CashBookModel extends CI_Model {
     public function load($tblName, $id) {
         $this -> db -> where('id', $id);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
 
         return $query->result_array();   
     }
     public function loadByAllocationId($tblName, $id) {
         $this -> db -> where('allocationId', $id);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
@@ -953,7 +1031,8 @@ class CashBookModel extends CI_Model {
             // $this->db->join('billpayments','billpayments.billId=bills.id');
             $this->db->where('allocationsbills.allocationId',$id);
             $query=$this->db->get();
-            
+            $this->db->close();
+        $this->db->initialize();
             return $query->result_array();
     }
 
@@ -965,7 +1044,8 @@ class CashBookModel extends CI_Model {
         $this->db->where('allocationsbills.billStatus',$status);
         $this->db->where('bills.billType',$type);
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
    }
 
@@ -981,7 +1061,8 @@ class CashBookModel extends CI_Model {
         $this->db->where('allocationsbills.allocationId',$id);
         $this->db->where('allocationsbills.billStatus','2');
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -999,7 +1080,8 @@ class CashBookModel extends CI_Model {
         // $this->db->where('DATE(date)<=',$date);
         $this->db->order_by('id','desc');
         $qeury=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $qeury->result_array();
    }
 
@@ -1008,7 +1090,8 @@ class CashBookModel extends CI_Model {
         $this->db->where('isCloseDayBook',0);
         $this->db->order_by('id','desc');
         $qeury=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $qeury->result_array();
    }
 
@@ -1016,7 +1099,8 @@ class CashBookModel extends CI_Model {
         $this->db->limit(1);
         $this->db->where('closeDayBookName',$closeDayBookName);
         $qeury=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $qeury->result_array();
    }
 
@@ -1025,7 +1109,8 @@ class CashBookModel extends CI_Model {
         $this->db->where('DATE(date)<=',$date);
         $this->db->order_by('id','desc');
         $qeury=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $qeury->result_array();
    }
 
@@ -1037,7 +1122,8 @@ class CashBookModel extends CI_Model {
         $this->db->join('employee','employee.id=allocations.fieldstaffCode1');
         $this->db->where('notesdetails.updatedAt',$date);
         $qeury=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $qeury->result_array();
    }
 
@@ -1050,7 +1136,8 @@ class CashBookModel extends CI_Model {
         $this->db->join('employee e4','e4.id=allocations.fieldstaffCode4','left outer');
         $this->db->where('allocations.id',$id);
         $qeury=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $qeury->result_array();
    }
    
@@ -1061,96 +1148,110 @@ class CashBookModel extends CI_Model {
         $this->db->join('employee','employee.id=allocations.fieldstaffCode1');
         $this->db->where('notesdetails.updatedAt',$date);
         $qeury=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $qeury->result_array();
    }
 
    public function lastRecordInOutFlow(){
         $date=date('Y-m-d');
         $query = $this->db->query("SELECT * FROM expences ORDER BY id desc LIMIT 1");
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->row_array();
     }
 
     public function getLastRecord($tblName){
         $query = $this->db->query("SELECT * FROM ".$tblName." ORDER BY id desc LIMIT 1");
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->row_array();
     }
 
     public function lastRecordMainCashbook(){
         $date=date('Y-m-d');
         $query = $this->db->query("SELECT * FROM main_cashbook_expences ORDER BY id desc LIMIT 1");
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->row_array();
     }
 
     public function lastRecordDayBookValue(){
         $date=date('Y-m-d');
         $query = $this->db->query("SELECT * FROM expences ORDER BY id desc LIMIT 1");
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->row_array();
     }
 
     public function lastRecordValue(){
         $date=date('Y-m-d');
         $query = $this->db->query("SELECT * FROM expences where isCloseDayBook=1 ORDER BY id desc LIMIT 1");
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->row_array();
     }
 
     public function lastRecordValueByDaybook($name){
         $date=date('Y-m-d');
         $query = $this->db->query("SELECT * FROM expences where closeDayBookName='".$name."' ORDER BY id desc LIMIT 1");
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->row_array();
     }
     
     public function closingBalValue(){
         $date=date('Y-m-d');
         $query = $this->db->query("SELECT * FROM expences where isCloseDayBook=0 and date ='".$date."' ORDER BY id DESC LIMIT 1");
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->row_array();
     }
     
     public function openingRecordValue(){
         $date=date('Y-m-d');
         $query = $this->db->query("SELECT * FROM expences where isCloseDayBook=0 and date !='".$date."' ORDER BY id desc LIMIT 1");
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->row_array();
     }
     
     public function sumBankDeposit(){
         $date=date('Y-m-d');
         $query = $this->db->query("SELECT sum(amount) as BankDepSum FROM expences where isCloseDayBook=0 and date='".$date."' and nature='Bank Deposit' and bankDepositApproval !=2 ORDER BY id DESC LIMIT 1");
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->row_array();
     }
 
     public function sumIncome(){
         $date=date('Y-m-d');
         $query = $this->db->query("SELECT sum(amount) as income FROM expences where isCloseDayBook=0 and date='".$date."' and inoutStatus='Inflow' ORDER BY id DESC LIMIT 1");
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->row_array();
     }
 
     public function sumExp(){
         $date=date('Y-m-d');
         $query = $this->db->query("SELECT sum(amount) as expense FROM expences where isCloseDayBook=0 and date='".$date."' and inoutStatus='Outflow' ORDER BY id DESC LIMIT 1");
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->row_array();
     }
 
     public function lastRecordValueByDate($date){
         
         $query = $this->db->query("SELECT * FROM expences where date ='".$date."' ORDER BY id DESC LIMIT 1");
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->row_array();
     }
     public function closingBalValueByDate($date){
       
         $query = $this->db->query("SELECT * FROM expences where date ='".$date."' ORDER BY id DESC LIMIT 1");
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->row_array();
     }
     
@@ -1158,25 +1259,29 @@ class CashBookModel extends CI_Model {
         // $date=date_create($date)->modify('-1 days')->format('Y-m-d');
         // echo "dt ".$date;
         $query = $this->db->query("SELECT * FROM expences where date ='".$date."' ORDER BY id asc LIMIT 1");
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->row_array();
     }
     
     public function sumBankDepositByDate($date){
         $query = $this->db->query("SELECT sum(amount) as BankDepSum FROM expences where date='".$date."' and nature='Bank Deposit' ORDER BY id DESC LIMIT 1");
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->row_array();
     }
 
     public function sumIncomeByDate($date){
         $query = $this->db->query("SELECT sum(amount) as income FROM expences where date='".$date."' and inoutStatus='Inflow' ORDER BY id DESC LIMIT 1");
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->row_array();
     }
 
     public function sumExpenseByDate($date){
         $query = $this->db->query("SELECT sum(amount) as expense FROM expences where date='".$date."' and inoutStatus='Outflow' ORDER BY id DESC LIMIT 1");
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->row_array();
     }
     
@@ -1187,7 +1292,8 @@ class CashBookModel extends CI_Model {
         $this->db->from($tableName);
         $this->db->where('date !=',$date);
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -1196,7 +1302,8 @@ class CashBookModel extends CI_Model {
         $this->db->select("id,fieldStaffCode1,fieldStaffCode2,fieldStaffCode3,fieldStaffCode4");
         $this->db->where("id",$id);
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -1217,7 +1324,8 @@ class CashBookModel extends CI_Model {
         $this->db->order_by($orderField, $orderDirection);
         $this->db->limit($limit, $start);
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -1233,7 +1341,8 @@ class CashBookModel extends CI_Model {
         $this->db->group_end();
         $this->db->order_by($orderField, $orderDirection);
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->num_rows();
     }
 

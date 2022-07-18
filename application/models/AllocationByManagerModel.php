@@ -13,24 +13,16 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('retailerName', $code);
         $this->db->order_by('id','desc');
         $query=$this->db->get();
-        
-        return $query->result_array();
-    }
-    
-    public function getRetailerBillsByCode($tableName,$code){
-        // $this->db->distinct();
-        $this->db->select('bills.*');
-        $this->db->where('bills.retailerCode', $code);
-        $this->db->order_by('bills.id','desc');
-        $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
     public function getDynamicNames($tblName,$type){
         $this->db->where('type', $type);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();  
     }
 
@@ -39,7 +31,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('deliveryStatus !=','cancelled');
         $this->db->where('retailerCode',$code);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
@@ -51,7 +44,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->order_by('pendingAmt', 'desc');
         $this->db->group_by('retailerName,retailerCode');
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
@@ -74,7 +68,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->order_by($orderField, $orderDirection);
         $this->db->limit($limit, $start);
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -96,7 +91,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->order_by('id','desc');
         $this->db->order_by($orderField, $orderDirection);
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->num_rows();
     }
 
@@ -109,7 +105,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('billpayments.journalId',$code);
          // $this->db->where('employee.isSalaryEmp', 1);
         $resultset=$this->db->get($tableName); 
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -120,7 +117,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('emptransactions.journalId',$code);
          // $this->db->where('employee.isSalaryEmp', 1);
         $resultset=$this->db->get($tableName); 
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
     
@@ -133,7 +131,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('emptransactions.ownerApprovalStatus !=',2);
          // $this->db->where('employee.isSalaryEmp', 1);
         $resultset=$this->db->get($tableName); 
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -143,20 +142,23 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->from($tableName);
         $this->db->like('bills.billNo',$billNo);
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
     public function getSumRowCount($id){
         $query = $this->db->query('SELECT sum(isResendBill) as recBill,sum(isLostBill) as lostBill,sum(isLostCheque) as lostCheque,sum(isPendingNeft)as lostNeft FROM `allocationsbills` WHERE allocationsbills.billId='.$id);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
      public function lastRecordDayBookValue(){
         $date=date('Y-m-d');
         $query = $this->db->query("SELECT * FROM expences ORDER BY id desc LIMIT 1");
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->row_array();
     }
 
@@ -176,7 +178,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->order_by('allocations.id', 'desc');
         $this->db->limit($limit, $start);
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -192,7 +195,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->order_by($orderField, $orderDirection);
         $this->db->limit($limit, $start);
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -206,7 +210,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->group_end();
         $this->db->order_by($orderField, $orderDirection);
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->num_rows();
     }
 
@@ -214,7 +219,8 @@ class AllocationByManagerModel extends CI_Model {
     {
         $this->db->where('name',$name);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -223,7 +229,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('name',$name);
         $this->db->where('code',$code);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -236,7 +243,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->or_where('routeName','NO ROUTE');
         $this->db->group_end();
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array(); 
     }
 
@@ -244,7 +252,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->select('id,billNo');
         $this->db->where('billNo', $id);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array(); 
         // return $query->row()->id;   
     }
@@ -252,7 +261,8 @@ class AllocationByManagerModel extends CI_Model {
     public function getdata($tableName)
     {
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -261,7 +271,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('allocationId <=',$allocationId);
         $this->db->where('allocationId !=',0);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -270,7 +281,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('allocationId',0);
         $this->db->where('DATE(date) <',$date);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
   
@@ -278,7 +290,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('billId',$billId);
         $this->db->where('allocationId',$allocationId);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -286,16 +299,8 @@ class AllocationByManagerModel extends CI_Model {
     {
         $this->db->where('bills.deliveryStatus !=',"cancelled");
         $query=$this->db->get($tableName);
-        
-        return $query->result_array();
-    }
-
-    public function getDeliveryBillsByDate($tableName,$fromDate,$toDate)
-    {
-        $this->db->where('bills.date >=',$fromDate);
-        $this->db->where('bills.date <=',$toDate);
-        $this->db->where('bills.isDeliverySlipBill',1);
-        $query=$this->db->get($tableName);
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -308,7 +313,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('billpayments.chequeStatus !=', "Bounced");
         $this->db->order_by('billpayments.id','desc');
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -319,7 +325,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('billpayments.paymentMode', "NEFT");
         $this->db->order_by('billpayments.id','desc');
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -334,7 +341,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('billpayments.paymentMode', "Cheque");
         $this->db->order_by('billpayments.id','desc');
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -349,7 +357,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('billpayments.paymentMode', "NEFT");
         $this->db->order_by('billpayments.id','desc');
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -357,7 +366,8 @@ class AllocationByManagerModel extends CI_Model {
     {
         $this->db->where('deliveryStatus', 'cancelled');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -366,7 +376,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('isTempCancelled', '1');
         $this->db->or_where('deliveryStatus', '');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -375,21 +386,24 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('isDirectDeliveryBill',1);
         $this->db->order_by('id','desc');
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array(); 
     }
 
      public function getRemarksById($tblName,$id){
         $this->db->where('billId', $id);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();  
     }
 
     public function getDetailByCode($tblName,$code){
         $this->db->where('productCode', $code);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();  
     }
 
@@ -398,7 +412,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('productCode', $code);
         $this->db->where('mrp', $mrp);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();  
     }
 
@@ -407,14 +422,16 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('amount', $amt);
         $this->db->where('billId', $id);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();  
     }
 
     public function lastRecordValue(){
         $date=date('Y-m-d');
         $query = $this->db->query("SELECT * FROM expences ORDER BY id DESC LIMIT 1");
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->row_array();
     }
 
@@ -423,7 +440,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('allocationId', $alId);
         $this->db->where('paymentMode', $mode);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();  
     }
 
@@ -435,7 +453,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('deliveryStatus','');
         $this->db->where('routeName','');
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
        return $query->result_array();  
     }
 
@@ -443,7 +462,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->like('chequeStatus', 'Bounced');
         $this->db->where('billId', $id);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->num_rows();   
     }
 
@@ -454,7 +474,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->limit(1);
         $this->db->order_by('id','desc');
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();  
     }
 
@@ -465,7 +486,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->limit(1);
         $this->db->order_by('id','desc');
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();  
     }
 
@@ -483,28 +505,32 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('billId', $billId);
         $this->db->where('allocationId', $allocationId);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();  
     }
 
     public function checkBillByRoute($tblName,$name){
         $this->db->where('routeName', $name);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->num_rows();   
     }
 
     public function loadByAllocationId($tblName, $id) {
         $this->db->where('allocationId', $id);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
     public function loadRetailer($id) {
         $sql="select * from retailer where code='".$id."'";
         $query = $this->db->query($sql);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
@@ -512,7 +538,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('allocationId', $id);
         $this->db->where('empId', $id);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
     public function getBillsByRetailerCode($tblName,$code,$company,$fromDate,$toDate){
@@ -521,7 +548,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('date <=', $toDate);
         $this->db->order_by('id','desc');
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -532,7 +560,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('date >=', $fromDate);
         $this->db->where('date <=', $toDate);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -541,7 +570,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->join('bills','bills.id=billpayments.billId');
         $this->db->where('billpayments.empId', $empId);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -549,7 +579,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->distinct();
         $this->db->select('retailerName, routeName,retailerCode,compName');
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();  
     }
 
@@ -565,7 +596,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->order_by('allocationsbills.id','desc');
         // $this->db->where('isResendBill', '1');
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
@@ -581,7 +613,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('bills.pendingAmt >', 0);
         $this->db->order_by('allocations.id','desc');
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
@@ -592,7 +625,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->join('bills','bills.id=allocationsbills.billId');
         $this->db->where('allocations.id', $id);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
@@ -602,26 +636,30 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->join('bills','bills.id=allocationsbills.billId');
         $this->db->where('allocations.id', $id);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
 
     public function getBillCount($tableName,$id){
         $query = $this->db->query('SELECT * FROM '.$tableName.' WHERE allocationId='.$id);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->num_rows();   
     }
 
     public function getCount($tableName,$id){
         $query = $this->db->query('SELECT * FROM '.$tableName.' WHERE billId='.$id);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->num_rows();   
     }
 
     public function getRowCount($tableName,$id,$type){
         $query = $this->db->query('SELECT * FROM '.$tableName.' WHERE billId='.$id.' and '.$type.'=1');
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->num_rows();   
     }
 
@@ -629,7 +667,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('billType',$type);
         // $this->db->where('pendingAmt >',0);
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -640,7 +679,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('date <=',$to);
         // $this->db->where('pendingAmt >',0);
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -651,7 +691,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('date <=',$to);
         // $this->db->where('pendingAmt >',0);
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -660,7 +701,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('name',$rName);
         $this->db->where('code',$rcode);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -668,7 +710,8 @@ class AllocationByManagerModel extends CI_Model {
     {
         $this->db->where('name',$rname);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -678,7 +721,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('date <=',$to);
         // $this->db->where('pendingAmt >',0);
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -689,7 +733,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('date <=',$to);
         // $this->db->where('pendingAmt >',0);
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -704,7 +749,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('date <=',$to);
         $this->db->where('pendingAmt >',0);
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -718,7 +764,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('date <=',$to);
         $this->db->where('pendingAmt >',0);
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -728,7 +775,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('date <=',$to);
         $this->db->where('pendingAmt >',0);
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -739,7 +787,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('date <=',$to);
         $this->db->where('pendingAmt >',0);
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -747,7 +796,8 @@ class AllocationByManagerModel extends CI_Model {
         // $this->db->select('count(*) as allocationsCount');
         $this->db->where('isOfficeAllocation',1);
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -763,7 +813,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->like('FsBillStatus', 'SR');
          $this->db->not_like('FsBillStatus', 'FSR');
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -779,7 +830,8 @@ class AllocationByManagerModel extends CI_Model {
          // $this->db->where('billsdetails.gkStatus !=',1);
         $this->db->like('bills.fsbillStatus', 'FSR');
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
    }
 
@@ -798,7 +850,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->order_by('allocations.id','desc');
         $this->db->limit(1); 
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -812,7 +865,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->order_by('allocations.id','desc');
         $this->db->limit(1); 
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -827,7 +881,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->order_by('allocations_officeadjustment.id','desc');
         $this->db->limit(1); 
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -841,7 +896,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->order_by('allocations_officeadjustment.id','desc');
         $this->db->limit(1); 
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -857,7 +913,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->join("employee e5","e5.id=allocation_sr_details.empId",'left outer');
         $this->db->where('allocation_sr_details.billId',$id);
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -869,7 +926,8 @@ class AllocationByManagerModel extends CI_Model {
 
         $this->db->where('billId',$id);
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -877,7 +935,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->select_sum('qty', 'qtySum');
         $this->db->where('billId',$id);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
     
@@ -890,7 +949,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->join("employee","employee.id=allocations.fieldStaffCode1",'left outer');
         $this ->db ->where('bills.id', $id);
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -900,7 +960,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->join("bills","billsdetails.billId = bills.id");
         $this ->db->where('billsdetails.id', $id);
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -910,7 +971,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->join('employee','employee.id=billpayments.empId','left outer');
         $this->db->where('billpayments.billId',$id);
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -924,7 +986,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('billpayments.allocationId',$allocationId);
         $this->db->where('billpayments.officeAllocationId',$officeAllocationId);
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -933,7 +996,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('pendingAmt >',0);
         $this->db->where('isDirectDeliveryBill',1);
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -943,7 +1007,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('pendingAmt >',0);
         $this->db->where('isDirectDeliveryBill',1);
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -953,7 +1018,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('fsStatus',0);
         $this->db->where('isAllocationComplete',0);
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -962,14 +1028,16 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->join('allocationsbills','allocations.id=allocationsbills.allocationId','left outer');
         $this->db->where('allocations.id',$id);
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
     public function checkAllocationCode($tblName,$code){
         $this->db->where('allocationCode',$code);
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -979,7 +1047,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('deliveryStatus !=','cancelled');
         $this->db->where('pendingAmt >',0);
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -990,7 +1059,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('pendingAmt >',0);
         $this->db->where('compName',$company);
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -999,7 +1069,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->join('company','company.id=bill_serial_manage.companyId','right outer');
         $this->db->where('company.name',$compName);
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -1010,7 +1081,8 @@ class AllocationByManagerModel extends CI_Model {
         $query=$this->db->get($tableName);
         // $this->db->close();
         // $this->db->initialize();  
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -1019,7 +1091,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('isAllocationComplete =','1');
         $this->db->order_by('id','desc');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -1027,7 +1100,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('billId',$id);
         $this->db->where('allocationId',$alId);
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -1040,7 +1114,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('isLoginEmp',1);
         $this->db->where('designation','deliveryman');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -1052,7 +1127,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->distinct();
         $this->db->order_by('id','desc');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -1060,7 +1136,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('billId',$billId);
         $this->db->where('allocationId',$allocationId);
         $data=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $data->result_array();
     }
 
@@ -1069,7 +1146,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('billId',$billId);
         $this->db->where('allocationId',$allocationId);
         $data=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $data->result_array();
     }
 
@@ -1098,7 +1176,8 @@ class AllocationByManagerModel extends CI_Model {
 
     public function show($tblName) {
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();    
     }
      
@@ -1118,7 +1197,8 @@ class AllocationByManagerModel extends CI_Model {
     public function load($tblName, $id) {
         $this ->db-> where('id', $id);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
@@ -1126,7 +1206,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->select('id,billNo,billCurrentStatus,billHistoryStatus,billType');
         $this ->db-> where('id', $id);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
@@ -1134,14 +1215,16 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->select('billId');
         $this ->db-> where('allocationId', $id);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
     public function loadAllocated($tblName, $id) {
         $this ->db-> where('allocationCode', $id);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
@@ -1149,7 +1232,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->select('billId');
         $this ->db-> where('allocationId', $id);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
@@ -1158,7 +1242,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->join('bills','bills.id=billpayments.billId');
         $this ->db-> where('chequeNo', $id);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
@@ -1171,7 +1256,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->select('bills.id,bills.compName');
         $this->db->where('bills.billNo',$billno);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
@@ -1188,7 +1274,8 @@ class AllocationByManagerModel extends CI_Model {
         
         // $this->db->where('bills.route',0);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
         
        
@@ -1203,7 +1290,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('bills.isAllocated',0);
         $this->db->where('bills.deliveryStatus !=','cancelled');
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
@@ -1216,7 +1304,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('bills.pendingAmt <=',$amount);
         $this->db->where('allocationsbills.allocationId', $id);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();  
     }
 
@@ -1226,7 +1315,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('bills.pendingAmt >',0);
         $this->db->where('allocationsbills.allocationId', $id);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();  
     }
 
@@ -1240,7 +1330,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('bills.isAllocated',0);
         $this->db->where('bills.deliveryStatus !=','cancelled');
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
@@ -1251,7 +1342,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('bills.isAllocated',0);
         $this->db->where('bills.deliveryStatus !=','cancelled');
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
@@ -1262,7 +1354,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('managerHisaabStatus',0);
         $this->db->where('isAllocationComplete',0);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
@@ -1273,7 +1366,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('bills.isAllocated',0);
         $this->db->where('bills.deliveryStatus !=','cancelled');
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
@@ -1289,7 +1383,8 @@ class AllocationByManagerModel extends CI_Model {
         
         // $this->db->where('bills.route',0);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
         
        
@@ -1303,21 +1398,24 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('bills.deliveryStatus !=','cancelled');
         // $this->db->where('bills.route',0);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
     public function loadCurrentBillsByNo($tblName, $billNo) {
         $this->db->where('billNo',$billNo);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
     public function loadPastBills($tblName, $billNo) {
         $this->db->where('billNo',$billNo);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
@@ -1328,7 +1426,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('bills.fsbillStatus !=','');
         $this->db->where('allocations.id',$allocationId);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
@@ -1338,7 +1437,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('billId',$billId);
         $this->db->where('paymentMode',$type);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
@@ -1348,7 +1448,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('allocation_sr_details.allocationId',$allocationId);
         $this->db->where('allocation_sr_details.billId',$billId);
          $query = $this->db->get($tblName);
-         
+         $this->db->close();
+        $this->db->initialize();
         return $query->result_array();  
     }
 
@@ -1362,21 +1463,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('bills.billType !=','');
         // $this->db->where('bills.isAllocated','0');
         $query = $this->db->get($tblName);
-        
-        return $query->result_array();   
-    }
-    
-    public function loadPastBillsByRouteCode($tblName, $code) {
-        $this->db->select('bills.*');
-        // $this->db->join('allocationsbills','allocationsbills.billId=bills.id');
-        // $this->db->join('allocations','allocations.id=allocationsbills.allocationId');
-        $this->db->where('bills.routeCode',$code);
-        $this->db->where('bills.pendingAmt >',0);
-        $this->db->where('bills.isAllocated','0');
-        $this->db->where('bills.billType !=','');
-        // $this->db->where('bills.isAllocated','0');
-        $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
@@ -1384,21 +1472,17 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('id',$id);
         $this->db->where('isAllocated',0);
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
     public function getNextId($tableName) {
         $this->db->select_max('id');
         $query = $this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
-    }
-
-    public function routesByCompany($tblName,$comp){
-        $this->db->from($tblName);
-        $this->db->like('company',$comp);
-        return $this->db->get()->result_array();
     }
     
     public function bouncedReturnCheques($tblName,$comp){
@@ -1577,7 +1661,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('route !=', 0);
         $this->db->where('deliveryStatus !=','cancelled');  
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -1592,7 +1677,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('bills.id',$billId);
         $this->db->where('allocationsbills.allocationId',$id);
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -1601,7 +1687,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('allocationId',$allocationId);
         $this->db->where('paymentMode',$type);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
@@ -1616,7 +1703,8 @@ class AllocationByManagerModel extends CI_Model {
         // $this->db->like('allocationsbills.isResendBill',1);
         // $this->db->where('bills.fsbillStatus !=','Resend');
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -1629,7 +1717,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('allocation_sr_details.allocationId',$id);
         $this->db->where('bills.isFsrBill',0);
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -1643,7 +1732,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('bills.isFsrBill',1);
         $this->db->group_by('bills.id');
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -1655,7 +1745,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('billpayments.billId',$billId);
         $this->db->where('billpayments.allocationId',$id);
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -1668,7 +1759,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('billpayments.billId',$billId);
         $this->db->where('billpayments.allocationId',0);
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -1679,7 +1771,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->join('billpayments','bills.id=billpayments.billId','left outer');
         $this->db->where('billpayments.allocationId',$id);
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -1702,7 +1795,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('bills.compName',$compName);
         $this->db->order_by('bills.billNo','asc');
         $this->db->from('bills');
-        
+        $this->db->close();
+        $this->db->initialize();
         return $this->db->get()->result_array();
     }
 
@@ -1721,7 +1815,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('bills.isAllocated',0);
         $this->db->where('bills.compName',$compName);
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -1741,7 +1836,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('bills.isAllocated',0);
         $this->db->where('bills.compName',$compName);
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -1760,7 +1856,8 @@ class AllocationByManagerModel extends CI_Model {
     {
         $this->db->where('billNo',$billNo);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -1768,7 +1865,8 @@ class AllocationByManagerModel extends CI_Model {
     {
         $this->db->where('name',$name);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -1776,7 +1874,8 @@ class AllocationByManagerModel extends CI_Model {
     {
         $this->db->where('name',$name);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -1786,7 +1885,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('status',1);
         $this->db->where('isDeleted',0);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -1794,7 +1894,8 @@ class AllocationByManagerModel extends CI_Model {
     {
         $this->db->where('id',$id);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -1802,7 +1903,8 @@ class AllocationByManagerModel extends CI_Model {
     {
         $this->db->where('billId',$id);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -1813,7 +1915,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->join("employee e2","bill_transaction_history.transactionBy = e2.id",'left outer');
         $this->db->where('billId',$id);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -1823,7 +1926,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->join("employee","billpayments.empId = employee.id");
         $this->db->where('billId',$id);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -1833,7 +1937,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->join("bills","billsdetails.billId = bills.id");
         $this ->db->where('billsdetails.billId', $id);
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
    
@@ -1843,14 +1948,16 @@ class AllocationByManagerModel extends CI_Model {
             $this->db->where('DATE(date) <=', $date);
             $this->db->where('pendingAmt >', 0);
             $query=$this->db->get($tableName);
-            
+            $this->db->close();
+        $this->db->initialize();
             return $query->result_array();
         }else{
             $this->db->where('DATE(date) <=', $date);
             $this->db->where('pendingAmt >', 0);
             $this->db->where('billNo', $bill);
             $query=$this->db->get($tableName);
-            
+            $this->db->close();
+        $this->db->initialize();
             return $query->result_array();
         }
     }
@@ -1861,14 +1968,16 @@ class AllocationByManagerModel extends CI_Model {
             $this->db->where('date <', $date);
             $this->db->where('balanceAmount >', 0);
             $query=$this->db->get($tableName);
-            
+            $this->db->close();
+        $this->db->initialize();
             return $query->result_array();
         }else{
             $this->db->where('date <', $date);
             $this->db->where('balanceAmount >', 0);
             $this->db->where('billNo', $bill);
             $query=$this->db->get($tableName);
-            
+            $this->db->close();
+        $this->db->initialize();
             return $query->result_array();
         }
     }
@@ -1879,14 +1988,16 @@ class AllocationByManagerModel extends CI_Model {
             $this->db->where('date <=', $date);
             $this->db->where('pendingAmt >', 0);
             $query=$this->db->get($tableName);
-            
+            $this->db->close();
+        $this->db->initialize();
             return $query->result_array();
         }else{
             $this->db->where('date <=', $date);
             $this->db->where('pendingAmt >', 0);
             $this->db->where('billNo', $bill);
             $query=$this->db->get($tableName);
-            
+            $this->db->close();
+        $this->db->initialize();
             return $query->result_array();
         }
     }
@@ -1897,7 +2008,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->join('allocationsbills','allocationsbills.billId=bills.id');
         $this->db->where('allocationsbills.allocationId',$id);
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -1909,7 +2021,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('allocationsbills.allocationId',$id);
         $this->db->where('allocationsbills.billStatus',$status);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -1926,7 +2039,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('allocationsbills.allocationId',$id);
         $this->db->where('allocationsbills.billStatus','2');
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -1936,7 +2050,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->join('allocationsbills','allocationsbills.billId=billpayments.id');
         $this->db->where('allocationsbills.billId',$id);
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -1946,7 +2061,8 @@ class AllocationByManagerModel extends CI_Model {
         $this->db->where('bills.id',$id);
         $this->db->where('bills.isAllocated',0);
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 

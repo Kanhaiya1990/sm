@@ -8,7 +8,7 @@
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
-                        <div class="header">
+                        <div class="header flex-div">
                             <h2>
                                Employee Details
                             </h2>
@@ -17,10 +17,10 @@
                                
                                 <p align="right">
                                   <a href="<?php echo site_url('manager/EmployeeController');?>">
-                                    <button type="submit" class="btn btn-xs bg-primary margin"><i class="material-icons">airplanemode_active</i>  Active  </button>
+                                    <button type="submit" class="btn btn-xs btnStyle bg-primary margin"><i class="material-icons">airplanemode_active</i>  Active  </button>
                                   </a> 
                                   <a href="<?php echo site_url('manager/EmployeeController/inactiveEmployee');?>">
-                                    <button type="submit" class="btn btn-xs bg-primary margin"><i class="material-icons">airplanemode_inactive</i>  Inactive  </button>
+                                    <button type="submit" class="btn btn-xs btnStyle bg-primary margin"><i class="material-icons">airplanemode_inactive</i>  Inactive  </button>
                                   </a> 
                                   
                                 </p> 
@@ -28,7 +28,7 @@
                         </div>
                         <div class="body">
                             <div class="table-responsive">
-                                <table style="font-size: 12px" class="table table-bordered table-striped table-hover js-basic-example dataTable" data-page-length='100'>
+                                <table class="table table-bordered cust-tbl dataTable js-exportable" data-page-length='100'>
                                     <thead>
                                         <tr>
                                             <th>Sr.No</th>

@@ -10,14 +10,14 @@
                             <h2>Suggested for Cancellation</h2>
                     </div>
                     <div class="body">
-                        <div class="table-responsive">
-                            <table id="SrTable" class="table table-bordered table-striped table-hover js-basic-example dataTable" data-page-length='100'>
+                        <div>
+                            <table id="SrTable" class="table table-bordered js-basic-example dataTable cust-tbl" data-page-length='100'>
                                 <thead>
                                     <tr>
-                                        <th>S. No.</th>
+                                        <th>No</th>
                                         <th>Bill No.</th>
                                         <th>Bill Date</th>
-                                        <th>Retailer</th>
+                                        <th>Retailer Name</th>
                                         <th>Net Amount</th>
                                         <th>Pending Amount</th>
                                         <th>Action</th>
@@ -25,7 +25,7 @@
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th>S. No.</th>
+                                        <th>No</th>
                                         <th>Bill No.</th>
                                         <th>Bill Date</th>
                                         <th>Retailer</th>
@@ -48,11 +48,15 @@
                                                 <td><?php echo $no;?></td>
                                                 <td><?php echo $data['billNo'];?></td>
                                                 <td><?php echo $createdDate;?></td>
-                                                <td><?php echo $data['retailerName'];?></td>
+                                                <td class="CellWithComment"><?php 
+													$retailerName=substr($data['retailerName'], 0, 15);
+													echo rtrim($retailerName);?>
+													<span class="CellComment"><?php echo $result =substr($data['retailerName'],0); ?></span>
+												</td>
                                                 <td align="right"><?php echo number_format($data['netAmount']);?></td>
                                                 <td align="right"><?php echo number_format($data['pendingAmt']);?></td>
                                                 <td>
-                                                    <button onclick="cancelBills(<?php echo $data['id']; ?>);" class="btn-primary waves-effect"><i style="font-size : 11px;" class="material-icons">save</i> <span class="icon-name">OK</span></button>
+                                                <button onclick="cancelBills(<?php echo $data['id']; ?>);" class="btn btn-xs viewBill-btn waves-effect"><i class="material-icons">save</i> <span class="icon-name">OK</span></button>
                                                 </td>
                                             </tr>
                                 <?php

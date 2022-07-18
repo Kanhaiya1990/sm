@@ -36,28 +36,26 @@ li{
       <div class="row clearfix" id="page">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <div class="card">
-            <div class="header">
+            <div class="header flex-div">
               <h2>
                NEFT Reconciliation 
              </h2>
-             <div align="right">
               <p align="right">
-                  <button align="right" type="button" id="insert-ins" class="btn btn-xs btn-primary m-t-15 waves-effect"> <i class="material-icons">save</i><span class="icon-name">Clear All</span></button>
+                  <button align="right" type="button" id="insert-ins" class="btn btn-xs btn-primary btnStyle m-t-15 waves-effect"> <i class="material-icons">save</i><span class="icon-name">Clear All</span></button>
               </p>
-               <!-- <form method="post" role="form" enctype="multipart/form-data" action="<?php echo site_url('CashAndChequeController/neftReconcilation'); ?>"> 
+               <!-- <form method="post" role="form" enctype="multipart/form-data" action="<?php //echo site_url('CashAndChequeController/neftReconcilation'); ?>"> 
                                              
                       <button class="btn btn-primary m-t-15 waves-effect btn-sm">
                               <span class="icon-name">Save</span>
                       </button> 
               </form> -->
-            </div>
            </div>
            <div class="body">
             <div class="row">                                  
               <div class="row m-t-20">
                 <div class="col-md-12">
                   <div class="table-responsive">
-                    <table style="font-size:12px" class="table table-bordered table-striped table-hover dataTable js-exportable" data-page-length='100' id="tbl">
+                    <table class="table table-bordered dataTable js-exportable cust-tbl" data-page-length='100' id="tbl">
                       <thead>
                         <tr class="gray">
                           <th><input class="checkall" type="checkbox" name="selValue" id="basic_checkbox"/><label for="basic_checkbox"></label> Select All</th>
@@ -145,17 +143,17 @@ li{
                             <?php
                                 if($data['isLostStatus']=='2'){
                             ?> 
-                                  <td>
+                            <td>
                             
                                 <?php $id = $data['id'];
                                 $status = "Received";
                                 $statusNotReceived = "Not Received"
                                 ?>
-                                <!-- <a href="<?php echo site_url('CashAndChequeController/updateStatusCleared/'.$id.'/'.$status);?>"> -->
+                                <!-- <a href="<?php //echo site_url('CashAndChequeController/updateStatusCleared/'.$id.'/'.$status);?>"> -->
                                  <!--  <button onclick="neftStatus(this,'<?php echo $id?>','<?php echo $status; ?>');removeMe(this);" class="btn btn-primary waves-effect" data-type="basic"><i class="material-icons">check</i>
                                   </button> -->
 
-                                  <button onclick="neftCancelStatus(this,'<?php echo $id?>','<?php echo $statusNotReceived; ?>');" class="btn btn-primary waves-effect" data-type="basic"><i class="material-icons">cancel</i>
+                                  <button onclick="neftCancelStatus(this,'<?php echo $id?>','<?php echo $statusNotReceived; ?>');" class="btn btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i>
                                   </button>
                                 <!-- </a>      -->
                               </td>
@@ -230,7 +228,7 @@ li{
         </div>
         <div class="col-md-12">
           <div class="col-md-2">
-              <button id="sbmt" type="submit" class="btn btn-success btn-sm"> Submit </button>
+              <button id="sbmt" type="submit" class="btn btn-primary btnStyle btn-sm"> Submit </button>
           </div>
           <div class="col-md-2">
              <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
@@ -301,16 +299,7 @@ li{
                   // $('#result_data').html(data);
                   // window.parent.location.reload(true);
                     // document.getElementById('err').innerHTML=data;
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                } 
+                }  
             });
         }
 
@@ -331,16 +320,7 @@ li{
                     // $('#result_data').html(data);
                     // window.parent.location.reload(true);
                       // document.getElementById('err').innerHTML=data;
-                  },
-                  beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }  
+                  }  
               });
           }
           $(e).closest('tr').find('#okedit').text('');
@@ -445,16 +425,7 @@ li{
                             $(this).attr('checked', false);
                         });      
                         window.location.href="<?php echo base_url();?>index.php/CashAndChequeController/neftReconcilation";
-                    },
-                    beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }  
+                    }  
                 });
             }
         }else{

@@ -246,19 +246,9 @@ swal({
             method : "POST",
             data : {id: '1',days:days},
             success: function(data){
-                toastr.success('Record updated', 'Success!');
-            //   alert('Record Updated');
-                // location.reload(); 
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }   
+              alert('Record Updated');
+                location.reload(); 
+            }
         });
     });
 
@@ -269,19 +259,9 @@ swal({
             method : "POST",
             data : {id: '2',days:days},
             success: function(data){
-                toastr.success('Record updated', 'Success!');
-            //   alert('Record Updated');
-                // location.reload(); 
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }   
+              alert('Record Updated');
+                location.reload(); 
+            }
         });
     });
 
@@ -292,19 +272,9 @@ swal({
             method : "POST",
             data : {id: '3',days:days},
             success: function(data){
-                toastr.success('Record updated', 'Success!');
-            //   alert('Record Updated');
-                // location.reload(); 
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }   
+              alert('Record Updated');
+                location.reload(); 
+            }
         });
     });
 
@@ -315,19 +285,9 @@ swal({
             method : "POST",
             data : {id: '4',days:days},
             success: function(data){
-                toastr.success('Record updated', 'Success!');
-            //   alert('Record Updated');
-                // location.reload(); 
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }   
+              alert('Record Updated');
+                location.reload(); 
+            }
         });
     });
 
@@ -338,19 +298,9 @@ swal({
             method : "POST",
             data : {id: '5',days:days},
             success: function(data){
-                toastr.success('Record updated', 'Success!');
-            //   alert('Record Updated');
-                // location.reload(); 
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }   
+              alert('Record Updated');
+                location.reload(); 
+            }
         });
     });
 
@@ -361,19 +311,9 @@ swal({
             method : "POST",
             data : {id: '6',days:days},
             success: function(data){
-            //   alert('Record Updated');
-                // location.reload(); 
-                toastr.success('Record updated', 'Success!');
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }   
+              alert('Record Updated');
+                location.reload(); 
+            }
         });
     });
 
@@ -384,19 +324,9 @@ swal({
             method : "POST",
             data : {id: '7',days:days},
             success: function(data){
-            //   alert('Record Updated');
-                // location.reload(); 
-                toastr.success('Record updated', 'Success!');
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }   
+              alert('Record Updated');
+                location.reload(); 
+            }
         });
     });
 
@@ -407,19 +337,9 @@ swal({
             method : "POST",
             data : {id: '8',days:days},
             success: function(data){
-            //   alert('Record Updated');
-                // location.reload(); 
-                toastr.success('Record updated', 'Success!');
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }   
+              alert('Record Updated');
+                location.reload(); 
+            }
         });
     });
 
@@ -430,19 +350,9 @@ swal({
             method : "POST",
             data : {id: '9',days:days},
             success: function(data){
-            //   alert('Record Updated');
-                // location.reload(); 
-                toastr.success('Record updated', 'Success!');
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }   
+              alert('Record Updated');
+                location.reload(); 
+            }
         });
     });
 

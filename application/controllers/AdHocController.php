@@ -13,30 +13,6 @@ class AdHocController extends CI_Controller {
 
         if(isset($this->session->userdata['codeKeyData'])) {
 			$this->projectSessionName= $this->session->userdata['codeKeyData']['codeKeyValue'];
-			$this->baseUrl=$this->session->userdata['codeKeyData']['yourBaseUrl'];
-
-            if($this->baseUrl=="http://localhost/smartdistributor/" || $this->baseUrl=="https://siainc.in/kiasales/" || $this->baseUrl=="https://siainc.in/staging_kiasales/"){
-
-            }else{
-                $this->load->helper('url');
-                $url_parts = parse_url(current_url());
-                $siteUrl=explode('/',$url_parts['path']);//current url path
-        
-                $baseUrl=explode('/',$this->baseUrl);//base url path
-                
-                $siteDistributorName=trim($siteUrl[2]);
-                $baseDistributorName=trim($baseUrl[4]);
-                
-                if($siteDistributorName !="" && $baseDistributorName !=""){
-                    if($siteDistributorName==$baseDistributorName){
-                    //   
-                    }else{
-                    redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
-                    }
-                }else{
-                redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
-                }
-            }
 		}else{
 			$this->load->view('LoginView');
 		}
@@ -131,7 +107,8 @@ class AdHocController extends CI_Controller {
         if(!empty($billsData)){
             if(count($billsData)>1){
 ?>
-        <table style="font-size: 12px" class="table table-bordered table-striped table-hover js-exportable dataTable" data-page-length='100'>
+       <!--  <table class="table table-bordered cust-tbl js-exportable dataTable" data-page-length='100'> -->
+        <table style="font-size: 14px" class="table table-bordered js-basic-example dataTable cust-tbl" data-page-length="100" id="DataTables_Table_0">
         <thead>
             <tr>
                 <th>S. No.</th>
@@ -183,7 +160,7 @@ class AdHocController extends CI_Controller {
                 <td>
                      <?php if($data['isAllocated']!=1){ ?>
 
-                      &nbsp;&nbsp;<a href="<?php echo site_url('AdHocController/billHistoryInfo/'.$data['id']); ?>" class="btn btn-xs btn-primary" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
+                      <a href="<?php echo site_url('AdHocController/billHistoryInfo/'.$data['id']); ?>" class="btn btn-xs history-btn" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
                    <?php  }else{
                         $allocations=$this->AllocationByManagerModel->getAllocationDetailsByBill('bills',$data['id']);
                         $officeAllocations=$this->AllocationByManagerModel->getOfficeAllocationDetailsByBill('bills',$data['id']);
@@ -236,21 +213,6 @@ class AdHocController extends CI_Controller {
         }
     }
 
-    public function loadDeliverySlipBills(){
-        $fromDate=trim($this->input->post('fromDate'));
-        $toDate=trim($this->input->post('toDate'));
-
-
-        $bills=$this->AllocationByManagerModel->getDeliveryBillsByDate('bills',$fromDate,$toDate);
-        // print_r($bills);exit;
-        foreach($bills as $data){
-            $name=$data['billNo'].' : '.$data['retailerName'].' : '.$data['netAmount'];
-        ?>   
-            <option id="<?php echo $data['id'];?>" value="<?php echo $name;?>"/>
-        <?php    
-        }
-    }
-
     public function billDetailsInfo($id){
         $data['bills']=$this->AllocationByManagerModel->load('bills',$id);
         $data['billsdetails']=$this->AllocationByManagerModel->getBillDetailInfo('billsdetails',$id);
@@ -281,9 +243,7 @@ class AdHocController extends CI_Controller {
     public function billInfo(){
         $billNo=trim($this->input->post('billNo'));
         $billId=trim($this->input->post('billId'));
-
         $presentBill=$this->AllocationByManagerModel->load('bills',$billId);
-
         if(!empty($presentBill)){
             $bills=$this->AllocationByManagerModel->getBillAllocationHistoryByBill('billpayments',$billId);
             $billOfficeAdj=$this->AllocationByManagerModel->getBillOfficeAdjHistoryByBill('allocations_officebills',$billId);
@@ -318,11 +278,9 @@ class AdHocController extends CI_Controller {
     }
 
     public function billHistoryInfo($id){
-
         $data['billData']=$this->AllocationByManagerModel->load('bills',$id);
         $data['billHistory']=$this->AllocationByManagerModel->getBillHistoryInfo('bill_transaction_history',$id);
    
-
         $data['currentAllocations']=$this->AllocationByManagerModel->getCurrentOpenAllocations('allocations');
         $data['company']=$this->AllocationByManagerModel->getdata('company');
         $data['bank']=$this->AllocationByManagerModel->getdata('bank');
@@ -655,7 +613,7 @@ class AdHocController extends CI_Controller {
                 </td>
                 <td> 
                     <a>
-                    <button onclick="removeMe(this,'<?php echo $bill['id']; ?>');" class="btn btn-xs btn-primary waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+                    <button onclick="removeMe(this,'<?php echo $bill['id']; ?>');" class="btn btn-xs btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
                     </a>
                 </td>
 
@@ -986,10 +944,7 @@ class AdHocController extends CI_Controller {
 
         $journalData=array(
             'journalEntryCode'=>$journalId,
-            'journalEntryDate'=>date('Y-m-d H:i:sa'),
-            'allocationId'=>$allocationId,
-            'remark'=>$remark,
-            'userId'=>trim($this->session->userdata[$this->projectSessionName]['id'])
+            'journalEntryDate'=>date('Y-m-d H:i:sa')
         );
         $this->AllocationByManagerModel->insert('journal_entry',$journalData);
 
@@ -1864,10 +1819,10 @@ class AdHocController extends CI_Controller {
 
     ?>
     
-     <table style="font-size: 12px" class="table table-bordered table-striped table-hover dataTable js-exportable" data-page-length='100'>
+     <table class="table table-bordered cust-tbl js-exportable"  data-page-length='100'>
         <thead>
             <tr colspan="8">
-                 <th>
+                 <th colspan="6">
                   <span style="color:blue"> Bill Information  </span>
               </th>
             </tr>
@@ -1914,15 +1869,15 @@ class AdHocController extends CI_Controller {
                  <th> Bill No  </th>
                  <th>Bill Date</th>
                  <th> Salesman </th>
-                 <th> Net Amount </th>
+                 <th> Amount </th>
                  <th> SR  </th>
                  <th> CD  </th>
                  <th> Collection </th>
-                 <th> Office Adj  </th>
-                 <th> Other Adj  </th>
+                 <th> Office  </th>
+                 <th> Other  </th>
                  <th> Debit </th>
                  <th> Remaining  </th>
-                 <th> Cheque Penalty  </th>
+                 <th>Penalty  </th>
                  <th> Status </th>
                  <th> Action  </th>
             </tr>
@@ -1942,8 +1897,12 @@ class AdHocController extends CI_Controller {
                         <?php } ?>
 
                         <td><?php echo $data['billNo']; ?></td>
-                        <td><?php echo $createdDate; ?></td>
-                        <td><?php echo $data['salesman']; ?></td>
+                        <td class="noSpace"><?php echo $createdDate; ?></td>
+						<td class="CellWithComment"><?php 
+						    $salesman=substr($data['salesman'], 0, 15);
+                            echo rtrim($salesman);?>
+							<span class="CellComment"><?php echo $result =substr($data['salesman'],0); ?></span>
+						</td>
                         <td><?php echo $data['netAmount']; ?></td>
                         <?php if($data['isAllocated'] == 1){ ?>
                             <td><?php echo ($data['SRAmt']+$data['fsSrAmt']-$data['fsSrAmt']); ?></td>
@@ -2014,7 +1973,7 @@ class AdHocController extends CI_Controller {
                                     if(!empty($officeAllocations)){
                                         echo "<span style='color:blue'>Allocated in : ".$officeAllocations[0]['allocationCode'].'</span>';
                                     }
-                                }else{
+                                }else{ 
                                     if($data['pendingAmt']==0){
                                         echo "<span style='color:green'> Cleared</span>";
                                     }else if($data['isDirectDeliveryBill']==1){
@@ -2045,7 +2004,7 @@ class AdHocController extends CI_Controller {
                         
                             
                         </td>
-                        <td>
+                        <td class="noSpace">
                         <?php
                         if($data['isAllocated']!=1 && $data['pendingAmt'] >0 && $data['deliveryStatus'] !=="cancelled"){
 
@@ -2053,29 +2012,26 @@ class AdHocController extends CI_Controller {
                             $des=explode(',',$designation);
                             $des = array_map('trim', $des);
 
-                            if ((in_array('operator', $des))) { 
+                    if ((in_array('operator', $des))) { 
                     ?>
-                                &nbsp;&nbsp;<a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs  btn-primary" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
+                    <a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs viewBill-btn" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
                                                
                     <?php
-                            }else{
+                    }else{
                     ?>
-                    <?php if($this->session->userdata['workRestrict']['status']=="yes"){?>
-                        <button class="btn btn-xs btn-primary waves-effect waves-float" onclick="planUpgradeMsg()"><i class="material-icons">touch_app</i></button>
-                    <?php }else{ ?> 
-                        <a id="prDetailsForAll" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-billDate="<?php echo $createdDate; ?>" data-credAdj="<?php echo $data['creditAdjustment']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-route="<?php echo $data['routeName']; ?>" data-toggle="modal" data-target="#processModalForAll" ><button class="btn btn-xs btn-primary waves-effect waves-float" data-toggle="tooltip" data-placement="bottom" title="Process"><i class="material-icons">touch_app</i></button></a>
-                    <?php } ?>
-                            <!-- <a id="prDetails" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-code="<?php echo $data['retailerCode']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-route="<?php echo $data['routeName']; ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-toggle="modal" data-target="#processModal"><button class="btn btn-xs  btn-primary"><i class="material-icons">touch_app</i></button></a> -->
-                    &nbsp;&nbsp;<a href="<?php echo site_url('AdHocController/billHistoryInfo/'.$data['id']); ?>" class="btn btn-xs btn-primary" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
-                    &nbsp;&nbsp;<a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs  btn-primary" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
+                     <a id="prDetailsForAll" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-billDate="<?php echo $createdDate; ?>" data-credAdj="<?php echo $data['creditAdjustment']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-route="<?php echo $data['routeName']; ?>" data-toggle="modal" data-target="#processModalForAll" ><button class="btn btn-xs process-btn waves-effect waves-float" data-toggle="tooltip" data-placement="bottom" title="Process"><i class="material-icons">touch_app</i></button></a>
+
+                    <!-- <a id="prDetails" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-code="<?php echo $data['retailerCode']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-route="<?php echo $data['routeName']; ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-toggle="modal" data-target="#processModal"><button class="btn btn-xs  btn-primary"><i class="material-icons">touch_app</i></button></a> -->
+                    <a href="<?php echo site_url('AdHocController/billHistoryInfo/'.$data['id']); ?>" class="btn btn-xs history-btn" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
+                    <a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs viewBill-btn" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
                                                
                       <?php }
 
                         }else{
                             
                     ?>
-                        &nbsp;&nbsp;<a href="<?php echo site_url('AdHocController/billHistoryInfo/'.$data['id']); ?>" class="btn btn-xs btn-primary" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
-                        &nbsp;&nbsp;<a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs  btn-primary" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
+                    <a href="<?php echo site_url('AdHocController/billHistoryInfo/'.$data['id']); ?>" class="btn btn-xs history-btn" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
+                    <a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs viewBill-btn" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
                    
                     <?php
                         }
@@ -2093,10 +2049,10 @@ class AdHocController extends CI_Controller {
         </tbody>
 </table>
 
-<table style="font-size: 12px" class="table table-bordered table-striped table-hover" data-page-length='100'>
+<table class="table table-bordered cust-tbl dataTable js-exportable" data-page-length='100'>
         <thead>
             <tr  align="center">
-                  <th colspan="9">
+                  <th colspan="7">
                   <span style="color:blue"> Bill Payment History  </span>
               </th>
             </tr>
@@ -2489,8 +2445,7 @@ class AdHocController extends CI_Controller {
     public function retailerHistoryInformation($bills,$retailerName){
         
     ?>
-        
-     <table style="font-size: 12px;" class="table table-bordered table-striped table-hover dataTable js-exportable" data-page-length='100' id="xp">
+	 <table class="table table-bordered cust-tbl dataTable js-exportable" data-page-length='100' id="xp">
         <thead>
             <tr colspan="8">
                  <th>
@@ -2537,24 +2492,27 @@ class AdHocController extends CI_Controller {
 
         </tbody>
         </table>
-     <table style="font-size: 12px;" class="table table-bordered table-striped table-hover dataTable js-exportable" data-page-length='100' id="xp">
+		
+	<div id="hideInfo" class="col-md-12"> 
+    <div class="table-responsive"> 
+     <table class="table table-bordered cust-tbl dataTable js-exportable" data-page-length='100' id="xp">
         <thead>
             <tr class="gray">
-                 <th> Bill No  </th>
-                 <th>Bill Date</th>
+                <th> Bill No  </th>
+                <th> Bill Date</th>
                 <th> Salesman </th>
-                 <th> Net Amount </th>
-                 <th> SR  </th>
-                  <th> CD  </th>
-                 <th> Collection </th>
-                 <th> Office Adj  </th>
-                 <th> Other Adj  </th>
-                  <th> Debit </th>
-                  <th> Remaining  </th>
-                  <th> Cheque Penalty  </th>
-                  <th> Action  </th>
-                  <th> Status  </th>
-            </tr>
+                <th> Amount </th>
+                <th> SR  </th>
+                <th> CD  </th>
+                <th> Collection </th>
+                <th> Office </th>
+                <th> Other </th>
+                <th> Debit </th>
+                <th> Remaining  </th>
+                <th> Penalty  </th>
+				<th> Status  </th>
+                <th> Action  </th>  
+            </tr> 
         </thead>
         <tbody>
             <?php
@@ -2562,8 +2520,6 @@ class AdHocController extends CI_Controller {
                 if(!empty($bills)){
                     foreach ($bills as $data) 
                     {
-                       
-
                       $dt=date_create($data['date']);
                       $createdDate = date_format($dt,'d-M-Y');
                    
@@ -2574,12 +2530,16 @@ class AdHocController extends CI_Controller {
                     <?php } ?>
                         
                         <td><?php echo $data['billNo']; ?></td>
-                        <td><?php echo $createdDate; ?></td>
-                        <td><?php echo $data['salesman']; ?></td>
+                        <td class="noSpace"><?php echo $createdDate; ?></td>
+						<td class="CellWithComment"><?php //echo  rtrim($data['salesman'],', '); 
+						    $salesman=substr($data['salesman'], 0, 10);
+                            echo rtrim($salesman);?>
+							<span class="CellComment"><?php echo $result =substr($data['salesman'],0); ?></span>
+						</td>
                         <td><?php echo $data['netAmount']; ?></td>
                         <td><?php echo $data['SRAmt']; ?></td>
-                         <td><?php echo $data['cd']; ?></td>
-                         <td><?php echo $data['receivedAmt']; ?></td>
+                        <td><?php echo $data['cd']; ?></td>
+                        <td><?php echo $data['receivedAmt']; ?></td>
                         <td><?php echo $data['officeAdjustmentBillAmount']; ?></td>
                         <td><?php echo $data['otherAdjustment']; ?></td>
                         <td><?php echo $data['debit']; ?></td>
@@ -2634,29 +2594,25 @@ class AdHocController extends CI_Controller {
                          ?>
                      </td>
                         <!-- <td>
-                            <a id="billHistory" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-code="<?php echo $data['retailerCode']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-route="<?php echo $data['routeName']; ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-toggle="modal" data-target="#billprocessModal"><button class="btn btn-xs bg-primary margin"><i class="material-icons">visibility</i> </button></a>
-                            <a id="billHistoryProcess" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-code="<?php echo $data['retailerCode']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-route="<?php echo $data['routeName']; ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-toggle="modal" data-target="#retailerprocessModal"><button class="btn btn-xs bg-primary margin">Process</button></a>
+                        <a id="billHistory" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-code="<?php echo $data['retailerCode']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-route="<?php echo $data['routeName']; ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-toggle="modal" data-target="#billprocessModal"><button class="btn btn-xs bg-primary margin"><i class="material-icons">visibility</i> </button></a>
+                        <a id="billHistoryProcess" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-code="<?php echo $data['retailerCode']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-route="<?php echo $data['routeName']; ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-toggle="modal" data-target="#retailerprocessModal"><button class="btn btn-xs bg-primary margin">Process</button></a>
                         </td> -->
-                        <td>
+                        <td class="noSpace">
                         <?php 
-                                $designation = ($this->session->userdata[$this->projectSessionName]['designation']);
-                                $des=explode(',',$designation);
-                                $des = array_map('trim', $des);
-                                if($data['isAllocated']!=1 && $data['pendingAmt'] >0){ 
-                                    
-
-                                    if ((in_array('operator', $des))) { 
+                            $designation = ($this->session->userdata[$this->projectSessionName]['designation']);
+                            $des=explode(',',$designation);
+                            $des = array_map('trim', $des);
+                            if($data['isAllocated']!=1 && $data['pendingAmt'] >0){ 
+                            if ((in_array('operator', $des))) { 
                                 ?>
-                                &nbsp;<a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs  btn-primary" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
+                            <a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs viewBill-btn" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
 
 
-                                <?php    }else{ 
-
-                                ?>
-                            <a id="prDetails" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-salesman="<?php echo $data['salesman']; ?>"  data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-toggle="modal" data-target="#processModal"><button class="btn btn-xs btn-primary waves-effect"><i class="material-icons">touch_app</i> </button></a>
-                                <!-- <a id="billHistory" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-code="<?php echo $data['retailerCode']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-route="<?php echo $data['routeName']; ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-toggle="modal" data-target="#billprocessModal"><button class="btn btn-xs btn-primary waves-effect"><i class="material-icons">info</i> </button></a> -->
-                                &nbsp;<a href="<?php echo site_url('AdHocController/billHistoryInfo/'.$data['id']); ?>" class="btn btn-xs btn-primary" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
-                                &nbsp;<a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs  btn-primary" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
+                            <?php  }else{  ?>
+                            <a id="prDetails" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-salesman="<?php echo $data['salesman']; ?>"  data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-toggle="modal" data-target="#processModal"><button class="btn btn-xs process-btn waves-effect"><i class="material-icons">touch_app</i> </button></a>
+                            <!-- <a id="billHistory" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-code="<?php echo $data['retailerCode']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-route="<?php echo $data['routeName']; ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-toggle="modal" data-target="#billprocessModal"><button class="btn btn-xs btn-primary waves-effect"><i class="material-icons">info</i> </button></a> -->
+                            <a href="<?php echo site_url('AdHocController/billHistoryInfo/'.$data['id']); ?>" class="btn btn-xs history-btn" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
+                            <a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs viewBill-btn" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
                                                   
                             <?php   
                                 }
@@ -2664,14 +2620,14 @@ class AdHocController extends CI_Controller {
 
                                 if ((in_array('operator', $des))) { 
                                 ?>
-                                &nbsp;<a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs  btn-primary" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
+                                &nbsp;<a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs viewBill-btn" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
 
 
                                 <?php    }else{ 
 
                             ?>
-                                    &nbsp;&nbsp;<a href="<?php echo site_url('AdHocController/billHistoryInfo/'.$data['id']); ?>" class="btn btn-xs btn-primary" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
-                                    &nbsp;&nbsp;<a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs  btn-primary" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
+                                <a href="<?php echo site_url('AdHocController/billHistoryInfo/'.$data['id']); ?>" class="btn btn-xs history-btn" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
+                                <a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs viewBill-btn" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
                         <?php 
                             }
                                     
@@ -2692,6 +2648,8 @@ class AdHocController extends CI_Controller {
 
         </tbody>
 </table>
+</div>
+</div>
 
 <?php
     }
@@ -2705,7 +2663,7 @@ class AdHocController extends CI_Controller {
         
     ?>
     
-     <table style="font-size: 12px" class="table table-bordered table-striped table-hover dataTable js-exportable" data-page-length='100'>
+     <table class="table table-bordered cust-tbl dataTable js-exportable" data-page-length='100'>
         <thead>
             <tr colspan="8">
                  <th>
@@ -2776,17 +2734,16 @@ class AdHocController extends CI_Controller {
                         <td><?php echo $data['salesman']; ?></td>
                         <td><?php echo $data['netAmount']; ?></td>
                         <td><?php echo ($data['SRAmt']+$data['fsSrAmt']); ?></td>
-                         <td><?php echo $data['cd']; ?></td>
-                         <td><?php echo ($data['receivedAmt']+$data['fsCashAmt']+$data['fsChequeAmt']+$data['fsNeftAmt']); ?></td>
+                        <td><?php echo $data['cd']; ?></td>
+                        <td><?php echo ($data['receivedAmt']+$data['fsCashAmt']+$data['fsChequeAmt']+$data['fsNeftAmt']); ?></td>
                         <td><?php echo $data['officeAdjustmentBillAmount']; ?></td>
                         <td><?php echo $data['otherAdjustment']; ?></td>
                         <td><?php echo $data['debit']; ?></td>
                         <td><?php echo $data['pendingAmt']; ?></td>
                         <td><?php echo $data['chequePenalty']; ?></td>
-                        <td>
-                            &nbsp;&nbsp;<a href="<?php echo site_url('AdHocController/billHistoryInfo/'.$data['id']); ?>" class="btn btn-xs btn-primary" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
-                            &nbsp;&nbsp;<a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs  btn-primary" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
-                                               
+                        <td class="noSpace">
+                         <a href="<?php echo site_url('AdHocController/billHistoryInfo/'.$data['id']); ?>" class="btn btn-xs history-btn" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
+                         <a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs viewBill-btn" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>                          
                         </td>
                         
                       </tr>

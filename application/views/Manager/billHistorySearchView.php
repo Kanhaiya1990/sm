@@ -19,32 +19,31 @@
 </style>
 
     <h1 style="display: none;">Welcome</h1><br/><br/><br/><br/><br/>    
-    <section class="col-md-12 box" style="height: auto;overflow-y: scroll;">
+    <section class="col-md-12 box">
         <div class="container-fluid">
-           
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
-                        <div class="header">
-                            <h2>
+                        <div class="header flex-div">
+                            <h2 style="width: 88%;" class="text-center">
                               Bill History
-
-                            </h2>
+                             </h2>
                             <h2 align="right">
-                            <span><a class="btn btn-xs btn-primary" href="javascript:window.history.go(-1);"><i class="material-icons">arrow_back</i></a></span>
+                            <span><a class="btn btn-xs btnStyle" href="javascript:window.history.go(-1);"><i class="material-icons">arrow_back</i></a></span>
                             </h2>
                         </div>
                       
-                        <div class="body">
+                        <div class="body p-t-0">
                             
                             <div class="row clearfix">
                             <!-- <div class="demo-masked-input"> -->
-                                    <div id="hideInfo" class="col-md-12"> 
-                                        <table style="font-size: 12px" class="table table-bordered table-striped table-hover dataTable js-exportable" data-page-length='100'>
+                            <div id="hideInfo" class="col-md-12"> 
+                            <table class="table table-bordered cust-tbl" data-page-length='100'>
+                            <!-- <table class="table table-bordered dataTable js-exportable cust-tbl" data-page-length="100" id="DataTables_Table_0"> -->
         <thead>
-            <tr colspan="8">
-                 <th>
-                  <span style="color:blue"> Bill Information  </span>
+            <tr>
+              <th colspan="8">
+                  <span style="color:blue"> Bill Information </span>
               </th>
             </tr>
         </thead>
@@ -83,15 +82,15 @@
                  <th> Bill No  </th>
                  <th>Bill Date</th>
                  <th> Salesman </th>
-                 <th> Net Amount </th>
+                 <th> Amount </th>
                  <th> SR  </th>
                  <th> CD  </th>
                  <th> Collection </th>
-                 <th> Office Adj  </th>
-                 <th> Other Adj  </th>
+                 <th> Office </th>
+                 <th> Other </th>
                  <th> Debit </th>
                  <th> Remaining  </th>
-                 <th> Cheque Penalty  </th>
+                 <th> Penalty  </th>
                  <th> Status</th>
                  <th> Action  </th>
             </tr>
@@ -111,8 +110,12 @@
                         <?php } ?>
 
                         <td><?php echo $data['billNo']; ?></td>
-                        <td><?php echo $createdDate; ?></td>
-                        <td><?php echo $data['salesman']; ?></td>
+                        <td class="noSpace"><?php echo $createdDate; ?></td>
+                        <td class="CellWithComment"><?php 
+						    $salesman=substr($data['salesman'], 0, 10);
+                            echo rtrim($salesman);?>
+							<span class="CellComment"><?php echo $result =substr($data['salesman'],0); ?></span>
+						</td>
                         <td><?php echo $data['netAmount']; ?></td>
                         <td><?php echo ($data['SRAmt']+$data['fsSrAmt']); ?></td>
                          <td><?php echo $data['cd']; ?></td>
@@ -124,7 +127,7 @@
                         <td><?php echo $data['chequePenalty']; ?></td>
 
                        
-                            <td>
+                        <td>
                         <?php 
                         if($data['deliveryStatus']=="cancelled"){
                             echo "Cancelled";
@@ -180,7 +183,7 @@
                         <?php
                         if($data['isAllocated']!=1 && $data['pendingAmt'] >0){
                      ?>
-                        <a id="prDetails" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-code="<?php echo $data['retailerCode']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-route="<?php echo $data['routeName']; ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-toggle="modal" data-target="#processModal"><button class="btn bg-primary margin">Process</button></a>
+                        <a id="prDetails" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-billNo="<?php //echo $data['billNo']; ?>" data-retailerName="<?php //echo $data['retailerName']; ?>" data-gst="<?php //if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-code="<?php //echo $data['retailerCode']; ?>" data-salesman="<?php //echo $data['salesman']; ?>" data-route="<?php //echo $data['routeName']; ?>" data-pendingAmt="<?php //echo $data['pendingAmt']; ?>" data-toggle="modal" data-target="#processModal"><button class="btn bg-primary margin">Process</button></a>
 
                       <?php }else{  
 
@@ -203,7 +206,7 @@
                             ?>
                         </td> -->
 
-                            <td>
+                        <td class="noSpace">
                         <?php
                         if($data['isAllocated']!=1 && $data['pendingAmt'] >0 && $data['deliveryStatus'] !=="cancelled"){
 
@@ -213,26 +216,26 @@
 
                             if ((in_array('operator', $des))) { 
                     ?>
-                                &nbsp;&nbsp;<a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs  btn-primary" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
+                    <a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs viewBill-btn" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
                                                
                     <?php
                             }else{
                     ?>
 
-                    <a id="prDetailsForAll" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-billDate="<?php echo $createdDate; ?>" data-credAdj="<?php echo $data['creditAdjustment']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-route="<?php echo $data['routeName']; ?>" data-toggle="modal" data-target="#processModalForAll" ><button class="btn btn-xs btn-primary waves-effect waves-float" data-toggle="tooltip" data-placement="bottom" title="Process"><i class="material-icons">touch_app</i></button></a>
+                    <a id="prDetailsForAll" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-billDate="<?php echo $createdDate; ?>" data-credAdj="<?php echo $data['creditAdjustment']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-route="<?php echo $data['routeName']; ?>" data-toggle="modal" data-target="#processModalForAll" ><button class="btn btn-xs process-btn" data-toggle="tooltip" data-placement="bottom" title="Process"><i class="material-icons">touch_app</i></button></a>
 
                                                  
-                            <!-- <a id="prDetails" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-code="<?php echo $data['retailerCode']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-route="<?php echo $data['routeName']; ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-toggle="modal" data-target="#processModal"><button class="btn btn-xs  btn-primary"><i class="material-icons">touch_app</i></button></a> -->
-                    &nbsp;&nbsp;<a href="<?php echo site_url('AdHocController/billHistoryInfo/'.$data['id']); ?>" class="btn btn-xs btn-primary" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
-                    &nbsp;&nbsp;<a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs  btn-primary" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
+                    <!-- <a id="prDetails" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-code="<?php echo $data['retailerCode']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-route="<?php echo $data['routeName']; ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-toggle="modal" data-target="#processModal"><button class="btn btn-xs  btn-primary"><i class="material-icons">touch_app</i></button></a> -->
+                    <a href="<?php echo site_url('AdHocController/billHistoryInfo/'.$data['id']); ?>" class="btn btn-xs history-btn" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
+                    <a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs viewBill-btn" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
                                                
                       <?php }
 
                         }else{
                             
                     ?>
-                        &nbsp;&nbsp;<a href="<?php echo site_url('AdHocController/billHistoryInfo/'.$data['id']); ?>" class="btn btn-xs btn-primary" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
-                        &nbsp;&nbsp;<a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs  btn-primary" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
+                    <a href="<?php echo site_url('AdHocController/billHistoryInfo/'.$data['id']); ?>" class="btn btn-xs history-btn" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
+                    <a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs viewBill-btn" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
                    
                     <?php
                         }
@@ -323,7 +326,7 @@
 <?php } ?> -->
 
 
-    <table style="font-size: 12px" class="table table-bordered table-striped table-hover" data-page-length='100'>
+<table class="table table-bordered cust-tbl dataTable js-exportable" data-page-length='100'>
         <thead>
             <tr  align="center">
                   <th colspan="9">
@@ -503,7 +506,7 @@
                         <?php
                             if($item['transactionStatus']=='CD'){
                                 $cdRemark=$this->AllocationByManagerModel->getCdRemark('bill_remark_history',$item['transactionAmount'],$item['billId']);
-                               
+                                // print_r($cdRemark);
                                 if(!empty($cdRemark)){
                                     echo $cdRemark[0]['remark'];
                                 }
@@ -511,7 +514,7 @@
 
                             if($item['transactionStatus']=='Office Adjustment'){
                                 $officeRemark=$this->AllocationByManagerModel->getCdRemark('bill_remark_history',$item['transactionAmount'],$item['billId']);
-                                
+                                // print_r($cdRemark);
                                 if(!empty($officeRemark)){
                                     echo $officeRemark[0]['remark'];
                                 }
@@ -519,7 +522,7 @@
 
                             if($item['transactionStatus']=='Other Adjustment'){
                                 $otherRemark=$this->AllocationByManagerModel->getCdRemark('bill_remark_history',$item['transactionAmount'],$item['billId']);
-                               
+                                // print_r($cdRemark);
                                 if(!empty($otherRemark)){
                                     echo $otherRemark[0]['remark'];
                                 }
@@ -616,7 +619,7 @@
                                     if($item['officeAllocationId'] >0){
                                         echo $officeAllocationRemark;
                                     }else{
-                                        // echo $item['remark'];
+                                        echo $item['remark'];
                                     }
                             }
                         ?>
@@ -963,11 +966,11 @@
                    
                         <td><?php echo $no; ?></td>
                         <td><?php 
-                            $idForAllocation=$data['allocationId'];
-                            $codeForAllocation=$data['allocationCode'];
-                            $url= site_url("AllocationByManagerController/CloseCompleteAllocation/".$idForAllocation);
+                        $idForAllocation=$data['allocationId'];
+                        $codeForAllocation=$data['allocationCode'];
+                        $url= site_url("AllocationByManagerController/CloseCompleteAllocation/".$idForAllocation);
                             
-                            echo "<a target='_blank' href='".$url."'>".$codeForAllocation."</a>";
+                        echo "<a target='_blank' href='".$url."'>".$codeForAllocation."</a>";
                          ?></td>
                         <td><?php echo trim($data['ename1'].','.$data['ename2'].','.$data['ename3'].','.$data['ename4'].','.$data['ename5'],","); ?></td>
                         <td><?php echo $createdDate; ?></td>
@@ -995,8 +998,6 @@
             </div>
         </div>
     </section>
-
-
 
 <?php $this->load->view('/layouts/footerDataTable'); ?>
 

@@ -12,30 +12,6 @@ class OfficeAllocationController extends CI_Controller {
 
         if(isset($this->session->userdata['codeKeyData'])) {
 			$this->projectSessionName= $this->session->userdata['codeKeyData']['codeKeyValue'];
-			$this->baseUrl=$this->session->userdata['codeKeyData']['yourBaseUrl'];
-
-            if($this->baseUrl=="http://localhost/smartdistributor/" || $this->baseUrl=="https://siainc.in/kiasales/" || $this->baseUrl=="https://siainc.in/staging_kiasales/"){
-
-            }else{
-                $this->load->helper('url');
-                $url_parts = parse_url(current_url());
-                $siteUrl=explode('/',$url_parts['path']);//current url path
-        
-                $baseUrl=explode('/',$this->baseUrl);//base url path
-                
-                $siteDistributorName=trim($siteUrl[2]);
-                $baseDistributorName=trim($baseUrl[4]);
-                
-                if($siteDistributorName !="" && $baseDistributorName !=""){
-                    if($siteDistributorName==$baseDistributorName){
-                    //   
-                    }else{
-                    redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
-                    }
-                }else{
-                redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
-                }
-            }
 		}else{
 			$this->load->view('LoginView');
 		}
@@ -126,13 +102,13 @@ class OfficeAllocationController extends CI_Controller {
                                 </div>        
                             </div>
                              <div class="col-md-6">                                       
-                                 <button type="submit" class="btn btn-primary m-t-25 waves-effect">
+                                 <button type="submit" class="btn btn-primary btnStyle m-t-25 waves-effect">
                                             <i class="material-icons">save</i> 
                                             <span class="icon-name">
                                             Save
                                             </span>
                                         </button> 
-                                       <button data-dismiss="modal" type="button" class="btn m-t-25 btn-primary  waves-effect">
+                                       <button data-dismiss="modal" type="button" class="btn m-t-25 btn-danger btn-xs waves-effect">
                                                 <i class="material-icons">cancel</i> 
                                                 <span class="icon-name">
                                                 cancel
@@ -488,18 +464,18 @@ class OfficeAllocationController extends CI_Controller {
                     <td></td>
                     <td></td>
                     <td>
-                        <button id="srM" data-toggle="modal" data-no="<?php echo $no; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn-success waves-effect" data-type="basic"><span>Cleared</span></button>
+                        <button id="srM" data-toggle="modal" data-no="<?php echo $no; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn2 waves-effect" data-type="basic"><span>Cleared</span></button>
                         
-                        <button id="pendingM" data-no="<?php echo $no; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>Pending</span></button>
+                        <button id="pendingM" data-no="<?php echo $no; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn3 waves-effect" data-type="basic"><span>Pending</span></button>
 
                     <?php if($items['netAmount']==$items['pendingAmt']){ ?>  
-                        <button id="fsrM" data-no="<?php echo $no; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                        <button id="fsrM" data-no="<?php echo $no; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                     <?php }else{ ?>
-                        <button disabled id="fsrM" data-no="<?php echo $no; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                        <button disabled id="fsrM" data-no="<?php echo $no; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                     <?php } ?>
 
                         <a>
-                            <button onclick="deleteMe(this,'<?php echo $id;?>');" class="btn btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+                        <button onclick="deleteMe(this,'<?php echo $id;?>');" class="btn btn-danger btn-xs waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
                         </a>
                     </td>
                 </tr>
@@ -533,7 +509,7 @@ class OfficeAllocationController extends CI_Controller {
                     <td></td>
                     <td>
                         <a>
-                            <button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+                            <button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-danger btn-xs waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
                         </a>
                     </td>
                 </tr>
@@ -889,13 +865,13 @@ class OfficeAllocationController extends CI_Controller {
 
                         <div class="col-md-12">
                                 <center>                                               
-                                        <button id="clearSubmit" data-dismiss="modal" class="btn btn-primary m-t-15 waves-effect">
+                                        <button id="clearSubmit" data-dismiss="modal" class="btn btn-primary btnStyle m-t-15 waves-effect">
                                             <i class="material-icons">save</i> 
                                             <span class="icon-name">
                                             Save
                                             </span>
                                         </button> 
-                                         <button data-dismiss="modal" type="button" class="btn btn-danger m-t-15 waves-effect">
+                                         <button data-dismiss="modal" type="button" class="btn btn-danger btn-xs m-t-15 waves-effect">
                                             <i class="material-icons">cancel</i><span class="icon-name">cancel</span>
                                         </button>
                                 </center>
@@ -955,13 +931,13 @@ class OfficeAllocationController extends CI_Controller {
 
                         <div class="col-md-12">
                                 <center>                                               
-                                        <button id="cashSubmit" data-dismiss="modal" class="btn btn-primary m-t-15 waves-effect">
+                                        <button id="cashSubmit" data-dismiss="modal" class="btn btn-primary btnStyle m-t-15 waves-effect">
                                             <i class="material-icons">save</i> 
                                             <span class="icon-name">
                                             Save
                                             </span>
                                         </button> 
-                                         <button data-dismiss="modal" type="button" class="btn btn-danger m-t-15 waves-effect">
+                                         <button data-dismiss="modal" type="button" class="btn btn-danger btn-xs m-t-15 waves-effect">
                                             <i class="material-icons">cancel</i><span class="icon-name">cancel</span>
                                         </button>
                                 </center>
@@ -1015,13 +991,13 @@ class OfficeAllocationController extends CI_Controller {
 
                         <div class="col-md-12">
                                 <center>                                               
-                                        <button id="clearExistingSubmit" data-dismiss="modal" class="btn btn-primary m-t-15 waves-effect">
+                                        <button id="clearExistingSubmit" data-dismiss="modal" class="btn btn-primary btnStyle m-t-15 waves-effect">
                                             <i class="material-icons">save</i> 
                                             <span class="icon-name">
                                             Save
                                             </span>
                                         </button> 
-                                         <button data-dismiss="modal" type="button" class="btn btn-danger m-t-15 waves-effect">
+                                         <button data-dismiss="modal" type="button" class="btn btn-danger btn-xs m-t-15 waves-effect">
                                             <i class="material-icons">cancel</i><span class="icon-name">cancel</span>
                                         </button>
                                 </center>
@@ -1075,13 +1051,13 @@ class OfficeAllocationController extends CI_Controller {
 
                         <div class="col-md-12">
                                 <center>                                               
-                                        <button id="cashExistingSubmit" data-dismiss="modal" class="btn btn-primary m-t-15 waves-effect">
+                                        <button id="cashExistingSubmit" data-dismiss="modal" class="btn btn-primary btnStyle m-t-15 waves-effect">
                                             <i class="material-icons">save</i> 
                                             <span class="icon-name">
                                             Save
                                             </span>
                                         </button> 
-                                         <button data-dismiss="modal" type="button" class="btn btn-danger m-t-15 waves-effect">
+                                         <button data-dismiss="modal" type="button" class="btn btn-danger btn-sm m-t-15 waves-effect">
                                             <i class="material-icons">cancel</i><span class="icon-name">cancel</span>
                                         </button>
                                 </center>
@@ -1162,23 +1138,23 @@ class OfficeAllocationController extends CI_Controller {
                         <td><?php echo $amount; ?></td>
                         <td><?php echo 'Office Adjustment'; ?></td>
                         <td>
-                            <button id="srM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cleared")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn-success waves-effect" data-type="basic"><span>Cleared</span></button>
+                            <button id="srM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cleared")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn2 waves-effect" data-type="basic"><span>Cleared</span></button>
                             
-                            <button id="pendingM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="pending")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>Pending</span></button>
+                            <button id="pendingM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="pending")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn3 waves-effect" data-type="basic"><span>Pending</span></button>
 
                         <?php if($items['netAmount']==$items['pendingAmt']){ ?>  
-                            <button id="fsrM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                            <button id="fsrM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                         <?php }else{ ?>
-                            <button id="fsrM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                            <button id="fsrM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                         <?php } ?>
 
                     <?php if($items['a_type']==""){ ?>
                         <a>
-                            <button onclick="deleteFromTable(this,'<?php echo $items['id'];?>');" class="btn btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+                            <button onclick="deleteFromTable(this,'<?php echo $items['id'];?>');" class="btn btn-danger btn-xs waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
                         </a>
                     <?php }else{ ?>
                         <a>
-                            <button disabled class="btn btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+                            <button disabled class="btn btn-xs btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
                         </a>
                     <?php } ?> 
                         </td>
@@ -1236,23 +1212,23 @@ class OfficeAllocationController extends CI_Controller {
                         <td><?php echo '0.00'; ?></td>
                         <td><?php echo $items['a_type']; ?></td>
                         <td>
-                            <button id="srM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cleared")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn-success waves-effect" data-type="basic"><span>Cleared</span></button>
+                            <button id="srM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cleared")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn2 waves-effect" data-type="basic"><span>Cleared</span></button>
                             
-                            <button id="pendingM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="pending")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>Pending</span></button>
+                            <button id="pendingM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="pending")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn3 waves-effect" data-type="basic"><span>Pending</span></button>
 
                         <?php if($items['netAmount']==$items['pendingAmt']){ ?>  
-                            <button id="fsrM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                            <button id="fsrM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                         <?php }else{ ?>
-                            <button id="fsrM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                            <button id="fsrM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                         <?php } ?>
 
                     <?php if($items['a_type']==""){ ?>
                         <a>
-                            <button onclick="deleteFromTable(this,'<?php echo $items['id'];?>');" class="btn btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+                            <button onclick="deleteFromTable(this,'<?php echo $items['id'];?>');" class="btn btn-danger btn-xs waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
                         </a>
                     <?php }else{ ?>
                         <a>
-                            <button disabled class="btn btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+                            <button disabled class="btn btn-xs btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
                         </a>
                     <?php } ?> 
                         </td>
@@ -1321,23 +1297,23 @@ class OfficeAllocationController extends CI_Controller {
                         <td><?php echo $amount; ?></td>
                         <td><?php echo $items['a_type']; ?></td>
                         <td>
-                            <button id="srM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cleared")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn-success waves-effect" data-type="basic"><span>Cleared</span></button>
+                            <button id="srM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cleared")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn2 waves-effect" data-type="basic"><span>Cleared</span></button>
                             
-                            <button id="pendingM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="pending")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>Pending</span></button>
+                            <button id="pendingM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="pending")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn3 waves-effect" data-type="basic"><span>Pending</span></button>
 
                         <?php if($items['netAmount']==$items['pendingAmt']){ ?>  
-                            <button id="fsrM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                            <button id="fsrM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                         <?php }else{ ?>
-                            <button id="fsrM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                            <button id="fsrM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                         <?php } ?>
 
                     <?php if($items['a_type']==""){ ?>
                         <a>
-                            <button onclick="deleteFromTable(this,'<?php echo $items['id'];?>');" class="btn btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+                            <button onclick="deleteFromTable(this,'<?php echo $items['id'];?>');" class="btn btn-xs btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
                         </a>
                     <?php }else{ ?>
                         <a>
-                            <button disabled class="btn btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+                            <button disabled class="btn btn-xs btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
                         </a>
                     <?php } ?> 
                         </td>
@@ -1388,23 +1364,23 @@ class OfficeAllocationController extends CI_Controller {
                         <td><?php echo '0.00'; ?></td>
                         <td><?php echo $items['a_type']; ?></td>
                         <td>
-                            <button id="srM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cleared")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn-success waves-effect" data-type="basic"><span>Cleared</span></button>
+                            <button id="srM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cleared")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn2 waves-effect" data-type="basic"><span>Cleared</span></button>
                             
-                            <button id="pendingM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="pending")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>Pending</span></button>
+                            <button id="pendingM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="pending")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn3 waves-effect" data-type="basic"><span>Pending</span></button>
 
                         <?php if($items['netAmount']==$items['pendingAmt']){ ?>  
-                            <button id="fsrM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                            <button id="fsrM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                         <?php }else{ ?>
-                            <button id="fsrM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                            <button id="fsrM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                         <?php } ?>
 
                     <?php if($items['a_type']==""){ ?>
                         <a>
-                            <button onclick="deleteFromTable(this,'<?php echo $items['id'];?>');" class="btn btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+                            <button onclick="deleteFromTable(this,'<?php echo $items['id'];?>');" class="btn btn-danger btn-xs waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
                         </a>
                     <?php }else{ ?>
                         <a>
-                            <button disabled class="btn btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+                            <button disabled class="btn btn-xs btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
                         </a>
                     <?php } ?> 
                         </td>
@@ -1473,23 +1449,23 @@ class OfficeAllocationController extends CI_Controller {
                         <td><?php echo $amount; ?></td>
                         <td><?php echo 'Office Adjustment'; ?></td>
                         <td>
-                            <button id="srMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cleared")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn-success waves-effect" data-type="basic"><span>Cleared</span></button>
+                            <button id="srMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cleared")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn2 waves-effect" data-type="basic"><span>Cleared</span></button>
                             
-                            <button id="pendingMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="pending")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>Pending</span></button>
+                            <button id="pendingMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="pending")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn3 waves-effect" data-type="basic"><span>Pending</span></button>
 
                         <?php if($items['netAmount']==$items['pendingAmt']){ ?>  
-                            <button id="fsrMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                            <button id="fsrMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                         <?php }else{ ?>
-                            <button id="fsrMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                            <button id="fsrMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                         <?php } ?>
 
                     <?php if($items['a_type']==""){ ?>
                         <a>
-                            <button onclick="deleteFromTable(this,'<?php echo $items['id'];?>');" class="btn btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+                            <button onclick="deleteFromTable(this,'<?php echo $items['id'];?>');" class="btn btn-danger btn-xs waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
                         </a>
                     <?php }else{ ?>
                         <a>
-                            <button disabled class="btn btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+                            <button disabled class="btn btn-xs btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
                         </a>
                     <?php } ?> 
                         </td>
@@ -1545,23 +1521,23 @@ class OfficeAllocationController extends CI_Controller {
                    <td><?php echo '0.00'; ?></td>
                     <td><?php echo $items['a_type']; ?></td>
                     <td>
-                        <button id="srMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cleared")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn-success waves-effect" data-type="basic"><span>Cleared</span></button>
+                        <button id="srMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cleared")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn2 waves-effect" data-type="basic"><span>Cleared</span></button>
                         
-                        <button id="pendingMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="pending")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>Pending</span></button>
+                        <button id="pendingMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="pending")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn3 waves-effect" data-type="basic"><span>Pending</span></button>
 
                     <?php if($items['netAmount']==$items['pendingAmt']){ ?>  
-                        <button id="fsrMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                        <button id="fsrMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                     <?php }else{ ?>
-                        <button id="fsrMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                        <button id="fsrMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                     <?php } ?>
 
                     <?php if($items['a_type']==""){ ?>
                         <a>
-                            <button onclick="deleteFromTable(this,'<?php echo $items['id'];?>');" class="btn btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+                            <button onclick="deleteFromTable(this,'<?php echo $items['id'];?>');" class="btn btn-danger btn-xs waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
                         </a>
                     <?php }else{ ?>
                         <a>
-                            <button disabled class="btn btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+                            <button disabled class="btn btn-xs btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
                         </a>
                     <?php } ?> 
                     </td>
@@ -1619,23 +1595,23 @@ class OfficeAllocationController extends CI_Controller {
                         <td><?php echo $amount; ?></td>
                         <td><?php echo $items['a_type']; ?></td>
                         <td>
-                            <button id="srMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cleared")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn-success waves-effect" data-type="basic"><span>Cleared</span></button>
+                            <button id="srMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cleared")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn2 waves-effect" data-type="basic"><span>Cleared</span></button>
                             
-                            <button id="pendingMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="pending")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>Pending</span></button>
+                            <button id="pendingMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="pending")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn3 waves-effect" data-type="basic"><span>Pending</span></button>
 
                         <?php if($items['netAmount']==$items['pendingAmt']){ ?>  
-                            <button id="fsrMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                            <button id="fsrMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                         <?php }else{ ?>
-                            <button id="fsrMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                            <button id="fsrMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                         <?php } ?>
 
                     <?php if($items['a_type']==""){ ?>
                         <a>
-                            <button onclick="deleteFromTable(this,'<?php echo $items['id'];?>');" class="btn btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+                            <button onclick="deleteFromTable(this,'<?php echo $items['id'];?>');" class="btn btn-xs btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
                         </a>
                     <?php }else{ ?>
                         <a>
-                            <button disabled class="btn btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+                            <button disabled class="btn btn-xs btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
                         </a>
                     <?php } ?> 
                         </td>
@@ -1684,23 +1660,23 @@ class OfficeAllocationController extends CI_Controller {
                    <td><?php echo '0.00'; ?></td>
                     <td><?php echo $items['a_type']; ?></td>
                     <td>
-                        <button id="srMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cleared")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn-success waves-effect" data-type="basic"><span>Cleared</span></button>
+                        <button id="srMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cleared")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn2 waves-effect" data-type="basic"><span>Cleared</span></button>
                         
-                        <button id="pendingMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="pending")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>Pending</span></button>
+                        <button id="pendingMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="pending")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn3 waves-effect" data-type="basic"><span>Pending</span></button>
 
                     <?php if($items['netAmount']==$items['pendingAmt']){ ?>  
-                        <button id="fsrMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                        <button id="fsrMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                     <?php }else{ ?>
-                        <button id="fsrMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                        <button id="fsrMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                     <?php } ?>
 
                     <?php if($items['a_type']==""){ ?>
                         <a>
-                            <button onclick="deleteFromTable(this,'<?php echo $items['id'];?>');" class="btn btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+                            <button onclick="deleteFromTable(this,'<?php echo $items['id'];?>');" class="btn btn-danger btn-xs waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
                         </a>
                     <?php }else{ ?>
                         <a>
-                            <button disabled class="btn btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+                            <button disabled class="btn btn-danger btn-xs waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
                         </a>
                     <?php } ?> 
                     </td>
@@ -1768,23 +1744,23 @@ class OfficeAllocationController extends CI_Controller {
                 <td><?php echo $items['a_amount']; ?></td>
                 <td><?php echo $items['a_type']; ?></td>
                 <td>
-                    <button id="srM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cleared")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn-success waves-effect" data-type="basic"><span>Cleared</span></button>
+                    <button id="srM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cleared")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn2 waves-effect" data-type="basic"><span>Cleared</span></button>
                     
-                    <button id="pendingM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="pending")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>Pending</span></button>
+                    <button id="pendingM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="pending")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn3 waves-effect" data-type="basic"><span>Pending</span></button>
 
                 <?php if($items['netAmount']==$items['pendingAmt']){ ?>  
-                    <button id="fsrM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                    <button id="fsrM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                 <?php }else{ ?>
-                    <button id="fsrM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                    <button id="fsrM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                 <?php } ?>
 
                     <?php if($items['a_type']==""){ ?>
                         <a>
-                            <button onclick="deleteFromTable(this,'<?php echo $items['id'];?>');" class="btn btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+                            <button onclick="deleteFromTable(this,'<?php echo $items['id'];?>');" class="btn btn-danger btn-xs waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
                         </a>
                     <?php }else{ ?>
                         <a>
-                            <button disabled class="btn btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+                            <button disabled class="btn btn-danger btn-xs waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
                         </a>
                     <?php } ?> 
                 </td>
@@ -1842,23 +1818,23 @@ class OfficeAllocationController extends CI_Controller {
                     <td><?php echo $items['a_amount']; ?></td>
                     <td><?php echo $items['a_type']; ?></td>
                     <td>
-                        <button id="srMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cleared")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn-success waves-effect" data-type="basic"><span>Cleared</span></button>
+                        <button id="srMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cleared")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn2 waves-effect" data-type="basic"><span>Cleared</span></button>
                         
-                        <button id="pendingMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="pending")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>Pending</span></button>
+                        <button id="pendingMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="pending")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn3 waves-effect" data-type="basic"><span>Pending</span></button>
 
                     <?php if($items['netAmount']==$items['pendingAmt']){ ?>  
-                        <button id="fsrMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                        <button id="fsrMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                     <?php }else{ ?>
-                        <button id="fsrMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                        <button id="fsrMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                     <?php } ?>
 
                     <?php if($items['a_type']==""){ ?>
                         <a>
-                            <button onclick="deleteFromTable(this,'<?php echo $items['id'];?>');" class="btn btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+                            <button onclick="deleteFromTable(this,'<?php echo $items['id'];?>');" class="btn btn-danger btn-xs waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
                         </a>
                     <?php }else{ ?>
                         <a>
-                            <button disabled class="btn btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+                            <button disabled class="btn btn-xs btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
                         </a>
                     <?php } ?> 
                     </td>
@@ -1925,23 +1901,23 @@ class OfficeAllocationController extends CI_Controller {
                 <td><?php echo $items['a_amount']; ?></td>
                <td><?php if($items['a_type']=='fsr'){ echo 'FSR'; } ?></td>
                 <td>
-                    <button id="srM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cleared")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn-success waves-effect" data-type="basic"><span>Cleared</span></button>
+                    <button id="srM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cleared")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn2 waves-effect" data-type="basic"><span>Cleared</span></button>
                     
-                    <button id="pendingM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="pending")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>Pending</span></button>
+                    <button id="pendingM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="pending")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn3 waves-effect" data-type="basic"><span>Pending</span></button>
 
                  <?php if($items['netAmount']==$items['pendingAmt']){ ?>  
-                    <button id="fsrM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                    <button id="fsrM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                 <?php }else{ ?>
-                    <button id="fsrM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                    <button id="fsrM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                 <?php } ?>
 
                     <?php if($items['a_type']==""){ ?>
                         <a>
-                            <button onclick="deleteFromTable(this,'<?php echo $items['id'];?>');" class="btn btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+                            <button onclick="deleteFromTable(this,'<?php echo $items['id'];?>');" class="btn btn-danger btn-xs waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
                         </a>
                     <?php }else{ ?>
                         <a>
-                            <button disabled class="btn btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+                            <button disabled class="btn btn-xs btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
                         </a>
                     <?php } ?>
                 </td>
@@ -2003,23 +1979,23 @@ class OfficeAllocationController extends CI_Controller {
                 <td><?php echo $items['a_amount']; ?></td>
                 <td><?php if($items['a_type']=='fsr'){ echo 'FSR'; } ?></td>
                 <td>
-                    <button id="srMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cleared")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn-success waves-effect" data-type="basic"><span>Cleared</span></button>
+                    <button id="srMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cleared")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn2 waves-effect" data-type="basic"><span>Cleared</span></button>
                     
-                    <button id="pendingMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="pending")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>Pending</span></button>
+                    <button id="pendingMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="pending")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn3 waves-effect" data-type="basic"><span>Pending</span></button>
 
                  <?php if($items['netAmount']==$items['pendingAmt']){ ?>  
-                    <button id="fsrMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                    <button id="fsrMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                 <?php }else{ ?>
-                    <button id="fsrMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                    <button id="fsrMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                 <?php } ?>
 
                     <?php if($items['a_type']==""){ ?>
                         <a>
-                            <button onclick="deleteFromTable(this,'<?php echo $items['id'];?>');" class="btn btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+                            <button onclick="deleteFromTable(this,'<?php echo $items['id'];?>');" class="btn btn-xs btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
                         </a>
                     <?php }else{ ?>
                         <a>
-                            <button disabled class="btn btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+                            <button disabled class="btn btn-xs btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
                         </a>
                     <?php } ?>
                 </td>
@@ -2087,18 +2063,18 @@ class OfficeAllocationController extends CI_Controller {
                         <td><?php echo $amount; ?></td>
                         <td>Office Adjustment</td>
                         <td>
-                            <button id="srM" data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn-success waves-effect" data-type="basic"><span>Cleared</span></button>
+                            <button id="srM" data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn2 waves-effect" data-type="basic"><span>Cleared</span></button>
                             
-                            <button disabled id="pendingM" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>Pending</span></button>
+                            <button disabled id="pendingM" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn3 waves-effect" data-type="basic"><span>Pending</span></button>
 
                         <?php if($items['netAmount']==$items['pendingAmt']){ ?>  
-                            <button disabled id="fsrM" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                            <button disabled id="fsrM" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                         <?php }else{ ?>
-                            <button disabled id="fsrM" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                            <button disabled id="fsrM" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                         <?php } ?>
 
                             <a>
-                                <button disabled class="btn btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+                                <button disabled class="btn btn-xs btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
                             </a>
                         </td>
                     </tr>
@@ -2163,23 +2139,23 @@ class OfficeAllocationController extends CI_Controller {
                         <td><?php echo $items['a_amount']; ?></td>
                         <td><?php echo 'Office Adjustment'; ?></td>
                         <td>
-                            <button id="srMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cleared")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn-success waves-effect" data-type="basic"><span>Cleared</span></button>
+                        <button id="srMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cleared")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn2 waves-effect" data-type="basic"><span>Cleared</span></button>
                         
-                        <button id="pendingMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="pending")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>Pending</span></button>
+                        <button id="pendingMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="pending")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn3 waves-effect" data-type="basic"><span>Pending</span></button>
 
                         <?php if($items['netAmount']==$items['pendingAmt']){ ?>  
-                            <button  id="fsrM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                            <button  id="fsrM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                         <?php }else{ ?>
-                            <button id="fsrM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                            <button id="fsrM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                         <?php } ?>
                          
                     <?php if($items['a_type']==""){ ?>
                         <a>
-                            <button onclick="deleteFromTable(this,'<?php echo $items['id'];?>');" class="btn btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+                            <button onclick="deleteFromTable(this,'<?php echo $items['id'];?>');" class="btn btn-xs btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
                         </a>
                     <?php }else{ ?>
                         <a>
-                            <button disabled class="btn btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+                            <button disabled class="btn btn-xs btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
                         </a>
                     <?php } ?> 
                         </td>
@@ -2243,18 +2219,18 @@ class OfficeAllocationController extends CI_Controller {
                         <td></td>
                         <td>pending</td>
                         <td>
-                            <button disabled id="srM" data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn-success waves-effect" data-type="basic"><span>Cleared</span></button>
+                            <button disabled id="srM" data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn2 waves-effect" data-type="basic"><span>Cleared</span></button>
                             
-                            <button id="pendingM" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>Pending</span></button>
+                            <button id="pendingM" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn3 waves-effect" data-type="basic"><span>Pending</span></button>
 
                         <?php if($items['netAmount']==$items['pendingAmt']){ ?>  
-                            <button disabled id="fsrM" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                            <button disabled id="fsrM" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                         <?php }else{ ?>
-                            <button disabled id="fsrM" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                            <button disabled id="fsrM" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                         <?php } ?>
 
                             <a>
-                                <button disabled class="btn btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+                                <button disabled class="btn btn-xs btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
                             </a>
                         </td>
                     </tr>
@@ -2320,23 +2296,23 @@ class OfficeAllocationController extends CI_Controller {
                         <td><?php echo $items['a_amount']; ?></td>
                         <td><?php echo $items['a_type']; ?></td>
                         <td>
-                            <button id="srMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cleared")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn-success waves-effect" data-type="basic"><span>Cleared</span></button>
+                            <button id="srMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cleared")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn2 waves-effect" data-type="basic"><span>Cleared</span></button>
                         
-                        <button id="pendingMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="pending")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>Pending</span></button>
+                        <button id="pendingMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="pending")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn3 waves-effect" data-type="basic"><span>Pending</span></button>
 
                         <?php if($items['netAmount']==$items['pendingAmt']){ ?>  
-                            <button  id="fsrM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                            <button  id="fsrM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                         <?php }else{ ?>
-                            <button id="fsrM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                            <button id="fsrM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                         <?php } ?>
                          
                     <?php if($items['a_type']==""){ ?>
                         <a>
-                            <button onclick="deleteFromTable(this,'<?php echo $items['id'];?>');" class="btn btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+                            <button onclick="deleteFromTable(this,'<?php echo $items['id'];?>');" class="btn btn-xsbtn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
                         </a>
                     <?php }else{ ?>
                         <a>
-                            <button disabled class="btn btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+                            <button disabled class="btn btn-xs btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
                         </a>
                     <?php } ?> 
                         </td>
@@ -2393,18 +2369,18 @@ class OfficeAllocationController extends CI_Controller {
                         <td><?php echo $bill[0]['netAmount']; ?></td>
                         <td>FSR</td>
                         <td>
-                            <button disabled id="srM" data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn-success waves-effect" data-type="basic"><span>Cleared</span></button>
+                            <button disabled id="srM" data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn2 waves-effect" data-type="basic"><span>Cleared</span></button>
                             
-                            <button disabled id="pendingM" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>Pending</span></button>
+                            <button disabled id="pendingM" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn3 waves-effect" data-type="basic"><span>Pending</span></button>
 
                         <?php if($items['netAmount']==$items['pendingAmt']){ ?>  
-                            <button id="fsrM" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                            <button id="fsrM" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                         <?php }else{ ?>
-                            <button disabled id="fsrM" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                            <button disabled id="fsrM" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                         <?php } ?>
 
                             <a>
-                                <button disabled class="btn btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+                                <button disabled class="btn btn-xs btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
                             </a>
                         </td>
                     </tr>
@@ -2460,23 +2436,23 @@ class OfficeAllocationController extends CI_Controller {
                     <td><?php echo $items['a_amount']; ?></td>
                     <td><?php if($items['a_type']=='fsr'){ echo 'FSR'; } ?></td>
                     <td>
-                        <button id="srMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cleared")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn-success waves-effect" data-type="basic"><span>Cleared</span></button>
+                        <button id="srMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cleared")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn2 waves-effect" data-type="basic"><span>Cleared</span></button>
                     
-                    <button id="pendingMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="pending")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>Pending</span></button>
+                    <button id="pendingMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="pending")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn3 waves-effect" data-type="basic"><span>Pending</span></button>
 
                     <?php if($items['netAmount']==$items['pendingAmt']){ ?>  
-                        <button  id="fsrMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                        <button  id="fsrMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                     <?php }else{ ?>
-                        <button disabled id="fsrMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                        <button disabled id="fsrMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                     <?php } ?>
                      
                 <?php if($items['a_type']==""){ ?>
                     <a>
-                        <button onclick="deleteFromTable(this,'<?php echo $items['id'];?>');" class="btn btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+                    <button onclick="deleteFromTable(this,'<?php echo $items['id'];?>');" class="btn btn-xs btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
                     </a>
                 <?php }else{ ?>
                     <a>
-                        <button disabled class="btn btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+                    <button disabled class="btn btn-xs btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
                     </a>
                 <?php } ?>
                     </td>
@@ -2880,13 +2856,6 @@ class OfficeAllocationController extends CI_Controller {
                 $allocationId=$itm['allocationId'];
                 
                 $billData=$this->OfficeAllocationModel->load('bills',$billId);
-                $billStatus=$billData[0]['billHistoryStatus'];	
-                $currentBillStatus=$billData[0]['billCurrentStatus'];	
-
-                if($billData[0]['netAmount']==$billData[0]['pendingAmt']){
-                    $currentBillStatus="";
-                }
-
                 $this->OfficeAllocationModel->deleteAllocationsBills('allocations_officebills',$billId,$allocationId);
 
                 if($billData[0]['netAmount']==$billData[0]['pendingAmt']){
@@ -2894,7 +2863,7 @@ class OfficeAllocationController extends CI_Controller {
                     if($countBills>0){
                         $rtData=array
                         (
-                            'billType'=>$billStatus,'remark'=>'','isAllocated'=>'0'    
+                            'remark'=>'','isAllocated'=>'0'    
                         );
                         $this->OfficeAllocationModel->update('bills',$rtData,$billId);
 
@@ -2909,7 +2878,7 @@ class OfficeAllocationController extends CI_Controller {
                     }else{
                         $rtData=array
                         (
-                            'billType'=>$billStatus,'remark'=>'','isAllocated'=>'0'    
+                            'billType'=>'allocatedbillPass','remark'=>'','isAllocated'=>'0'    
                         );
                         $this->OfficeAllocationModel->update('bills',$rtData,$billId);
 
@@ -2929,7 +2898,7 @@ class OfficeAllocationController extends CI_Controller {
                     if($countBills>0){
                         $rtData=array
                         (
-                            'billType'=>$billStatus,'isAllocated'=>'0'    
+                            'isAllocated'=>'0'    
                         );
                         $this->OfficeAllocationModel->update('bills',$rtData,$billId);
 
@@ -2944,7 +2913,7 @@ class OfficeAllocationController extends CI_Controller {
                     }else{
                         $rtData=array
                         (
-                            'billType'=>$billStatus,'remark'=>'','isAllocated'=>'0'    
+                            'billType'=>'allocatedbillPass','remark'=>'','isAllocated'=>'0'    
                         );
                         $this->OfficeAllocationModel->update('bills',$rtData,$billId);
 
@@ -2986,13 +2955,6 @@ class OfficeAllocationController extends CI_Controller {
                 $allocationId=$itm['allocationId'];
 
                 $billData=$this->OfficeAllocationModel->load('bills',$billId);
-                $billStatus=$billData[0]['billHistoryStatus'];
-                $currentBillStatus=$billData[0]['billCurrentStatus'];	
-
-                if($billData[0]['netAmount']==$billData[0]['pendingAmt']){
-                    $currentBillStatus="";
-                }
-	
 
                 $this->OfficeAllocationModel->deleteAllocationsBills('allocations_officebills',$billId,$allocationId);
                 
@@ -3002,7 +2964,7 @@ class OfficeAllocationController extends CI_Controller {
                     if($countBills>0){
                         $rtData=array
                         (
-                            'billType'=>$billStatus,'remark'=>'','isAllocated'=>'0'    
+                            'remark'=>'','isAllocated'=>'0'    
                         );
                         $this->OfficeAllocationModel->update('bills',$rtData,$billId);
 
@@ -3017,7 +2979,7 @@ class OfficeAllocationController extends CI_Controller {
                     }else{
                         $rtData=array
                         (
-                            'billType'=>$billStatus,'remark'=>'','isAllocated'=>'0'    
+                            'billType'=>'allocatedbillPass','remark'=>'','isAllocated'=>'0'    
                         );
                         $this->OfficeAllocationModel->update('bills',$rtData,$billId);
 
@@ -3037,7 +2999,7 @@ class OfficeAllocationController extends CI_Controller {
                     if($countBills>0){
                         $rtData=array
                         (
-                            'billType'=>$billStatus,'isAllocated'=>'0'    
+                            'isAllocated'=>'0'    
                         );
                         $this->OfficeAllocationModel->update('bills',$rtData,$billId);
 
@@ -3052,7 +3014,7 @@ class OfficeAllocationController extends CI_Controller {
                     }else{
                         $rtData=array
                         (
-                            'billType'=>$billStatus,'remark'=>'','isAllocated'=>'0'    
+                            'billType'=>'allocatedbillPass','remark'=>'','isAllocated'=>'0'    
                         );
                         $this->OfficeAllocationModel->update('bills',$rtData,$billId);
 
@@ -3849,15 +3811,15 @@ class OfficeAllocationController extends CI_Controller {
                     <td><?php echo $items['a_amount']; ?></td>
                     <td><?php if($items['a_type']=='cash'){ echo 'Cash'; } ?></td>
                     <td>
-                        <button id="cashMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cash")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $no; ?>" data-id="<?php echo $items['id']; ?>" data-target="#cashModal" class="btn btn-xs btn-success waves-effect" data-type="basic"><span>Cash</span></button>
-                        <button id="srMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cleared")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn-xs btn-success waves-effect" data-type="basic"><span>Cleared</span></button>
+                        <button id="cashMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cash")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $no; ?>" data-id="<?php echo $items['id']; ?>" data-target="#cashModal" class="btn btn-xs btn1 waves-effect" data-type="basic"><span>Cash</span></button>
+                        <button id="srMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cleared")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn-xs btn2 waves-effect" data-type="basic"><span>Cleared</span></button>
                     
-                    <button id="pendingMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="pending")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-xs btn-success waves-effect" data-type="basic"><span>Pending</span></button>
+                    <button id="pendingMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="pending")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-xs btn3 waves-effect" data-type="basic"><span>Pending</span></button>
 
                     <?php if($items['netAmount']==$items['pendingAmt']){ ?>  
-                        <button  id="fsrMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-xs btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                        <button  id="fsrMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-xs btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                     <?php }else{ ?>
-                        <button disabled id="fsrMupdate" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-xs btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                        <button disabled id="fsrMupdate" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-xs btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                     <?php } ?>
                      
                 <?php if($items['a_type']==""){ ?>
@@ -3921,15 +3883,15 @@ class OfficeAllocationController extends CI_Controller {
                     <td></td>
                     <td></td>
                     <td>
-                        <button id="cashMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cash")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $no; ?>" data-id="<?php echo $items['id']; ?>" data-target="#cashModal" class="btn btn-xs btn-success waves-effect" data-type="basic"><span>Cash</span></button>
-                        <button id="srMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cleared")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn-xs btn-success waves-effect" data-type="basic"><span>Cleared</span></button>
+                        <button id="cashMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cash")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $no; ?>" data-id="<?php echo $items['id']; ?>" data-target="#cashModal" class="btn btn-xs btn1 waves-effect" data-type="basic"><span>Cash</span></button>
+                        <button id="srMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cleared")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn-xs btn2 waves-effect" data-type="basic"><span>Cleared</span></button>
                     
-                    <button id="pendingMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="pending")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-xs btn-success waves-effect" data-type="basic"><span>Pending</span></button>
+                    <button id="pendingMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="pending")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-xs btn3 waves-effect" data-type="basic"><span>Pending</span></button>
 
                     <?php if($items['netAmount']==$items['pendingAmt']){ ?>  
-                        <button  id="fsrMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-xs btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                        <button  id="fsrMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-xs btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                     <?php }else{ ?>
-                        <button disabled id="fsrMupdate" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-xs btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                        <button disabled id="fsrMupdate" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-xs btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                     <?php } ?>
                      
                 <?php if($items['a_type']==""){ ?>
@@ -4004,15 +3966,15 @@ class OfficeAllocationController extends CI_Controller {
                         <td></td>
                         <td></td>
                         <td>
-                            <button id="cashMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cash")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $no; ?>" data-id="<?php echo $items['id']; ?>" data-target="#cashModal" class="btn btn-xs btn-success waves-effect" data-type="basic"><span>Cash</span></button>
-                            <button id="srMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cleared")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn-xs btn-success waves-effect" data-type="basic"><span>Cleared</span></button>
+                            <button id="cashMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cash")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $no; ?>" data-id="<?php echo $items['id']; ?>" data-target="#cashModal" class="btn btn-xs btn1 waves-effect" data-type="basic"><span>Cash</span></button>
+                            <button id="srMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cleared")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn-xs btn2 waves-effect" data-type="basic"><span>Cleared</span></button>
                         
-                        <button id="pendingMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="pending")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-xs btn-success waves-effect" data-type="basic"><span>Pending</span></button>
+                        <button id="pendingMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="pending")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-xs btn3 waves-effect" data-type="basic"><span>Pending</span></button>
 
                         <?php if($items['netAmount']==$items['pendingAmt']){ ?>  
-                            <button  id="fsrM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-xs btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                            <button  id="fsrM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-xs btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                         <?php }else{ ?>
-                            <button disabled data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-xs btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                            <button disabled data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-xs btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                         <?php } ?>
                          
                     <?php if($items['a_type']==""){ ?>
@@ -4078,15 +4040,15 @@ class OfficeAllocationController extends CI_Controller {
                         <td></td>
                         <td></td>
                         <td>
-                            <button id="cashMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cash")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $no; ?>" data-id="<?php echo $items['id']; ?>" data-target="#cashModal" class="btn btn-xs btn-success waves-effect" data-type="basic"><span>Cash</span></button>
-                            <button id="srMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cleared")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn-xs btn-success waves-effect" data-type="basic"><span>Cleared</span></button>
+                            <button id="cashMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cash")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $no; ?>" data-id="<?php echo $items['id']; ?>" data-target="#cashModal" class="btn btn-xs btn1 waves-effect" data-type="basic"><span>Cash</span></button>
+                            <button id="srMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cleared")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn-xs btn2 waves-effect" data-type="basic"><span>Cleared</span></button>
                         
-                        <button id="pendingMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="pending")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-xs btn-success waves-effect" data-type="basic"><span>Pending</span></button>
+                        <button id="pendingMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="pending")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-xs btn3 waves-effect" data-type="basic"><span>Pending</span></button>
 
                         <?php if($items['netAmount']==$items['pendingAmt']){ ?>  
-                            <button  id="fsrM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-xs btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                            <button  id="fsrM" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-xs btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                         <?php }else{ ?>
-                            <button id="fsrM" disabled data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-xs btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                            <button id="fsrM" disabled data-no="<?php echo $rowNo; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-xs btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                         <?php } ?>
                          
                     <?php if($items['a_type']==""){ ?>

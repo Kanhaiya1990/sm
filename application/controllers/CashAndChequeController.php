@@ -15,30 +15,6 @@ class CashAndChequeController extends CI_Controller{
 
         if(isset($this->session->userdata['codeKeyData'])) {
 			$this->projectSessionName= $this->session->userdata['codeKeyData']['codeKeyValue'];
-			$this->baseUrl=$this->session->userdata['codeKeyData']['yourBaseUrl'];
-
-            if($this->baseUrl=="http://localhost/smartdistributor/" || $this->baseUrl=="https://siainc.in/kiasales/" || $this->baseUrl=="https://siainc.in/staging_kiasales/"){
-
-            }else{
-                $this->load->helper('url');
-                $url_parts = parse_url(current_url());
-                $siteUrl=explode('/',$url_parts['path']);//current url path
-        
-                $baseUrl=explode('/',$this->baseUrl);//base url path
-                
-                $siteDistributorName=trim($siteUrl[2]);
-                $baseDistributorName=trim($baseUrl[4]);
-                
-                if($siteDistributorName !="" && $baseDistributorName !=""){
-                    if($siteDistributorName==$baseDistributorName){
-                    //   
-                    }else{
-                    redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
-                    }
-                }else{
-                redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
-                }
-            }
 		}else{
 			$this->load->view('LoginView');
 		}
@@ -115,7 +91,8 @@ class CashAndChequeController extends CI_Controller{
 
             $this->session->set_userdata("DesktopBill",$response);
             $this->load->view('DesktopBillView',$data);
-        }else if($comp !="" && $date!="") {
+        }
+        else if($comp !="" && $date!="") {
             $session_data = array('depositDate' => $date);
             $this->session->set_userdata('DepositDate', $session_data);
 
@@ -148,7 +125,7 @@ class CashAndChequeController extends CI_Controller{
         $name=trim($this->input->post('name'));
         
         // echo $date.' '.$name;
-       if(($name=="--Select All Divisions--") && ($date !=="")){
+       if(($name=="--Select All Companies--") && ($date !=="")){
             $bills=$this->CashAndChequeModel->getdataRetailerByDate('bills',$date,$name);
             $officeBills=$this->CashAndChequeModel->getOfficeCheques('billpayments',$date,$name);
 
@@ -1813,13 +1790,13 @@ class CashAndChequeController extends CI_Controller{
         <div class="row">                                 
             <div class="row m-t-20">
                 <div class="col-md-12">
-                    <table class="table table-bordered table-striped table-hover dataTable" data-page-length='100'>
+                    <table class="table table-bordered cust-tbl dataTable" data-page-length='100'>
                         <thead>
                         <tr class="gray">
                             <th>Party</th>
                             <th>Bill no</th>
-                            <th> Amount  </th>
-                            <th> Company  </th>
+                            <th>Amount  </th>
+                            <th>Company  </th>
                         </tr>
                       </thead>
 
@@ -1835,7 +1812,7 @@ class CashAndChequeController extends CI_Controller{
                 </div>
         <form method="post" role="form" onsubmit="return checkAmount();" action="<?php echo site_url('CashAndChequeController/insertSplitCheques'); ?>">         
                 <div class="col-md-12">
-                    <table id="myTable" class="table table-bordered table-striped table-hover dataTable" data-page-length='100'>
+                    <table id="myTable" class="table table-bordered dataTable cust-tbl" data-page-length='100'>
                       <tbody>
 
                         <input type="hidden" id="billpaymentId" name="billpaymentId" value="<?php echo $billpaymentId; ?>">
@@ -1878,11 +1855,11 @@ class CashAndChequeController extends CI_Controller{
                 </div>
 
                 <div class="col-md-12">
-                    <button type="submit" class="btn btn-primary m-t-15 waves-effect">
+                    <button type="submit" class="btn btnStyle btn-primary m-t-15 waves-effect">
                         <i class="material-icons">save</i><span class="icon-name">Save</span>
                     </button>
                 
-                    <button data-dismiss="modal" type="button" class="btn btn-danger m-t-15 waves-effect">
+                    <button data-dismiss="modal" type="button" class="btn btn-sm btn-danger m-t-15 waves-effect">
                             <i class="material-icons">cancel</i><span class="icon-name">cancel</span>
                     </button>
                 </div>
@@ -1962,7 +1939,7 @@ class CashAndChequeController extends CI_Controller{
                 </div>
 
                 <div class="col-md-12">
-                    <button type="submit" class="btn btn-primary m-t-15 waves-effect">
+                    <button type="submit" class="btn btnStyle btn-primary m-t-15 waves-effect">
                         <i class="material-icons">save</i><span class="icon-name">Save</span>
                     </button>
                 
@@ -2005,8 +1982,7 @@ class CashAndChequeController extends CI_Controller{
         $compName=$billComp;
 
 
-        $isAllocationClosed=$billDetails[0]['isAllocationClosed'];
-        $allocationCloseDate=$billDetails[0]['allocationCloseDate'];
+
 
         // $retailerName=$billDetails[0]['retailerName'];
         $isLostStatus=$billDetails[0]['isLostStatus'];
@@ -2042,9 +2018,7 @@ class CashAndChequeController extends CI_Controller{
                     'isLostStatus'=>$isLostStatus,
                     'isOfficeCheque'=>$isOfficeCheque,
                     'chequeNo'=>$chequeNo[$i],
-                    'chequeStatus'=>'New',
-                    'isAllocationClosed'=>$isAllocationClosed,
-                    'allocationCloseDate'=>$allocationCloseDate
+                    'chequeStatus'=>'New'
                 );
 
                 // print_r($insertData);exit;
@@ -2075,9 +2049,6 @@ class CashAndChequeController extends CI_Controller{
         $paymentMode=$billDetails[0]['paymentMode'];
         $billNo=$billDetails[0]['billNo'];
         $compName=$billComp;
-
-        $isAllocationClosed=$billDetails[0]['isAllocationClosed'];
-        $allocationCloseDate=$billDetails[0]['allocationCloseDate'];
 
         $retailerName=$billDetails[0]['retailerName'];
         $isLostStatus=$billDetails[0]['isLostStatus'];
@@ -2111,9 +2082,7 @@ class CashAndChequeController extends CI_Controller{
                     'isLostStatus'=>$isLostStatus,
                     'isOfficeCheque'=>$isOfficeCheque,
                     'neftNo'=>$chequeNo[$i],
-                    'chequeStatus'=>'New',
-                    'isAllocationClosed'=>$isAllocationClosed,
-                    'allocationCloseDate'=>$allocationCloseDate
+                    'chequeStatus'=>'New'
                 );
 
                 // print_r($insertData);exit;

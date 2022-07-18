@@ -9,7 +9,8 @@ class FieldStaffModel extends CI_Model {
     public function getdata($tableName)
     {
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -23,7 +24,8 @@ class FieldStaffModel extends CI_Model {
     public function getDynamicNames($tblName,$type){
         $this->db->where('type', $type);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();  
     }
 
@@ -41,7 +43,8 @@ class FieldStaffModel extends CI_Model {
         $this->db->where('billpayments.otherAdjustmentApproval',0);
         $this->db->group_by('bills.id');
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -50,13 +53,15 @@ class FieldStaffModel extends CI_Model {
         $this->db->where('allocationId', $allocationId);
         $this->db->where('transactionStatus', $type);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();  
     }
 
     public function getSumRowCount($id){
         $query = $this->db->query('SELECT sum(isResendBill) as recBill,sum(isLostBill) as lostBill,sum(isLostCheque) as lostCheque,sum(isPendingNeft)as lostNeft FROM `allocationsbills` WHERE allocationsbills.billId='.$id);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -81,7 +86,8 @@ class FieldStaffModel extends CI_Model {
         $this->db->where('bills.fsbillStatus !=','Resend');
         $this->db->where('allocationsbills.allocationId',$id);
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -102,7 +108,8 @@ class FieldStaffModel extends CI_Model {
         $this->db->join("bills","allocationsbills.billId = bills.id");
         $this->db->where('allocationsbills.allocationId',$allocationId);
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
    
@@ -110,7 +117,8 @@ class FieldStaffModel extends CI_Model {
         $this->db->where('isAllocationComplete !=','1');
         $this->db->order_by('id','desc');
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -118,7 +126,8 @@ class FieldStaffModel extends CI_Model {
         $this->db->select_sum('qty', 'qtySum');
         $this->db->where('billId',$id);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
     
@@ -127,7 +136,8 @@ class FieldStaffModel extends CI_Model {
         $this->db->where('ownerApproval',0);
         $this->db->where('designation','deliveryman');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -146,7 +156,8 @@ class FieldStaffModel extends CI_Model {
         $this->db->join("bills","billsdetails.billId = bills.id");
         $this ->db->where('billsdetails.billId', $id);
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -158,7 +169,8 @@ class FieldStaffModel extends CI_Model {
         $this->db->join("employee","employee.id=allocations.fieldStaffCode1");
         $this ->db ->where('bills.id', $id);
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -168,7 +180,8 @@ class FieldStaffModel extends CI_Model {
         $this->db->join("bills","billsdetails.billId = bills.id");
         $this ->db->where('billsdetails.id', $id);
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -221,14 +234,16 @@ class FieldStaffModel extends CI_Model {
 
     public function show($tblName) {
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();    
     }
 
     public function noteDetailsByAllocationId($tblName,$id) {
         $this->db->where('allocationId',$id);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();    
     }
 
@@ -246,7 +261,8 @@ class FieldStaffModel extends CI_Model {
     public function load($tblName, $id) {
         $this -> db -> where('id', $id);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
@@ -255,21 +271,24 @@ class FieldStaffModel extends CI_Model {
         $this->db->where('allocationId', $allocationId);
         $this->db->where('billItemId', $billItemId);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
     public function loadAllocatedBills($tblName, $id) {
         $this -> db -> where('allocationId', $id);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
     public function loadDataByChequeNo($tblName, $id) {
         $this ->db-> where('chequeNo', $id);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
@@ -281,35 +300,40 @@ class FieldStaffModel extends CI_Model {
     public function loadCurrentBills($tblName, $fromNo ,$toNo) {
         $this->db->where('billNo BETWEEN "'. $fromNo. '" and "'.$toNo.'"');
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
     public function loadCurrentBillsByNo($tblName, $billNo) {
         $this->db->where('billNo',$billNo);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
     public function loadPastBills($tblName, $billNo) {
         $this->db->where('billNo',$billNo);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
     public function loadPastBillsByRoute($tblName, $routeName) {
         $this->db->where('route',$routeName);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
      public function getNextId($tableName) {
         $this->db->select_max('id');
         $query = $this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
     
@@ -391,7 +415,8 @@ class FieldStaffModel extends CI_Model {
     {
         $this->db->where('billNo',$billNo);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -399,7 +424,8 @@ class FieldStaffModel extends CI_Model {
     {
         $this->db->where('name',$name);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -407,7 +433,8 @@ class FieldStaffModel extends CI_Model {
     {
         $this->db->where('name',$name);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -415,7 +442,8 @@ class FieldStaffModel extends CI_Model {
     {
         $this->db->where('id',$id);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
    
@@ -425,14 +453,16 @@ class FieldStaffModel extends CI_Model {
             $this->db->where('date <', $date);
             $this->db->where('pendingAmt >', 0);
             $query=$this->db->get($tableName);
-            
+            $this->db->close();
+        $this->db->initialize();
             return $query->result_array();
         }else{
             $this->db->where('date <', $date);
             $this->db->where('pendingAmt >', 0);
             $this->db->where('billNo', $bill);
             $query=$this->db->get($tableName);
-            
+            $this->db->close();
+        $this->db->initialize();
             return $query->result_array();
         }
     }
@@ -443,14 +473,16 @@ class FieldStaffModel extends CI_Model {
             $this->db->where('date <', $date);
             $this->db->where('balanceAmount >', 0);
             $query=$this->db->get($tableName);
-            
+            $this->db->close();
+        $this->db->initialize();
             return $query->result_array();
         }else{
             $this->db->where('date <', $date);
             $this->db->where('balanceAmount >', 0);
             $this->db->where('BillNo', $bill);
             $query=$this->db->get($tableName);
-            
+            $this->db->close();
+        $this->db->initialize();
             return $query->result_array();
         }
     }
@@ -461,7 +493,8 @@ class FieldStaffModel extends CI_Model {
         $this->db->from('bills');
         $this->db->where('pendingAmt >', 0);      
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -472,7 +505,8 @@ class FieldStaffModel extends CI_Model {
         $this->db->join('allocationsbills','allocationsbills.billId=bills.id');
         $this->db->where('allocationsbills.allocationId',$id);
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -483,7 +517,8 @@ class FieldStaffModel extends CI_Model {
             $this->db->where('allocationsbills.allocationId',$id);
              $this->db->where('allocationsbills.billStatus',$status);
             $query=$this->db->get();
-            
+            $this->db->close();
+        $this->db->initialize();
             return $query->result_array();
        }
 
@@ -499,7 +534,8 @@ class FieldStaffModel extends CI_Model {
         $this->db->where('allocationsbills.allocationId',$id);
         $this->db->where('allocationsbills.billStatus','2');
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -508,7 +544,8 @@ class FieldStaffModel extends CI_Model {
             $this->db->where('billId',$billId);
             $this->db->where('paymentMode',$mode);
             $query=$this->db->get($tableName);
-            
+            $this->db->close();
+        $this->db->initialize();
             return $query->result_array();        
        }
 

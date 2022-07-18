@@ -41,7 +41,7 @@
                                         echo $bank[0]['id'];
                                       }
                                     ?>">
-                                  <div class="col-md-6">
+                                  <div class="col-md-6 cust-tbl">
                                         <b>Bank Name</b>
                                         <div class="input-group">
                                             
@@ -69,7 +69,7 @@
                                      <div class="col-md-12">
                                         <div class="row clearfix">
                                             <div class="col-md-4">
-                                                <button type="submit" class="btn btn-primary m-t-15 waves-effect">
+                                                <button type="submit" class="btn btnStyle m-t-15 waves-effect">
                                                     <i class="material-icons">save</i> 
                                                     <span class="icon-name">
                                                      <?php
@@ -85,7 +85,7 @@
                                                     </span>
                                                 </button>
                                                 <a href="<?php echo site_url('admin/BankController/');?>">
-                                                    <button type="button" class="btn btn-primary m-t-15 waves-effect">
+                                                    <button type="button" class="btn btn-danger m-t-15 waves-effect">
                                                         <i class="material-icons">cancel</i> 
                                                         <span class="icon-name"> Cancel</span>
                                                     </button>

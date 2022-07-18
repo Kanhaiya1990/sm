@@ -12,30 +12,6 @@ class CategoriesController extends CI_Controller {
 
         if(isset($this->session->userdata['codeKeyData'])) {
 			$this->projectSessionName= $this->session->userdata['codeKeyData']['codeKeyValue'];
-			$this->baseUrl=$this->session->userdata['codeKeyData']['yourBaseUrl'];
-
-            if($this->baseUrl=="http://localhost/smartdistributor/" || $this->baseUrl=="https://siainc.in/kiasales/" || $this->baseUrl=="https://siainc.in/staging_kiasales/"){
-
-            }else{
-                $this->load->helper('url');
-                $url_parts = parse_url(current_url());
-                $siteUrl=explode('/',$url_parts['path']);//current url path
-        
-                $baseUrl=explode('/',$this->baseUrl);//base url path
-                
-                $siteDistributorName=trim($siteUrl[2]);
-                $baseDistributorName=trim($baseUrl[4]);
-                
-                if($siteDistributorName !="" && $baseDistributorName !=""){
-                    if($siteDistributorName==$baseDistributorName){
-                    //   
-                    }else{
-                    redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
-                    }
-                }else{
-                redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
-                }
-            }
 		}else{
 			$this->load->view('LoginView');
 		}
@@ -78,7 +54,7 @@ class CategoriesController extends CI_Controller {
                                 <div class="row clearfix">
                                     <input type="hidden" id='limitId' autocomplete="off" name="id" list="ret" value="<?php echo $category[0]['id']; ?>" class="form-control date">
 
-                                <div class="col-md-12">
+                                <div class="col-md-12 cust-tbl">
                                         <b>Category Name</b>
                                         <div class="input-group">
                                             <span class="input-group-addon">
@@ -94,12 +70,12 @@ class CategoriesController extends CI_Controller {
                                      <div class="col-md-12">
                                         <div class="row clearfix">
                                             <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">
-                                                <button id="insRet" class="btn btn-primary m-t-15 waves-effect">
+                                                <button id="insRet" class="btn btnStyle m-t-15 waves-effect">
                                                     <i class="material-icons">save</i> 
                                                     <span class="icon-name">Save</span>
                                                 </button>
                                                
-                                                    <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                                    <button data-dismiss="modal" type="button" class="btn btn-danger m-t-15 waves-effect">
                                                         <i class="material-icons">cancel</i> 
                                                         <span class="icon-name"> Cancel</span>
                                                     </button>
@@ -127,7 +103,7 @@ class CategoriesController extends CI_Controller {
                                 <div class="row clearfix">
                                     <input type="hidden" id='limitId' autocomplete="off" name="id" list="ret" value="<?php echo $category[0]['id']; ?>" class="form-control date">
 
-                                <div class="col-md-12">
+                                <div class="col-md-12 cust-tbl">
                                         <b>Category Name</b>
                                         <div class="input-group">
                                             <span class="input-group-addon">
@@ -143,12 +119,12 @@ class CategoriesController extends CI_Controller {
                                      <div class="col-md-12">
                                         <div class="row clearfix">
                                             <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">
-                                                <button id="insRet" class="btn btn-primary m-t-15 waves-effect">
+                                                <button id="insRet" class="btn btnStyle m-t-15 waves-effect">
                                                     <i class="material-icons">save</i> 
                                                     <span class="icon-name">Save</span>
                                                 </button>
                                                
-                                                    <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                                    <button data-dismiss="modal" type="button" class="btn btn-danger m-t-15 waves-effect">
                                                         <i class="material-icons">cancel</i> 
                                                         <span class="icon-name"> Cancel</span>
                                                     </button>

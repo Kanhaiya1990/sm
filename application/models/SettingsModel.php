@@ -8,14 +8,16 @@ class SettingsModel extends CI_Model {
     public function getInfo($tableName)
     {
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
     
     public function getDynamicNames($tblName,$type){
         $this->db->where('type', $type);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();  
     }
 
@@ -31,7 +33,8 @@ class SettingsModel extends CI_Model {
 
     public function show($tblName) {
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();    
     }
      public function delete($tblName,$id)
@@ -42,14 +45,16 @@ class SettingsModel extends CI_Model {
     public function load($tblName, $id) {
         $this->db->where('id', $id);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
     public function loadBouncedAdhocCheques($tblName) {
         $this->db->where('id', $id);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 }

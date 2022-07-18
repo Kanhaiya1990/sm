@@ -15,30 +15,6 @@ class FieldStaffController extends CI_Controller {
 
 		if(isset($this->session->userdata['codeKeyData'])) {
 			$this->projectSessionName= $this->session->userdata['codeKeyData']['codeKeyValue'];
-			$this->baseUrl=$this->session->userdata['codeKeyData']['yourBaseUrl'];
-
-            if($this->baseUrl=="http://localhost/smartdistributor/" || $this->baseUrl=="https://siainc.in/kiasales/" || $this->baseUrl=="https://siainc.in/staging_kiasales/"){
-
-            }else{
-                $this->load->helper('url');
-                $url_parts = parse_url(current_url());
-                $siteUrl=explode('/',$url_parts['path']);//current url path
-        
-                $baseUrl=explode('/',$this->baseUrl);//base url path
-                
-                $siteDistributorName=trim($siteUrl[2]);
-                $baseDistributorName=trim($baseUrl[4]);
-                
-                if($siteDistributorName !="" && $baseDistributorName !=""){
-                    if($siteDistributorName==$baseDistributorName){
-                    //   
-                    }else{
-                    redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
-                    }
-                }else{
-                redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
-                }
-            }
 		}else{
 			$this->load->view('LoginView');
 		}
@@ -2227,24 +2203,34 @@ class FieldStaffController extends CI_Controller {
         ?>
             
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="card">
+            <div class="card" style="width: 1000px;">
                 <div class="header">
-                    <h4 style="color: #099dba;">
-                    <span style="color: black;">Retailer :</span>
+                	<div class="row cust-tbl">
+                    <div class="col-md-4 col-12 m-b-20">
+                    <span style="color: #000000;font-weight: 600;">Retailer :</span>
+					<span style="color: #050A30;">
                     <?php 
                         if(!empty($billsdetails)){
                              echo $billsdetails[0]['name'];
                         }
                     ?>
-                     &nbsp; &nbsp;
-                   <span style="color: black;">Bill No :</span> 
+					</span>
+                    </div>
+                    
+                    <div class="col-md-4 col-12 m-b-20">
+                    <span style="color: #000000;font-weight: 600;">Bill No :</span> 
+					<span style="color: #050A30;">
                     <?php 
                         if(!empty($billsdetails)){
                              echo $billsdetails[0]['billNo'];
                         }
                     ?>
-                    &nbsp; &nbsp;
-                  <span style="color: black;">Date :</span>
+					</span>
+                    </div>
+                    
+                  <div class="col-md-4 col-12 m-b-20">
+                  <span style="color: #000000;font-weight: 600;">Date :</span>
+				    <span style="color: #050A30;">
                     <?php
                         if(!empty($billsdetails)){
                             $dt=date_create($billsdetails[0]['Date']);
@@ -2252,72 +2238,82 @@ class FieldStaffController extends CI_Controller {
                             echo $date;
                         }
                     ?>
-                    &nbsp;&nbsp;<br><br>
-               <span style="color: black;">Bill Amount :</span>
+					</span>
+                    </div>
+                   
+                    <div class="col-md-4 col-12 m-b-20">
+                    <span style="color: #000000;font-weight: 600;">Bill Amount :</span>
+					<span style="color: #050A30;">
                     <?php
                         if(!empty($billsdetails)){
                            echo number_format($billsdetails[0]['netAmt'],2);
                         }
                     ?>
-                    &nbsp;&nbsp;
-                <span style="color: black;">Pending Amount :</span>
+					</span>
+                    </div>
+                  
+                    <div class="col-md-4 col-12 m-b-20">
+                    <span style="color: #000000;font-weight: 600;">Pending Amount :</span>
+					<span style="color: #050A30;">
                     <?php
                         if(!empty($billsdetails)){
                             echo number_format(($billsdetails[0]['pendingAmt']-($billsdetails[0]['fsSrAmt']-$billsdetails[0]['creditNoteRenewal'])),2);
                         }
                     ?>
-                    </h4>
+					</span>
+                    </div>
                 </div>
+            </div>
                     
                 <div class="body">
                   <form onsubmit="return msgIsEmpty();" action="<?php echo site_url('fieldStaff/FieldStaffController/updateSRCreditAdj');?>" method="post">
                     <div class="table-responsive">
                        <p id="msg"></p>
                        
-                                <div>
-
-                                    <button type="submit" <?php if(empty($billsdetails)){ echo "disabled"; }?> class="btn btn-xs btn-primary m-t-15 waves-effect">
-                                        <i class="material-icons">save</i><span class="icon-name">SR</span>
-                                    </button>
+                        <div>
+                            <button type="submit" <?php if(empty($billsdetails)){ echo "disabled"; }?> class="btn btn-xs btnStyle waves-effect m-b-10">
+                            <i class="material-icons">save</i><span class="icon-name">SR</span>
+                            </button>
                                 
-                                <button data-dismiss="modal" type="button" class="btn btn-xs btn-danger m-t-15 waves-effect">
-                                            <i class="material-icons">cancel</i><span class="icon-name">cancel</span>
-                                        </button>
-                                </div>
+                            <button data-dismiss="modal" type="button" class="btn btn-sm btn-danger waves-effect m-b-10">
+                            <i class="material-icons">cancel</i><span class="icon-name">cancel</span>
+                            </button>
+                        </div>
                                   
-                                  <input type="hidden" name="pendAmt" id="sr_pendAmt" value="<?php if(!empty($billsdetails)){ echo ($billsdetails[0]['pendingAmt']-$billsdetails[0]['fsSrAmt']); } ?>" readonly>
+                         <input type="hidden" name="pendAmt" id="sr_pendAmt" value="<?php if(!empty($billsdetails)){ echo ($billsdetails[0]['pendingAmt']-$billsdetails[0]['fsSrAmt']); } ?>" readonly>
 
-                            <div style="color:red;" id="sr_qty"></div>
-                        <table style="font-size: 12px" id="SrTable" class="table table-bordered table-striped table-hover js-basic-example dataTable" data-page-length='100'>
+                        <div style="color:red;" id="sr_qty"></div>
+                        <table id="SrTable" class="table table-bordered cust-tbl js-basic-example dataTable" data-page-length='100'>
                         	<span id="all_id" style="display:none"></span>
                             <thead>
                                 <tr>
-                                    <th>Sr.No</th>
-                                    <th>Product Name</th>
+                                    <th>No</th>
+                                    <th style="width: 110px;">Product</th>
                                     <th class="text-right">MRP</th>
-                                    <th class="text-right">Billed Qty</th>
-                                    <th class="text-right">Net Amount</th>
-                                    <th class="text-right">Past SR</th>
-                                    <th class="text-right">Past SR Amount</th>
-                                    <th class="text-right">Current SR</th>
+                                   <!-- <th class="text-right noSpace">Billed Qty</th> -->
+								    <th class="text-right noSpace">Qty</th>
+                                    <th class="text-right">Amount</th>
+                                    <th class="text-right noSpace">Past SR</th>
+                                    <th class="text-right noSpace">Past SR Amt</th>
+                                    <th class="text-right noSpace">Current SR</th>
                                     <th class="text-right">SR Qty</th>
-                                    <th class="text-right">Current SR Amount</th>
+                                    <th class="text-right noSpace">SR Amt</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
-                                    <th>Sr.No</th>
-                                    <th>Product Name</th>
+                                    <th>No</th>
+                                    <th>Product</th>
                                     <th class="text-right">MRP</th>
-                                    <th class="text-right">Billed Qty</th>
-                                    <th class="text-right">Net Amount</th>
+                                    <th class="text-right">Qty</th>
+                                    <th class="text-right">Amount</th>
                                     <th class="text-right">Past SR</th>
-                                    <th class="text-right">Past SR Amount</th>
+                                    <th class="text-right">Past SR Amt</th>
                                     <th class="text-right">Current SR</th>
                                     <th class="text-right">SR Qty</th>
-                                    <th class="text-right">Current SR Amount</th>
+                                    <th class="text-right">SR Amt</th>
                                 </tr>
-                            </tfoot>
+                            </tfoot> 
                             <tbody>
 
 
@@ -2336,7 +2332,11 @@ class FieldStaffController extends CI_Controller {
 
 
                                 <input type="hidden" name="allocationID" id="sr_allocationID" value="<?php echo $allocationID; ?>" readonly>
-                                <td><?php echo $data['productName']; ?></td>
+								<td class="CellWithComment"><?php 	
+								  $productName=substr($data['productName'], 0, 10);
+                                  echo rtrim($productName);?>
+								  <span class="CellComment"><?php echo $result =substr($data['productName'],0); ?></span>
+							    </td>
                                  <input type="hidden" id="prodName_id" name="productName[]" value="<?php echo $data['productName']; ?>" readonly>
                                 <td class="text-right">
                                     <?php echo number_format($data['mrp']); ?> 
@@ -2407,22 +2407,30 @@ class FieldStaffController extends CI_Controller {
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card">
                 <div class="header">
-                    <h4 style="color: #099dba;">
-                    <span style="color: black;">Retailer :</span>
+                	<div class="row cust-tbl">
+                    <div class="col-md-4 col-12 m-b-20">
+                    <span style="color: #000000;font-weight: 600;">Retailer :</span>
+					<span style="color: #050A30;">
                     <?php 
                         if(!empty($bills)){
                              echo $bills[0]['name'];
                         }
                     ?>
-                     &nbsp; &nbsp;
-                   <span style="color: black;">Bill No :</span> 
+					</span>
+                    </div>
+                   <div class="col-md-4 col-12 m-b-20">
+                   <span style="color: #000000;font-weight: 600;">Bill No :</span>
+                    <span style="color: #050A30;">				   
                     <?php 
                         if(!empty($bills)){
                              echo $bills[0]['billNo'];
                         }
                     ?>
-                    &nbsp; &nbsp;
-                  <span style="color: black;">Date :</span>
+					</span>
+                    </div>
+                    <div class="col-md-4 col-12 m-b-20">
+                    <span style="color: #000000;font-weight: 600;">Date :</span>
+					<span style="color: #050A30;">
                     <?php
                         if(!empty($bills)){
                             $dt=date_create($bills[0]['date']);
@@ -2430,25 +2438,33 @@ class FieldStaffController extends CI_Controller {
                             echo $date;
                         }
                     ?>
-                    &nbsp;&nbsp;<br><br>
-               <span style="color: black;">Bill Amount :</span>
+					<span>
+                    </div>
+                    <div class="col-md-4 col-12 m-b-20">
+               <span style="color: #000000;font-weight: 600;">Bill Amount :</span>
+			   <span style="color: #050A30;">
                     <?php
                         if(!empty($bills)){
                             echo number_format($bills[0]['netAmount'],2);
                         }
                     ?>
-                    &nbsp;&nbsp;
-                <span style="color: black;">Pending Amount :</span>
+				</span>
+                   </div>
+                   <div class="col-md-4 col-12 m-b-20">
+                <span style="color: #000000;font-weight: 600;">Pending Amount :</span>
+				<span style="color: #050A30;">
                     <?php
                         if(!empty($bills)){
                             echo number_format(($bills[0]['pendingAmt']-$bills[0]['fsSrAmt']),2);
                         }
                     ?>
-                    </h4>
+				</span>
+                    </div>
                 </div>
+               </div>
                     
                 <div class="body">
-                <div class="table-responsive">
+                <div class="table-responsive cust-tbl">
                 <div class="body">
                     <div class="demo-masked-input">
                         <form method="post" role="form" action="<?php echo site_url('fieldStaff/FieldStaffController/Cashupdate');?>" onsubmit="return checkCashBillAmt('<?php echo $bills[0]['netAmount']; ?>','<?php echo $bills[0]['pendingAmt']; ?>','<?php echo $bills[0]['SRAmt']; ?>','<?php echo $bills[0]['receivedAmt']; ?>','<?php echo $bills[0]['fsChequeAmt']; ?>','<?php echo $bills[0]['fsNeftAmt']; ?>','<?php echo $bills[0]['fsSrAmt']; ?>','<?php echo $bills[0]['chequePenalty']; ?>','<?php echo $bills[0]['cd']; ?>','<?php echo $bills[0]['debit']; ?>','<?php echo $bills[0]['officeAdjustmentBillAmount']; ?>','<?php echo $bills[0]['otherAdjustment']; ?>','<?php echo $bills[0]['debitNoteAmount']; ?>','<?php echo $bills[0]['fsOtherAdjAmt']; ?>','<?php echo $bills[0]['debitNoteJournalAmt']; ?>');"> 
@@ -2462,7 +2478,7 @@ class FieldStaffController extends CI_Controller {
                                   }
                                 ?>">
                                 <input type="hidden" name="allocationID" value="<?php echo $allocationID; ?>">
-                                 <input type="hidden" name="empID" value="<?php echo $current_emp_Id; ?>">
+                                <input type="hidden" name="empID" value="<?php echo $current_emp_Id; ?>">
                                 <div class="col-md-3"></div>
                                 <div class="col-md-6">                                       
                                     <p>
@@ -2479,13 +2495,13 @@ class FieldStaffController extends CI_Controller {
                         <div class="col-md-12">
                             <div class="row clearfix">
                                 <center>                                               
-                                        <button type="submit" class="btn btn-primary m-t-15 waves-effect">
+                                        <button type="submit" class="btn btnStyle btn-primary m-t-15 waves-effect">
                                             <i class="material-icons">save</i> 
                                             <span class="icon-name">
                                             Save
                                             </span>
                                         </button> 
-                                         <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                         <button data-dismiss="modal" type="button" class="btn btn-danger m-t-15 waves-effect">
                                             <i class="material-icons">cancel</i><span class="icon-name">cancel</span>
                                         </button>
                                 </center>
@@ -2511,22 +2527,30 @@ class FieldStaffController extends CI_Controller {
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card">
                     <div class="header">
-                    <h4 style="color: #099dba;">
-                    <span style="color: black;">Retailer :</span>
+                    <div class="row cust-tbl">
+                    <div class="col-md-4 col-12 m-b-20">
+                    <span style="color: #000000;font-weight: 600;">Retailer :</span>
+					<span style="color: #050A30;">
                     <?php 
                         if(!empty($bills)){
                              echo $bills[0]['name'];
                         }
                     ?>
-                     &nbsp; &nbsp;
-                   <span style="color: black;">Bill No :</span> 
+					</span>
+                    </div>
+                    <div class="col-md-4 col-12 m-b-20">
+                   <span style="color: #000000;font-weight: 600;">Bill No :</span> 
+				   <span style="color: #050A30;">
                     <?php 
                         if(!empty($bills)){
                              echo $bills[0]['billNo'];
                         }
                     ?>
-                    &nbsp; &nbsp;
-                  <span style="color: black;">Date :</span>
+					</span>
+                    </div>
+                    <div class="col-md-4 col-12 m-b-20">
+                  <span style="color: #000000;font-weight: 600;">Date :</span>
+				  <span style="color: #050A30;">
                     <?php
                         if(!empty($bills)){
                             $dt=date_create($bills[0]['date']);
@@ -2534,24 +2558,32 @@ class FieldStaffController extends CI_Controller {
                             echo $date;
                         }
                     ?>
-                    &nbsp;&nbsp;<br><br>
-               <span style="color: black;">Bill Amount :</span>
-                    <?php
-                        if(!empty($bills)){
-                            echo number_format($bills[0]['netAmount'],2);
-                        }
-                    ?>
-                    &nbsp;&nbsp;
-                <span style="color: black;">Pending Amount :</span>
+					</span>
+                    </div>
+                    <div class="col-md-4 col-12 m-b-20">
+	               <span style="color: #000000;font-weight: 600;">Bill Amount :</span>
+				    <span style="color: #050A30;">
+	                    <?php
+	                        if(!empty($bills)){
+	                            echo number_format($bills[0]['netAmount'],2);
+	                        }
+	                    ?>
+					</span>
+                    </div>
+                    <div class="col-md-4 col-12 m-b-20">
+                    <span style="color: #000000;font-weight: 600;">Pending Amount :</span>
+					<span style="color: #050A30;">
                     <?php
                         if(!empty($bills)){
                             echo number_format(($bills[0]['pendingAmt']-$bills[0]['fsSrAmt']),2);
                         }
-                    ?>
-                    </h4>
+                    ?> 
+					</span>
+                    </div>
+                   </div>
                 </div>
                 <div class="body">
-                <div class="table-responsive">
+                <div class="table-responsive cust-tbl">
                 <div class="body">
                     <div class="demo-masked-input">
                         <form method="post" role="form" action="<?php echo site_url('fieldStaff/FieldStaffController/ChequeUpdate');?>" onsubmit="return checkChequeBillAmt('<?php echo $bills[0]['netAmount']; ?>','<?php echo $bills[0]['pendingAmt']; ?>','<?php echo $bills[0]['SRAmt']; ?>','<?php echo $bills[0]['receivedAmt']; ?>','<?php echo $bills[0]['fsCashAmt']; ?>','<?php echo $bills[0]['fsNeftAmt']; ?>','<?php echo $bills[0]['fsSrAmt']; ?>','<?php echo $bills[0]['chequePenalty']; ?>','<?php echo $bills[0]['cd']; ?>','<?php echo $bills[0]['debit']; ?>','<?php echo $bills[0]['officeAdjustmentBillAmount']; ?>','<?php echo $bills[0]['otherAdjustment']; ?>','<?php echo $bills[0]['debitNoteAmount']; ?>','<?php echo $bills[0]['fsOtherAdjAmt']; ?>','<?php echo $bills[0]['debitNoteJournalAmt']; ?>');"> 
@@ -2582,13 +2614,13 @@ class FieldStaffController extends CI_Controller {
                         <div class="col-md-12">
                             <div class="row clearfix">
                                 <center>                                               
-                                        <button type="submit" class="btn btn-primary m-t-15 waves-effect">
+                                        <button type="submit" class="btn btnStyle btn-primary m-t-10 waves-effect">
                                             <i class="material-icons">save</i> 
                                             <span class="icon-name">
                                             Save
                                             </span>
                                         </button> 
-                                        <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                        <button data-dismiss="modal" type="button" class="btn btn-danger m-t-10 waves-effect">
                                             <i class="material-icons">cancel</i><span class="icon-name">cancel</span>
                                         </button>
                                         
@@ -2617,22 +2649,30 @@ class FieldStaffController extends CI_Controller {
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="card">
                 <div class="header">
-                    <h4 style="color: #099dba;">
-                    <span style="color: black;">Retailer :</span>
+                	<div class="row cust-tbl">
+                   <div class="col-md-4 col-12 m-b-20">
+                    <span style="color: #000000;font-weight: 600;">Retailer :</span>
+					<span style="color: #050A30;">
                     <?php 
                         if(!empty($bills)){
                              echo $bills[0]['name'];
                         }
                     ?>
-                     &nbsp; &nbsp;
-                   <span style="color: black;">Bill No :</span> 
+					</span>
+                    </div>
+                    <div class="col-md-4 col-12 m-b-20">
+                    <span style="color: #000000;font-weight: 600;">Bill No :</span> 
+					<span style="color: #050A30;">
                     <?php 
                         if(!empty($bills)){
                              echo $bills[0]['billNo'];
                         }
                     ?>
-                    &nbsp; &nbsp;
-                  <span style="color: black;">Date :</span>
+					</span>
+                    </div>
+                    <div class="col-md-4 col-12 m-b-20">
+                    <span style="color: #000000;font-weight: 600;">Date :</span>
+					<span style="color: #050A30;">
                     <?php
                         if(!empty($bills)){
                             $dt=date_create($bills[0]['date']);
@@ -2640,25 +2680,33 @@ class FieldStaffController extends CI_Controller {
                             echo $date;
                         }
                     ?>
-                    &nbsp;&nbsp;<br><br>
-               <span style="color: black;">Bill Amount :</span>
+					</span>
+                    </div>
+                    <div class="col-md-4 col-12 m-b-20">
+                    <span style="color: #000000;font-weight: 600;">Bill Amount :</span>
+					<span style="color: #050A30;">
                     <?php
                         if(!empty($bills)){
                             echo number_format($bills[0]['netAmount'],2);
                         }
                     ?>
-                    &nbsp;&nbsp;
-                <span style="color: black;">Pending Amount :</span>
+					</span>
+                    </div>
+                    <div class="col-md-4 col-12 m-b-20">
+                    <span style="color: #000000;font-weight: 600;">Pending Amount :</span>
+					<span style="color: #050A30;">
                     <?php
                         if(!empty($bills)){
                             echo number_format(($bills[0]['pendingAmt']-$bills[0]['fsSrAmt']),2);
                         }
                     ?>
-                    </h4>
+					</span>
+                    </div>
+                    </div>
                 </div>
                     
                 <div class="body">
-                <div class="table-responsive">
+                <div class="table-responsive cust-tbl">
                 <div class="body">
                     <div class="demo-masked-input">
                         <form method="post" role="form" action="<?php echo site_url('fieldStaff/FieldStaffController/NEFTUpdate');?>" onsubmit="return checkNeftBillAmt('<?php echo $bills[0]['netAmount']; ?>','<?php echo $bills[0]['pendingAmt']; ?>','<?php echo $bills[0]['SRAmt']; ?>','<?php echo $bills[0]['receivedAmt']; ?>','<?php echo $bills[0]['fsCashAmt']; ?>','<?php echo $bills[0]['fsChequeAmt']; ?>','<?php echo $bills[0]['fsSrAmt']; ?>','<?php echo $bills[0]['chequePenalty']; ?>','<?php echo $bills[0]['cd']; ?>','<?php echo $bills[0]['debit']; ?>','<?php echo $bills[0]['officeAdjustmentBillAmount']; ?>','<?php echo $bills[0]['otherAdjustment']; ?>','<?php echo $bills[0]['debitNoteAmount']; ?>','<?php echo $bills[0]['fsOtherAdjAmt']; ?>','<?php echo $bills[0]['debitNoteJournalAmt']; ?>');"> 
@@ -2689,13 +2737,13 @@ class FieldStaffController extends CI_Controller {
                         <div class="col-md-12">
                             <div class="row clearfix">
                                 <center>                                               
-                                        <button type="submit" class="btn btn-primary m-t-15 waves-effect">
+                                        <button type="submit" class="btn btnStyle btn-primary m-t-10 waves-effect">
                                             <i class="material-icons">save</i> 
                                             <span class="icon-name">
                                             Save
                                             </span>
                                         </button> 
-                                       <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                       <button data-dismiss="modal" type="button" class="btn btn-danger m-t-10 waves-effect">
                                                 <i class="material-icons">cancel</i> 
                                                 <span class="icon-name">
                                                 cancel
@@ -2711,7 +2759,6 @@ class FieldStaffController extends CI_Controller {
                 </div>
             </div>
         </div>
-   
     <?php
    }
 
@@ -2727,22 +2774,30 @@ class FieldStaffController extends CI_Controller {
 	 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 		 <div class="card">
 			 <div class="header">
-				 <h4 style="color: #099dba;">
-				 <span style="color: black;">Retailer :</span>
+				<div class="row cust-tbl">
+				<div class="col-md-4 col-12 m-b-20">
+				 <span style="color: #000000;font-weight: 600;">Retailer :</span>
+				 <span style="color: #050A30;">
 				 <?php 
 					 if(!empty($bills)){
 						  echo $bills[0]['name'];
 					 }
 				 ?>
-				  &nbsp; &nbsp;
-				<span style="color: black;">Bill No :</span> 
+				 </span>
+				  </div>
+				<div class="col-md-4 col-12 m-b-20">
+				<span style="color: #000000;font-weight: 600;">Bill No :</span> 
+				<span style="color: #050A30;">
 				 <?php 
 					 if(!empty($bills)){
 						  echo $bills[0]['billNo'];
 					 }
 				 ?>
-				 &nbsp; &nbsp;
-			   <span style="color: black;">Date :</span>
+				</span>
+				 </div>
+				 <div class="col-md-4 col-12 m-b-20">
+			   <span style="color: #000000;font-weight: 600;">Date :</span>
+			    <span style="color: #050A30;">
 				 <?php
 					 if(!empty($bills)){
 						 $dt=date_create($bills[0]['date']);
@@ -2750,25 +2805,33 @@ class FieldStaffController extends CI_Controller {
 						 echo $date;
 					 }
 				 ?>
-				 &nbsp;&nbsp;<br><br>
-			<span style="color: black;">Bill Amount :</span>
+				</span>
+				 </div>
+				 <div class="col-md-4 col-12 m-b-20">
+			     <span style="color: #000000;font-weight: 600;">Bill Amount :</span>
+				<span style="color: #050A30;">
 				 <?php
 					 if(!empty($bills)){
 						 echo number_format($bills[0]['netAmount'],2);
 					 }
 				 ?>
-				 &nbsp;&nbsp;
-			 <span style="color: black;">Pending Amount :</span>
+				</span>
+				 </div>
+				 <div class="col-md-4 col-12 m-b-20">
+			     <span style="color: #000000;font-weight: 600;">Pending Amount :</span>
+				<span style="color: #050A30;">
 				 <?php
 					 if(!empty($bills)){
 						 echo number_format(($bills[0]['pendingAmt']-$bills[0]['fsSrAmt']),2);
 					 }
 				 ?>
-				 </h4>
+				</span>
+				 </div>
+				</div>
 			 </div>
 				 
 			 <div class="body">
-			 <div class="table-responsive">
+			 <div class="table-responsive cust-tbl">
 			 <div class="body">
 				 <div class="demo-masked-input">
 					 <form method="post" role="form" action="<?php echo site_url('fieldStaff/FieldStaffController/otherAdjUpdate');?>" onsubmit="return checkOtherAdjBillAmt('<?php echo $bills[0]['netAmount']; ?>','<?php echo $bills[0]['pendingAmt']; ?>','<?php echo $bills[0]['SRAmt']; ?>','<?php echo $bills[0]['receivedAmt']; ?>','<?php echo $bills[0]['fsCashAmt']; ?>','<?php echo $bills[0]['fsChequeAmt']; ?>','<?php echo $bills[0]['fsSrAmt']; ?>','<?php echo $bills[0]['chequePenalty']; ?>','<?php echo $bills[0]['cd']; ?>','<?php echo $bills[0]['debit']; ?>','<?php echo $bills[0]['officeAdjustmentBillAmount']; ?>','<?php echo $bills[0]['otherAdjustment']; ?>','<?php echo $bills[0]['debitNoteAmount']; ?>','<?php echo $bills[0]['fsNeftAmt']; ?>','<?php echo $bills[0]['debitNoteJournalAmt']; ?>');"> 
@@ -2781,8 +2844,8 @@ class FieldStaffController extends CI_Controller {
 							 }
 						   }
 						 ?>">
-						 <input type="hidden" name="allocationID" value="<?php echo $allocationID; ?>">
-						 <input type="hidden" name="empID" value="<?php echo $current_emp_Id; ?>">
+						<input type="hidden" name="allocationID" value="<?php echo $allocationID; ?>">
+						<input type="hidden" name="empID" value="<?php echo $current_emp_Id; ?>">
 						 <div class="col-md-3"></div>
 						 <div class="col-md-6">                                       
 							 <p>
@@ -2799,13 +2862,13 @@ class FieldStaffController extends CI_Controller {
 					 <div class="col-md-12">
 						 <div class="row clearfix">
 							 <center>                                               
-									 <button type="submit" class="btn btn-primary m-t-15 waves-effect">
+									 <button type="submit" class="btn btnStyle btn-primary m-t-10 waves-effect">
 										 <i class="material-icons">save</i> 
 										 <span class="icon-name">
 										 Save
 										 </span>
 									 </button> 
-									<button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
+									<button data-dismiss="modal" type="button" class="btn btn-danger m-t-10 waves-effect">
 											 <i class="material-icons">cancel</i> 
 											 <span class="icon-name">
 											 cancel

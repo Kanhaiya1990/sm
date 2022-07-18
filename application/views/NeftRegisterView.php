@@ -48,30 +48,40 @@ li{
             <div class="row clearfix" id="page">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
-                        <div class="header">
+                        <div class="header flex-div">
                             <h2>
                              NEFT Register
                          </h2>
                          <p align="right">
                             <a href="<?php echo site_url('CashAndChequeController/NeftRegister');?>">
-                              <button class="btn bg-primary margin"><i class="material-icons">refresh</i>    </button></a> 
+                              <button class="btn bg-primary btnStyle margin"><i class="material-icons">refresh</i>  </button></a> 
                         </p>
                          
                      </div>
-                     <div class="body">
+                     <div class="body cust-tbl">
                         <form method="post" role="form" action="<?php echo site_url('CashAndChequeController/NeftRegister');?>">
+                            <div class="row">
+                            <div class="col-md-2 col-sm-12 focused">
                             <label>From Date:</label>
-                            <input type="date" name="from_date" required >
+                            <input type="date" name="from_date" class="form-control dateCustom" required >
+                            </div>
+                            <div class="col-md-2 col-sm-12 focused">
                             <label>To Date:</label>
-                            <input type="date" name="to_date" required>
-                            <button type="submit" class="btn btn-primary">Filter</button>
+                            <input type="date" name="to_date" class="form-control dateCustom" required>
+                            </div>
+                            <div class="col-md-2 col-sm-12 nopadding">
+                            <button type="submit" class="btn btnStyle m-t-15 h-35">Filter</button>
+                            </div>
+                          </div>
                         </form>
                       <div class="row">                                 
                         <div class="row m-t-20">
                           <div class="col-md-12">
                             <div class="table-responsive">
                             
-                                   <table style="font-size: 11px" class="table table-bordered table-striped table-hover dataTable js-exportable" data-page-length='100'>
+                            <!-- <table style="font-size: 11px" class="table table-bordered table-striped table-hover dataTable js-exportable" data-page-length='100'> -->
+                            <table class="table table-bordered dataTable js-exportable cust-tbl" data-page-length="100" style="font-size: 13px;" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+                                
                                         <!-- <?php print_r($retailer); ?> -->
                                         <thead>
                                         <tr class="gray">

@@ -8,7 +8,8 @@ class RoleModel extends CI_Model {
     public function getdata($tableName)
     {
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
     public function insert($tblName, $data) {      
@@ -23,7 +24,8 @@ class RoleModel extends CI_Model {
 
     public function show($tblName) {
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();    
     }
      public function delete($tblName,$id)
@@ -34,7 +36,8 @@ class RoleModel extends CI_Model {
     public function load($tblName, $id) {
         $this -> db -> where('id', $id);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 }

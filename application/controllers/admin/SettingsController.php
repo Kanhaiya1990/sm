@@ -11,33 +11,9 @@ class SettingsController extends CI_Controller {
         ini_set('memory_limit', '-1');
 
 		if(isset($this->session->userdata['codeKeyData'])) {
-			$this->projectSessionName= $this->session->userdata['codeKeyData']['codeKeyValue'];
-			$this->baseUrl=$this->session->userdata['codeKeyData']['yourBaseUrl'];
-
-            if($this->baseUrl=="http://localhost/smartdistributor/" || $this->baseUrl=="https://siainc.in/kiasales/" || $this->baseUrl=="https://siainc.in/staging_kiasales/"){
-
-            }else{
-                $this->load->helper('url');
-                $url_parts = parse_url(current_url());
-                $siteUrl=explode('/',$url_parts['path']);//current url path
-        
-                $baseUrl=explode('/',$this->baseUrl);//base url path
-                
-                $siteDistributorName=trim($siteUrl[2]);
-                $baseDistributorName=trim($baseUrl[4]);
-                
-                if($siteDistributorName !="" && $baseDistributorName !=""){
-                    if($siteDistributorName==$baseDistributorName){
-                    //   
-                    }else{
-                    redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
-                    }
-                }else{
-                redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
-                }
-            }
+			$this->projectSessionName= ($this->session->userdata['codeKeyData']['codeKeyValue']);
 		}else{
-			$this->load->view('LoginView');
+			redirect('DashbordController');
 		}
     }
 
@@ -105,11 +81,6 @@ class SettingsController extends CI_Controller {
         $this->load->view('admin/chequesHighlightLimitView',$data);
     }
 
-    public function expenseLimitSetting(){
-        $data['days']=$this->SettingsModel->getInfo('expenses_limit');
-        $this->load->view('admin/expenseLimitSettingView',$data);
-    }
-
     public function highlightingDays(){
         $data['days']=$this->SettingsModel->getInfo('highlighting_days');
         $days=$this->SettingsModel->getInfo('highlighting_days');
@@ -154,17 +125,6 @@ class SettingsController extends CI_Controller {
         $data=array('days'=>$days);
         $this->SettingsModel->update('highlighting_days',$data,$limitId);
         // redirect('admin/EmployeeRelationController/cashierExpensesLimit');
-    }
-
-    public function updatedExpenseLimit(){
-        $limitId=trim($this->input->post('id'));
-        $amount=trim($this->input->post('amount'));
-        $data=array(
-            'expenseLimit'=>$amount,
-            'updatedBy'=>$this->session->userdata[$this->projectSessionName]['id'],
-            'updatedAt'=>date('Y-m-d H:i:sa')
-        );
-        $this->SettingsModel->update('expenses_limit',$data,$limitId);
     }
 
     public function updatedCompanyDaysLimit(){

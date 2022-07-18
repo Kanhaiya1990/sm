@@ -10,14 +10,14 @@
                         <h2>Cancelled Bills</h2>
                     </div>
                     <div class="body">
-                        <div class="table-responsive">
-                            <table id="SrTable" class="table table-bordered table-striped table-hover js-basic-example dataTable" data-page-length='100'>
+                        <div>
+                            <table id="SrTable" class="table table-bordered js-basic-example dataTable cust-tbl" data-page-length='100'>
                                 <thead>
                                     <tr>
-                                        <th>S. No.</th>
+                                        <th>No</th>
                                         <th>Bill No.</th>
                                         <th>Bill Date</th>
-                                        <th>Retailer</th>
+                                        <th>Retailer Name</th>
                                         <th>Net Amount</th>
                                         <th>Pending Amount</th>
                                         <th>Bill Status</th>
@@ -28,7 +28,7 @@
                                         <th>S. No.</th>
                                         <th>Bill No.</th>
                                         <th>Bill Date</th>
-                                        <th>Retailer</th>
+                                        <th>Retailer Name</th>
                                         <th>Net Amount</th>
                                         <th>Pending Amount</th>
                                         <th>Bill Status</th>
@@ -48,7 +48,11 @@
                                                 <td><?php echo $no;?></td>
                                                 <td><?php echo $data['billNo'];?></td>
                                                 <td><?php echo $createdDate;?></td>
-                                                <td><?php echo $data['retailerName'];?></td>
+                                                <td class="CellWithComment"><?php 
+													$retailerName=substr($data['retailerName'], 0, 15);
+													echo rtrim($retailerName);?>
+													<span class="CellComment"><?php echo $result =substr($data['retailerName'],0); ?></span>
+												</td>
                                                 <td align="right"><?php echo number_format($data['netAmount']);?></td>
                                                 <td align="right"><?php echo number_format($data['pendingAmt']);?></td>
                                                 <td><?php echo $data['deliveryStatus'];?></td>

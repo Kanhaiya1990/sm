@@ -9,14 +9,16 @@ class GodownKeeperModel extends CI_Model{
     {
         $this->db->order_by('id','desc');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
     public function getDetailByCode($tblName,$code){
         $this->db->where('productCode', $code);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();  
     }
 
@@ -25,7 +27,8 @@ class GodownKeeperModel extends CI_Model{
         $this->db->where('productCode', $code);
         $this->db->where('mrp', $mrp);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();  
     }
     
@@ -34,7 +37,8 @@ class GodownKeeperModel extends CI_Model{
         $this->db->order_by('id','desc');
         $this->db->where('gkStatus','0');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -48,7 +52,8 @@ class GodownKeeperModel extends CI_Model{
         $this->db->where('bills.fsbillStatus !=','Resend');
         $this->db->where('allocationsbills.allocationId',$id);
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -62,7 +67,8 @@ class GodownKeeperModel extends CI_Model{
         $this->db->join('route','route.id=allocations.routId');
         $this->db->where('allocations.id',$id);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -78,7 +84,8 @@ class GodownKeeperModel extends CI_Model{
         $this->db->join('bills','bills.id=billsdetails.billId');
         $this->db->where('billsdetails.managerSrStatus',2);
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     } 
 
@@ -101,7 +108,8 @@ class GodownKeeperModel extends CI_Model{
         $this->db->where('allocationId', $allocationId);
         $this->db->where('billItemId', $billItemId);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
@@ -149,7 +157,8 @@ class GodownKeeperModel extends CI_Model{
     {
         $this->db->where('id',$id);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -157,7 +166,8 @@ class GodownKeeperModel extends CI_Model{
     {
         $this->db->where('billNo',$billNo);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -171,7 +181,8 @@ class GodownKeeperModel extends CI_Model{
     public function load($tblName, $id) {
         $this ->db-> where('id', $id);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
@@ -181,7 +192,8 @@ class GodownKeeperModel extends CI_Model{
         $this->db->where('ownerApproval',0);
         $this->db->where('designation','deliveryman');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -191,14 +203,16 @@ class GodownKeeperModel extends CI_Model{
         $this->db->distinct();
         $this->db->order_by('id','desc');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
     public function retailerBillsByCode($tblName,$id) {
         $this->db->where('billId',$id);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
@@ -206,7 +220,8 @@ class GodownKeeperModel extends CI_Model{
         $this->db->where('billId',$id);
         $this->db->where('gkStatus !=',1);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
@@ -265,7 +280,8 @@ class GodownKeeperModel extends CI_Model{
         $this->db->where('billType !=','allocatedbillDS'); 
         $this->db->where('compName',$compName);     
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -292,7 +308,8 @@ class GodownKeeperModel extends CI_Model{
             $this->db->join('allocationsbills','allocationsbills.billId=bills.id');
             $this->db->where('allocationsbills.allocationId',$id);
             $query=$this->db->get();
-            
+            $this->db->close();
+        $this->db->initialize();
             return $query->result_array();
        }
 
@@ -304,7 +321,8 @@ class GodownKeeperModel extends CI_Model{
         $this->db->where('allocationsbills.billStatus',$status);
         $this->db->where('bills.billType',$type);
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
    }
 
@@ -320,7 +338,8 @@ class GodownKeeperModel extends CI_Model{
         $this->db->where('allocationsbills.allocationId',$id);
         $this->db->where('allocationsbills.billStatus','2');
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -337,7 +356,8 @@ class GodownKeeperModel extends CI_Model{
          $this->db->not_like('bills.fsBillStatus', 'FSR');
          // $this->db->group_by('bills.id');
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
    }
 
@@ -353,7 +373,8 @@ class GodownKeeperModel extends CI_Model{
         $this->db->like('FsBillStatus', 'SR');
          $this->db->not_like('FsBillStatus', 'FSR');
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
    }
 
@@ -369,7 +390,8 @@ class GodownKeeperModel extends CI_Model{
         $this->db->like('bills.fsbillStatus', 'FSR');
         $this->db->group_by('bills.id');
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
    }
 
@@ -383,7 +405,8 @@ class GodownKeeperModel extends CI_Model{
         $this->db->like('bills.fsbillStatus', 'FSR');
         $this->db->group_by('bills.id');
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
    }
 
@@ -408,7 +431,8 @@ class GodownKeeperModel extends CI_Model{
         $this->db->where('billpayments.otherAdjustmentApproval',0);
         $this->db->group_by('bills.id');
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -424,7 +448,8 @@ class GodownKeeperModel extends CI_Model{
         $this->db->where('billsdetails.gkStatus !=',1);
         $this->db->like('bills.fsbillStatus', 'FSR');
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
    }
 
@@ -432,7 +457,8 @@ class GodownKeeperModel extends CI_Model{
         $this->db->select('billId');
         $this ->db-> where('allocationId', $id);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
@@ -442,7 +468,8 @@ class GodownKeeperModel extends CI_Model{
             $this->db->join('allocationsbills','allocationsbills.billId=billpayments.id');
             $this->db->where('allocationsbills.billId',$id);
             $query=$this->db->get();
-            
+            $this->db->close();
+        $this->db->initialize();
             return $query->result_array();
        }
 

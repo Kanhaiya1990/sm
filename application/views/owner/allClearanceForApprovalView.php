@@ -54,7 +54,7 @@
                     <div class="card">
                         <div class="body">
                             <div class="table-responsive tableFixHead">
-                                <table  style="font-size: 13px" class="table table-bordered table-striped table-hover js-basic-example dataTable" data-page-length='100'>
+                                <table class="table table-bordered cust-tbl js-basic-example dataTable" data-page-length='100'>
                                   <thead>
                                     <tr>
                                       <th colspan="5">
@@ -74,11 +74,8 @@
                                     </thead>
                                    
                                     <tbody>
-                                      <?php
-                                        $no=0;
-                                       
-
-
+                                    <?php
+                                    $no=0;
                                     foreach ($officeAllocations as $data) 
                                     {
                                         $no++; 
@@ -168,7 +165,7 @@
                                                   <td><?php echo $data['emp_name']; ?></td>
                                                   <td class="text-right"><?php echo number_format($data['amount']); ?></td>
                                                   <td>
-                                                    <button id="acceptbankDetails" data-id="<?php echo $data['id']; ?>" data-date="<?php echo $date; ?>" data-emp="<?php echo $data['emp_name']; ?>" data-amount="<?php echo $data['amount']; ?>" data-openCloseBalance="<?php echo $data['openCloseBalance']; ?>" class="modalLink btn btn-xs btn-primary waves-effect">
+                                                    <button id="acceptbankDetails" data-id="<?php echo $data['id']; ?>" data-date="<?php echo $date; ?>" data-emp="<?php echo $data['emp_name']; ?>" data-amount="<?php echo $data['amount']; ?>" data-openCloseBalance="<?php echo $data['openCloseBalance']; ?>" class="modalLink btn btn-xs btn-primary btnStyle waves-effect">
                                                     <span class="icon-name"> <i class="material-icons">check</i></span></button>
 
                                                     <!-- <button id="bankDetails" data-id="<?php echo $data['id']; ?>" data-date="<?php echo $data['date']; ?>" data-emp="<?php echo $data['emp_name']; ?>" data-empId="<?php echo $data['emp_id']; ?>" data-amount="<?php echo $data['amount']; ?>" data-openCloseBalance="<?php echo $data['openCloseBalance']; ?>" data-toggle="modal" data-target="#myModal1" class="modalLink btn btn-xs btn-primary waves-effect">
@@ -240,10 +237,10 @@
                                                   <td><?php echo $data['emp_name']; ?></td>
                                                   <td class="text-right"><?php echo number_format($data['amount']); ?></td>
                                                   <td>
-                                                    <button id="acceptMainCashBook" data-id="<?php echo $data['id']; ?>" data-date="<?php echo $date; ?>" data-emp="<?php echo $data['emp_name']; ?>" data-amount="<?php echo $data['amount']; ?>" class="btn btn-xs btn-primary waves-effect">
+                                                    <button id="acceptMainCashBook" data-id="<?php echo $data['id']; ?>" data-date="<?php echo $date; ?>" data-emp="<?php echo $data['emp_name']; ?>" data-amount="<?php echo $data['amount']; ?>" class="btn btn-xs btn-primary btnStyle waves-effect">
                                                     <span class="icon-name"> <i class="material-icons">check</i></span></button>
 
-                                                    <button id="rejectMainCashBook" data-id="<?php echo $data['id']; ?>" data-date="<?php echo $data['date']; ?>" data-emp="<?php echo $data['emp_name']; ?>" data-empId="<?php echo $data['emp_id']; ?>" data-amount="<?php echo $data['amount']; ?>" data-toggle="modal" data-target="#myModalMainCashBookBankDeposit" class="btn btn-xs btn-primary waves-effect">
+                                                    <button id="rejectMainCashBook" data-id="<?php echo $data['id']; ?>" data-date="<?php echo $data['date']; ?>" data-emp="<?php echo $data['emp_name']; ?>" data-empId="<?php echo $data['emp_id']; ?>" data-amount="<?php echo $data['amount']; ?>" data-toggle="modal" data-target="#myModalMainCashBookBankDeposit" class="btn btn-xs btn-danger waves-effect">
                                                     <span class="icon-name"> <i class="material-icons">cancel</i></span>
                                                   </button>
                                                   </td>
@@ -276,7 +273,7 @@
                     <div class="card">
                         <div class="body">
                             <div class="table-responsive">
-                                <table style="font-size: 12px" class="table table-bordered table-striped table-hover" data-page-length='100'>
+                                <table class="table table-bordered cust-tbl js-basic-example dataTable" data-page-length='100'>
                                   <thead>
                                     <tr>
                                       <th colspan="11">
@@ -334,10 +331,10 @@
                                             <td>
 
 
-                                            <a href="javascript:void();" class="modalLink btn btn-xs btn-primary waves-effect" data-toggle="modal" data-target="#ownerSalaryModal" id="emp_accept_id" data-id="<?php echo $data['id'];?>">
+                                            <a href="javascript:void();" class="modalLink btn btn-xs btn-primary btnStyle waves-effect" data-toggle="modal" data-target="#ownerSalaryModal" id="emp_accept_id" data-id="<?php echo $data['id'];?>">
                                                 <i class="material-icons">check</i>
                                             </a>
-                                            <a href="javascript:void();" class="modalLink btn btn-xs btn-primary waves-effect" id="emp_reject_id"  data-id="<?php echo $data['id'];?>">
+                                            <a href="javascript:void();" class="modalLink btn btn-xs btn-danger waves-effect" id="emp_reject_id"  data-id="<?php echo $data['id'];?>">
                                                 <i class="material-icons">cancel</i>
                                             </a>
                                          
@@ -370,13 +367,13 @@
                         
                         <div class="body">
                             <div class="table-responsive">
-                                <table style="font-size: 12px" class="table table-bordered table-striped table-hover" data-page-length='100'>
+                                <table class="table table-bordered cust-tbl js-basic-example dataTable" data-page-length='100'>
                                   <thead>
                                     <tr>
                                       <th colspan="7">
                                         <center><h5>Non Cash Credit Approval</h5><center>
                                           <p align="right">
-                                            <button type="button" id="insert-credit-chk" class="btn btn-xs btn-primary m-t-15 waves-effect"> <i class="material-icons">save</i> <span class="icon-name">Approve All</span></button>
+                                            <button type="button" id="insert-credit-chk" class="btn btn-xs btn-primary btnStyle m-t-15 waves-effect"> <i class="material-icons">save</i> <span class="icon-name">Approve All</span></button>
                                         </p>
                                       </th>
                                     </tr>
@@ -416,10 +413,10 @@
                                             <td><?php echo $data['description']; ?></td>
                                            
                                             <td>
-                                            <a href="javascript:void();" class="modalLink btn btn-xs btn-primary waves-effect" id="emp_noncash_accept_id" data-id="<?php echo $data['id'];?>">
+                                            <a href="javascript:void();" class="modalLink btn btn-xs btn-primary btnStyle waves-effect" id="emp_noncash_accept_id" data-id="<?php echo $data['id'];?>">
                                                 <i class="material-icons">check</i>
                                             </a>
-                                            <a href="javascript:void();" class="modalLink btn btn-xs btn-primary waves-effect" id="emp_noncash_reject_id"  data-id="<?php echo $data['id'];?>">
+                                            <a href="javascript:void();" class="modalLink btn btn-xs btn-danger waves-effect" id="emp_noncash_reject_id"  data-id="<?php echo $data['id'];?>">
                                                 <i class="material-icons">cancel</i>
                                             </a>
                                          
@@ -451,13 +448,13 @@
                         
                         <div class="body">
                             <div class="table-responsive">
-                                <table style="font-size: 12px" class="table table-bordered table-striped table-hover" data-page-length='100'>
+                                <table class="table table-bordered cust-tbl js-basic-example dataTable" data-page-length='100'>
                                   <thead>
                                     <tr>
                                       <th colspan="7">
                                         <center><h5> Non Cash Debit Approval</h5><center>
                                           <p align="right">
-                                            <button type="button" id="insert-debit-chk" class="btn btn-xs btn-primary m-t-15 waves-effect"> <i class="material-icons">save</i> <span class="icon-name">Approve All</span></button>
+                                            <button type="button" id="insert-debit-chk" class="btn btn-xs btn-primary btnStyle m-t-15 waves-effect"> <i class="material-icons">save</i> <span class="icon-name">Approve All</span></button>
                                         </p>
                                       </th>
                                     </tr>
@@ -494,10 +491,10 @@
                                             <td><?php echo $data['transactionType']; ?></td>
                                             <td><?php echo $data['description']; ?></td>
                                             <td>
-                                            <a href="javascript:void();" class="modalLink btn btn-xs btn-primary waves-effect" id="emp_debit_noncash_accept_id" data-id="<?php echo $data['id'];?>">
+                                            <a href="javascript:void();" class="modalLink btn btn-xs btn-primary btnStyle waves-effect" id="emp_debit_noncash_accept_id" data-id="<?php echo $data['id'];?>">
                                                 <i class="material-icons">check</i>
                                             </a>
-                                            <a href="javascript:void();" class="modalLink btn btn-xs btn-primary waves-effect" id="emp_debit_noncash_reject_id"  data-id="<?php echo $data['id'];?>">
+                                            <a href="javascript:void();" class="modalLink btn btn-xs btn-danger waves-effect" id="emp_debit_noncash_reject_id"  data-id="<?php echo $data['id'];?>">
                                                 <i class="material-icons">cancel</i>
                                             </a>
                                             </td>
@@ -527,13 +524,13 @@
                         
                         <div class="body">
                             <div class="table-responsive">
-                                <table style="font-size: 12px" class="table table-bordered table-striped table-hover" data-page-length='100'>
+                                <table class="table table-bordered cust-tbl js-basic-example dataTable" data-page-length='100'>
                                   <thead>
                                     <tr>
                                       <th colspan="9">
                                         <center><h5> Bill Debit Approval</h5><center>
                                           <p align="right">
-                                            <button type="button" id="insert-process-debit-chk" class="btn btn-xs btn-primary m-t-15 waves-effect"> <i class="material-icons">save</i> <span class="icon-name">Approve All</span></button>
+                                            <button type="button" id="insert-process-debit-chk" class="btn btn-xs btn-primary btnStyle m-t-15 waves-effect"> <i class="material-icons">save</i> <span class="icon-name">Approve All</span></button>
                                         </p>
                                       </th>
                                     </tr>
@@ -576,10 +573,10 @@
                                             <td>
                                               <a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['billId']); ?>" class="btn btn-xs  btn-primary" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
                                 
-                                            <a href="javascript:void();" class="modalLink btn btn-xs btn-primary waves-effect" id="emp_processdebit_accept_id" data-id="<?php echo $data['id'];?>">
+                                            <a href="javascript:void();" class="modalLink btn btn-xs btn-primary btnStyle waves-effect" id="emp_processdebit_accept_id" data-id="<?php echo $data['id'];?>">
                                                 <i class="material-icons">check</i>
                                             </a>
-                                            <a href="javascript:void();" class="modalLink btn btn-xs btn-primary waves-effect" id="emp_processdebit_reject_id"  data-id="<?php echo $data['id'];?>">
+                                            <a href="javascript:void();" class="modalLink btn btn-xs btn-danger waves-effect" id="emp_processdebit_reject_id"  data-id="<?php echo $data['id'];?>">
                                                 <i class="material-icons">cancel</i>
                                             </a>
                                             </td>
@@ -608,13 +605,13 @@
                         
                         <div class="body">
                             <div class="table-responsive tableFixHead">
-                                <table style="font-size: 12px" class="table table-bordered table-striped table-hover" data-page-length='100'>
+                                <table class="table table-bordered cust-tbl js-basic-example dataTable" data-page-length='100'>
                                   <thead>
                                     <tr>
                                       <th colspan="12">
                                         <center><h5>Market Expenses Approval</h5><center>
                                           <p align="right">
-                                            <button type="button" id="insert-marketExpense-chk" class="btn btn-xs btn-primary m-t-15 waves-effect"> <i class="material-icons">save</i> <span class="icon-name">Approve All</span></button>
+                                            <button type="button" id="insert-marketExpense-chk" class="btn btn-xs btn-primary btnStyle m-t-15 waves-effect"> <i class="material-icons">save</i> <span class="icon-name">Approve All</span></button>
                                         </p>
                                       </th>
                                     </tr>
@@ -669,9 +666,9 @@
                                                 <td class="text-right"><?php echo number_format($data['cng']); ?></td>
                                                 <td class="text-right"><?php echo number_format($totalExpense); ?></td>
                                                 <td>
-                                                  <button onclick="acceptExpenses(this,'<?php echo $data["id"]?>','<?php echo $data["allocationId"]; ?>');" style="font-size : 12px;" id="signedOk" class="btn btn-xs btn-primary waves-effect"><i class="material-icons">check</i>
+                                                  <button onclick="acceptExpenses(this,'<?php echo $data["id"]?>','<?php echo $data["allocationId"]; ?>');" style="font-size : 12px;" id="signedOk" class="btn btn-xs btn-primary btnStyle waves-effect"><i class="material-icons">check</i>
                                                  </button> 
-                                                 <button onclick="rejectExpenses(this,'<?php echo $data["id"]?>','<?php echo $data["allocationId"]; ?>','<?php echo $data["emp_id"]; ?>','<?php echo $data["parking"]; ?>','<?php echo $data["challan"]; ?>','<?php echo $data["cng"]; ?>');" style="font-size : 12px;" id="signedOk" class="btn btn-xs btn-primary waves-effect"><i class="material-icons">cancel</i> 
+                                                 <button onclick="rejectExpenses(this,'<?php echo $data["id"]?>','<?php echo $data["allocationId"]; ?>','<?php echo $data["emp_id"]; ?>','<?php echo $data["parking"]; ?>','<?php echo $data["challan"]; ?>','<?php echo $data["cng"]; ?>');" style="font-size : 12px;" id="signedOk" class="btn btn-xs btn-danger waves-effect"><i class="material-icons">cancel</i> 
                                                  </button>
 
                                                 </td>
@@ -701,13 +698,13 @@
                         
                         <div class="body">
                             <div class="table-responsive tableFixHead">
-                                <table style="font-size: 12px" class="table table-bordered table-striped table-hover" data-page-length='100'>
+                                <table class="table table-bordered cust-tbl js-basic-example dataTable" data-page-length='100'>
                                   <thead>
                                     <tr>
                                       <th colspan="12">
                                         <center><h5>Office Expenses Approval</h5><center>
                                           <p align="right">
-                                            <button type="button" id="insert-officeExpense-chk" class="btn btn-xs btn-primary m-t-15 waves-effect"> <i class="material-icons">save</i> <span class="icon-name">Approve All</span></button>
+                                            <button type="button" id="insert-officeExpense-chk" class="btn btn-xs btn-primary btnStyle m-t-15 waves-effect"> <i class="material-icons">save</i> <span class="icon-name">Approve All</span></button>
                                         </p>
                                       </th>
                                     </tr>
@@ -752,9 +749,9 @@
                                                 <td><?php echo $data['narration']; ?></td>
                                                 <td class="text-right"><?php echo number_format($data['amount']); ?></td>
                                                 <td>
-                                                  <button onclick="acceptOwExpenses(this,'<?php echo $data["id"]?>');" style="font-size : 12px;" id="signedOk" class="btn btn-xs btn-primary waves-effect"><i class="material-icons">check</i>
+                                                  <button onclick="acceptOwExpenses(this,'<?php echo $data["id"]?>');" style="font-size : 12px;" id="signedOk" class="btn btn-xs btn-primary btnStyle waves-effect"><i class="material-icons">check</i>
                                                  </button> 
-                                                 <button onclick="rejectOwExpenses(this,'<?php echo $data["id"]?>','<?php echo $data["emp_id"]?>','<?php echo $data["amount"]?>','<?php echo $data["nature"]?>','<?php echo $data["notesId"]?>');" style="font-size : 12px;" id="signedOk" class="btn btn-xs btn-primary waves-effect"><i class="material-icons">cancel</i> 
+                                                 <button onclick="rejectOwExpenses(this,'<?php echo $data["id"]?>','<?php echo $data["emp_id"]?>','<?php echo $data["amount"]?>','<?php echo $data["nature"]?>','<?php echo $data["notesId"]?>');" style="font-size : 12px;" id="signedOk" class="btn btn-xs btn-danger waves-effect"><i class="material-icons">cancel</i> 
                                                  </button>
 
                                                 </td>
@@ -784,13 +781,13 @@
                     <div class="card">
                         <div class="body">
                             <div class="table-responsive">
-                                <table style="font-size: 12px" class="table table-bordered table-striped table-hover" data-page-length='100'>
+                                <table class="table table-bordered cust-tbl js-basic-example dataTable" data-page-length='100'>
                                   <thead>
                                     <tr>
                                       <th colspan="10">
                                         <center><h5>Cash Discount Approval</h5><center>
                                         <p align="right">
-                                            <button type="button" id="insert-cd-chk" class="btn btn-xs btn-primary m-t-15 waves-effect"> <i class="material-icons">save</i> <span class="icon-name">Approve All</span></button>
+                                        <button type="button" id="insert-cd-chk" class="btn btn-xs btn-primary btnStyle m-t-15 waves-effect"> <i class="material-icons">save</i> <span class="icon-name">Approve All</span></button>
                                         </p>
                                       </th>
                                     </tr>
@@ -840,12 +837,12 @@
                                             <td class="text-right"><?php echo number_format($data['cdAmount']); ?></td>
                                             <td><?php echo $cdDate; ?></td>
                                             <td>
-                                              <a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs  btn-primary" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
+                                              <a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs viewBill-btn" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
                                 
-                                              <a href="javascript:void();" onclick="acceptCashDiscount(this,'<?php echo $data["billPaymentId"]; ?>');" class="modalLink btn btn-xs btn-primary waves-effect">
+                                              <a href="javascript:void();" onclick="acceptCashDiscount(this,'<?php echo $data["billPaymentId"]; ?>');" class="modalLink btn btn-xs btn-primary btnStyle waves-effect">
                                                 <i class="material-icons">check</i>
                                               </a>
-                                              <a href="javascript:void();" onclick="rejectCashDiscount(this,'<?php echo $data["billPaymentId"]; ?>');" class="modalLink btn btn-xs btn-primary waves-effect">
+                                              <a href="javascript:void();" onclick="rejectCashDiscount(this,'<?php echo $data["billPaymentId"]; ?>');" class="modalLink btn btn-xs btn-danger waves-effect">
                                                 <i class="material-icons">cancel</i>
                                               </a>
 
@@ -876,13 +873,13 @@
                     <div class="card">
                         <div class="body">
                             <div class="table-responsive">
-                                <table style="font-size: 12px" class="table table-bordered table-striped table-hover" data-page-length='100'>
+                                <table class="table table-bordered cust-tbl js-basic-example dataTable" data-page-length='100'>
                                   <thead>
                                     <tr>
                                       <th colspan="10">
                                         <center><h5>Office Adjustment Approval</h5><center>
                                         <p align="right">
-                                            <button type="button" id="insert-officeAdj-chk" class="btn btn-xs btn-primary m-t-15 waves-effect"> <i class="material-icons">save</i> <span class="icon-name">Approve All</span></button>
+                                            <button type="button" id="insert-officeAdj-chk" class="btn btn-xs btn-primary btnStyle m-t-15 waves-effect"> <i class="material-icons">save</i> <span class="icon-name">Approve All</span></button>
                                         </p>
                                       </th>
                                     </tr>
@@ -933,10 +930,10 @@
                                             <td><?php echo $otherAdjDate; ?></td>
                                             <td>
                                               <a target="_blank" href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs  btn-primary" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
-                                              <a href="javascript:void();" onclick="acceptOfficeAdjustment(this,'<?php echo $data["billPaymentId"]; ?>');" class="modalLink btn btn-xs btn-primary waves-effect">
+                                              <a href="javascript:void();" onclick="acceptOfficeAdjustment(this,'<?php echo $data["billPaymentId"]; ?>');" class="modalLink btn btn-xs btn-primary btnStyle waves-effect">
                                                 <i class="material-icons">check</i>
                                               </a>
-                                              <a href="javascript:void();" onclick="rejectOfficeAdjustment(this,'<?php echo $data["billPaymentId"]; ?>');" class="modalLink btn btn-xs btn-primary waves-effect">
+                                              <a href="javascript:void();" onclick="rejectOfficeAdjustment(this,'<?php echo $data["billPaymentId"]; ?>');" class="modalLink btn btn-xs btn-danger waves-effect">
                                                 <i class="material-icons">cancel</i>
                                               </a>
                                             </td>
@@ -968,13 +965,13 @@
                         <div class="body">
                           
                             <div class="table-responsive">
-                                <table style="font-size: 12px" class="table table-bordered table-striped table-hover" data-page-length='100'>
+                                <table class="table table-bordered cust-tbl js-basic-example dataTable" data-page-length='100'>
                                   <thead>
                                     <tr>
                                       <th colspan="10">
                                         <center><h5>Other Adjustment Approval</h5><center>
                                         <p align="right">
-                                            <button type="button" id="insert-otherAdj-chk" class="btn btn-xs btn-primary m-t-15 waves-effect"> <i class="material-icons">save</i> <span class="icon-name">Approve All</span></button>
+                                            <button type="button" id="insert-otherAdj-chk" class="btn btn-xs btn-primary btnStyle m-t-15 waves-effect"> <i class="material-icons">save</i> <span class="icon-name">Approve All</span></button>
                                         </p>
                                       </th>
                                     </tr>
@@ -1023,12 +1020,12 @@
                                             <td class="text-right"><?php echo number_format($data['pendingAmt']); ?></td>
                                             <td class="text-right"><?php echo number_format($data['otherAdjAmount']); ?></td>
                                             <td><?php echo $otherAdjDate; ?></td>
-                                            <td>
-                                              <a target="_blank" href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs  btn-primary" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
-                                              <a href="javascript:void();" onclick="acceptOtherAdjustment(this,'<?php echo $data["billPaymentId"]; ?>');" class="modalLink btn btn-xs btn-primary waves-effect">
+                                            <td class="noSpace">
+                                              <a target="_blank" href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs viewBill-btn" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
+                                              <a href="javascript:void();" onclick="acceptOtherAdjustment(this,'<?php echo $data["billPaymentId"]; ?>');" class="btn btn-xs btnStyle">
                                                 <i class="material-icons">check</i>
                                               </a>
-                                              <a href="javascript:void();" onclick="rejectOtherAdjustment(this,'<?php echo $data["billPaymentId"]; ?>');" class="modalLink btn btn-xs btn-primary waves-effect">
+                                              <a href="javascript:void();" onclick="rejectOtherAdjustment(this,'<?php echo $data["billPaymentId"]; ?>');" class="modalLink btn btn-xs btn-danger waves-effect">
                                                 <i class="material-icons">cancel</i>
                                               </a>
                                             </td>
@@ -1065,7 +1062,7 @@
                                 <div class="row clearfix">
                                     <div class="col-md-12">
 
-                                      <table style="font-size: 12px" class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                      <table class="table table-bordered cust-tbl js-basic-example dataTable">
                                         <tr>
                                           <td>Date</td>
                                           <td>Employee</td>
@@ -1086,7 +1083,7 @@
                                           </tr>
                                       </table>
 
-                                      <table style="font-size: 12px" id="myTable"  class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                      <table id="myTable"  class="table table-bordered cust-tbl js-basic-example dataTable">
                                         <tr>
                                           <tr>
                                             <td>Category </td>
@@ -1145,22 +1142,21 @@
                                           <input type="text" autocomplete="off" placeholder="narration" id="narrationOutflow" name="narrationOutflow[]" class="form-control" required>   
                                         </td>
                                          <td>
-                                             <button type="button" onclick="addNewRow();" class="btn btn-xs btn-primary waves-effect">
-                                      <span class="icon-name"> <i class="material-icons">add</i></span></button>   
+                                        <button type="button" onclick="addNewRow();" class="btn btn-xs btn-primary btnStyle waves-effect">
+                                        <span class="icon-name"> <i class="material-icons">add</i></span></button>   
 
-                                      <button type="button" onclick="deleterow();" class="btn btn-xs btn-primary waves-effect">
-                                      <span class="icon-name"> <i class="material-icons">remove</i></span></button>
+                                        <button type="button" onclick="deleterow();" class="btn btn-xs btn-danger waves-effect">
+                                        <span class="icon-name"> <i class="material-icons">remove</i></span></button>
                                           </td>
                                         </tr>
                                       </table>
                                   </div>   
                                 </div>
                                 <br>
-                              
-                                
+                            
                                 <input type="hidden" autocomplete="off" placeholder="amount" id="bankDepId" name="bankDepId" class="form-control" required>
 
-                                  <input type="hidden" autocomplete="off" placeholder="amount" id="cashierId" name="cashierId" class="form-control" required>
+                                <input type="hidden" autocomplete="off" placeholder="amount" id="cashierId" name="cashierId" class="form-control" required>
 
                                 <input type="hidden" autocomplete="off" placeholder="amount" id="bankDepositDate" name="bankDepositDate" class="form-control" required>
 
@@ -1176,19 +1172,17 @@
                                 <div class="col-md-12">
                                     
                                         <center>                                               
-                                                <button type="submit" class="btn btn-primary m-t-15 waves-effect">
+                                                <button type="submit" class="btn btnStyle btn-primary m-t-15 waves-effect">
                                                     <i class="material-icons">save</i> 
                                                     <span class="icon-name">
                                                     Save
                                                     </span>
                                                 </button> 
                                               
-                                                    <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
-                                                        <i class="material-icons">cancel</i> 
-                                                        <span class="icon-name">
-                                                        cancel
-                                                        </span>
-                                                    </button>
+                                                <button data-dismiss="modal" type="button" class="btn btn-danger m-t-15 waves-effect">
+                                                <i class="material-icons">cancel</i> 
+                                                <span class="icon-name">cancel</span>
+                                                </button>
                                                
                                         </center>
 

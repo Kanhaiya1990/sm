@@ -9,7 +9,8 @@ class NonAllocationBillModel extends CI_Model {
     public function getdata($tableName)
     {
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
     
@@ -22,7 +23,8 @@ class NonAllocationBillModel extends CI_Model {
         $this->db->where('emptransactions.ownerApprovalStatus !=',2);
          // $this->db->where('employee.isSalaryEmp', 1);
         $resultset=$this->db->get($tableName); 
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -33,7 +35,8 @@ class NonAllocationBillModel extends CI_Model {
         $this->db->where('isUniversalId','0');
         $this->db->where('ownerApproval','1');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
     //
@@ -42,7 +45,8 @@ class NonAllocationBillModel extends CI_Model {
         $this->db->where('billType !=','taggedbill');
         $this->db->where('pendingAmt >',0);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
     public function insert($tblName, $data) {      
@@ -62,7 +66,8 @@ class NonAllocationBillModel extends CI_Model {
 
     public function show($tblName) {
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();    
     }
 
@@ -75,7 +80,8 @@ class NonAllocationBillModel extends CI_Model {
     public function load($tblName, $id) {
         $this -> db -> where('id', $id);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
@@ -83,7 +89,8 @@ class NonAllocationBillModel extends CI_Model {
     public function loadByBillNo($tblName, $billNo) {
         $this -> db -> where('id', $billNo);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
@@ -103,7 +110,8 @@ class NonAllocationBillModel extends CI_Model {
         $this->db->join("employee","employee.id=allocations.fieldStaffCode1");
         $this->db->where("billType","taggedbill");
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -117,7 +125,8 @@ class NonAllocationBillModel extends CI_Model {
         $this->db->join("employee","employee.id=allocations.fieldStaffCode1");
         $this ->db ->where('bills.id', $id);
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
         
         // SELECT bills.*,retailer.name as name,employee.name as empname FROM `bills` join retailer on bills.retailerCode=retailer.code join allocationsbills on allocationsbills.billId=bills.id join allocations on allocations.id=allocationsbills.allocationId join employee on employee.id=allocations.fieldStaffCode1
@@ -131,7 +140,8 @@ class NonAllocationBillModel extends CI_Model {
         $this ->db->where('billsdetails.billId', $id);
         // $this->db->order_by('billsdetails.date', 'desc');
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
     public function loadBillDetailsID($tableName, $id)
@@ -141,7 +151,8 @@ class NonAllocationBillModel extends CI_Model {
         // $this->db->join("retailer","bills.retailerCode = retailer.code");
         $this ->db->where('billsdetails.id', $id);
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 

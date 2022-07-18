@@ -12,30 +12,6 @@ class CompanyController extends CI_Controller {
 
         if(isset($this->session->userdata['codeKeyData'])) {
 			$this->projectSessionName= $this->session->userdata['codeKeyData']['codeKeyValue'];
-			$this->baseUrl=$this->session->userdata['codeKeyData']['yourBaseUrl'];
-
-            if($this->baseUrl=="http://localhost/smartdistributor/" || $this->baseUrl=="https://siainc.in/kiasales/" || $this->baseUrl=="https://siainc.in/staging_kiasales/"){
-
-            }else{
-                $this->load->helper('url');
-                $url_parts = parse_url(current_url());
-                $siteUrl=explode('/',$url_parts['path']);//current url path
-        
-                $baseUrl=explode('/',$this->baseUrl);//base url path
-                
-                $siteDistributorName=trim($siteUrl[2]);
-                $baseDistributorName=trim($baseUrl[4]);
-                
-                if($siteDistributorName !="" && $baseDistributorName !=""){
-                    if($siteDistributorName==$baseDistributorName){
-                    //   
-                    }else{
-                    redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
-                    }
-                }else{
-                redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
-                }
-            }
 		}else{
 			$this->load->view('LoginView');
 		}
@@ -60,7 +36,27 @@ class CompanyController extends CI_Controller {
     }
 
 
-    
+    public function manageAccountDetails(){
+        $officeDetails=$this->CompanyModel->getdata('office_details');
+        $distributorCode=$officeDetails[0]['distributorCode'];
+        $distributorInfo=$this->CompanyModel->getUserByCode('distributors_details',$distributorCode);
+        $userId=$distributorInfo[0]['id'];
+        $username=$distributorInfo[0]['email'];
+        $password=$distributorInfo[0]['password'];
+
+        $data['redirectUrl']="http://localhost/Smart_New_Integration/superadmin/index.php/UserAuthentication/distributorsLoginForUser/".urlencode($username)."/".urlencode($password);
+
+        // $userId = $this->session->userdata[$this->projectSessionName]['id'];
+        $data['packageLists']=$this->CompanyModel->loadData('packages');
+    // print_r($data); exit();
+        $data['customerData']=$this->CompanyModel->getUserById('distributors_details',$userId);
+        $invData1=$this->CompanyModel->getLastId('invoices',$userId);
+        $id = $invData1[0]['id'];
+        $data['invoiceData']=$this->CompanyModel->loadDataById('invoices',$id);
+        $data['distTransactionDetails']=$this->CompanyModel->getLastFive('transaction',$userId);
+
+        $this->load->view('managePaymentAccountView',$data);
+    }
 
     public function addOfficeDetailsKia(){
         $id=$this->input->post('id');
@@ -80,8 +76,6 @@ class CompanyController extends CI_Controller {
             // 'panNumber'=>$panNo
         );
        $this->CompanyModel->update('office_details',$updateData,$id); 
-    //    echo '<script type="text/javascript">toastr.success("Have Fun")</script>';
-       
     }
 
     public function addContactDetails(){

@@ -56,17 +56,16 @@ li{
                         <div class="header">
                             <h2>
                                 Cheque Deposit Slip 
-
                             </h2>
                         </div>
                         <div class="body">
                             <div class="row">                                 
                                 <div class="row m-t-20">                                   
-                                    <div class="table-responsive">
+                                    <div class="table-responsive cust-tbl">
                                         <div class="col-md-12">
                                             <form method="post" role="form" action="<?php echo site_url('CashAndChequeController/DesktopBill');?>">
                                             <div class="col-md-3">
-                                                    <b>Division Name:</b>
+                                                    <b>Company Name:</b>
                                                     <div class="input-group">
                                                         <span class="input-group-addon">
                                                            <i class="material-icons">perm_contact_calendar</i>
@@ -76,7 +75,7 @@ li{
                                                                 <?php if(!empty($this->session->userdata('DepositCompany'))){ ?>
                                                                 <option value="<?php echo $this->session->userdata['DepositCompany']['depositCompany']; ?>"><?php echo $this->session->userdata['DepositCompany']['depositCompany']; ?></option>
                                                                 <?php } ?>
-                                                                <option value="General">--Select All Divisions--</option>
+                                                                <option value="General">--Select All Companies--</option>
                                                               
                                                                 <?php foreach ($company as $req_item): ?>
                                                                     <option value="<?php echo $req_item['name'] ?>"><?php echo $req_item['name'] ?>                                                            
@@ -104,11 +103,11 @@ li{
                                                     </div>
                                             </div> 
                                             <div class="col-md-1">
-                                                <input type="submit" value="Search" class="btn btn-primary btn-sm margin m-t-20">
+                                                <input type="submit" value="Search" class="btn btn-primary btnStyle btn-sm margin m-t-20">
                                             </div> 
                                         </form>
                                         <div class="col-md-6" id="default_tbl">
-                                            <table style="font-size: 12px" class="table table-bordered">
+                                            <table class="table table-bordered">
                                                 
                                                 <thead>
                                                     <tr>
@@ -161,7 +160,7 @@ li{
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <table style="font-size:12px" data-page-length='200' class="table table-bordered table-striped table-hover dataTable js-exportable">
+                                        <table data-page-length='200' class="table table-bordered dataTable js-exportable cust-tbl">
                                             <thead>
                                                 <tr>
                                                     <th>
@@ -174,7 +173,7 @@ li{
                                                     <th>Cheque Date </th>
                                                     <th>Cheque Amount</th>
                                                     <th>Bank</th>
-                                                    <th>Division </th>
+                                                    <th>Company </th>
                                                 </tr>
                                             </thead>
                                                 <tbody id="tblData">
@@ -277,11 +276,11 @@ li{
                                                         <th>Cheque Date </th>
                                                         <th>Cheque Amount</th>
                                                         <th>Bank</th>
-                                                        <th>Division </th>
+                                                        <th>Company </th>
                                                     </tr>
                                                 </tfoot>
                                             </table>
-                                             <button type="button" id="insert-ins" class="btn btn-primary m-t-15 waves-effect"> 
+                                             <button type="button" id="insert-ins" class="btn btn-primary btnStyle m-t-15 waves-effect"> 
                                                      <i class="material-icons">save</i> <i class="material-icons">email</i> 
                                               <span class="icon-name"> Save and Download</span>
                                         </button> 
@@ -329,16 +328,7 @@ li{
                     var path="<?php echo base_url();?>assets/deliveryslips/"+res;
                     window.open(path, "_blank");
                     window.location.href="<?php echo base_url();?>index.php/CashAndChequeController/DesktopBill";
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }   
+                }  
             });
         }else{
             alert('Please select cheque.');
@@ -483,16 +473,7 @@ li{
                 data:{"id" : id , "chequeStatus" : result.value},
                 success: function (response) {
                     $('#changeStatus').html(response);  
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                } 
+                }
                 });
             }
         });

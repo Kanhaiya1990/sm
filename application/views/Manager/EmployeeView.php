@@ -32,14 +32,14 @@
                                    <?php echo form_close(); ?> --> 
                                 <p align="left">
                                  <a href="<?php echo site_url('manager/EmployeeController/index');?>">
-                                    <button type="submit" class="btn bg-primary margin"><i class="material-icons">airplanemode_active</i> Active </button></a> 
+                                    <button type="submit" class="btn btnStyle bg-primary margin"><i class="material-icons">airplanemode_active</i> Active </button></a> 
 
                                     <a href="<?php echo site_url('manager/EmployeeController/Deactive');?>">
-                                    <button type="submit" class="btn bg-primary margin"><i class="material-icons">airplanemode_inactive</i>  Inactive  </button></a> 
+                                    <button type="submit" class="btn btnStyle bg-primary margin"><i class="material-icons">airplanemode_inactive</i>  Inactive  </button></a> 
                                 </p> 
                                 <p align="right">
                                   <a href="<?php echo site_url('manager/EmployeeController/Add');?>">
-                                    <button type="submit" class="btn bg-primary margin"><i class="material-icons">person_add</i>  Add  </button></a> 
+                                    <button type="submit" class="btn btnStyle bg-primary margin"><i class="material-icons">person_add</i>  Add  </button></a> 
                                 </p> 
                             </h2>
                          <!--    <ul class="header-dropdown m-r--5">

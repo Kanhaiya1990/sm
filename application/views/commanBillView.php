@@ -25,11 +25,11 @@
         <div class="row clearfix">
             <div class="col-lg-12">
                 <div class="card">
-                    <div class="header">
-                            <a class="btn btn-xs btn-primary" href="javascript:window.history.go(-1);"><i class="material-icons">arrow_back</i></a>
-                          <h4 style="color:#050A30"><center><?php echo $bills[0]['retailerName'];?></center>
-                           
-                          </h4>
+                    <div class="header flex-div">
+                        <h2 style="width: 88%;"><center><?php echo $bills[0]['retailerName'];?></center></h2>
+                        <h2 align="right">
+                        <a class="btn btn-xs btn-primary btnStyle" href="javascript:window.history.go(-1);"><i class="material-icons">arrow_back</i></a> 
+                        </h2>
                             <!--<h2 align="right">
                             <span>
                                <a class="btn btn-xs btn-primary" href="javascript:void();"><i class="material-icons">touch_app</i></a>
@@ -37,40 +37,49 @@
                             </h2>-->
                     </div>
                     <div class="body">
-                        <div class="row m-t-20">
+                        <div class="row m-t-20 cust-tbl">
                             <div class="container">
                             <!-- <div class="col-md-12"> -->
                                 
-                                    <div class="col-md-4">
-                                        <h5 style="color:#000000">Bill No. : <span style="color:#050A30"><?php echo $bills[0]['billNo'];?></span></h5>
-                                        <h5 style="color:#000000">Bill Date : 
-                                          <span style="color:#050A30"><?php 
+                                    <div class="col-md-4 mb-0">
+                                     Bill No. : <span><?php echo $bills[0]['billNo'];?></span>
+                                    </div>
+                                    <div class="col-md-4 mb-0">
+                                     Bill Date : <span><?php 
                                               $dt=date_create($bills[0]['date']);
                                               $date = date_format($dt,'d-M-Y'); 
                                               echo $date;
                                           ?>
                                           </span>
-                                        </h5>
+                                        
                                     </div>
 
-                                    <div class="col-md-4">
-                                        <h5 style="color:#000000">Bill Amount : <span style="color:#050A30"><?php echo $bills[0]['netAmount'];?></span>
-                                        <h5 style="color:#000000">Salesman : <span style="color:#050A30"><?php echo $bills[0]['salesman'];?></span>
+                                    <div class="col-md-4 mb-0">
+                                    Bill Amount : <span><?php echo $bills[0]['netAmount'];?></span>
+                                    </div>
+
+                                    <div class="col-md-4 mb-0">
+                                    Salesman : <span><?php echo $bills[0]['salesman'];?></span>
                                     </div>
                                 
-
-                                    <div class="col-md-4">
-                                        <h5 style="color:#000000">Retailer Code : <span style="color:#050A30"><?php echo $bills[0]['retailerCode'];?></span>
-                                        <h5 style="color:#000000">Route : <span style="color:#050A30"><?php echo $bills[0]['routeName'];?></span>
+                                    <div class="col-md-4 mb-0 cust-tbl">
+                                    Retailer Code : <span><?php echo $bills[0]['retailerCode'];?></span>
+                                    </div>
+                                    
+                                    <div class="col-md-4 mb-0">
+                                    Route : <span><?php echo $bills[0]['routeName'];?></span>
                                     </div>
                                
-                               <span>-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</span><br>
+                               <!-- <span>-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</span><br> -->
                             <!-- </div> -->
-                            <div class="col-md-12">
-                                <table style="font-size: 12px" class="table table-bordered table-striped table-hover" data-page-length='100'>
+
+                        <div class="col-md-12">
+                         <hr class="w-100 m-t-15">
+                        <table class="table table-bordered cust-tbl" data-page-length='100'>
+						
                                     <thead>
                                          <tr>
-                                            <th>S. No.</th>
+                                            <th>No</th>
                                             <th>Product Name</th>
                                             <th><span class="pull-right">MRP</span></th>
                                             <th><span class="pull-right">Quantity</span></th>
@@ -97,7 +106,11 @@
                                 ?>      
                                             <tr>
                                                 <td><?php echo $no;?></td>
-                                                <td><?php echo $data['productName'];?></td>
+												<td class="CellWithComment" style="width: 210px;"><?php //echo  rtrim($data['productName'],', '); 
+												$productName=substr($data['productName'], 0, 20);
+												echo rtrim($productName);?>
+												<span class="CellComment"><?php echo $result =substr($data['productName'],0); ?></span>
+											    </td>
                                                 <td align="right"><?php echo $data['mrp'];?></td>
                                                 <td align="right"><?php echo $data['qty'];?></td>
                                                 <td align="right"><?php echo $data['netAmount'];?></td>

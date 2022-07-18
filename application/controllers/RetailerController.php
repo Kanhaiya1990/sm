@@ -12,30 +12,6 @@ class RetailerController extends CI_Controller {
 
         if(isset($this->session->userdata['codeKeyData'])) {
 			$this->projectSessionName= $this->session->userdata['codeKeyData']['codeKeyValue'];
-			$this->baseUrl=$this->session->userdata['codeKeyData']['yourBaseUrl'];
-
-            if($this->baseUrl=="http://localhost/smartdistributor/" || $this->baseUrl=="https://siainc.in/kiasales/" || $this->baseUrl=="https://siainc.in/staging_kiasales/"){
-
-            }else{
-                $this->load->helper('url');
-                $url_parts = parse_url(current_url());
-                $siteUrl=explode('/',$url_parts['path']);//current url path
-        
-                $baseUrl=explode('/',$this->baseUrl);//base url path
-                
-                $siteDistributorName=trim($siteUrl[2]);
-                $baseDistributorName=trim($baseUrl[4]);
-                
-                if($siteDistributorName !="" && $baseDistributorName !=""){
-                    if($siteDistributorName==$baseDistributorName){
-                    //   
-                    }else{
-                    redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
-                    }
-                }else{
-                redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
-                }
-            }
 		}else{
 			$this->load->view('LoginView');
 		}
@@ -334,7 +310,7 @@ class RetailerController extends CI_Controller {
           <div class="modal-body">
                         <div class="body">
                             <div class="demo-masked-input">
-                                <div class="row clearfix">
+                                <div class="row clearfix cust-tbl">
                                   <div class="col-md-4">
                                         <b>Retailer Code</b>
                                         <div class="input-group">
@@ -386,12 +362,12 @@ class RetailerController extends CI_Controller {
                                      <div class="col-md-12">
                                         <div class="row clearfix">
                                             <div class="col-md-4">
-                                                <button id="updRetInfo" class="btn btn-primary m-t-15 waves-effect">
+                                                <button id="updRetInfo" class="btn btnStyle btn-lg m-t-15 waves-effect">
                                                     <i class="material-icons">save</i> 
                                                     <span class="icon-name">Save</span>
                                                 </button>
                                                
-                                                    <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                                    <button data-dismiss="modal" type="button" class="btn btn-sm btn-danger m-t-15 waves-effect">
                                                         <i class="material-icons">cancel</i> 
                                                         <span class="icon-name"> Cancel</span>
                                                     </button>

@@ -11,7 +11,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->where('isAllocationComplete !=','1');
         $this->db->order_by('id','desc');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
     
@@ -20,14 +21,16 @@ class CashAndChequeModel extends CI_Model {
         $this->db->where('salesmanName',$name);
         $this->db->where('salesmanCode',$code);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
     public function getDetails($tableName)
     {
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -35,7 +38,8 @@ class CashAndChequeModel extends CI_Model {
     {
         $sqlQuery="SELECT count(billPaymentId) as chequeCount,sum(chequeAmount) as totalChequeSum,transactionId,filePath,createdDate,company,chequeTillDate FROM `cheque_deposit_slips` group by transactionId order by createdDate desc";
         $data=$this->db->query($sqlQuery);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $data->result_array();
     }
 
@@ -45,7 +49,8 @@ class CashAndChequeModel extends CI_Model {
     {
         $this->db->where('name',$name);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -57,7 +62,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->where('paymentMode !=','NEFT');
         $this->db->order_by('DATE(chequeReceivedDate)','desc');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -79,7 +85,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->order_by('id','desc');
         $this->db->group_by('chequeDate,bounceChequeCount,tempStatus,billNo,chequeNo,chequeBank');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -98,7 +105,8 @@ class CashAndChequeModel extends CI_Model {
     public function getChequeTransactions($id){
         $sqlQuery="SELECT billpayments.* FROM cheque_deposit_slips join billpayments on billpayments.id=cheque_deposit_slips.billPaymentId where transactionId='$id'";
         $data=$this->db->query($sqlQuery);
-        
+        $this->db->close();
+        $this->db->initialize();
         // print_r($data->result_array());
         return $data->result_array();
     }
@@ -118,7 +126,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->order_by('id','desc');
         $this->db->group_by('chequeDate,bounceChequeCount,tempStatus,billNo,chequeNo,chequeBank');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -130,7 +139,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->where('isOfficeCheque','1');
         $this->db->order_by('DATE(chequeReceivedDate)','desc');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -146,7 +156,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->group_by('chequeDate,bounceChequeCount,chequeNo,chequeBank');
 
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -159,7 +170,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->where('chequeBank',$chequeBank);
         $this->db->where('tallyStatus','');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -181,7 +193,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->group_by('chequeDate,bounceChequeCount,billNo,chequeNo,chequeBank');
 
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -194,7 +207,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->where('paidAmount >',0);
         $this->db->order_by('chequeReceivedDate','desc');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -210,7 +224,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->order_by('chequeReceivedDate','desc');
         $this->db->group_by('billpayments.neftNo,billpayments.neftDate');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -220,14 +235,16 @@ class CashAndChequeModel extends CI_Model {
         $this->db->where('allocationId',$allocationId);
         $this->db->where('paymentMode',$mode);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
      public function currentCheques($tableName){
         $query="SELECT bills.*,billpayments.id as bpayId,billpayments.allocationId as bpayAllocationId,billpayments.paidAmount as paidAmt,billpayments.paymentMode as payMode,billpayments.date as bdate from bills join billpayments on bills.id=billpayments.billId where billpayments.paidAmount >0 and billpayments.chequeStatus='' and billpayments.chequeNo='' and billpayments.neftNo='' and billpayments.isLostStatus=2 and (billpayments.paymentMode = 'Cheque' or billpayments.paymentMode='NEFT')";
         $qry=$this->db->query($query);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $qry->result_array();
     }
    //  public function currentCheques($tableName){
@@ -250,7 +267,8 @@ class CashAndChequeModel extends CI_Model {
     {
         $this->db->where('isAllocationComplete =','1');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -258,7 +276,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->where('billId', $billId);
         $this->db->where('allocationId', $allocationId);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();  
     }
 
@@ -280,7 +299,8 @@ class CashAndChequeModel extends CI_Model {
     {
         $this->db->order_by('id','desc');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
     
@@ -288,7 +308,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->select("email");
         $this->db->where('email !=','');
         $resultset=$this->db->get($tableName); 
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -302,7 +323,8 @@ class CashAndChequeModel extends CI_Model {
             $this->db->where('isLostStatus',"2");
             $this->db->order_by('DATE(chequeReceivedDate)','desc');
             $query=$this->db->get($tableName);
-            
+            $this->db->close();
+        $this->db->initialize();
             return $query->result_array();
         }else if($type=='receive'){
             $this->db->where("DATE(chequeReceivedDate) BETWEEN '". $from. "' AND '".$to."'");
@@ -311,7 +333,8 @@ class CashAndChequeModel extends CI_Model {
             $this->db->where('isLostStatus',"2");
              $this->db->order_by('DATE(chequeReceivedDate)','desc');
             $query=$this->db->get($tableName);
-            
+            $this->db->close();
+        $this->db->initialize();
             return $query->result_array();
         }
         
@@ -332,7 +355,8 @@ class CashAndChequeModel extends CI_Model {
             $this->db->order_by('id','desc');
             $this->db->group_by('chequeBank,bounceChequeCount,chequeDate,billNo,chequeNo');
             $query=$this->db->get($tableName);
-            
+            $this->db->close();
+        $this->db->initialize();
             return $query->result_array();
         }else if($type=='receive'){
             $this->db->distinct();
@@ -349,7 +373,8 @@ class CashAndChequeModel extends CI_Model {
             $this->db->group_by('chequeBank,bounceChequeCount,chequeDate,billNo,chequeNo');
 
             $query=$this->db->get($tableName);
-            
+            $this->db->close();
+        $this->db->initialize();
             return $query->result_array();
         }
         
@@ -371,7 +396,8 @@ class CashAndChequeModel extends CI_Model {
             $this->db->order_by('id','desc');
             $this->db->group_by('chequeBank,bounceChequeCount,chequeDate,billNo,chequeNo');
             $query=$this->db->get($tableName);
-            
+            $this->db->close();
+        $this->db->initialize();
             return $query->result_array();
         }else if($type=='receive'){
             $this->db->distinct();
@@ -388,7 +414,8 @@ class CashAndChequeModel extends CI_Model {
             $this->db->group_by('chequeBank,bounceChequeCount,chequeDate,chequeNo');
 
             $query=$this->db->get($tableName);
-            
+            $this->db->close();
+        $this->db->initialize();
             return $query->result_array();
         }
         
@@ -406,7 +433,8 @@ class CashAndChequeModel extends CI_Model {
             $this->db->group_by('chequeBank,bounceChequeCount,chequeDate,chequeNo');
 
             $query=$this->db->get($tableName);
-            
+            $this->db->close();
+        $this->db->initialize();
             return $query->result_array();
         }else if($type=='receive'){
             $this->db->where("DATE(chequeReceivedDate) BETWEEN '". $from. "' AND '".$to."'");
@@ -418,7 +446,8 @@ class CashAndChequeModel extends CI_Model {
             $this->db->group_by('chequeBank,bounceChequeCount,chequeDate,chequeNo');
 
             $query=$this->db->get($tableName);
-            
+            $this->db->close();
+        $this->db->initialize();
             return $query->result_array();
         }
         
@@ -435,7 +464,8 @@ class CashAndChequeModel extends CI_Model {
             $this->db->where('paymentMode','Cheque');
              $this->db->order_by('DATE(chequeReceivedDate)','desc');
             $query=$this->db->get($tableName);
-            
+            $this->db->close();
+        $this->db->initialize();
             return $query->result_array();
         }else if($type=='receive'){
             $this->db->where("DATE(chequeReceivedDate) BETWEEN '". $from. "' AND '".$to."'");
@@ -445,7 +475,8 @@ class CashAndChequeModel extends CI_Model {
             $this->db->where('paymentMode','Cheque');
              $this->db->order_by('DATE(chequeReceivedDate)','desc');
             $query=$this->db->get($tableName);
-            
+            $this->db->close();
+        $this->db->initialize();
             return $query->result_array();
         }
         
@@ -462,7 +493,8 @@ class CashAndChequeModel extends CI_Model {
           $this->db->order_by('chequeReceivedDate','desc');
 
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -479,7 +511,8 @@ class CashAndChequeModel extends CI_Model {
           $this->db->order_by('chequeReceivedDate','desc');
           $this->db->group_by('billpayments.neftNo,billpayments.neftDate');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -489,7 +522,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->distinct();
         $this->db->order_by('id','desc');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -498,7 +532,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->where('chequeDate',$chkDate);
         $this->db->where('chequeBank',$bank);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -508,7 +543,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->join("bills","bills.id = billpayments.billId");      
         $this->db->where("billpayments.chequeStatus", "Banked");
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -523,7 +559,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->order_by('chequeDate','desc');
         $this->db->group_by('chequeNo,chequeDate,chequeBank');
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -548,7 +585,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->order_by('chequeStatusDate,paidAmount','asc');
         $this->db->limit($limit, $start);
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -572,7 +610,8 @@ class CashAndChequeModel extends CI_Model {
        $this->db->order_by('chequeStatusDate,paidAmount','asc');
         // $this->db->order_by($orderField, $orderDirection);
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->num_rows();
     }
 
@@ -597,7 +636,8 @@ class CashAndChequeModel extends CI_Model {
         // $this->db->order_by($orderField, $orderDirection);
         $this->db->limit($limit, $start);
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -621,7 +661,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->order_by('chequeStatusDate,paidAmount','asc');
         // $this->db->order_by($orderField, $orderDirection);
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->num_rows();
     }
 
@@ -643,7 +684,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->where("billpayments.chequeStatus", "Banked");
         $this->db->where("billpayments.billId", "0");
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -655,7 +697,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->group_by('chequeNo,chequeDate,chequeBank');
         
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -668,7 +711,8 @@ class CashAndChequeModel extends CI_Model {
          $this->db->where("billpayments.paidAmount >", 0);
         $this->db->where("billpayments.isLostStatus", "2");
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -682,7 +726,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->where("billpayments.isLostStatus", "2");
         $this->db->group_by('neftNo,neftDate');
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -694,7 +739,8 @@ class CashAndChequeModel extends CI_Model {
          $this->db->where("billpayments.paidAmount >", 0);
         $this->db->where("billpayments.isLostStatus", "2");
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -709,7 +755,8 @@ class CashAndChequeModel extends CI_Model {
         // $this->db->or_where("billpayments.chequeStatus", "Bounced");
         // $this->db->or_where("billpayments.tempStatus", "1");
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -725,7 +772,8 @@ class CashAndChequeModel extends CI_Model {
         // $this->db->or_where("billpayments.chequeStatus", "Bounced");
         // $this->db->or_where("billpayments.tempStatus", "1");  
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -742,7 +790,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->group_end();
         $this->db->group_by('billpayments.billId,chequeNo,chequeDate,chequeBank');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -761,7 +810,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->limit(1);
         $this->db->order_by('billpayments.id','desc');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -778,7 +828,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->group_end();
         $this->db->group_by('bounceChequeCount,chequeNo,chequeDate,chequeBank');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -788,7 +839,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->where ('code',$retailerCode);
         //$this->db->orderby('id','desc');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }  
 
@@ -799,7 +851,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->where ('id >',0);
         //$this->db->orderby('id','desc');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -808,7 +861,8 @@ class CashAndChequeModel extends CI_Model {
         $this -> db ->where('id >', 0);
         $this -> db ->where_in('id', $id);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
             
@@ -816,7 +870,8 @@ class CashAndChequeModel extends CI_Model {
     {
         $this->db->select('id, name,amount');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -824,7 +879,8 @@ class CashAndChequeModel extends CI_Model {
     {
         $this->db->where('name',$name);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -835,7 +891,8 @@ class CashAndChequeModel extends CI_Model {
         // $this->db->join("retailer","bills.retailerCode = retailer.code");
         $this->db->where('billpayments.chequeStatus', "Banked");
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
     public function getdataBills($tableName)
@@ -845,7 +902,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->where("bills.pendingAmt > 0");
          $this->db->where("bills.is_delete",0);
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
     // public function getdataBanked($tableName)
@@ -866,7 +924,8 @@ class CashAndChequeModel extends CI_Model {
         // $this->db->join("retailer","bills.retailerCode = retailer.code");
          $this->db->where_in('bills.id', array($id));
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
     public function getdataReceived($tableName)
@@ -878,7 +937,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->join("bills","billpayments.billId = bills.id");
         $this->db->where('chequeStatus', "Banked");
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
     public function getdataRetailerDate($tableName,$date,$comp)
@@ -893,7 +953,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->order_by('billpayments.paidAmount','asc');
         // $this->db->where('billpayments.compName', $comp);
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -908,7 +969,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->order_by('chAmount','asc');
         $this->db->group_by('billpayments.chequeDate,billpayments.chequeNo,billpayments.chequeBank');
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -923,7 +985,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->where('billpayments.chequeDate', $date);
         $this->db->where('billpayments.id',$id);
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
      
@@ -938,7 +1001,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->where('DATE(billpayments.chequeDate) <=', $date);
         $this->db->order_by('billpayments.paidAmount','asc');
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -955,7 +1019,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->group_by('billpayments.chequeDate,billpayments.chequeNo,billpayments.chequeBank');
 
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -970,7 +1035,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->where('DATE(billpayments.chequeDate) <=',$date);
         $this->db->order_by('billpayments.paidAmount','asc');
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -987,7 +1053,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->group_end();
         $this->db->order_by('billpayments.id','desc');
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -1000,7 +1067,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->where('billpayments.paymentMode', "NEFT");
         $this->db->order_by('billpayments.id','desc');
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -1013,7 +1081,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->where('billpayments.paymentMode', "NEFT");
         $this->db->order_by('billpayments.id','desc');
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -1028,7 +1097,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->where('billpayments.paymentMode', "Cheque");
         $this->db->order_by('billpayments.id','desc');
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -1041,7 +1111,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->where('billpayments.chequeStatus !=', "Bounced");
         $this->db->order_by('billpayments.id','desc');
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -1052,7 +1123,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->where('billpayments.paymentMode', "NEFT");
         $this->db->order_by('billpayments.id','desc');
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -1067,7 +1139,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->where('billpayments.paymentMode', "NEFT");
         $this->db->order_by('billpayments.id','desc');
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
     
@@ -1083,7 +1156,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->order_by('billpayments.id','desc');
         // $this->db->where('billpayments.chequeStatus !=', "Bounced");
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -1097,7 +1171,8 @@ class CashAndChequeModel extends CI_Model {
           $this->db->where('billpayments.isOfficeCheque','1');
           $this->db->order_by('billpayments.paidAmount','asc');
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -1113,7 +1188,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->group_by('billpayments.chequeDate,billpayments.chequeNo,billpayments.chequeBank');
 
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -1128,7 +1204,8 @@ class CashAndChequeModel extends CI_Model {
          $this->db->like('billpayments.compName', $comp, 'both');
          $this->db->order_by('billpayments.paidAmount','asc');
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -1139,7 +1216,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->order_by('billpayments.paidAmount','asc');
         $this->db->group_by('billpayments.chequeDate,billpayments.chequeNo,billpayments.chequeBank');
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -1154,7 +1232,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->order_by('billpayments.paidAmount','asc');
         $this->db->group_by('billpayments.chequeDate,billpayments.billNo,billpayments.chequeNo,billpayments.chequeBank');
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -1173,7 +1252,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->group_by('billpayments.chequeDate,billpayments.chequeNo,billpayments.chequeBank');
 
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
   
@@ -1186,7 +1266,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->where('billpayments.chequeStatus', "Banked");
         $this->db->or_where ('billpayments.chequeStatus',"Bounced");
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -1195,7 +1276,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->where('billpayments.neftNo', $neftNo);
         $this->db->where('DATE(billpayments.neftDate)', $neftDate);
         $resultset=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -1263,7 +1345,8 @@ class CashAndChequeModel extends CI_Model {
 
     public function show($tblName) {
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();    
     }
     public function delete($tblName,$id)
@@ -1275,7 +1358,8 @@ class CashAndChequeModel extends CI_Model {
     {
         $this->db->where('id',$id);
         $result=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $result->result_array();
     }
 
@@ -1285,7 +1369,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->like('name', $name);
         $query = $this->db->get($tblName);
         // $resultset=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -1318,7 +1403,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->order_by('allocations.id','desc');
         $this->db->limit(1); 
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -1331,7 +1417,8 @@ class CashAndChequeModel extends CI_Model {
         $this->db->order_by('allocations_officeadjustment.id','desc');
         $this->db->limit(1); 
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 

@@ -41,7 +41,7 @@
                         <div class="body">
                         <form id="uploadForm" enctype="multipart/form-data"> 
                             <!-- <form method="post" role="form"  enctype="multipart/form-data"  action="<?php echo site_url('CompanyDataUploadingController/uploadFilesForImport');?>">  -->
-                            <div class="col-md-12">
+                            <div class="col-md-12 cust-tbl">
                                 <div class="col-md-3">
                                     <b> Company </b>
                                      <div class="input-group">
@@ -96,8 +96,8 @@
                                     <p id="res" style="color:red"></p>
                                     <input type="hidden" name="dateForUpload" id="dateForUpload" class="form-control">
                                     <div class="input-group">
-                                      <button type="submit" class="btn bg-primary margin">Import</button>
-                                      <button type="button" class="btn bg-primary margin" data-dismiss="modal">Close</button>
+                                      <button type="submit" class="btn btnStyle m-t-15 waves-effect margin">Import</button>&nbsp;
+                                      <button type="button" class="btn btn-danger m-t-15 waves-effect margin" data-dismiss="modal">Close</button>
                                     </div>
                                 </div>
                                 <!-- Progress bar -->
@@ -105,7 +105,7 @@
                             </div>
                             </form>
 
-                            <button style="display:none;" data-toggle="modal" data-target="#addRetailerModal" id="routeRefresh" class="btn bg-primary margin">Refresh Routes & Salesman</button>
+                            <button style="display:none;" data-toggle="modal" data-target="#addRetailerModal" id="routeRefresh" class="btn btnStyle margin">Refresh Routes & Salesman</button>
                                 
                         </div>
                     </div>
@@ -142,9 +142,9 @@
                                  <div class="col-md-12">
                                     <div class="row clearfix">
                                         <div class="col-md-8">
-                                            <button type="submit" class="btn btn-primary m-t-15 waves-effect">Import</button>
+                                            <button type="submit" class="btn btnStyle m-t-15 waves-effect">Import</button>
                                            
-                                            <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                            <button data-dismiss="modal" type="button" class="btn btn-danger m-t-15 waves-effect">
                                                
                                                 <span class="icon-name"> Cancel</span>
                                             </button>
@@ -204,15 +204,6 @@
             $("#bdetail").css("display", "none");
             $("#rdetail").css("display", "none");
             $("#routeRefresh").css("display", "block");
-
-            // routeRefresh
-        }else if(company==="Tata"){
-            $('#billsTitle').html('Bills Report <span style="color:red"> *</span>');
-            // $('#billDetailsTitle').html('Bill Wise Item Wise Sales Report<span style="color:red"> *</span>');
-            // $('#retailersTitle').html('Outlet Summary <span style="color:red"> *</span>');
-            $("#bdetail").css("display", "none");
-            $("#rdetail").css("display", "none");
-            $("#routeRefresh").css("display", "none");
 
             // routeRefresh
         }

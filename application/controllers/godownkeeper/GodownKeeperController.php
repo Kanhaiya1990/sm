@@ -12,30 +12,6 @@ class GodownKeeperController extends CI_Controller {
 
 		if(isset($this->session->userdata['codeKeyData'])) {
 			$this->projectSessionName= $this->session->userdata['codeKeyData']['codeKeyValue'];
-			$this->baseUrl=$this->session->userdata['codeKeyData']['yourBaseUrl'];
-
-            if($this->baseUrl=="http://localhost/smartdistributor/" || $this->baseUrl=="https://siainc.in/kiasales/" || $this->baseUrl=="https://siainc.in/staging_kiasales/"){
-
-            }else{
-                $this->load->helper('url');
-                $url_parts = parse_url(current_url());
-                $siteUrl=explode('/',$url_parts['path']);//current url path
-        
-                $baseUrl=explode('/',$this->baseUrl);//base url path
-                
-                $siteDistributorName=trim($siteUrl[2]);
-                $baseDistributorName=trim($baseUrl[4]);
-                
-                if($siteDistributorName !="" && $baseDistributorName !=""){
-                    if($siteDistributorName==$baseDistributorName){
-                    //   
-                    }else{
-                    redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
-                    }
-                }else{
-                redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
-                }
-            }
 		}else{
 			$this->load->view('LoginView');
 		}
@@ -421,15 +397,11 @@ class GodownKeeperController extends CI_Controller {
         <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
-                             <div class="header">
+                        <div class="header cust-tbl">
                             <center><h2> Bill Details</h2></center><br />
-                            <h2 style="color: red;">
-                                Bill No     :   <?php 
-                                                    if(!empty($bills)){
-                                                       echo $bills[0]['BillNo'];
-                                                    }
-                                                ?> &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp
-                                Retailer Name:  <?php 
+                            <b>Bill No :</b> <?php if(!empty($bills)){ echo $bills[0]['BillNo']; }?> 
+							&nbsp &nbsp&nbsp &nbsp &nbsp &nbsp
+                            <b>Retailer Name: </b>  <?php 
                                                     if(!empty($bills)){
                                                        echo $bills[0]['RetailerName'];
                                                     }
@@ -438,44 +410,44 @@ class GodownKeeperController extends CI_Controller {
                         </div>
                         <div class="body">
                         	<div>
-                                    <button type="button" onclick="updateCurrentSrValue('<?php echo $bills[0]['billId']; ?>','<?php echo $allocationId; ?>')" class="btn btn-primary m-t-15 waves-effect">
+                                    <button type="button" onclick="updateCurrentSrValue('<?php echo $bills[0]['billId']; ?>','<?php echo $allocationId; ?>')" class="btn btnStyle m-t-15 waves-effect">
                                         <i class="material-icons">save</i><span class="icon-name">Accept All</span>
                                     </button>
                                 
-                                <button data-dismiss="modal" type="button" class="btn btn-danger m-t-15 waves-effect">
+                                <button data-dismiss="modal" type="button" class="btn btn-danger m-t-15 waves-effect btn-sm">
                                             <i class="material-icons">cancel</i><span class="icon-name">cancel</span>
                                         </button>
                                 </div>
                             <div class="table-responsive">
                                  
                                     <div id="res"></div>
-                                <table id="SrTable" class="table table-bordered table-striped table-hover js-basic-example dataTable" data-page-length='100'>
+                                <table id="SrTable" class="table table-bordered cust-tbl js-basic-example dataTable" data-page-length='100'>
                                     <thead>
                                         <tr>
-                                             <th>S. No.</th>
+                                             <th>No</th>
                                             <th style="display: none;"></th>
                                             <th>Bill No.</th>
                                             <th>Retailer</th>
                                             <th>Item</th>
                                             <th>MRP</th>
-                                            <th>Billed Qty</th>
+                                            <th style="width: 88px;">Billed Qty</th>
                                             <th>SR</th>
-                                            <th>SR Received</th>
-                                             <th>Action</th>
+                                            <th style="width: 88px;">SR Received</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                          <tr>
-                                            <th>S. No.</th>
+                                            <th>No</th>
                                             <th style="display: none;"></th>
                                             <th>Bill No.</th>
                                             <th>Retailer</th>
                                             <th>Item</th>
                                             <th>MRP</th>
-                                            <th>Billed Qty</th>
+                                            <th style="width: 88px;">Billed Qty</th>
                                             <th>SR</th>
-                                            <th>SR Received</th>
-                                             <th>Action</th>
+                                            <th style="width: 88px;">SR Received</th>
+                                            <th>Action</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -493,11 +465,17 @@ class GodownKeeperController extends CI_Controller {
                                                 <td id="billNo">
                                                     <?php echo $data['BillNo'];?>
                                                 </td>
-                                               <td><?php 
-                                                $retailerName=substr($data['RetailerName'], 0, 30);
-                                                echo $retailerName;?></td>
+                                                <td class="CellWithComment"><?php 
+                                                $retailerName=substr($data['RetailerName'], 0, 10);
+                                                echo $retailerName;?>
+												<span class="CellComment"><?php echo $result =substr($data['RetailerName'],0); ?></span>
+												</td>
                                                
-                                                <td><?php echo $data['productName'];?></td>
+												<td class="CellWithComment"><?php 
+                                                $productName=substr($data['productName'], 0, 10);
+                                                echo $productName;?>
+												<span class="CellComment"><?php echo $result =substr($data['productName'],0); ?></span>
+												</td>
                                                 <td align="right"><?php echo $data['mrp'];?></td>
                                                 <td align="right"><?php echo number_format($data['qty']);?></td>
                                                 <td align="right"><?php echo number_format($data['fsReturnQty']);?></td>
@@ -511,13 +489,12 @@ class GodownKeeperController extends CI_Controller {
                                                     <input style="width: 50%" type="hidden" name="checkReturnQty[]" value="<?php echo (int)$data['fsReturnQty']; ?>">
                                                 	<?php } ?>
 
-                                                    
                                                 </td>
                                                 <td>
                                                 	<?php if($data['gkStatus']==1){ 
                                                 		echo '&#10004;';
                                                 	 }else{ ?>	
-	                                                    <button id="btn_errr<?php echo $no; ?>" onclick="updateSRqtyForFsr(this);" class="btn-primary waves-effect">
+	                                                    <button id="btn_errr<?php echo $no; ?>" onclick="updateSRqtyForFsr(this);" class="btn btn-sm btnStyle primary waves-effect" style="padding: 3px 10px;">
 	                                                        
 	                                                        <span class="icon-name">
 	                                                        OK
@@ -526,7 +503,7 @@ class GodownKeeperController extends CI_Controller {
                                                 <?php } ?>
                                                 </td>
                                            </tr>
-                                     <?php
+                                     <?php 
                                             }
                                         }?>
                                     </tbody>

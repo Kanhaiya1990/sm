@@ -50,8 +50,8 @@
                             <div class="row clearfix">
                             <!-- <div class="demo-masked-input"> -->
                                 
-                                  <div class="col-md-12"> 
-                                    <div class="col-md-4">
+                                  <div class="col-md-12 mb-0 cust-tbl"> 
+                                    <div class="col-md-4 mb-0">
                                         <b>Bill Number</b>
                                         <div class="input-group">
                                             <span class="input-group-addon">
@@ -64,25 +64,15 @@
                                         </div>
                                     </div>
                                   
-                                        <div class="col-md-4">
-                                        <?php if($this->session->userdata['workRestrict']['status']=="yes"){?>
-                                            <button class="btn btn-xs btn-primary m-t-25 waves-effect" onclick="planUpgradeMsg()">
+                                        <div class="col-md-4"> 
+                                            <button id="searchInfo" class="btn btn-xs btn-primary btnStyle m-t-25 waves-effect">
                                                 <i class="material-icons">search</i> 
                                                 <span class="icon-name">
                                                  Search
                                                 </span>
                                             </button>
-                                        <?php }else{ ?>
-                                            <button id="searchInfo" class="btn btn-xs btn-primary m-t-25 waves-effect">
-                                                <i class="material-icons">search</i> 
-                                                <span class="icon-name">
-                                                 Search
-                                                </span>
-                                            </button>
-                                        <?php } ?>
-                                            
                                            <a href="<?php echo site_url('admin/BillTransactionController');?>">
-                                                <button type="button" class="btn btn-xs btn-danger m-t-25 waves-effect">
+                                                <button type="button" class="btn btn-sm btn-danger m-t-25 waves-effect">
                                                     <i class="material-icons">cancel</i> 
                                                     <span class="icon-name"> Cancel</span>
                                                 </button>
@@ -90,13 +80,15 @@
                                         </div>
 
                                         
-                                    </div> 
+                                    </div>
+                                    <div class="row clearfix">
                                     <div id="hideInfo" class="col-md-12"> 
-                                    </div>    
+                                    </div> 
+                                    </div>   
 
                                     <div id="transactionInfo" class="col-md-12"> 
                                          <div class="table-responsive">
-                                            <table style="font-size:13px" style="font-size:13px" class="table table-bordered table-striped table-hover" data-page-length='100'>
+                                            <table class="table table-bordered cust-tbl" data-page-length='100'>
                                                 <thead>
                                                     <tr>
                                                         <th>Transaction Type</th>
@@ -141,7 +133,7 @@
         </button>
       </div>
       <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 cust-tbl">
                 <div class="col-md-3">
                     <h5 style="color:#000000">Bill No :  <span style="color:#050A30" id='bill_no'></span></h5>
                     </div> 
@@ -188,8 +180,8 @@
             <div class="col-md-6" style="color:#050A30">CAPTCHA : <span style="color:#050A30" id="userOtpText"></span></div>
             <div class="col-md-6"><input type="text" class="form-control" id="otpText" name="otpText" placeholder="Enter CAPTCHA" onkeypress="return isNumber(event)"></div>
         </div>
-        <button type="button" id="otpCheck" class="btn btn-primary" >Verify CAPTCHA</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        <button type="button" id="otpCheck" class="btn btn-primary btnStyle" >Verify CAPTCHA</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
       </div>
       <div class="modal-footer">
       </div>
@@ -211,16 +203,7 @@
             success: function(data){
                 alert(data);
                 $('#tblData').html(data);
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            } 
+            }
         });
     });
  </script>
@@ -309,16 +292,7 @@
                         $('#hideInfo').html(data);
                         $('#billNo').val('');
                         $('#billNo').focus();
-                    },
-                    beforeSend: function(){
-                        $('.comman-ajax-loader').css("visibility", "visible");
-                    },
-                    complete: function(){
-                        $('.comman-ajax-loader').css("visibility", "hidden");
-                    },
-                    error: function(jqXHR, exception) {
-                        alert("Something Went Wrong, Please Try Again...!");
-                    }   
+                    }  
                 });
             }
         }
@@ -346,16 +320,7 @@
                     $('#hideInfo').html(data);
                     $('#billNo').val('');
                     $('#billNo').focus();
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }   
+                }  
             });
         }
     });
@@ -382,16 +347,7 @@
                     success: function (data) {
                         // alert(data);
                         $('#billsData').html(data);
-                    },
-                    beforeSend: function(){
-                        $('.comman-ajax-loader').css("visibility", "visible");
-                    },
-                    complete: function(){
-                        $('.comman-ajax-loader').css("visibility", "hidden");
-                    },
-                    error: function(jqXHR, exception) {
-                        alert("Something Went Wrong, Please Try Again...!");
-                    }   
+                    }  
                 });
             }
         }
@@ -417,16 +373,7 @@
                 success: function (data) {
                     // alert(data);
                     $('#billsData').html(data);
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }   
+                }  
             });
         }
     });
@@ -514,16 +461,7 @@
                     $('#bill-date').text(obj.billDate);
                     $('#bill-salesman').text(obj.salesman);
                     $('#bill-route').text(obj.route);
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }   
+                }  
             });
         }
     });
@@ -592,16 +530,7 @@
                     $('#bill-date').text(obj.billDate);
                     $('#bill-salesman').text(obj.salesman);
                     $('#bill-route').text(obj.route);
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }   
+                }  
             });
         }
     });
@@ -669,16 +598,7 @@
                     $('#bill-date').text(obj.billDate);
                     $('#bill-salesman').text(obj.salesman);
                     $('#bill-route').text(obj.route);
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }   
+                }  
             });
         }
     });
@@ -746,16 +666,7 @@
                     $('#bill-date').text(obj.billDate);
                     $('#bill-salesman').text(obj.salesman);
                     $('#bill-route').text(obj.route);
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }   
+                }  
             });
         }
     });
@@ -823,16 +734,7 @@
                     $('#bill-date').text(obj.billDate);
                     $('#bill-salesman').text(obj.salesman);
                     $('#bill-route').text(obj.route);
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }   
+                }  
             });
         }
     });
@@ -900,16 +802,7 @@
                     $('#bill-date').text(obj.billDate);
                     $('#bill-salesman').text(obj.salesman);
                     $('#bill-route').text(obj.route);
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }   
+                }  
             });
         }
     });
@@ -977,16 +870,7 @@
                     $('#bill-date').text(obj.billDate);
                     $('#bill-salesman').text(obj.salesman);
                     $('#bill-route').text(obj.route);
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }   
+                }  
             });
         }
     });
@@ -1054,16 +938,7 @@
                     $('#bill-date').text(obj.billDate);
                     $('#bill-salesman').text(obj.salesman);
                     $('#bill-route').text(obj.route);
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }   
+                }  
             });
         }
     });
@@ -1108,16 +983,7 @@
                                 $('#hideInfo').html(data);
                                 $('#billNo').val('');
                                 $('#billNo').focus();
-                            },
-                            beforeSend: function(){
-                                $('.comman-ajax-loader').css("visibility", "visible");
-                            },
-                            complete: function(){
-                                $('.comman-ajax-loader').css("visibility", "hidden");
-                            },
-                            error: function(jqXHR, exception) {
-                                alert("Something Went Wrong, Please Try Again...!");
-                            }   
+                            }  
                         });
 
                         $.ajax({
@@ -1126,16 +992,7 @@
                             data:{billNo:billNo,billId:billId},
                             success: function (data) {
                                 $('#billsData').html(data);
-                            },
-                            beforeSend: function(){
-                                $('.comman-ajax-loader').css("visibility", "visible");
-                            },
-                            complete: function(){
-                                $('.comman-ajax-loader').css("visibility", "hidden");
-                            },
-                            error: function(jqXHR, exception) {
-                                alert("Something Went Wrong, Please Try Again...!");
-                            }   
+                            }  
                         });
                         $('#retailerModal').modal('toggle');
                         // $('#retailerModal').toggle();
@@ -1143,16 +1000,7 @@
                     }else{
                         alert(data);
                     }
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }   
+                }  
             });
         }
     });

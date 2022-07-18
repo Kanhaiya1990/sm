@@ -12,8 +12,8 @@
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
-                        <div class="header">
-                            <center><h2><span>Office Allocation Approval</span></h2></center><br>
+                        <div class="header flex-div">
+                            <center><h2>Office Allocation Approval</h2></center><br>
                             <h4>
                                 Office Allocation No. :  <span style="color:blue;" id="alDetails"><?php if(!empty($allocationCode)){ echo $allocationCode; }?></span>
                                 Title. : <span style="color:blue;" id="alDetails"><?php if(!empty($title)){ echo $title; }?></span>
@@ -23,15 +23,13 @@
                        
                         <div class="body">
                             <div class="row">
-                          
-
-                             <input type="hidden" name="idOfAllocation" id="idOfAllocation" list="toBill" autocomplete="off" value="<?php if(!empty($allocationId)){ echo $allocationId; }?>" class="form-control">
+                            <input type="hidden" name="idOfAllocation" id="idOfAllocation" list="toBill" autocomplete="off" value="<?php if(!empty($allocationId)){ echo $allocationId; }?>" class="form-control">
                                                        
                                 <div class="row">
                                      <div class="col-md-12">
                                     <div class="col-md-12">
                                         <div class="table-responsive">
-                                            <table style="font-size: 13px" class="table table-striped table-bordered" id="tbl">
+                                            <table class="table table-bordered cust-tbl dataTable js-exportable" id="tbl">
                                                 <tr class="head">
                                                     <td colspan="13" style="background-color: whitesmoke;"><center><b>Office Allocations Bills</b></center></td>
                                                 </tr>
@@ -45,44 +43,41 @@
                                     <?php } ?>
 
                                     <?php if(empty($current_allocations)){ ?>                    
-                                            <button type="button" disabled onclick="checkCashInTable();" id="allCash" class="btn btn-success margin btn-sm"> All Cash </button>
-                                            <button type="button" disabled onclick="cancelCheckCashInTable();" id="cancelallCash" class="btn btn-danger margin btn-sm">Cancel All Cash </button>
+                                        <button type="button" disabled onclick="checkCashInTable();" id="allCash" class="btn btn-primary btnStyle m-t-15 waves-effect"> All Cash </button>
+                                        <button type="button" disabled onclick="cancelCheckCashInTable();" id="cancelallCash" class="btn btn-danger m-t-15 waves-effect">Cancel All Cash </button>
 
-                                            <button disabled type="button" id="allClr" onclick="checkClearedInTable();" class="btn btn-success margin btn-sm"> All Office Adjustment </button>
-                                            <button disabled type="button" id="cancelallClr" onclick="cancelCheckClearedInTable();" class="btn btn-danger margin btn-sm"> Cancel All Office Adjustment </button>      
-                                            <button disabled type="button" id="allPnd" onclick="checkPendingInTable();" class="btn btn-success margin btn-sm"> All Pending </button> 
-                                            <button disabled type="button" id="cancelallPnd" onclick="checkCancelPendingInTable();" class="btn btn-danger margin btn-sm"> Cancel All Pending </button>   
-                                            <button disabled onclick="checkFsrInTable();" id="allFsr" type="button" class="btn btn-success margin btn-sm"> All FSR </button>
-                                            <button disabled onclick="cancelCheckFsrInTable();" id="cancelallFsr" type="button" class="btn btn-danger margin btn-sm">Cancel All FSR </button>
+                                        <button disabled type="button" id="allClr" onclick="checkClearedInTable();" class="btn btn-primary btnStyle m-t-15 waves-effect"> All Office Adjustment </button>
+                                        <button disabled type="button" id="cancelallClr" onclick="cancelCheckClearedInTable();" class="btn btn-danger m-t-15 waves-effect"> Cancel All Office Adjustment </button>      
+                                        <button disabled type="button" id="allPnd" onclick="checkPendingInTable();" class="btn btn-primary btnStyle m-t-15 waves-effect"> All Pending </button> 
+                                        <button disabled type="button" id="cancelallPnd" onclick="checkCancelPendingInTable();" class="btn btn-danger m-t-15 waves-effect"> Cancel All Pending </button>   
+                                        <button disabled onclick="checkFsrInTable();" id="allFsr" type="button" class="btn btn-primary btnStyle m-t-15 waves-effect"> All FSR </button>
+                                        <button disabled onclick="cancelCheckFsrInTable();" id="cancelallFsr" type="button" class="btn btn-danger m-t-15 waves-effect">Cancel All FSR </button>
                                            
-                                    <?php }else{ ?>
-                                            <button onclick="checkExistCashInTable();" type="button" class="btn btn-success margin btn-sm"> All Cash </button>
-                                            <button onclick="cancelCheckExistCashInTable();" type="button" class="btn btn-danger margin btn-sm">Cancel All Cash </button>
+                                        <?php }else{ ?>
+                                        <button onclick="checkExistCashInTable();" type="button" class="btn btn-primary btnStyle m-t-15 waves-effect"> All Cash </button>
+                                        <button onclick="cancelCheckExistCashInTable();" type="button" class="btn btn-danger m-t-15 waves-effect">Cancel All Cash </button>
                                     
-                                            <button type="button" onclick="checkExistClearedInTable();" class="btn btn-success margin btn-sm"> All Office Adjustment </button> 
-                                            <button type="button" onclick="cancelCheckExistClearedInTable();" class="btn btn-danger margin btn-sm"> Cancel All Office Adjustment </button>     
-                                            <button type="button" onclick="checkExistPendingInTable();" class="btn btn-success margin btn-sm"> All Pending </button> 
-                                            <button type="button" onclick="checkCancelExistPendingInTable();" class="btn btn-danger margin btn-sm"> Cancel All Pending </button>   
-                                            <button onclick="checkExistFsrInTable();" type="button" class="btn btn-success margin btn-sm"> All FSR </button>
-                                            <button onclick="cancelCheckExistFsrInTable();" type="button" class="btn btn-danger margin btn-sm">Cancel All FSR </button>
-                                    <?php } ?>
-                                        
-                                            
-                                        
+                                        <button type="button" onclick="checkExistClearedInTable();" class="btn btn-primary btnStyle m-t-15 waves-effect"> All Office Adjustment </button> 
+                                        <button type="button" onclick="cancelCheckExistClearedInTable();" class="btn btn-danger m-t-15 waves-effect"> Cancel All Office Adjustment </button>     
+                                        <button type="button" onclick="checkExistPendingInTable();" class="btn btn-primary btnStyle m-t-15 waves-effect"> All Pending </button> 
+                                        <button type="button" onclick="checkCancelExistPendingInTable();" class="btn btn-danger m-t-15 waves-effect"> Cancel All Pending </button>   
+                                        <button onclick="checkExistFsrInTable();" type="button" class="btn btn-primary btnStyle m-t-15 waves-effect"> All FSR </button>
+                                        <button onclick="cancelCheckExistFsrInTable();" type="button" class="btn btn-danger m-t-15 waves-effect">Cancel All FSR </button>
+                                    <?php } ?> 
                                     </td>
-                                                </tr>
+                                        </tr>
                                                 <tr class="gray">
-                                                    <th>S. No.</th>
-                                                    <th style="display: none">S. No.</th>
-                                                    <th>Bill No.</th>
+                                                    <th>No</th>
+                                                    <th style="display: none">No</th>
+                                                    <th>Bill No</th>
                                                     <th>Bill Date</th>
-                                                    <th>Retailer Name</th>
-                                                    <th>Bill Amount</th>
-                                                    <th>Past Coll</th>
-                                                    <th>Past Sr</th>
+                                                    <th class="noSpace">Retailer Name</th>
+                                                    <th>Bill</th>
+                                                    <th>Coll</th>
+                                                    <th>Sr</th>
                                                     <th>Past OA Amount</th>
-                                                    <th>Pending Amount</th>
-                                                    <th>Current Amount</th>
+                                                    <th>Pending</th>
+                                                    <th>Current</th>
                                                    <!--  <th>Title</th>
                                                     <th>Remark</th> -->
                                                     <th>Status</th>
@@ -100,15 +95,20 @@
                                                 <td><?php echo $no; ?></td>
                                                 <td style="display: none"><?php echo $items['id']; ?></td>
                                                 <td><?php echo $items['billNo']; ?></td>
-                                                <td><?php echo date('d-M-Y',strtotime($items['date'])); ?></td>
-                                                <td><?php echo $items['retailerName']; ?></td>
+                                                <td class="noSpace"><?php echo date('d-M-Y',strtotime($items['date'])); ?></td>
+                                              
+												<td class="CellWithComment"><?php 
+													$retailerName=substr($items['retailerName'], 0, 12);
+													echo rtrim($retailerName);?>
+													<span class="CellComment"><?php echo $result =substr($items['retailerName'],0); ?></span>
+												</td>
                                                 <td><?php echo $items['netAmount']; ?></td>
                                                 <td><?php echo $items['receivedAmt']; ?></td>
                                                 <td><?php echo $items['SRAmt']; ?></td>
                                                 <td><?php echo $items['officeAdjustmentBillAmount']; ?></td>
                                                 <td><?php echo $items['pendingAmt']; ?></td>
                                                 <td><?php echo $items['a_amount']; ?></td>
-                                                 <!-- <td>
+                                                 <!-- <td> 
                                                   
                                                     <a href="javascript:void();"  data-trigger="focus" data-container="body" data-toggle="popover" data-placement="left" title="Remark" data-content="<?php echo $items['a_title'] ?>">
                                                         <i class="material-icons">menu</i>
@@ -121,22 +121,22 @@
                                                     </a>
                                                 </td> -->
                                                 <td><?php if($items['a_type'] !=="fsr"){ echo $items['a_type']; }else{ echo 'FSR'; } ?></td>
-                                                <td>
-                                                    <a target="_blank" href="<?php echo site_url('AdHocController/billHistoryInfo/'.$items['id']); ?>" class="btn btn-xs btn-success" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
-                                                    <a target="_blank" href="<?php echo site_url('AdHocController/billDetailsInfo/'.$items['id']); ?>" class="btn btn-xs  btn-success" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
+                                                <td class="noSpace">
+                                                    <a target="_blank" href="<?php echo site_url('AdHocController/billHistoryInfo/'.$items['id']); ?>" class="btn btn-xs history-btn" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
+                                                    <a target="_blank" href="<?php echo site_url('AdHocController/billDetailsInfo/'.$items['id']); ?>" class="btn btn-xs viewBill-btn" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
                        
                                                     <!-- <a href="<?php echo site_url('AdHocController/billHistoryInfo/'.$items['id']); ?>" class="btn btn-xs btn-success" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a> -->
-                                                    <button id="cashMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cash")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $no; ?>" data-id="<?php echo $items['id']; ?>" data-target="#cashModal" class="btn btn-sm btn-success waves-effect" data-type="basic"><span>Cash</span></button>
+                                                    <button id="cashMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cash")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $no; ?>" data-id="<?php echo $items['id']; ?>" data-target="#cashModal" class="btn btn-sm btn1 waves-effect" data-type="basic"><span>Cash</span></button>
                                                     
-                                                    <button id="srMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cleared")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $no; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn-sm btn-success waves-effect" data-type="basic"><span>Cleared</span></button>
+                                                    <button id="srMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="cleared")){ echo "disabled"; } ?> data-toggle="modal" data-no="<?php echo $no; ?>" data-id="<?php echo $items['id']; ?>" data-target="#clrModal" class="btn btn-sm btn2 waves-effect" data-type="basic"><span>Cleared</span></button>
                                     
                         
-                                                    <button id="pendingMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="pending")){ echo "disabled"; } ?> data-no="<?php echo $no; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-sm btn-success waves-effect" data-type="basic"><span>Pending</span></button>
+                                                    <button id="pendingMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="pending")){ echo "disabled"; } ?> data-no="<?php echo $no; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-sm btn3 waves-effect" data-type="basic"><span>Pending</span></button>
 
                                                 <?php if($items['netAmount']==$items['pendingAmt']){ ?>  
-                                                    <button  id="fsrMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $no; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-sm btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                                                    <button  id="fsrMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $no; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-sm btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                                                 <?php }else{ ?>
-                                                    <button disabled id="fsrMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $no; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-sm btn-success waves-effect" data-type="basic"><span>FSR</span></button>
+                                                    <button disabled id="fsrMupdate" <?php if(($items['a_type'] !=="") && ($items['a_type'] !=="fsr")){ echo "disabled"; } ?> data-no="<?php echo $no; ?>" data-id="<?php echo $items['id']; ?>" class="btn btn-sm btn7 waves-effect" data-type="basic"><span>FSR</span></button>
                                                 <?php } ?>
                                                  
                                                     <a>
@@ -163,7 +163,7 @@
 
                                     <div class="col-md-12">
                                          <a href="<?php echo site_url('owner/OfficeAllocationController/openAllocations');?>">
-                                            <button type="button" class="btn btn-success m-t-15 waves-effect">
+                                            <button type="button" class="btn btn-primary btnStyle m-t-15 waves-effect">
                                                 <i class="material-icons">save</i> 
                                                 <span class="icon-name"> Save </span>
                                             </button>
@@ -171,19 +171,19 @@
                                     <?php if(!empty($current_allocations)){ ?> 
 
                                        
-                                        <button id="submitExistData" class="btn btn-success m-t-15 waves-effect">
+                                        <button id="submitExistData" class="btn btn-primary btnStyle m-t-15 waves-effect">
                                               <i class="material-icons">save</i> 
                                               <span class="icon-name"> Save & Confirm</span>
                                         </button>
                                     <?php } ?>  
                                         
                                     <?php if(!empty($allocationId)){ ?>
-                                        <button id="cancelExistData" class="btn btn-danger m-t-15 waves-effect">
+                                        <button id="cancelExistData" class="btn btn-sm btn-danger m-t-15 waves-effect">
                                               <i class="material-icons">save</i> 
                                               <span class="icon-name"> Cancel Allocation</span>
                                         </button>
                                     <?php }else{ ?>
-                                        <button disabled id="cancelData" class="btn btn-danger m-t-15 waves-effect">
+                                        <button disabled id="cancelData" class="btn btn-sm btn-danger m-t-15 waves-effect">
                                               <i class="material-icons">save</i> 
                                               <span class="icon-name"> Cancel Allocation</span>
                                         </button>
@@ -294,16 +294,7 @@
                            textLookup[targetText]=true; 
                     });
                   // alert(data);
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }    
+                }  
             });
         }
     }
@@ -348,16 +339,7 @@
                            }
                            textLookup[targetText]=true; 
                     });
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }    
+                }  
             });
         }
     }
@@ -402,16 +384,7 @@
                            }
                            textLookup[targetText]=true; 
                     });
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }    
+                }  
             });
         }
     }
@@ -461,16 +434,7 @@
                            textLookup[targetText]=true; 
                     });
                   // alert(data);
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }    
+                }  
             });
         }
     }
@@ -516,16 +480,7 @@
                            }
                            textLookup[targetText]=true; 
                     });
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }    
+                }  
             });
         }
     }
@@ -572,16 +527,7 @@
                            textLookup[targetText]=true; 
                     });
                   // alert(data);
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }    
+                }  
             });
         }
     }
@@ -602,16 +548,7 @@
                   $('#toBill').html(data);
                   $('#addBill').html(data);
 
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }    
+                }  
             });
         }
 });
@@ -630,16 +567,7 @@
                 data:{"from" : from , "to" : to},
                 success: function (data) {
                   $('#result_data').html(data);
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }   
+                } 
             });
             $('#from').val('');
             $('#to').val('');
@@ -659,16 +587,7 @@
                 data:{"addBill" : addBill},
                 success: function (data) {
                   $('#result_data').html(data);
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }    
+                }  
             });
                 $('#addExtraBill').val('');
         }
@@ -685,16 +604,7 @@
                 data:{"rmId" : rmId},
                 success: function (response) {
                     // $('#result_data').html(response);    
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }  
+                }
         });
     }
 
@@ -709,16 +619,7 @@
                 success: function (response) {
                     // alert(response);
                     // $('#result_data').html(response);    
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }  
+                }
         });
     }
 
@@ -734,16 +635,7 @@
                 success: function (response) {
                     // alert(response);
                     // $('#result_data').html(response);    
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }  
+                }
         });
     }
 </script>
@@ -761,16 +653,7 @@
             success: function (response) {
                 $('#result_data').html(response);
                 // alert(response);
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }  
+            }
         });
     });
 </script>
@@ -786,16 +669,7 @@
             success: function (response) {
                 $('.mods').html(response);
 
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }  
+            }
         });
     });
 </script>
@@ -811,16 +685,7 @@
             success: function (response) {
                 $('.cash-mods').html(response);
 
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }  
+            }
         });
     });
 </script>
@@ -837,16 +702,7 @@
             success: function (response) {
                 $('.mods').html(response);
 
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }  
+            }
         });
     });
 </script>
@@ -863,16 +719,7 @@
             success: function (response) {
                 $('.cash-mods').html(response);
 
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }  
+            }
         });
     });
 </script>
@@ -890,16 +737,7 @@
             success: function (response) {
                 // alert(response);
                 $('#status-id'+row_no).replaceWith(response);
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }  
+            }
         });
     });
 </script>
@@ -917,16 +755,7 @@
             success: function (response) {
                 // alert(response);
                 $('#status-id'+row_no).replaceWith(response);
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }  
+            }
         });
     });
 </script>
@@ -943,16 +772,7 @@
             success: function (response) {
                 // alert(response);
                 $('#status-id'+row_no).replaceWith(response);
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }  
+            }
         });
     });
 </script>
@@ -970,16 +790,7 @@
             success: function (response) {
                 // alert(response);
                 $('#status-id'+row_no).replaceWith(response);
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }  
+            }
         });
     });
 </script>
@@ -1000,16 +811,7 @@
                 data:{"billId" : billId,"amount" : amount,"rowNo":rowNo},
                 success: function (response) {
                     $('#status-id'+rowNo).replaceWith(response);
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }  
+                }
             });
         }
     });
@@ -1031,16 +833,7 @@
                 data:{"billId" : billId,"amount" : amount,"rowNo":rowNo},
                 success: function (response) {
                     $('#status-id'+rowNo).replaceWith(response);
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }  
+                }
             });
         }
     });
@@ -1063,16 +856,7 @@
                 data:{"billId" : billId,"amount" : amount,"rowNo":rowNo,"alId":allocationId},
                 success: function (response) {
                     $('#status-id'+rowNo).replaceWith(response);
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }  
+                }
             });
         }
     });
@@ -1095,16 +879,7 @@
                 data:{"billId" : billId,"amount" : amount,"rowNo":rowNo,"alId":allocationId},
                 success: function (response) {
                     $('#status-id'+rowNo).replaceWith(response);
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }  
+                }
             });
         }
     });
@@ -1176,16 +951,7 @@
                             }else{
                                 alert(data);
                             }
-                        },
-                        beforeSend: function(){
-                            $('.comman-ajax-loader').css("visibility", "visible");
-                        },
-                        complete: function(){
-                            $('.comman-ajax-loader').css("visibility", "hidden");
-                        },
-                        error: function(jqXHR, exception) {
-                            alert("Something Went Wrong, Please Try Again...!");
-                        }    
+                        }  
                     });
                 }else{
                     alert("Please enter all details.");
@@ -1203,16 +969,7 @@
                     data:{"billNo" : nos},
                     success: function (data) {
                         $('#billNo_Id').html('<span style="color: red;">'+data+'</span>');
-                    },
-                    beforeSend: function(){
-                        $('.comman-ajax-loader').css("visibility", "visible");
-                    },
-                    complete: function(){
-                        $('.comman-ajax-loader').css("visibility", "hidden");
-                    },
-                    error: function(jqXHR, exception) {
-                        alert("Something Went Wrong, Please Try Again...!");
-                    }    
+                    }  
                 });
     }
 </script>
@@ -1251,16 +1008,7 @@
                         }else{
                             alert(data);
                         }
-                    },
-                    beforeSend: function(){
-                        $('.comman-ajax-loader').css("visibility", "visible");
-                    },
-                    complete: function(){
-                        $('.comman-ajax-loader').css("visibility", "hidden");
-                    },
-                    error: function(jqXHR, exception) {
-                        alert("Something Went Wrong, Please Try Again...!");
-                    }    
+                    }  
                 });
             }
         }else{
@@ -1304,16 +1052,7 @@
                         }else{
                             alert(data);
                         }
-                    },
-                    beforeSend: function(){
-                        $('.comman-ajax-loader').css("visibility", "visible");
-                    },
-                    complete: function(){
-                        $('.comman-ajax-loader').css("visibility", "hidden");
-                    },
-                    error: function(jqXHR, exception) {
-                        alert("Something Went Wrong, Please Try Again...!");
-                    }    
+                    }  
                 });
             }
         }else{
@@ -1360,16 +1099,7 @@
                         alert(data);
                         $("#submitExistData").attr("disabled", false);
                     }
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }    
+                }  
             });
         }
         
@@ -1392,16 +1122,7 @@
                     alert(data);
                     $("#cancelData").attr("disabled", false);
                 }
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }    
+            }  
         });
     });
 </script>
@@ -1425,16 +1146,7 @@
                     $("#cancelExistData").attr("disabled", false);
                 }
                 
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }    
+            }  
         });
     });
 </script>
@@ -1482,16 +1194,7 @@
                            textLookup[targetText]=true; 
                     });
                   // alert(data);
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }    
+                }  
             });
         }
     }
@@ -1538,16 +1241,7 @@
                            textLookup[targetText]=true; 
                     });
                   // alert(data);
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }    
+                }  
             });
         }
     }
@@ -1594,16 +1288,7 @@
                            textLookup[targetText]=true; 
                     });
                   // alert(data);
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }    
+                }  
             });
         }
     }
@@ -1649,16 +1334,7 @@
                            }
                            textLookup[targetText]=true; 
                     });
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }    
+                }  
             });
         }
     }
@@ -1705,16 +1381,7 @@
                            textLookup[targetText]=true; 
                     });
                   // alert(data);
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }    
+                }  
             });
         }
     }

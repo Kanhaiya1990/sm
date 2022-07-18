@@ -26,8 +26,8 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="header">
-                            <a class="btn btn-xs btn-primary" href="javascript:window.history.go(-1);"><i class="material-icons">arrow_back</i></a>
-                          <h4 style="color:#050A30"><center><?php if(!empty($bills)){ echo $bills[0]['retailerName']; } ?></center>
+                          <a class="btn btn-xs btn-primary btnStyle" href="javascript:window.history.go(-1);"><i class="material-icons">arrow_back</i></a>
+                          <h4 style="color:#050A30"><center><?php if(!empty($bills)){ echo $bills[0]['retailerName']; } ?></center>col-md-12 cust-tbl
                            
                           </h4>
                             <!--<h2 align="right">
@@ -39,7 +39,7 @@
                     <div class="body">
                         <div class="row m-t-20">
                             <div class="container">
-                            <!-- <div class="col-md-12"> -->
+                            <div class="col-md-12 cust-tbl"> 
                                 
                                     <div class="col-md-4">
                                         <h5 style="color:#000000">Bill No. : <span style="color:#050A30"><?php if(!empty($bills)){ echo $bills[0]['billNo']; } ?></span></h5>
@@ -66,13 +66,12 @@
                                         <h5 style="color:#000000">Route : <span style="color:#050A30"><?php if(!empty($bills)){ echo $bills[0]['routeName']; } ?></span>
                                     </div>
                                     <hr />
-                                <!-- </div> -->
+                                </div>
                             <div class="col-md-12">
                                 <table style="font-size: 12px" class="table table-bordered table-striped table-hover" data-page-length='100'>
                                     <thead>
                                          <tr>
                                             <th>S. No.</th>
-                                           
                                             <th>Employee</th>
                                             <th>Date</th>
                                             <th>Allocation</th>

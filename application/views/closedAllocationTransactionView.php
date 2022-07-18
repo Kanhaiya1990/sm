@@ -8,7 +8,7 @@
                 </h2>
             </div> -->
             <!-- Basic Examples -->
-            <div class="row clearfix">
+            <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="header">
@@ -17,21 +17,21 @@
                             </h2>
                             <p align="right">
                                 <a href="<?php echo site_url('AllocationByManagerController/CloseCompleteAllocation/'.$allocationId);?>">
-                                    <button class="btn bg-primary margin">Summary</button></a> 
+                                    <button class="btn btnStyle bg-primary margin">Summary</button></a> 
 
                                 <a href="<?php echo site_url('AllocationByManagerController/closedAllocationSrTrancationDetails/'.$allocationId);?>">
-                                      <button class="btn bg-primary margin"> SR Details</button></a>  
+                                      <button class="btn btnStyle bg-primary margin"> SR Details</button></a>  
                             </p>
                         </div>
                         <div class="body">
                           <div class="row">
-                                <div class="col-md-12">
-                                   <div class="col-md-4"> 
+                                <div class="col-md-12 cust-tbl">
+                                   <div class="col-md-4 mb-0"> 
                                     <label id="allocation">Allocation : </label>
                                     <?php echo $allocations[0]['allocationCode']?>
                                     
                                 </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-4 mb-0">
                                     <label>Employee</label>
                                     <ul class="list-group" id="list" multiple="multiple">
                                         <?php
@@ -67,7 +67,7 @@
                                         ?>
                                     </ul>
                                 </div>
-                                   <div class="col-md-4">
+                                   <div class="col-md-4 mb-0">
                                     <label> Route</label>
                                     <ul class="list-group" id="rlist" multiple="multiple">
                                         <?php
@@ -88,8 +88,8 @@
                               
                                 </div>
                                 </div>
-                            <div class="table-responsive">
-                                <table id="crTbl" class="table table-bordered table-striped table-hover js-basic-example dataTable" data-page-length='25'>
+                            <div>
+                                <table id="crTbl" class="table table-bordered cust-tbl js-basic-example dataTable" data-page-length='25'>
                                     <thead>
                                         <tr>
                                             <th>S. No.</th>
@@ -209,16 +209,16 @@
                           $emp1=$this->AllocationByManagerModel->load('employee',$allocations[0]['fieldStaffCode1']);
                       ?>
                         <div class="header">
-                           <h2>
+                           <h2 class="text-center">
                              Cashier Transaction Details
                           </h2><br>
                           <p>
-                          <tr>
-                              <td><span style="color:blue">Allocation No.:</span> <?php echo $allocations[0]['allocationCode']; ?></td>
-                              <td><span style="color:blue">Company :</span> <?php echo $allocations[0]['company']; ?></td>
-                              <td> <span style="color:blue">Fieldstaff Name :</span> <?php echo $emp1[0]['name']; ?></td>
-                              <td><span style="color:blue">Route Name :</span> <?php echo $route[0]['name']; ?></td>
-                          </tr>
+                          <div class="row cust-tbl">
+                          <div class="col-md-3"><span>Allocation No.:</span> <?php echo $allocations[0]['allocationCode']; ?></div>
+                          <div class="col-md-3"><span>Company :</span> <?php echo $allocations[0]['company']; ?></div>
+                          <div class="col-md-3"><span>Fieldstaff Name :</span> <?php echo $emp1[0]['name']; ?></div>
+                          <div class="col-md-3"><span>Route Name :</span> <?php echo $route[0]['name']; ?></div>
+                          </div>
                           </p>
                         
 
@@ -226,11 +226,11 @@
                         <div class="body">
 
 
-                            <div class="table-responsive">
+                            <div class="row">
 
                                 <div class="col-md-12">
                                   <div class="col-md-7">
-                                <table id="recTblIds" style="font-size: 11px" class="table table-bordered table-striped table-hover display nowrap" data-page-length='100'>
+                                <table id="recTblIds" class="table table-bordered cust-tbl display nowrap" data-page-length='100'>
                                     <thead>
                                     <tr>
                                         <th colspan="4"><center>Cheque/NEFT Reconciliation</center></th>
@@ -296,7 +296,7 @@
                             </div>
                                 
                             <div class="col-md-5">
-                                <table id="recTblId" style="font-size: 11px" class="table table-bordered table-striped table-hover js-basic-example DataTable display nowrap" data-page-length='100'>
+                                <table id="recTblId" class="table table-bordered cust-tbl js-basic-example DataTable display nowrap dataTable" data-page-length='100'>
                                     <thead>
                                         <tr>
                                             <th colspan="2"><center>Other Expenses</center></th>
@@ -404,7 +404,7 @@
                         <div class="col-md-12">
 
                           <div class="col-md-6">
-                                <table style="font-size: 11px" class="table table-bordered table-striped table-hover js-basic-example DataTable display nowrap" id="example" data-page-length='100'>
+                                <table class="table table-bordered cust-tbl js-basic-example DataTable display nowrap" id="example" data-page-length='100'>
                                     <thead>
                                         <tr>
                                             <th colspan="2"><center>Cash and Cheque Reconciliation</center></th>
@@ -556,7 +556,7 @@
                             </div>
                                 
                             <div class="col-md-6">
-                                <table style="font-size: 11px" class="table table-bordered table-striped table-hover js-basic-example DataTable" data-page-length='100'>
+                                <table class="table table-bordered cust-tbl js-basic-example DataTable" data-page-length='100'>
                                     <thead>
                                     <tr>
                                         <th><center>Denominations</center></th>
@@ -652,7 +652,7 @@
 
                        
                         <div class="col-md-12">
-                          <table id="crTbl" class="table table-bordered table-striped table-hover js-basic-example dataTable" data-page-length='25'>
+                          <table id="crTbl" class="table table-bordered cust-tbl js-basic-example dataTable" data-page-length='25'>
                                      <thead>
                                         <tr>
                                             <th colspan="2"><center>Debited/Credited Amount Detail</center></th>

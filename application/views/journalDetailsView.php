@@ -16,14 +16,14 @@
         }
     }
 
-    .logo_prov {
+    /*.logo_prov {
     border-radius: 30px;
      border: 1px solid black;
     background: red;
     color: black;
     padding: 6px;
     width: 50px;
-    height: 50px;
+    height: 50px;*/
 }
 
 </style>
@@ -51,10 +51,10 @@
                         <div class="body">
                          
                             <div class="table-responsive">
-                                <table style="font-size: 11px" class="table table-bordered table-striped table-hover js-exportable dataTable" data-page-length='100'>
+                                <table class="table table-bordered cust-tbl js-exportable dataTable" data-page-length='100'>
                                     <thead>
                                         <tr>
-                                            <th>S. No.</th>
+                                            <th>No</th>
                                             <th>Bill No</th>
                                             <th>Retailer </th>
                                             <th>Allocation</th>
@@ -70,7 +70,7 @@
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>S. No.</th>
+                                            <th>No</th>
                                             <th>Bill No</th>
                                             <th>Retailer </th>
                                             <th>Allocation</th>
@@ -118,10 +118,10 @@
                                     </tbody>
                                 </table>
 
-                                <table style="font-size: 11px" class="table table-bordered table-striped table-hover js-exportable dataTable" data-page-length='100'>
+                                <table class="table table-bordered cust-tbl js-exportable dataTable" data-page-length='100'>
                                     <thead>
                                         <tr>
-                                            <th>S. No.</th>
+                                            <th>No</th>
                                             <th>Employee</th>
                                             <th>Debit Amount </th>
                                             <th>Remark </th>
@@ -130,7 +130,7 @@
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>S. No.</th>
+                                            <th>No</th>
                                             <th>Employee</th>
                                             <th>Debit Amount </th>
                                             <th>Remark </th>
@@ -165,7 +165,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> 
             </div>
             <!-- #END# Basic Examples -->  
 

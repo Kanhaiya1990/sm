@@ -20,7 +20,7 @@
                     <div class="body">
                         <div class="row">
                             <form method="post" role="form" action="<?php echo site_url('TallyExportController/downloadMaster');?>">     
-                                <div class="col-md-12">
+                                <div class="col-md-12 cust-tbl">
                                     <div class="col-md-7">
                                         <b>Company </b><span style="color:red">*</span><br><br>
 
@@ -37,7 +37,7 @@
                                     </div>
                                    
                                     <div class="col-md-3">
-                                        <input type="submit" value="Export Master File" class="btn btn-primary btn-sm m-t-35 waves-effect"></input>
+                                        <input type="submit" value="Export Master File" class="btn btnStyle btn-sm m-t-35 waves-effect"></input>
                                     </div>
                                 </div>
                             </form>
@@ -54,7 +54,7 @@
                     <div class="body">
                         <div class="row">
                             <form method="post" role="form" action="<?php echo site_url('TallyExportController/downloadInvoice');?>">     
-                                <div class="col-md-12">
+                                <div class="col-md-12 cust-tbl">
                                     <div class="col-md-6">
                                         <b>Company </b><span style="color:red">*</span><br><br>
 
@@ -81,7 +81,7 @@
                                     </div>
                                    
                                     <div class="col-md-2">
-                                        <input type="submit" value="Invoice Export File" class="btn btn-primary btn-sm m-t-40 waves-effect"></input>
+                                        <input type="submit" value="Invoice Export File" class="btn btnStyle btn-sm m-t-40 waves-effect"></input>
                                     </div>
                                 </div>
                             </form>
@@ -98,7 +98,7 @@
                     <div class="body">
                         <div class="row">
                             <form method="post" role="form" action="<?php echo site_url('TallyExportController/submitTally');?>"> 
-                                    <div class="col-md-12">
+                                    <div class="col-md-12 cust-tbl">
                                         <div class="col-md-6">
                                             <b>Company </b><span style="color:red">*</span><br><br>
 
@@ -122,7 +122,7 @@
                                             <input autocomplete="off" required type="date" id="toDate" name="toDate" class="form-control date" value="">
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
+                                    <div class="col-md-12 cust-tbl">
                                         
                                         <div class="col-md-3">
                                         <b>Select Options </b><span style="color:red">*</span><br><br>
@@ -175,7 +175,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="col-md-4">
-                                        <input type="submit" value="Export Files" class="btn btn-primary btn-sm m-t-45 waves-effect"></input>
+                                        <input type="submit" value="Export Files" class="btn btnStyle btn-sm m-t-45 waves-effect"></input>
                                     </div>
                                 </div> 
                             </form>

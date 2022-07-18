@@ -237,16 +237,7 @@ swal({
             data : {id: id},
             success: function(data){
                 $('.modal-body').html(data);
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }   
+            }
         });
     });
 
@@ -296,16 +287,7 @@ swal({
                 }else{
                     $('#res').html('<span style="color: blue;">'+response+'</span>');
                 }
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }   
+            }
         });
     });
 </script>

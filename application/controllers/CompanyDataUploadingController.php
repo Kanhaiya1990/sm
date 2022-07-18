@@ -13,30 +13,6 @@ class CompanyDataUploadingController extends CI_Controller {
 
         if(isset($this->session->userdata['codeKeyData'])) {
 			$this->projectSessionName= $this->session->userdata['codeKeyData']['codeKeyValue'];
-			$this->baseUrl=$this->session->userdata['codeKeyData']['yourBaseUrl'];
-
-            if($this->baseUrl=="http://localhost/smartdistributor/" || $this->baseUrl=="https://siainc.in/kiasales/" || $this->baseUrl=="https://siainc.in/staging_kiasales/"){
-
-            }else{
-                $this->load->helper('url');
-                $url_parts = parse_url(current_url());
-                $siteUrl=explode('/',$url_parts['path']);//current url path
-        
-                $baseUrl=explode('/',$this->baseUrl);//base url path
-                
-                $siteDistributorName=trim($siteUrl[2]);
-                $baseDistributorName=trim($baseUrl[4]);
-                
-                if($siteDistributorName !="" && $baseDistributorName !=""){
-                    if($siteDistributorName==$baseDistributorName){
-                    //   
-                    }else{
-                    redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
-                    }
-                }else{
-                redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
-                }
-            }
 		}else{
 			$this->load->view('LoginView');
 		}
@@ -442,38 +418,6 @@ class CompanyDataUploadingController extends CI_Controller {
                     echo "Please select file";
                 }
             }
-        }else if($compName == "Tata"){
-            $tataErr= $this->checkTataBillsExcelUploading($bill,$billType,$billTempName,$dateForUploadBills);
-            if(trim($tataErr) !==""){
-                // echo $parleErr;
-            }else{
-                if($bill !==""){
-                    $billFileName="";
-                    if($bill !==""){
-                        $billFileName = trim($this->uploadFile('billFile'));
-                    }
-                  
-                    if($billFileName==""){
-                        echo "Files are not uploaded properly...Please upload files again...!";
-                    }else{
-                        $insertData=array(
-                            'billFile'=>$billFileName,
-                            // 'billDetailFile'=>$billDetailFileName,
-                            // 'retailerFile'=>$retailerFileName,
-                            'company'=>$compName,
-                            'uploadedDate'=>$dateForUploadBills,
-                            'uploadedBy'=>$userId,
-                            'uploadedAt'=>date('Y-m-d H:i:sa')
-                        );
-                        $this->ExcelModel->insert('uploaded_files_details',$insertData);
-                        if($this->db->affected_rows() > 0){
-                            echo "Files uploaded successfully";
-                        }
-                    }
-                }else{
-                    echo "Please select file";
-                }
-            }
         }
     }
 
@@ -506,7 +450,7 @@ class CompanyDataUploadingController extends CI_Controller {
             foreach($company as $comp){
                 $uploadedData=$this->ExcelModel->getLatesttUploadedFileData('uploaded_files_details',$comp['name']);
                 $compName="";
-              
+                
                 if(!empty($uploadedData)){
                     $compName=$uploadedData[0]['company'];
                     $cronTab=$this->ExcelModel->getCronDetails('cron_settings',$compName);
@@ -526,8 +470,6 @@ class CompanyDataUploadingController extends CI_Controller {
     public function startUploading($comp){
         $uploadedData=$this->ExcelModel->getLatesttUploadedFileData('uploaded_files_details',$comp);
         $compName="";
-
-        // print_r($uploadedData);exit;
        
         if(!empty($uploadedData)){
             $compName=$uploadedData[0]['company'];
@@ -655,12 +597,10 @@ class CompanyDataUploadingController extends CI_Controller {
 
             //import McCain Data
             if($compName=="McCain"){
-                // echo "hey";
                 $billFile=trim($uploadedData[0]['billFile']);
                 $retailerFile=trim($uploadedData[0]['retailerFile']);
                 $company=trim($uploadedData[0]['company']);
                 $uploadedDate=trim($uploadedData[0]['uploadedDate']); 
-                // echo $company;exit;
 
                 if(($billFile !=="")){
                     $billFilePath='./assets/uploads/excels/'.$billFile;
@@ -703,7 +643,7 @@ class CompanyDataUploadingController extends CI_Controller {
                 }
             }
 
-            //import Marico Data
+            //import Amul Data
             if($compName=="Marico"){
                 $billFile=trim($uploadedData[0]['billFile']);
                 $billDetailFile=trim($uploadedData[0]['billDetailFile']);
@@ -724,20 +664,6 @@ class CompanyDataUploadingController extends CI_Controller {
                         if($retailerBillDetailFilePath !==""){
                             $this->maricoRetailerDetailsExcelUploading($retailerBillDetailFilePath);
                         }
-                    }
-                }
-            }
-
-            //import Tata Data
-            if($compName=="Tata"){
-                $billFile=trim($uploadedData[0]['billFile']);
-                $company=trim($uploadedData[0]['company']);
-                $uploadedDate=trim($uploadedData[0]['uploadedDate']); 
-
-                if(($billFile !=="")){
-                    $billFilePath='./assets/uploads/excels/'.$billFile;
-                    if($company==="Tata"){
-                        $this->tataExcelUploading($billFilePath);
                     }
                 }
             }
@@ -943,7 +869,7 @@ class CompanyDataUploadingController extends CI_Controller {
                 }
             }else{
                 $billId=$billExist[0]['id'];
-                $billExist=$this->ExcelModel->load('bills',$billId);
+                
                 $billDeliveryStatus=$billExist[0]['deliveryStatus'];
                 $billNetAmount=$billExist[0]['billNetAmount'];
                 $billPendingAmt=$billExist[0]['pendingAmt'];
@@ -956,10 +882,9 @@ class CompanyDataUploadingController extends CI_Controller {
                 $billOtherAdjustment=$billExist[0]['otherAdjustment'];
                   
                 if(($billDeliveryStatus==="pending" || $billDeliveryStatus==="" || $billDeliveryStatus==="Vehicle Allocated")){
-                    
                     $fsDataAmount=$billExist[0]['fsCashAmt']+$billExist[0]['fsSrAmt']+$billExist[0]['fsNeftAmt']+$billExist[0]['fsChequeAmt']+$billExist[0]['fsOtherAdjAmt'];
-                    $totalRecAmt=($fsDataAmount)+$billSrAmt+$billReceivedAmt+$billCd+$billDebit+$billOfficeAdjustment+$billOtherAdjustment+$billExist[0]['creditNoteJournalAmt'];
-                    $newPendingAmt=($netAmount+($billExist[0]['chequePenalty']+$billExist[0]['debitNoteAmount']+$billExist[0]['debitNoteJournalAmt']))-$totalRecAmt;
+                    $totalRecAmt=($fsDataAmount)+$billSrAmt+$billReceivedAmt+$billCd+$billDebit+$billOfficeAdjustment+$billOtherAdjustment+$billExist[0]['creditNoteJournalAmt']-($billExist[0]['debitNoteAmount']+$billExist[0]['debitNoteJournalAmt']);
+                    $newPendingAmt=$netAmount-$totalRecAmt;
                     
                     if((!empty($excelDate)) && ($excelDate != "1970-01-01")){
                         $data = array(
@@ -1012,7 +937,6 @@ class CompanyDataUploadingController extends CI_Controller {
         $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn); // e.g. 7
         
         $cnt=0;
-            $billId=0;
         for ($row = 2; $row <= $highestRow; ++$row) {
             $cnt++;
             $salesmanCode = $worksheet->getCellByColumnAndRow(1, $row)->getValue();
@@ -1053,12 +977,10 @@ class CompanyDataUploadingController extends CI_Controller {
             $cessAmount=$worksheet->getCellByColumnAndRow(40, $row)->getValue();
             $grossNetVolume=$worksheet->getCellByColumnAndRow(42, $row)->getValue();
            
-       
             if($tempBillNumber != $billNumber){
                 // check bill exist or not
-                // echo 'kp '.$billNumber;
                 $billExist=$this->ExcelModel->getBillByLastRecords('bills',$billNumber);
-                //  echo count($billExist);exit;
+                //  echo count();exit;
                 if(!empty($billExist)){
                     $billId=$billExist[0]['id'];
                     $getBillDetail=$this->ExcelModel->getAllBillDetailsInLastEntries('billsdetails',$billId,$productCode,$productName,$mrp,$quantity,$netAmount);
@@ -1460,12 +1382,9 @@ class CompanyDataUploadingController extends CI_Controller {
                     $billDebit=$billExist[0]['debit'];
                     $billOfficeAdjustment=$billExist[0]['officeAdjustmentBillAmount'];
                     $billOtherAdjustment=$billExist[0]['otherAdjustment'];
-                    if(($billExist[0]['manuallyAddedBill']==1)){
-                       
-                        $fsDataAmount=$billExist[0]['fsCashAmt']+$billExist[0]['fsSrAmt']+$billExist[0]['fsNeftAmt']+$billExist[0]['fsChequeAmt']+$billExist[0]['fsOtherAdjAmt'];
-                        $totalRecAmt=($fsDataAmount)+$billSrAmt+$billReceivedAmt+$billCd+$billDebit+$billOfficeAdjustment+$billOtherAdjustment+$billExist[0]['creditNoteJournalAmt'];
-                        $newPendingAmt=($netAmount+($billExist[0]['chequePenalty']+$billExist[0]['debitNoteAmount']+$billExist[0]['debitNoteJournalAmt']))-$totalRecAmt;
-                        
+                    if(($billNetAmount != $netAmount)){
+                        $totalRecAmt=$billSrAmt+$billReceivedAmt+$billCd+$billDebit+$billOfficeAdjustment+$billOtherAdjustment;
+                        $newPendingAmt=$netAmount-$totalRecAmt;
                     
                         if((!empty($excelDate)) && ($excelDate!="1970-01-01")){
                             $data = array(
@@ -1640,11 +1559,9 @@ class CompanyDataUploadingController extends CI_Controller {
                     $billDebit=$billExist[0]['debit'];
                     $billOfficeAdjustment=$billExist[0]['officeAdjustmentBillAmount'];
                     $billOtherAdjustment=$billExist[0]['otherAdjustment'];
-                    if(($billExist[0]['manuallyAddedBill']==1)){
-                        $fsDataAmount=$billExist[0]['fsCashAmt']+$billExist[0]['fsSrAmt']+$billExist[0]['fsNeftAmt']+$billExist[0]['fsChequeAmt']+$billExist[0]['fsOtherAdjAmt'];
-                        $totalRecAmt=($fsDataAmount)+$billSrAmt+$billReceivedAmt+$billCd+$billDebit+$billOfficeAdjustment+$billOtherAdjustment+$billExist[0]['creditNoteJournalAmt'];
-                        $newPendingAmt=($netAmount+($billExist[0]['chequePenalty']+$billExist[0]['debitNoteAmount']+$billExist[0]['debitNoteJournalAmt']))-$totalRecAmt;
-                    
+                    if(($billNetAmount != $netAmount)){
+                        $totalRecAmt=$billSrAmt+$billReceivedAmt+$billCd+$billDebit+$billOfficeAdjustment+$billOtherAdjustment;
+                        $newPendingAmt=$netAmount-$totalRecAmt;
 
                         if((!empty($excelDate)) && ($excelDate!="1970-01-01")){
                             if($retailerName !="(cancelled)"){
@@ -1988,11 +1905,9 @@ class CompanyDataUploadingController extends CI_Controller {
                         $billOfficeAdjustment=$billExist[0]['officeAdjustmentBillAmount'];
                         $billOtherAdjustment=$billExist[0]['otherAdjustment'];
                         //  
-                        if(($billExist[0]['manuallyAddedBill']==1)){
-                            $fsDataAmount=$billExist[0]['fsCashAmt']+$billExist[0]['fsSrAmt']+$billExist[0]['fsNeftAmt']+$billExist[0]['fsChequeAmt']+$billExist[0]['fsOtherAdjAmt'];
-                            $totalRecAmt=($fsDataAmount)+$billSrAmt+$billReceivedAmt+$billCd+$billDebit+$billOfficeAdjustment+$billOtherAdjustment+$billExist[0]['creditNoteJournalAmt'];
-                            $newPendingAmt=($netAmount+($billExist[0]['chequePenalty']+$billExist[0]['debitNoteAmount']+$billExist[0]['debitNoteJournalAmt']))-$totalRecAmt;
-                        
+                        if(($billNetAmount != $billPendingAmt)){
+                            $totalRecAmt=$billSrAmt+$billReceivedAmt+$billCd+$billDebit+$billOfficeAdjustment+$billOtherAdjustment;
+                            $newPendingAmt=$netAmount-$totalRecAmt;
                             if((!empty($excelDate)) && ($excelDate != "1970-01-01")){
                                 $data = array(
                                     'date'=>$excelDate,
@@ -4705,7 +4620,6 @@ class CompanyDataUploadingController extends CI_Controller {
         for ($row = ($total+1); $row <= $highestRow; ++$row) {
             //bills
             $billDate=trim($worksheet->getCellByColumnAndRow($billDateHeader, $row)->getValue());
-            // echo $billDate;exit;
             $billNumber=trim($worksheet->getCellByColumnAndRow($billNumberHeader, $row)->getValue());
             $routeCode = trim($worksheet->getCellByColumnAndRow($routeCodeHeader, $row)->getValue());
             $routeName = trim($worksheet->getCellByColumnAndRow($routeNameHeader, $row)->getValue());
@@ -4758,7 +4672,6 @@ class CompanyDataUploadingController extends CI_Controller {
                             'compName'=>'McCain',
                             'insertedAt'=>date('Y-m-d H:i:sa')
                         );
-                        // print_r($arrayRes);exit;
                         $this->ExcelModel->insert('bills',$arrayRes);
                     }
 
@@ -5183,8 +5096,6 @@ class CompanyDataUploadingController extends CI_Controller {
                                         'insertedAt'=>date('Y-m-d H:i:sa')
                                     );
                                     $this->ExcelModel->insert('bills',$arrayRes);
-                                }else{
-                                    
                                 }
                             }
                         }
@@ -6557,11 +6468,9 @@ class CompanyDataUploadingController extends CI_Controller {
                             $billOfficeAdjustment=$billExist[0]['officeAdjustmentBillAmount'];
                             $billOtherAdjustment=$billExist[0]['otherAdjustment'];
                             //  
-                            if(($billExist[0]['manuallyAddedBill']==1)){
-                                $fsDataAmount=$billExist[0]['fsCashAmt']+$billExist[0]['fsSrAmt']+$billExist[0]['fsNeftAmt']+$billExist[0]['fsChequeAmt']+$billExist[0]['fsOtherAdjAmt'];
-                                $totalRecAmt=($fsDataAmount)+$billSrAmt+$billReceivedAmt+$billCd+$billDebit+$billOfficeAdjustment+$billOtherAdjustment+$billExist[0]['creditNoteJournalAmt'];
-                                $newPendingAmt=($netAmount+($billExist[0]['chequePenalty']+$billExist[0]['debitNoteAmount']+$billExist[0]['debitNoteJournalAmt']))-$totalRecAmt;
-                            
+                            if(($billNetAmount != $billPendingAmt)){
+                                $totalRecAmt=$billSrAmt+$billReceivedAmt+$billCd+$billDebit+$billOfficeAdjustment+$billOtherAdjustment;
+                                $newPendingAmt=$netAmount-$totalRecAmt;
                                 if((!empty($excelDate)) && ($excelDate != "1970-01-01")){
                                     $data = array(
                                         'date'=>$excelDate,
@@ -6677,670 +6586,6 @@ class CompanyDataUploadingController extends CI_Controller {
 
         $updateData=array('status'=>2);
         $this->ExcelModel->updateByCompany('cron_settings',$updateData,'Havells');
-    }
-
-    //check date for Tata bills data uploading / old Tata
-    public function checkTataBillsExcelUploading($fileName,$fileType,$fileTempName,$dateForUploadBills){
-        $file_mimes = array('text/x-comma-separated-values', 'text/comma-separated-values', 'application/octet-stream', 'application/vnd.ms-excel', 'application/x-csv', 'text/x-csv', 'text/csv', 'application/csv', 'application/excel', 'application/vnd.msexcel', 'text/plain', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        if(isset($fileName) && in_array($fileType, $file_mimes)) {
-            $arr_file = explode('.', $fileName); //get file
-            $extension = end($arr_file); //get file extension
-            // select spreadsheet reader depends on file extension
-            if($extension == 'csv') {
-                $reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
-            } else if ($extension =='xlsx'){
-                $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
-            } else {
-                $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
-            }
-
-            $reader->setReadDataOnly(true);
-            $objPHPExcel = $reader->load($fileTempName);//Get filename
-            
-            $worksheet = $objPHPExcel->getSheet(0);//Get sheet 
-            $highestRow = $worksheet->getHighestRow(); // e.g. 12
-            $highestColumn = $worksheet->getHighestColumn(); // e.g M'
-
-            $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn); // e.g. 7
-            
-            ///////////////////
-            $cnt=0;
-            $total="";
-
-            $billNumberHeader="";
-            $billDateHeader="";
-            $saleTypeHeader="";
-
-            $retailerCodeHeader="";
-            $retailerNameHeader="";
-            $productNameHeader="";
-
-            $quantityHeader="";
-            $freeQuantityHeader="";
-            $rateHeader="";
-
-            $schemeDiscountHeader="";
-            $distributorDiscountHeader="";
-            $amountHeader="";
-
-            $gstHeader="";
-            $taxAmountHeader="";
-            $mrpHeader="";
-
-            $salesmanHeader="";
-            $routeNameHeader="";
-            $gstNumberHeader="";
-
-            for ($row = 1; $row <= $highestRow; ++$row) {
-                $cnt++;
-                for($i=1;$i<=$highestColumnIndex;$i++){
-                    if($worksheet->getCellByColumnAndRow($i, $row)->getValue()==="Bill No#"){
-                        $billNumberHeader= $i;
-                    }
-
-                    if($worksheet->getCellByColumnAndRow($i, $row)->getValue()==="Date"){
-                        $billDateHeader= $i;
-                    }
-
-                    if($worksheet->getCellByColumnAndRow($i, $row)->getValue()==="Type"){
-                        $saleTypeHeader= $i;
-                    }
-
-                    if($worksheet->getCellByColumnAndRow($i, $row)->getValue()==="Ledger Code"){
-                        $retailerCodeHeader= $i;
-                    }
-
-                    if($worksheet->getCellByColumnAndRow($i, $row)->getValue()==="Party Name"){
-                        $retailerNameHeader= $i;
-                    }
-
-                    if($worksheet->getCellByColumnAndRow($i, $row)->getValue()==="Item Name"){
-                        $productNameHeader= $i;
-                    }
-                  
-                    if($worksheet->getCellByColumnAndRow($i, $row)->getValue()==="Qty"){
-                        $quantityHeader= $i;
-                    }
-
-                    if($worksheet->getCellByColumnAndRow($i, $row)->getValue()==="Free Qty"){
-                        $freeQuantityHeader= $i;
-                    }
-
-                    if($worksheet->getCellByColumnAndRow($i, $row)->getValue()==="Rate"){
-                        $rateHeader= $i;
-                        $total=$cnt;
-                    }
-
-                    if($worksheet->getCellByColumnAndRow($i, $row)->getValue()==="Scheme"){
-                        $schemeDiscountHeader= $i;
-                    }
-
-                    if($worksheet->getCellByColumnAndRow($i, $row)->getValue()==="Discount"){
-                        $distributorDiscountHeader= $i;
-                    }
-
-                    if($worksheet->getCellByColumnAndRow($i, $row)->getValue()==="Amount"){
-                        $amountHeader= $i;
-                    }
-                    
-                    if($worksheet->getCellByColumnAndRow($i, $row)->getValue()==="GST %"){
-                        $gstHeader= $i;
-                    }
-
-                    if($worksheet->getCellByColumnAndRow($i, $row)->getValue()==="Tax Amount"){
-                        $taxAmountHeader= $i;
-                    }
-
-                    if($worksheet->getCellByColumnAndRow($i, $row)->getValue()==="MRP"){
-                        $mrpHeader= $i;
-                    }
-
-                    if($worksheet->getCellByColumnAndRow($i, $row)->getValue()==="Sales Men"){
-                        $salesmanHeader= $i;
-                    }
-                    if($worksheet->getCellByColumnAndRow($i, $row)->getValue()==="Area Name"){
-                        $routeNameHeader= $i;
-                    }
-                    if($worksheet->getCellByColumnAndRow($i, $row)->getValue()==="GST No."){
-                        $gstNumberHeader= $i;
-                    }
-                }
-            }
-          
-            if(empty($billNumberHeader)){
-                echo "Source file not in correct order. Please select correct files for uploading. Bill No column missing";
-                exit;
-            }
-
-            if(empty($billDateHeader)){
-                echo "Source file not in correct order. Please select correct files for uploading. Bill Date column missing";
-                exit;
-            }
-
-            if(empty($saleTypeHeader)){
-                echo "Source file not in correct order. Please select correct files for uploading. Type column missing";
-                exit;
-            }
-
-            if(empty($retailerCodeHeader)){
-                echo "Source file not in correct order. Please select correct files for uploading. Ledger Code column missing";
-                exit;
-            }
-
-            if(empty($retailerNameHeader)){
-                echo "Source file not in correct order. Please select correct files for uploading. Party Name column missing";
-                exit;
-            }
-
-            if(empty($productNameHeader)){
-                echo "Source file not in correct order. Please select correct files for uploading. Item Name column missing";
-                exit;
-            }
-
-            if(empty($quantityHeader)){
-                echo "Source file not in correct order. Please select correct files for uploading. Qty column missing";
-                exit;
-            }
-
-            if(empty($freeQuantityHeader)){
-                echo "Source file not in correct order. Please select correct files for uploading. Free Qty column missing";
-                exit;
-            }
-
-            if(empty($rateHeader)){
-                echo "Source file not in correct order. Please select correct files for uploading. Rate column missing";
-                exit;
-            }
-
-            if(empty($schemeDiscountHeader)){
-                echo "Source file not in correct order. Please select correct files for uploading.Scheme column missing";
-                exit;
-            }
-
-            if(empty($distributorDiscountHeader)){
-                echo "Source file not in correct order. Please select correct files for uploading.Discount column missing";
-                exit;
-            }
-
-            if(empty($amountHeader)){
-                echo "Source file not in correct order. Please select correct files for uploading.Amount column missing";
-                exit;
-            }
-
-            if(empty($gstHeader)){
-                echo "Source file not in correct order. Please select correct files for uploading.GST % column missing";
-                exit;
-            }
-            
-            if(empty($taxAmountHeader)){
-                echo "Source file not in correct order. Please select correct files for uploading.Tax Amount column missing";
-                exit;
-            }
-
-            if(empty($mrpHeader)){
-                echo "Source file not in correct order. Please select correct files for uploading.MRP column missing";
-                exit;
-            }
-
-            if(empty($salesmanHeader)){
-                echo "Source file not in correct order. Please select correct files for uploading.Sales Men column missing";
-                exit;
-            }
-
-            if(empty($routeNameHeader)){
-                echo "Source file not in correct order. Please select correct files for uploading.Area Name column missing";
-                exit;
-            }
-
-            if(empty($gstNumberHeader)){
-                echo "Source file not in correct order. Please select correct files for uploading.GST No. column missing";
-                exit;
-            }
-        }
-    }
-
-    //Import Tata Bills for Tally bills
-    public function tataExcelUploading($billFilePath){
-        $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReaderForFile($billFilePath);
-        $reader->setReadDataOnly(TRUE);
-        $objPHPExcel = $reader->load($billFilePath);
-
-        $worksheet = $objPHPExcel->getSheet(0);//Get sheet 
-        $highestRow = $worksheet->getHighestRow(); // e.g. 12
-        $highestColumn = $worksheet->getHighestColumn(); // e.g M'
-
-        $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn); // e.g. 7
-
-        $cnt=0;
-        $total="";
-
-        $billNumberHeader="";
-        $billDateHeader="";
-        $saleTypeHeader="";
-
-        $retailerCodeHeader="";
-        $retailerNameHeader="";
-        $productNameHeader="";
-
-        $quantityHeader="";
-        $freeQuantityHeader="";
-        $rateHeader="";
-
-        $schemeDiscountHeader="";
-        $distributorDiscountHeader="";
-        $amountHeader="";
-
-        $gstHeader="";
-        $taxAmountHeader="";
-        $mrpHeader="";
-
-        $salesmanHeader="";
-        $routeNameHeader="";
-        $gstNumberHeader="";
-
-        for ($row = 1; $row <= $highestRow; ++$row) {
-            $cnt++;
-            for($i=1;$i<=$highestColumnIndex;$i++){
-                if($worksheet->getCellByColumnAndRow($i, $row)->getValue()==="Bill No#"){
-                    $billNumberHeader= $i;
-                }
-
-                if($worksheet->getCellByColumnAndRow($i, $row)->getValue()==="Date"){
-                    $billDateHeader= $i;
-                }
-
-                if($worksheet->getCellByColumnAndRow($i, $row)->getValue()==="Type"){
-                    $saleTypeHeader= $i;
-                }
-
-                if($worksheet->getCellByColumnAndRow($i, $row)->getValue()==="Ledger Code"){
-                    $retailerCodeHeader= $i;
-                }
-
-                if($worksheet->getCellByColumnAndRow($i, $row)->getValue()==="Party Name"){
-                    $retailerNameHeader= $i;
-                }
-
-                if($worksheet->getCellByColumnAndRow($i, $row)->getValue()==="Item Name"){
-                    $productNameHeader= $i;
-                }
-                
-                if($worksheet->getCellByColumnAndRow($i, $row)->getValue()==="Qty"){
-                    $quantityHeader= $i;
-                }
-
-                if($worksheet->getCellByColumnAndRow($i, $row)->getValue()==="Free Qty"){
-                    $freeQuantityHeader= $i;
-                }
-
-                if($worksheet->getCellByColumnAndRow($i, $row)->getValue()==="Rate"){
-                    $rateHeader= $i;
-                    $total=$cnt;
-                }
-
-                if($worksheet->getCellByColumnAndRow($i, $row)->getValue()==="Scheme"){
-                    $schemeDiscountHeader= $i;
-                }
-
-                if($worksheet->getCellByColumnAndRow($i, $row)->getValue()==="Discount"){
-                    $distributorDiscountHeader= $i;
-                }
-
-                if($worksheet->getCellByColumnAndRow($i, $row)->getValue()==="Amount"){
-                    $amountHeader= $i;
-                }
-                
-                if($worksheet->getCellByColumnAndRow($i, $row)->getValue()==="GST %"){
-                    $gstHeader= $i;
-                }
-
-                if($worksheet->getCellByColumnAndRow($i, $row)->getValue()==="Tax Amount"){
-                    $taxAmountHeader= $i;
-                }
-
-                if($worksheet->getCellByColumnAndRow($i, $row)->getValue()==="MRP"){
-                    $mrpHeader= $i;
-                }
-
-                if($worksheet->getCellByColumnAndRow($i, $row)->getValue()==="Sales Men"){
-                    $salesmanHeader= $i;
-                }
-                if($worksheet->getCellByColumnAndRow($i, $row)->getValue()==="Area Name"){
-                    $routeNameHeader= $i;
-                }
-                if($worksheet->getCellByColumnAndRow($i, $row)->getValue()==="GST No."){
-                    $gstNumberHeader= $i;
-                }
-            }
-        }
-
-        if(empty($billNumberHeader)){
-            echo "Source file not in correct order. Please select correct files for uploading. Bill No column missing";
-            exit;
-        }
-
-        if(empty($billDateHeader)){
-            echo "Source file not in correct order. Please select correct files for uploading. Bill Date column missing";
-            exit;
-        }
-
-        if(empty($saleTypeHeader)){
-            echo "Source file not in correct order. Please select correct files for uploading. Type column missing";
-            exit;
-        }
-
-        if(empty($retailerCodeHeader)){
-            echo "Source file not in correct order. Please select correct files for uploading. Ledger Code column missing";
-            exit;
-        }
-
-        if(empty($retailerNameHeader)){
-            echo "Source file not in correct order. Please select correct files for uploading. Party Name column missing";
-            exit;
-        }
-
-        if(empty($productNameHeader)){
-            echo "Source file not in correct order. Please select correct files for uploading. Item Name column missing";
-            exit;
-        }
-
-        if(empty($quantityHeader)){
-            echo "Source file not in correct order. Please select correct files for uploading. Qty column missing";
-            exit;
-        }
-
-        if(empty($freeQuantityHeader)){
-            echo "Source file not in correct order. Please select correct files for uploading. Free Qty column missing";
-            exit;
-        }
-
-        if(empty($rateHeader)){
-            echo "Source file not in correct order. Please select correct files for uploading. Rate column missing";
-            exit;
-        }
-
-        if(empty($schemeDiscountHeader)){
-            echo "Source file not in correct order. Please select correct files for uploading.Scheme column missing";
-            exit;
-        }
-
-        if(empty($distributorDiscountHeader)){
-            echo "Source file not in correct order. Please select correct files for uploading.Discount column missing";
-            exit;
-        }
-
-        if(empty($amountHeader)){
-            echo "Source file not in correct order. Please select correct files for uploading.Amount column missing";
-            exit;
-        }
-
-        if(empty($gstHeader)){
-            echo "Source file not in correct order. Please select correct files for uploading.GST % column missing";
-            exit;
-        }
-        
-        if(empty($taxAmountHeader)){
-            echo "Source file not in correct order. Please select correct files for uploading.Tax Amount column missing";
-            exit;
-        }
-
-        if(empty($mrpHeader)){
-            echo "Source file not in correct order. Please select correct files for uploading.MRP column missing";
-            exit;
-        }
-
-        if(empty($salesmanHeader)){
-            echo "Source file not in correct order. Please select correct files for uploading.Sales Men column missing";
-            exit;
-        }
-
-        if(empty($routeNameHeader)){
-            echo "Source file not in correct order. Please select correct files for uploading.Area Name column missing";
-            exit;
-        }
-
-        if(empty($gstNumberHeader)){
-            echo "Source file not in correct order. Please select correct files for uploading.GST No. column missing";
-            exit;
-        }
-
-
-        for ($row = ($total+1); $row <= $highestRow; ++$row) {
-
-            $billNumber = trim($worksheet->getCellByColumnAndRow($billNumberHeader, $row)->getValue());
-            $billDate = trim($worksheet->getCellByColumnAndRow($billDateHeader, $row)->getValue());
-            $saleType = trim($worksheet->getCellByColumnAndRow($saleTypeHeader, $row)->getValue());
-            $retailerCode = trim($worksheet->getCellByColumnAndRow($retailerCodeHeader, $row)->getValue());
-            $retailerName = trim($worksheet->getCellByColumnAndRow($retailerNameHeader, $row)->getValue());
-            $salesman = trim($worksheet->getCellByColumnAndRow($salesmanHeader, $row)->getValue());
-            $routeName = trim($worksheet->getCellByColumnAndRow($routeNameHeader, $row)->getValue());
-            $gstNumber = trim($worksheet->getCellByColumnAndRow($gstNumberHeader, $row)->getValue());
-          
-            $excelDate="";
-            $tempBillNo="";
-            if($billNumber !== "" && $billDate !== "" && $saleType == "Sale"){
-                if(!empty($billDate) && $billDate !=='Date'){
-                    if($billDate !="TOTAL"){
-                        // $billDate =str_replace("/","-",$billDate);
-                        // $date = ($billDate - 25569) * 86400;
-                        // $excelDate=date('Y-m-d', $date);//convert date from excel data
-
-                        $excelDate= date('Y-m-d', strtotime($billDate));;//convert date from excel data
-                    }
-                  
-                    if($retailerCode==""){
-                        $retailerCount=$this->ExcelModel->getdata('retailer');
-                        $retailerDataExist=$this->ExcelModel->getDataByName('retailer',$retailerName);
-                        if(empty($retailerDataExist)){
-                            $retailerCode="RET".(count($retailerCount)+1);
-                        }else{
-                            $retailerCode=$retailerDataExist[0]['code'];
-                        }
-                    }
-
-                    $routeCode="";
-                    if($routeName!=""){
-                        $routeCount=$this->ExcelModel->getdata('route');
-                        $routeDataExist=$this->ExcelModel->getDataByName('route',$routeName);
-                        if(empty($routeDataExist)){
-                            $routeCode="ROUTE".(count($routeCount)+1);
-                        }else{
-                            $routeCode=$routeDataExist[0]['code'];
-                        }
-                    }else{
-                        $routeCode="NOROUTE";
-                        $routeName="NO ROUTE";
-                    }
-
-                    $billExist=$this->ExcelModel->getBillByLastRecords('bills',$billNumber);
-                    if(empty($billExist)){
-                        $arrayRes=array(
-                            'date'=>$excelDate,
-                            'billNo'=>$billNumber,
-                            'deliveryStatus'=>'delivered',
-                            'retailerCode'=>$retailerCode,
-                            'retailerName'=>$retailerName,
-                            'salesman'=>$salesman,
-                            'routeName'=>$routeName,
-                            'routeCode'=>$routeCode,
-                            'compName'=>'Tata',
-                            'insertedAt'=>date('Y-m-d H:i:sa')
-                        );
-                        $this->ExcelModel->insert('bills',$arrayRes);
-
-                        //latest inserted id for Salesmancode
-                        $insert_id = $this->db->insert_id();
-                        $salesmanCode="";
-                        $salesmanExist=$this->ExcelModel->getSalesmanCount('bills',$salesman);
-                        if(!empty($salesmanExist)){
-                            $salesmanCode=$salesmanExist[0]['salesmanCode'];
-                        }else{
-                            $salesmanCode='SALES'.$insert_id;
-                        }
-                        $updateSalesmanCode=array('salesmanCode'=>$salesmanCode);
-                        $this->ExcelModel->update('bills',$updateSalesmanCode,$insert_id);
-
-                        $tempBillNo=$insert_id;
-                    }
-
-                    $retailerDetails=$this->ExcelModel->retailerInfo('retailer',$retailerName,$retailerCode);
-                    if(empty($retailerDetails)){
-                        $retailerData=array(
-                            'code'=>$retailerCode,
-                            'name'=>$retailerName,
-                            'gstIn'=>$gstNumber,
-                            'company'=>'Tata'
-                        );
-                        $this->ExcelModel->insert('retailer',$retailerData);
-                    }
-
-                    $routeDetails=$this->ExcelModel->routeInfoByName('route',$routeName);
-                    if(empty($routeDetails)){
-                        $routeData=array(
-                            'code'=>$routeCode,
-                            'name'=>$routeName,
-                            'company'=>'Tata'
-                        );
-                        $this->ExcelModel->insert('route',$routeData);
-                    }
-                }
-            }
-        }
-
-        $billNoTemp="";
-        for ($row = ($total+1); $row <= $highestRow; ++$row) {
-            $billNumber = trim($worksheet->getCellByColumnAndRow($billNumberHeader, $row)->getValue());
-            $billDate = trim($worksheet->getCellByColumnAndRow($billDateHeader, $row)->getValue());
-            if($billDate=="TOTAL"){
-
-                $schemeDiscount = trim($worksheet->getCellByColumnAndRow($schemeDiscountHeader, $row)->getValue());
-                $distributorDiscount = trim($worksheet->getCellByColumnAndRow($distributorDiscountHeader, $row)->getValue());
-                $amount = trim($worksheet->getCellByColumnAndRow($amountHeader, $row)->getValue()); //M
-                $gst = trim($worksheet->getCellByColumnAndRow($gstHeader, $row)->getValue());
-                $taxAmount = trim($worksheet->getCellByColumnAndRow($taxAmountHeader, $row)->getValue());  //O
-    
-                if($amount >0){
-                    //net amount
-                    $netAmount=$amount+$taxAmount;
-                    $billExist=$this->ExcelModel->getBillByLastRecords('bills',$billNoTemp);
-                    if(!empty($billExist)){
-                        $updateBill=array(
-                            'grossAmount'=>$amount,
-                            'taxAmount'=>$taxAmount,
-                            'billNetAmount'=>round($netAmount),
-                            'netAmount'=>round($netAmount),
-                            'pendingAmt'=>round($netAmount),
-                        );
-                        $this->ExcelModel->update('bills',$updateBill,$billExist[0]['id']);
-                    }
-                }
-                
-            }else{
-                $billNoTemp=$billNumber;
-            }
-        }
-
-        $billWithCount=array();
-        $cnt=1;
-        $tempNumber="";
-        for ($row = ($total+1); $row <= $highestRow; ++$row) {
-            $billNumber = trim($worksheet->getCellByColumnAndRow($billNumberHeader, $row)->getValue());
-            $saleType = trim($worksheet->getCellByColumnAndRow($saleTypeHeader, $row)->getValue());
-            if($saleType == "Sale"){
-                if(trim($billNumber) != trim($tempNumber)){
-                    if($tempNumber !=""){
-                        $billCount=array('billNo'=>$tempNumber,'Count'=>$cnt);
-                        array_push($billWithCount,$billCount);
-                        $cnt=1;
-                    }
-                }else{
-                    $cnt++;
-                }
-                $tempNumber=$billNumber;
-            }
-            
-        }
-        $billCount=array('billNo'=>$tempNumber,'Count'=>$cnt);
-        array_push($billWithCount,$billCount);
-
-        // print_r($billWithCount);
-        // exit;
-        $tempBillNumber="";
-        $tempBillId=0;
-        for ($row = ($total+1); $row <= $highestRow; ++$row) {
-            $billNumber = trim($worksheet->getCellByColumnAndRow($billNumberHeader, $row)->getValue());
-            $billDate = trim($worksheet->getCellByColumnAndRow($billDateHeader, $row)->getValue());
-            $saleType = trim($worksheet->getCellByColumnAndRow($saleTypeHeader, $row)->getValue());
-
-            //bills products
-            $productName = trim($worksheet->getCellByColumnAndRow($productNameHeader, $row)->getValue());
-            $quantity = trim($worksheet->getCellByColumnAndRow($quantityHeader, $row)->getValue());
-            $freeQuantity = trim($worksheet->getCellByColumnAndRow($freeQuantityHeader, $row)->getValue());
-            $rate = trim($worksheet->getCellByColumnAndRow($rateHeader, $row)->getValue());
-            $schemeDiscount = trim($worksheet->getCellByColumnAndRow($schemeDiscountHeader, $row)->getValue());
-            $distributorDiscount = trim($worksheet->getCellByColumnAndRow($distributorDiscountHeader, $row)->getValue());
-            $amount = trim($worksheet->getCellByColumnAndRow($amountHeader, $row)->getValue());
-            $gst = trim($worksheet->getCellByColumnAndRow($gstHeader, $row)->getValue());
-            $taxAmount = trim($worksheet->getCellByColumnAndRow($taxAmountHeader, $row)->getValue());
-            $mrp = trim($worksheet->getCellByColumnAndRow($mrpHeader, $row)->getValue());
-            
-            $billCount=0;
-            $billExist=$this->ExcelModel->getBillByLastRecords('bills',$billNumber);
-            if(!empty($billExist)){
-                foreach($billWithCount as $bl){
-                    if(trim($bl['billNo'])==trim($billNumber)){
-                        $billCount=($bl['Count']);
-                    }
-                }
-
-                if($billNumber !== "" && $billDate !== "" && $saleType == "Sale"){
-                    $billId=$billExist[0]['id'];
-                    $billCountData=$this->ExcelModel->countBills('billsdetails',$billId);
-                    if($billCountData != $billCount){
-                        $readArray=array(
-                            'billId'=>$billId,
-                            'productName'=>$productName,
-                            'gstPercent'=>$gst,
-                            'mrp'=>$mrp,
-                            'sellingRate'=>$rate,
-                            'qty'=>$quantity,
-                            'netAmount'=>($amount+$taxAmount),
-                            'taxableValue'=>$amount,
-                            'taxAmount'=>$taxAmount,
-                            'schemaDisc'=>$schemeDiscount,
-                            'cddbDisc'=>$distributorDiscount,
-                            'taxPercent'=>$gst,
-                            'grossRate'=>($quantity*$rate)
-                        );
-                        
-                        $this->ExcelModel->insert('billsdetails',$readArray);
-                    }else if($billCountData==0){
-                        $readArray=array(
-                            'billId'=>$billId,
-                            'productName'=>$productName,
-                            'gstPercent'=>$gst,
-                            'mrp'=>$mrp,
-                            'sellingRate'=>$rate,
-                            'qty'=>$quantity,
-                            'netAmount'=>($amount+$taxAmount),
-                            'taxableValue'=>$amount,
-                            'taxAmount'=>$taxAmount,
-                            'schemaDisc'=>$schemeDiscount,
-                            'cddbDisc'=>$distributorDiscount,
-                            'taxPercent'=>$gst,
-                            'grossRate'=>($quantity*$rate)
-                        );
-                        $this->ExcelModel->insert('billsdetails',$readArray);
-                    }
-
-                    $tempBillNumber=$billNumber;
-                    $tempBillId=$billId;
-                }
-            }
-        }
-
-        $updateData=array('status'=>2);
-        $this->ExcelModel->updateByCompany('cron_settings',$updateData,'Tata');
     }
 
 }

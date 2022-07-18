@@ -33,30 +33,31 @@ li{
             <div class="row clearfix" id="page">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
-                        <div class="header">
-                            <h2><a href="<?php echo site_url('owner/OfficeAllocationController/billClearance'); ?>"><button class="btn btn-xs bg-primary margin"><i class="material-icons">refresh</i></button></a>
-                                Residual Bill Clearing</h2>
+                        <div class="header flex-div">
+                        <h2>Residual Bill Clearing</h2><a href="<?php echo site_url('owner/OfficeAllocationController/billClearance'); ?>">
+                        <button class="btn btn-xs btnStyle margin"><i class="material-icons">refresh</i></button></a>
+                                
                         </div>
                         <div class="body">
                             <div class="row">                                 
                                 <div class="row m-t-20">                                   
-                                    <div class="col-md-12">
+                                    <div class="col-md-12 mb-0 cust-tbl">
                                         <form method="post" role="form" action="<?php echo site_url('owner/OfficeAllocationController/billClearance');?>">
-                                            <div class="col-md-12">
-                                            <div class="col-md-2">
-                                                    <b>Division Name:</b>
+                                            <div class="col-md-12 mb-0">
+                                            <div class="col-md-2 mb-0">
+                                                    <b>Company Name:</b>
                                                     <div class="input-group">
                                                         <span class="input-group-addon">
                                                            <i class="material-icons">perm_contact_calendar</i>
                                                         </span>
 
                                                        <div class="form-line">
-                                                             <input type="text"  autocomplete="off" placeholder="select division" list="compNameList" id="compName" name="compName" value="<?php echo $compName; ?>" class="form-control" required> 
-                                                            <datalist id="compNameList">
-                                                            <?php foreach ($company as $req_item){ ?>
-                                                                <option id="<?php echo $req_item['id'] ?>" value="<?php echo $req_item['name'] ?>" />
-                                                              <?php } ?> 
-                                                            </datalist> 
+                                                        <input type="text"  autocomplete="off" placeholder="select company" list="compNameList" id="compName" name="compName" value="<?php echo $compName; ?>" class="form-control" required> 
+                                                        <datalist id="compNameList">
+                                                        <?php foreach ($company as $req_item){ ?>
+                                                        <option id="<?php echo $req_item['id'] ?>" value="<?php echo $req_item['name'] ?>" />
+                                                        <?php } ?> 
+                                                        </datalist> 
                                                         </div>
                                                     </div>
                                             </div>
@@ -86,10 +87,10 @@ li{
                                             </div>
                                              <div class="col-md-2">
                                                 <div class="form-check">
-                                                    <input name="selOption" <?php if($opti=='cd'){ echo "checked=checked";}  ?> value="cd" type="radio" id="radio_1" checked />
+                                                    <input  name="selOption" <?php if($opti=='cd'){ echo "checked=checked";}  ?> value="cd" type="radio" class="with-gap radio-col-red" id="radio_1" checked />
                                                     <label for="radio_1">CD </label>
                                                 <br>
-                                                    <input name="selOption" <?php if($opti=='other_adjustment'){ echo "checked=checked";}  ?> value="other_adjustment" type="radio" id="radio_2" />
+                                                    <input name="selOption" <?php if($opti=='other_adjustment'){ echo "checked=checked";}  ?> value="other_adjustment" class="with-gap radio-col-red" type="radio" id="radio_2" />
                                                       <label for="radio_2">Other Adjusment </label>
                                                 </div>
                                             </div>
@@ -98,13 +99,9 @@ li{
                                             
                                             <div class="col-md-1">
                                             <?php if(empty($compName) || empty($amt) || empty($bills)){?>
-                                                <?php if($this->session->userdata['workRestrict']['status']=="yes"){?>
-                                                    <button class="btn btn-primary btn-sm margin m-t-20" onclick="planUpgradeMsg()">Search</button>
-                                                <?php }else{ ?>
-                                                    <input type="submit" value="Search" class="btn btn-primary btn-sm margin m-t-20">
-                                                <?php } ?>
+                                                <input type="submit" value="Search" class="btn btnStyle btn-lg margin m-t-20">
                                             <?php }else{ ?>
-                                                <button type="button" id="insert-ins" class="btn btn-primary m-t-15 waves-effect"> 
+                                                <button type="button" id="insert-ins" class="btn btnStyle  m-t-15 waves-effect"> 
                                                      <i class="material-icons">save</i> 
                                                   <span class="icon-name"> Save </span>
                                                 </button>
@@ -115,19 +112,20 @@ li{
                                     </div>
                                     <div class="col-md-12">
                                            <div class="table-responsive">
-                                            <table class="table table-bordered table-striped table-hover dataTable js-exportable" data-page-length='100'>
+                                            <!-- <table class="table table-bordered dataTable js-exportable cust-tbl" data-page-length='100'> -->
+                                            <table class="table table-bordered dataTable js-exportable cust-tbl" data-page-length="100" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
                                                 <thead>
                                                     <tr>
                                                         <th>
-                                                            <span> <input class="checkall" type="checkbox" name="selValue" id="basic_checkbox"/>
-                                                            <label for="basic_checkbox"></label></span>
-                                                           </th>
-                                                        <th>S.No.</th>
+                                                        <span> <input class="checkall" type="checkbox" name="selValue" id="basic_checkbox"/>
+                                                        <label for="basic_checkbox"></label></span>
+                                                        </th>
+                                                        <th>No</th>
                                                         <th>Bill No</th>
                                                         <th>Bill Date</th>
-                                                        <th>Retailer Name</th>
-                                                        <th>Net Amount</th>
-                                                        <th>Pending Amount </th>
+                                                        <th>Retailer Name</th> 
+                                                        <th style="width: 100px;">Net Amount</th>
+                                                        <th style="width: 145px;">Pending Amount </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody id="tblData">
@@ -164,12 +162,12 @@ li{
                                                 <tfoot>
                                                     <tr>
                                                         <th></th>
-                                                        <th>S.No.</th>
+                                                        <th>No</th>
                                                         <th>Bill No</th>
                                                         <th>Bill Date</th>
                                                         <th>Retailer Name</th>
-                                                        <th>Net Amount</th>
-                                                        <th>Pending Amount </th>
+                                                        <th style="width: 100px;">Net Amount</th>
+                                                        <th style="width: 145px;">Pending Amount </th>
                                                     </tr>
                                                 </tfoot>
                                             </table>
@@ -225,16 +223,7 @@ li{
 
                     // alert('Saved.');
                     window.location.href="<?php echo base_url();?>index.php/owner/OfficeAllocationController/billClearance";
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }    
+                }  
             });
         }else{
             alert('Please select bills.');
@@ -273,16 +262,7 @@ li{
             success: function(data){
                 // alert(data);
                 $('#tblData').html(data);
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }  
+            }
         });
     });
 </script>
@@ -319,16 +299,7 @@ li{
                 data:{"id" : id , "chequeStatus" : result.value},
                 success: function (response) {
                     $('#changeStatus').html(response);  
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }  
+                }
                 });
             }
         });
@@ -383,16 +354,7 @@ li{
                 success: function(data){
                     // alert(data);
                     $('#tblData').html(data);
-                },
-                beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }  
+                }
             });
         }
        

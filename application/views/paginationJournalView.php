@@ -19,15 +19,16 @@
                                <br>
                             <div class="top-panel">
                               <div class="btn-group pull-right">
-                                <button type="button" class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown">Export <span class="caret"></span></button>
+                                <button type="button" class="btn btnStyle btn-sm dropdown-toggle" style="padding: 7px 15px;" data-toggle="dropdown">Export <span class="caret"></span></button>
                                 <ul class="dropdown-menu" role="menu">
                                   <!-- <li><a class="dataExport" data-type="csv">CSV</a></li> -->
                                   <li><a class="dataExport" data-type="excel">XLS</a></li>          
                                 </ul>
                               </div>
                             </div>
-                            <div class="table-responsive">
-                              <div class="row">
+                            <!-- <div class="table-responsive"> -->
+                            <div>
+                              <div class="row cust-tbl">
                                 <div class="col-sm-3">
                                   <b>Search Anything</b>
                                   <div class="form-group">
@@ -51,7 +52,7 @@
                                   </div>
                                 </div>
                                 <div class="col-sm-3">
-                                  <a href="<?php echo site_url('AllocationByManagerController/closedJournals'); ?>" class="btn btn-sm m-t-15 btn-primary waves-effect">
+                                  <a href="<?php echo site_url('AllocationByManagerController/closedJournals'); ?>" class="btn btn-sm m-t-15 btn-danger waves-effect">
                                         <i class="material-icons">cancel</i> 
                                         <span class="icon-name"> Cancel</span>
                                     </a>
@@ -60,17 +61,17 @@
                             
                             <!-- <div class="table-responsive"> -->
                                 <?php echo $pagination; ?>
-                                <table id="outstanding_table" style="font-size: 11px" class="table table-bordered table-striped " data-page-length='100'>
+                                <table id="outstanding_table" class="table table-bordered cust-tbl" data-page-length='100'>
                                     <thead>
                                         <tr>
-                                            <th>Sr.No</th>
+                                            <th>No</th>
                                             <th data-action="sort" data-title="journalEntryCode" data-direction="ASC">Journal Code</th>
                                             <th data-action="sort" data-title="journalEntryDate" data-direction="ASC">Date</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>Sr.No</th>
+                                            <th>No</th>
                                             <th data-action="sort" data-title="journalEntryCode" data-direction="ASC">Journal Code</th>
                                             <th data-action="sort" data-title="journalEntryDate" data-direction="ASC">Date</th>
                                         </tr>

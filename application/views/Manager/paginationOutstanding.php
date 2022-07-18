@@ -15,9 +15,7 @@
           width: 1100px; /* New width for large modal */
         }
     }
-
-
-
+	
 </style>
 
 <style>
@@ -32,7 +30,7 @@
 </style>
 
 <style type="text/css">
-    .selectStyle select {
+   .selectStyle select {
    background: transparent;
    width: 250px;
    padding: 4px;
@@ -45,9 +43,9 @@ margin-bottom: 0PX;
 padding-bottom: 0PX;
 }
 
-.logo_prov {
+.logo_prov1 {
     border-radius: 30px;
-     border: 1px solid black;
+    border: 1px solid black;
     background: red;
     color: black;
     padding: 6px;
@@ -74,9 +72,6 @@ padding-bottom: 0PX;
                             <h2>
                               Outstanding Bills
                             </h2>
-                             <h2>
-                               
-                            </h2>
                         </div>
                         <div class="body">
                           <!-- <div class="row m-t-20">
@@ -99,19 +94,19 @@ padding-bottom: 0PX;
                                     </form>
 
                                 </div>
-                            </div> -->
+                            </div> -->  
                             <br>
-                            <div class="top-panel">
-                              <div class="btn-group pull-right">
-                                <a class="btn btn-primary"  href="<?php echo site_url(); ?>/SrController/outstandingBillsExport"> Export to Excel</a>
+                            <div class="top-panel"> 
+                              <div class="btn-group pull-right"> 
+                                <a class="btn btnStyle btn-lg waves-effect"  href="<?php echo site_url(); ?>/SrController/outstandingBillsExport"> Export to Excel</a>
                                 <!-- <button type="button" class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown">Export <span class="caret"></span></button> -->
                                 <!-- <ul class="dropdown-menu" role="menu">
                                   <li><a class="dataExport" data-type="excel">XLS</a></li>          
                                 </ul> -->
                               </div>
                             </div>
-                            <div class="table-responsive">
-                              <div class="row">
+                            <div> 
+                              <div class="row cust-tbl">
                                 <div class="col-sm-3">
                                   <b>Search Anything</b>
                                   <div class="form-group">
@@ -137,25 +132,25 @@ padding-bottom: 0PX;
                                   </div>
                                 </div>
                                 <div class="col-sm-3">
-                                  <a href="<?php echo site_url('SrController/outstandingBills'); ?>" class="btn btn-sm m-t-15 btn-primary waves-effect">
+                                <a href="<?php echo site_url('SrController/outstandingBills'); ?>" class="btn btn-sm m-t-15  btn-danger waves-effect">
                                         <i class="material-icons">cancel</i> 
                                         <span class="icon-name"> Cancel</span>
                                     </a>
                                 </div>
-                              </div>
+                              </div> 
                               <?php echo $pagination; ?>
-                                <table id="outstanding_table" style="font-size: 11px" class="table table-bordered table-striped">
-                                    <thead>
+                                <table id="outstanding_table" class="table table-bordered cust-tbl">
+                                    <thead> 
                                         <tr>
-                                            <th>S. No.</th>
+                                            <th>No</th>
                                             <th data-action="sort" data-title="billNo" data-direction="ASC"><span>Bill No</span></th>
                                             <th data-action="sort" data-title="date" data-direction="ASC"><span>Bill Date</span></th>
                                             <th data-action="sort" data-title="retailerName" data-direction="ASC"><span>Retailer</span></th>
-                                            <th data-action="sort" data-title="netAmount" data-direction="ASC"><span>Bill Amount</span></th>
-                                            <th data-action="sort" data-title="pendingAmt" data-direction="ASC"><span>Pending Amount</span></th>
+                                            <th data-action="sort" data-title="netAmount" data-direction="ASC"><span>Bill</span></th>
+                                            <th data-action="sort" data-title="pendingAmt" data-direction="ASC"><span>Pending </span></th>
                                             <th data-action="sort" data-title="salesman" data-direction="ASC"><span>Salesman</span></th>
                                             <th data-action="sort" data-title="routeName" data-direction="ASC"><span>Route</span></th>
-                                            <th data-action="sort" data-title="routeName" data-direction="ASC"><span>Due Days</span></th>
+                                            <th data-action="sort" data-title="routeName" data-direction="ASC"><span>Days</span></th>
                                             <th data-action="sort" data-title="routeName" data-direction="ASC"><span>Status</span></th>
                                             
                                             <th>Action</th>
@@ -163,15 +158,15 @@ padding-bottom: 0PX;
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>S. No.</th>
+                                            <th>No</th>
                                             <th data-action="sort" data-title="billNo" data-direction="ASC"><span>Bill No</span></th>
                                             <th data-action="sort" data-title="date" data-direction="ASC"><span>Bill Date</span></th>
                                             <th data-action="sort" data-title="retailerName" data-direction="ASC"><span>Retailer</span></th>
-                                            <th data-action="sort" data-title="netAmount" data-direction="ASC"><span>Bill Amount</span></th>
-                                            <th data-action="sort" data-title="pendingAmt" data-direction="ASC"><span>Pending Amount</span></th>
+                                            <th data-action="sort" data-title="netAmount" data-direction="ASC"><span>Bill </span></th>
+                                            <th data-action="sort" data-title="pendingAmt" data-direction="ASC"><span>Pending </span></th>
                                             <th data-action="sort" data-title="salesman" data-direction="ASC"><span>Salesman</span></th>
                                             <th data-action="sort" data-title="routeName" data-direction="ASC"><span>Route</span></th>
-                                            <th data-action="sort" data-title="routeName" data-direction="ASC"><span>Due Days</span></th>
+                                            <th data-action="sort" data-title="routeName" data-direction="ASC"><span>Days</span></th>
                                             <th data-action="sort" data-title="routeName" data-direction="ASC"><span>Status</span></th>
 
                                             <th>Action</th>
@@ -187,8 +182,7 @@ padding-bottom: 0PX;
                                                   $dt=date_create($data['date']);
                                                   $dt= date_format($dt,'d-M-Y');
                                                   $diff=strtotime(date('Y-m-d'))-strtotime($data['date']);
-
-                                                
+         
                                         ?>
                                          <?php if($data['isAllocated']==1){ ?>
                                                  <tr style="background-color: #dcd6d5">
@@ -197,13 +191,27 @@ padding-bottom: 0PX;
                                             <?php } ?>
                                             <td><?php echo $no;?></td>
                                             <td><?php echo $data['billNo'];?></td>
-                                            <td><?php echo $dt; ?></td>
-                                            <td><?php echo $data['retailerName'];?></td>
+                                            <td class="noSpace"><?php echo $dt; ?></td>
+											<td class="CellWithComment noSpace"><?php //echo  rtrim($data['salesman'],', '); 
+												$retailerName=substr($data['retailerName'], 0, 15);
+												echo rtrim($retailerName);?>
+												<span class="CellComment"><?php echo $result =substr($data['retailerName'],0); ?></span>
+											</td>
                                             <td align="right"><?php echo number_format($data['netAmount']);?></td>
                                             <td align="right"><?php echo number_format($data['pendingAmt']);?></td>
-                                            <td><?php echo $data['salesman'];?></td>
-                                            
-                                             <td><?php echo $data['routeName'];?></td>
+                                 
+											<td class="CellWithComment noSpace"><?php //echo  rtrim($data['salesman'],', '); 
+												$salesman=substr($data['salesman'], 0, 15);
+												echo rtrim($salesman);?>
+												<span class="CellComment"><?php echo $result =substr($data['salesman'],0); ?></span>
+											</td>
+											
+											<td class="CellWithComment noSpace"><?php //echo  rtrim($data['salesman'],', '); 
+												$routeName=substr($data['routeName'], 0, 15);
+												echo rtrim($routeName);?>
+												<span class="CellComment"><?php echo $result =substr($data['routeName'],0); ?></span>
+											</td>
+                                          
                                              <td><?php echo abs(round($diff/86400));?></td>
                                              <td>
                                             <?php
@@ -308,17 +316,12 @@ padding-bottom: 0PX;
                                                 //     } 
                                             ?>
                                                 </td>
-                                            <td>
-                                                 <?php if($data['isAllocated']!=1 && $data['pendingAmt'] >0){ ?>
+                                            <td class="noSpace">
+                                            <?php if($data['isAllocated']!=1 && $data['pendingAmt'] >0){ ?>
 
-                                                <?php if($this->session->userdata['workRestrict']['status']=="yes"){?>
-                                                    <button class="btn btn-xs btn-primary waves-effect waves-float" onclick="planUpgradeMsg()"><i class="material-icons">touch_app</i></button>
-                                                <?php }else{ ?>
-                                                    <a id="prDetails" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-billDate="<?php echo $dt; ?>" data-credAdj="<?php echo $data['creditAdjustment']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-route="<?php echo $data['routeName']; ?>" data-toggle="modal" data-target="#processModal" ><button class="btn btn-xs btn-primary waves-effect waves-float" data-toggle="tooltip" data-placement="bottom" title="Process"><i class="material-icons">touch_app</i></button></a>
-                                                  
-                                                <?php } ?>
-                                                  &nbsp;&nbsp;<a href="<?php echo site_url('AdHocController/billHistoryInfo/'.$data['id']); ?>" class="btn btn-xs btn-primary" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
-                                                  &nbsp;&nbsp;<a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs  btn-primary" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
+                                            <a id="prDetails" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-billDate="<?php echo $dt; ?>" data-credAdj="<?php echo $data['creditAdjustment']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-route="<?php echo $data['routeName']; ?>" data-toggle="modal" data-target="#processModal" ><button class="btn btn-xs process-btn waves-effect waves-float" data-toggle="tooltip" data-placement="bottom" title="Process"><i class="material-icons">touch_app</i></button></a>
+                                            <a href="<?php echo site_url('AdHocController/billHistoryInfo/'.$data['id']); ?>" class="btn btn-xs history-btn" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
+                                            <a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs viewBill-btn" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
                                                 <!-- <button data-toggle="modal" data-id="<?php echo $data['id']; ?>" data-target="#processModal" class="modalLinkProcess btn btn-primary m-t-15 waves-effect">Process</button>
                                            &nbsp;<button data-toggle="modal" data-id="<?php echo $data['id']; ?>" data-target="#fixDebitModal" class="modalLinkFixDebit btn btn-primary m-t-15 waves-effect">Debit</button> -->
                                            <?php  }else{
@@ -357,8 +360,8 @@ padding-bottom: 0PX;
 
                                             // echo $status;
                                         ?>
-                                         <a href="<?php echo site_url('AdHocController/billHistoryInfo/'.$data['id']); ?>" class="btn btn-xs btn-primary" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
-                                                  &nbsp;&nbsp;<a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs  btn-primary" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
+                                        <a href="<?php echo site_url('AdHocController/billHistoryInfo/'.$data['id']); ?>" class="btn btn-xs history-btn" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
+                                        <a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs viewBill-btn" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
                                               
                                         <?php
 
@@ -389,7 +392,7 @@ padding-bottom: 0PX;
     
     
 <?php 
-$projectSessionName="";
+    $projectSessionName="";
     if (isset($this->session->userdata['codeKeyData'])) {
         $projectSessionName= ($this->session->userdata['codeKeyData']['codeKeyValue']);
     }
@@ -409,17 +412,17 @@ $projectSessionName="";
             <div class="body">
                 <div class="demo-masked-input">
                     <div class="row clearfix">
-                        <div class="row">
+                        <div class="row cust-tbl">
                             <div class="col-md-12">
                                 <div class="col-md-3">
-                                    <h5 style="color:#000000">Bill No :  <span style="color:#050A30" id='bill_no'></span></h5>
+                                    <b style="color: #000000;">Bill No : </b> <span style="color: #050A30;" id='bill_no'></span>
                                     <input type="hidden" id="currentBillNo" autocomplete="off" name="currentBillNo" class="form-control"> 
                                     <input type="hidden" id="currentBillId" autocomplete="off" name="currentBillId" class="form-control"> 
                                      <input type="hidden" id="currentBillRetailer" autocomplete="off" name="currentBillRetailer" class="form-control">    
                                 </div> 
                                 
                                  <div class="col-md-3">
-                                    <h5 style="color:#000000">Bill Date :  <span style="color:#050A30" id='bill-date'></span></h5>
+                                   <b style="color: #000000;">Bill Date : </b>  <span style="color: #050A30;" id='bill-date'></span>
                                 </div> 
                                 <span id='bill_retailer'></span>
                                 <!--<div class="col-md-6">-->
@@ -427,7 +430,7 @@ $projectSessionName="";
                                 <!--        <span id='bill_retailer'></span>-->
                                 <!--</div> -->
                                 <div class="col-md-3">
-                                    <h5 style="color:#000000">Pending Amount : <span style="color:#050A30" id='bill_pendingAmt'></span></h5>
+                                    <b style="color: #000000;">Pending Amount : </b><span style="color: #050A30;" id='bill_pendingAmt'></span>
                                     <input type="hidden" id="currentPendingAmt" autocomplete="off" name="currentPendingAmt" class="form-control">   
                                 </div>
                             </div>
@@ -437,24 +440,23 @@ $projectSessionName="";
                                <!--     <b>Bill Date : </b> <span id='bill-date'></span>-->
                                <!-- </div>-->
                                 <div class="col-md-3">
-                                    <h5 style="color:#000000">Route:  <span style="color:#050A30" id='bill-route'></span></h5>
+                                    <b style="color: #000000;">Route: </b>  <span style="color: #050A30;" id='bill-route'></span>
                                 </div>
                                 <div class="col-md-3">
-                                    <h5 style="color:#000000">Salesman:  <span style="color:#050A30" id='bill-salesman'></span></h5>
+                                    <b style="color: #000000;">Salesman: </b> <span style="color: #050A30;" id='bill-salesman'></span>
                                 </div>
                                 <div class="col-md-3">
-                                    <h5 style="color:#000000">GST No. : 
-                                        <span style="color:#050A30" id='gst'></span></h5>
+                                    <b style="color: #000000;">GST No. : </b> <span style="color: #050A30;" id='gst'></span>
                                 </div>
-                                <div class="col-md-3"><span style="display:none" class="logo_prov">CN</span></div>
+                                <div class="col-md-3"><span style="display:none;color: #050A30;" class="logo_prov1">CN</span></div>
                             </div>
-                        </div>
+                        </div> 
                          
                          <br>
-                           <div class="row">
-                            
+                       <div class="row">  
                         <div class="col-md-12">
-                            <div class="col-md-12">
+                            <div class="col-md-12 radio-btns-div">
+							<div>
                               <?php if ((in_array('owner', $des)) || (in_array('cashier', $des))){ ?>
                                 <input name="group5" type="radio" id="radio_cash" class="with-gap radio-col-red" checked />
                                 <label for="radio_cash">Cash</label>
@@ -462,7 +464,8 @@ $projectSessionName="";
                                 <input name="group5" type="radio" id="radio_cash" class="with-gap radio-col-red" disabled />
                                 <label for="radio_cash">Cash</label>
                               <?php } ?> 
-
+						    </div>
+							<div>
                               <?php if ((in_array('owner', $des)) || (in_array('cashier', $des)) || (in_array('senior_manager', $des))){ ?>
                                 <input name="group5" type="radio" id="radio_cheque" class="with-gap radio-col-red"  />
                                 <label for="radio_cheque">Cheque</label>
@@ -470,7 +473,8 @@ $projectSessionName="";
                                 <input name="group5" type="radio" id="radio_cheque" class="with-gap radio-col-red" disabled />
                                 <label for="radio_cheque">Cheque</label>
                               <?php } ?> 
-                            
+                            </div>
+							<div>
                               <?php if ((in_array('owner', $des)) || (in_array('cashier', $des)) || (in_array('senior_manager', $des))){ ?>
                                 <input name="group5" type="radio" id="radio_neft" class="with-gap radio-col-red"  />
                                 <label for="radio_neft">NEFT</label>
@@ -478,7 +482,8 @@ $projectSessionName="";
                                 <input name="group5" type="radio" id="radio_neft" class="with-gap radio-col-red" disabled />
                                 <label for="radio_neft">NEFT</label>
                               <?php } ?> 
-                            
+                            </div>
+							<div>
                               <?php if ((in_array('owner', $des)) || (in_array('senior_manager', $des))){ ?>
                                 <input name="group5" type="radio" id="radio_cd" class="with-gap radio-col-red"  />
                                 <label for="radio_cd">CD</label>
@@ -486,8 +491,8 @@ $projectSessionName="";
                                 <input name="group5" type="radio" id="radio_cd" class="with-gap radio-col-red" disabled />
                                 <label for="radio_cd">CD</label>
                               <?php } ?> 
-
-
+							</div>
+						    <div>
                               <?php if ((in_array('owner', $des)) || (in_array('cashier', $des)) || (in_array('senior_manager', $des))){ ?>
                                 <input name="group5" type="radio" id="radio_debit" class="with-gap radio-col-red" />
                                 <label for="radio_debit">Debit to Employee</label>
@@ -495,7 +500,8 @@ $projectSessionName="";
                                 <input name="group5" type="radio" id="radio_debit" class="with-gap radio-col-red" disabled/>
                                 <label for="radio_debit">Debit to Employee</label>
                               <?php } ?> 
-
+							 </div>
+							 <div>
                               <?php if ((in_array('owner', $des)) || (in_array('senior_manager', $des))){ ?>
                                 <input name="group5" type="radio" id="radio_officeAdj" class="with-gap radio-col-red" />
                                 <label for="radio_officeAdj">Office Adjustment</label>
@@ -503,7 +509,8 @@ $projectSessionName="";
                                 <input name="group5" type="radio" id="radio_officeAdj" class="with-gap radio-col-red" disabled/>
                                 <label for="radio_officeAdj">Office Adjustment</label>
                               <?php } ?> 
-
+							 </div>
+							 <div>
                                <?php if ((in_array('owner', $des)) || (in_array('senior_manager', $des))){ ?>
                                 <input name="group5" type="radio" id="radio_otherAdj" class="with-gap radio-col-red" />
                                 <label for="radio_otherAdj">Other Adjustment</label>
@@ -511,7 +518,8 @@ $projectSessionName="";
                                 <input name="group5" type="radio" id="radio_otherAdj" class="with-gap radio-col-red" disabled/>
                                 <label for="radio_otherAdj">Other Adjustment</label>
                               <?php } ?> 
-
+							  </div>
+							  <div>
                               <?php if ((in_array('owner', $des)) || (in_array('godownkeeper', $des))){ ?>
                                 <input name="group5" type="radio" id="radio_sr" class="with-gap radio-col-red"  />
                                 <label for="radio_sr">SR/FSR</label>
@@ -519,7 +527,8 @@ $projectSessionName="";
                                  <input name="group5" type="radio" id="radio_sr" class="with-gap radio-col-red" disabled />
                                 <label for="radio_sr">SR/FSR</label>
                               <?php } ?> 
-                              
+                              </div>
+							  <div>
                               <?php if ((in_array('owner', $des)) || (in_array('manager', $des)) || (in_array('senior_manager', $des))){ ?>   
                                 <input name="group5" type="radio" id="radio_allocation" class="with-gap radio-col-red"  />
                                 <label for="radio_allocation">Add to Open Allocation</label>
@@ -527,7 +536,8 @@ $projectSessionName="";
                                 <input name="group5" type="radio" id="radio_allocation" class="with-gap radio-col-red" disabled />
                                 <label for="radio_allocation">Add to Open Allocation</label>
                               <?php } ?> 
-
+							  </div>
+							  <div>
                               <?php if ((in_array('owner', $des)) || (in_array('manager', $des)) || (in_array('senior_manager', $des))){ ?> 
                                 <input name="group5" type="radio" id="radio_EmpDelivery" class="with-gap radio-col-red"  />
                                 <label for="radio_EmpDelivery">Direct Delivery by Employee</label>
@@ -535,7 +545,8 @@ $projectSessionName="";
                                 <input name="group5" type="radio" id="radio_EmpDelivery" class="with-gap radio-col-red" disabled />
                                 <label for="radio_EmpDelivery">Direct Delivery by Employee</label>
                               <?php } ?> 
-
+							  </div>
+							  <div>
                               <?php if ((in_array('owner', $des)) || (in_array('cashier', $des)) || (in_array('senior_manager', $des))){ ?>
                                 <input name="group5" type="radio" id="radio_debitNote" class="with-gap radio-col-red" />
                                 <label for="radio_debitNote">Debit Note</label>
@@ -543,10 +554,8 @@ $projectSessionName="";
                                 <input name="group5" type="radio" id="radio_debitNote" class="with-gap radio-col-red" disabled/>
                                 <label for="radio_debitNote">Debit Note</label>
                               <?php } ?> 
-
+							 </div>
                             </div>
-                             
-
                         </div>
                     </div>
 
@@ -559,7 +568,7 @@ $projectSessionName="";
 
                     <div id="chequeDiv" style="display: none" class="row">
                         <div class="col-md-12">
-                            <div class="col-md-4">
+                            <div class="col-md-4 cust-tbl">
                                     <b>Employee</b><span style="color:red">  *</span>
                                     <div class="input-group">
                                       <span class="input-group-addon">
@@ -581,7 +590,7 @@ $projectSessionName="";
                                   </div>
                                   </div>
                                 </div> 
-                                <div class="col-md-4">
+                                <div class="col-md-4 cust-tbl">
                                     <b>Amount</b><span style="color:red">  *</span>
                                     <div class="input-group">
                                       <span class="input-group-addon">
@@ -598,7 +607,7 @@ $projectSessionName="";
                                
                             </div>
                             <div class="col-md-12">
-                               <div class="col-md-4">
+                               <div class="col-md-4 cust-tbl">
                                     <b>Cheque Number</b>
                                     <div class="input-group">
                                       <span class="input-group-addon">
@@ -613,7 +622,7 @@ $projectSessionName="";
                                   </div>
                                 </div> 
 
-                               <div class="col-md-4">
+                               <div class="col-md-4 cust-tbl">
                                     <b>Cheque Date</b>
                                     <div class="input-group">
                                       <span class="input-group-addon">
@@ -627,7 +636,7 @@ $projectSessionName="";
                                   </div>
                                 </div>
 
-                                <div class="col-md-4">
+                                <div class="col-md-4 cust-tbl">
                                     <b>Bank</b>
                                     <div class="input-group">
                                       <span class="input-group-addon">
@@ -654,16 +663,17 @@ $projectSessionName="";
                              <div class="col-md-12">
                               <p id="error-chk-all"></p>
                                 <div class="col-md-4">
-                                    <button id="chequeSaveBtn" type="button" tabindex="6"  class="btn btn-primary m-t-15 waves-effect">
+                                    <button id="chequeSaveBtn" type="button" tabindex="6" class="btn btnStyle m-t-15 waves-effect">
                                         <i class="material-icons">save</i> 
                                         <span class="icon-name"> Save</span>
                                     </button>
                                
-                                    <button data-dismiss="modal" type="button" tabindex="7" class="btn btn-primary m-t-15 waves-effect">
+                                    <button data-dismiss="modal" type="button" tabindex="7" class="btn btn-sm btn-danger m-t-15 waves-effect">
                                         <i class="material-icons">cancel</i> 
                                         <span class="icon-name"> Cancel</span>
                                     </button>
                                 </div>
+								
                              </div>
                     </div>
 
@@ -671,7 +681,7 @@ $projectSessionName="";
 
                     <div id="neftDiv" style="display: none" class="row">
                         <div class="col-md-12">
-                                <div class="col-md-4">
+                                <div class="col-md-4 cust-tbl">
                                     <b>Employee</b><span style="color:red">  *</span>
                                     <div class="input-group">
                                       <span class="input-group-addon">
@@ -691,9 +701,9 @@ $projectSessionName="";
                                         ?>
                                     </datalist>
                                   </div>
-                                  </div>
+                                  </div> 
                                 </div> 
-                                <div class="col-md-4">
+                                <div class="col-md-4 cust-tbl">
                                     <b>Amount</b><span style="color:red">  *</span>
                                     <div class="input-group">
                                       <span class="input-group-addon">
@@ -708,7 +718,7 @@ $projectSessionName="";
                                 </div> 
                             </div>
                             <div class="col-md-12">
-                                <div class="col-md-4">
+                                <div class="col-md-4 cust-tbl">
                                     <b>NEFT Number</b>
                                     <div class="input-group">
                                       <span class="input-group-addon">
@@ -722,7 +732,7 @@ $projectSessionName="";
                                   <div id="error-nwl1"></div>
                                 </div> 
                                 </div> 
-                                <div class="col-md-4">
+                                <div class="col-md-4 cust-tbl">
                                     <b>NEFT Date</b>
                                     <div class="input-group">
                                       <span class="input-group-addon">
@@ -738,12 +748,12 @@ $projectSessionName="";
                             </div>
                             <div class="col-md-12">
                                 <div class="col-md-4">
-                                    <button id="neftSaveBtn" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                    <button id="neftSaveBtn" type="button" class="btn btnStyle m-t-15 waves-effect">
                                         <i class="material-icons">save</i> 
                                         <span class="icon-name"> Save</span>
                                     </button>
                                
-                                    <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                    <button data-dismiss="modal" type="button" class="btn btn-sm btn-danger m-t-15 waves-effect">
                                         <i class="material-icons">cancel</i> 
                                         <span class="icon-name"> Cancel</span>
                                     </button>
@@ -753,7 +763,7 @@ $projectSessionName="";
 
                     <div id="cdDiv" style="display: none" class="row">
                         <div class="col-md-12">
-                            <div class="col-md-4">
+                            <div class="col-md-4 cust-tbl">
                                     <b>Employee</b><span style="color:red">  *</span>
                                     <div class="input-group">
                                       <span class="input-group-addon">
@@ -775,7 +785,7 @@ $projectSessionName="";
                                   </div>
                                   </div>
                                 </div> 
-                                <div class="col-md-4">
+                                <div class="col-md-4 cust-tbl">
                                     <b>CD Amount</b><span style="color:red">  *</span>
                                     <div class="input-group">
                                       <span class="input-group-addon">
@@ -791,7 +801,7 @@ $projectSessionName="";
                             </div>
 
                              <div class="col-md-12">
-                                <div class="col-md-12">
+                                <div class="col-md-12 cust-tbl">
                                     <b>Remark</b><span style="color:red">  *</span>
                                     <div class="input-group">
                                       <span class="input-group-addon">
@@ -808,12 +818,12 @@ $projectSessionName="";
 
                             <div class="col-md-12">
                                 <div class="col-md-4">
-                                    <button id="cdSaveBtn" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                    <button id="cdSaveBtn" type="button" class="btn btnStyle m-t-15 waves-effect">
                                         <i class="material-icons">save</i> 
                                         <span class="icon-name"> Save</span>
                                     </button>
                                
-                                    <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                    <button data-dismiss="modal" type="button" class="btn btn-sm btn-danger m-t-15 waves-effect">
                                         <i class="material-icons">cancel</i> 
                                         <span class="icon-name"> Cancel</span>
                                     </button>
@@ -823,7 +833,7 @@ $projectSessionName="";
 
                     <div id="debitDiv" style="display: none" class="row">
                         <div class="col-md-12">
-                            <div class="col-md-4">
+                            <div class="col-md-4 cust-tbl">
                                     <b>Employee</b><span style="color:red">  *</span>
                                     <div class="input-group">
                                       <span class="input-group-addon">
@@ -845,7 +855,7 @@ $projectSessionName="";
                                   </div>
                                   </div>
                                 </div> 
-                                <div class="col-md-4">
+                                <div class="col-md-4 cust-tbl">
                                     <b>Debit Amount</b><span style="color:red">  *</span>
                                     <div class="input-group">
                                       <span class="input-group-addon">
@@ -861,7 +871,7 @@ $projectSessionName="";
                             </div>
 
                              <div class="col-md-12">
-                                <div class="col-md-12">
+                                <div class="col-md-12 cust-tbl">
                                     <b>Remark</b><span style="color:red">  *</span>
                                     <div class="input-group">
                                       <span class="input-group-addon">
@@ -878,12 +888,12 @@ $projectSessionName="";
 
                             <div class="col-md-12">
                                 <div class="col-md-4">
-                                    <button id="debitSaveBtn" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                    <button id="debitSaveBtn" type="button" class="btn btnStyle m-t-15 waves-effect">
                                         <i class="material-icons">save</i> 
                                         <span class="icon-name"> Save</span>
                                     </button>
                                
-                                    <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                    <button data-dismiss="modal" type="button" class="btn btn-sm btn-danger m-t-15 waves-effect">
                                         <i class="material-icons">cancel</i> 
                                         <span class="icon-name"> Cancel</span>
                                     </button>
@@ -893,7 +903,7 @@ $projectSessionName="";
 
                     <div id="debitNote" style="display: none" class="row">
                         <div class="col-md-12">
-                            <div class="col-md-4">
+                            <div class="col-md-4 cust-tbl">
                                     <b>Employee</b><span style="color:red">  *</span>
                                     <div class="input-group">
                                       <span class="input-group-addon">
@@ -915,7 +925,7 @@ $projectSessionName="";
                                   </div>
                                   </div>
                                 </div> 
-                                <div class="col-md-4">
+                                <div class="col-md-4 cust-tbl">
                                     <b>Debit Note Amount</b><span style="color:red">  *</span>
                                     <div class="input-group">
                                       <span class="input-group-addon">
@@ -931,7 +941,7 @@ $projectSessionName="";
                             </div>
 
                              <div class="col-md-12">
-                                <div class="col-md-12">
+                                <div class="col-md-12 cust-tbl">
                                     <b>Remark</b><span style="color:red">  *</span>
                                     <div class="input-group">
                                       <span class="input-group-addon">
@@ -948,12 +958,12 @@ $projectSessionName="";
 
                             <div class="col-md-12">
                                 <div class="col-md-4">
-                                    <button id="debitNoteSaveBtn" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                    <button id="debitNoteSaveBtn" type="button" class="btn btnStyle m-t-15 waves-effect">
                                         <i class="material-icons">save</i> 
                                         <span class="icon-name"> Save</span>
                                     </button>
                                
-                                    <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                    <button data-dismiss="modal" type="button" class="btn btn-sm btn-danger m-t-15 waves-effect">
                                         <i class="material-icons">cancel</i> 
                                         <span class="icon-name"> Cancel</span>
                                     </button>
@@ -963,7 +973,7 @@ $projectSessionName="";
 
                     <div id="officeAdjDiv" style="display: none" class="row">
                         <div class="col-md-12">
-                            <div class="col-md-4">
+                            <div class="col-md-4 cust-tbl">
                                     <b>Employee</b><span style="color:red">  *</span>
                                     <div class="input-group">
                                       <span class="input-group-addon">
@@ -985,7 +995,7 @@ $projectSessionName="";
                                   </div>
                                   </div>
                                 </div> 
-                                <div class="col-md-4">
+                                <div class="col-md-4 cust-tbl">
                                     <b>Office Adjustment Amount</b>
                                     <div class="input-group">
                                       <span class="input-group-addon">
@@ -1001,7 +1011,7 @@ $projectSessionName="";
                             </div>
 
                              <div class="col-md-12">
-                                <div class="col-md-12">
+                                <div class="col-md-12 cust-tbl">
                                     <b>Remark</b><span style="color:red">  *</span>
                                     <div class="input-group">
                                       <span class="input-group-addon">
@@ -1018,12 +1028,12 @@ $projectSessionName="";
 
                             <div class="col-md-12">
                                 <div class="col-md-4">
-                                    <button id="officeAdjSaveBtn" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                    <button id="officeAdjSaveBtn" type="button" class="btn btnStyle m-t-15 waves-effect">
                                         <i class="material-icons">save</i> 
                                         <span class="icon-name"> Save</span>
                                     </button>
                                
-                                    <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                    <button data-dismiss="modal" type="button" class="btn btn-sm btn-danger m-t-15 waves-effect">
                                         <i class="material-icons">cancel</i> 
                                         <span class="icon-name"> Cancel</span>
                                     </button>
@@ -1033,7 +1043,7 @@ $projectSessionName="";
 
                     <div id="otherAdjDiv" style="display: none" class="row">
                         <div class="col-md-12">
-                            <div class="col-md-4">
+                            <div class="col-md-4 cust-tbl">
                                     <b>Employee</b><span style="color:red">  *</span>
                                     <div class="input-group">
                                       <span class="input-group-addon">
@@ -1055,7 +1065,7 @@ $projectSessionName="";
                                   </div>
                                   </div>
                                 </div> 
-                                <div class="col-md-4">
+                                <div class="col-md-4 cust-tbl">
                                     <b>Other Adjustment Amount</b><span style="color:red">  *</span>
                                     <div class="input-group">
                                       <span class="input-group-addon">
@@ -1071,7 +1081,7 @@ $projectSessionName="";
                             </div>
 
                              <div class="col-md-12">
-                                <div class="col-md-12">
+                                <div class="col-md-12 cust-tbl">
                                     <b>Remark</b><span style="color:red">  *</span>
                                     <div class="input-group">
                                       <span class="input-group-addon">
@@ -1088,12 +1098,12 @@ $projectSessionName="";
 
                             <div class="col-md-12">
                                 <div class="col-md-4">
-                                    <button id="otherAdjSaveBtn" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                    <button id="otherAdjSaveBtn" type="button" class="btn btnStyle m-t-15 waves-effect">
                                         <i class="material-icons">save</i> 
                                         <span class="icon-name"> Save</span>
                                     </button>
                                
-                                    <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                    <button data-dismiss="modal" type="button" class="btn btn-sm btn-danger m-t-15 waves-effect">
                                         <i class="material-icons">cancel</i> 
                                         <span class="icon-name"> Cancel</span>
                                     </button>
@@ -1103,7 +1113,7 @@ $projectSessionName="";
 
                     <div id="empDeliveryDiv" style="display: none" class="row">
                         <div class="col-md-12">
-                            <div class="col-md-4">
+                            <div class="col-md-4 cust-tbl">
                                     <b>Employee</b><span style="color:red">  *</span>
                                     <div class="input-group">
                                       <span class="input-group-addon">
@@ -1129,7 +1139,7 @@ $projectSessionName="";
                             </div>
 
                              <div class="col-md-12">
-                                <div class="col-md-12">
+                                <div class="col-md-12 cust-tbl">
                                     <b>Remark</b><span style="color:red">  *</span>
                                     <div class="input-group">
                                       <span class="input-group-addon">
@@ -1147,12 +1157,12 @@ $projectSessionName="";
                           
                             <div class="col-md-12">
                                 <div class="col-md-4">
-                                    <button id="deliveryEmpSaveBtn" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                    <button id="deliveryEmpSaveBtn" type="button" class="btn btnStyle m-t-15 waves-effect">
                                         <i class="material-icons">save</i> 
                                         <span class="icon-name"> Save</span>
                                     </button>
                                
-                                    <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                    <button data-dismiss="modal" type="button" class="btn btn-sm btn-danger m-t-15 waves-effect">
                                         <i class="material-icons">cancel</i> 
                                         <span class="icon-name"> Cancel</span>
                                     </button>
@@ -1162,7 +1172,7 @@ $projectSessionName="";
 
                     <div id="allocationDiv" style="display: none" class="row">
                         <div class="col-md-12">
-                            <div class="col-md-4">
+                            <div class="col-md-4 cust-tbl">
                                     <b>Open Allocations</b><span style="color:red">  *</span>
                                     <div class="input-group">
                                       <span class="input-group-addon">
@@ -1190,12 +1200,12 @@ $projectSessionName="";
 
                             <div class="col-md-12">
                                 <div class="col-md-4">
-                                    <button id="allocationSaveBtn" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                    <button id="allocationSaveBtn" type="button" class="btn btnStyle m-t-15 waves-effect">
                                         <i class="material-icons">save</i> 
                                         <span class="icon-name"> Save</span>
                                     </button>
                                
-                                    <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                    <button data-dismiss="modal" type="button" class="btn btn-sm btn-danger m-t-15 waves-effect">
                                         <i class="material-icons">cancel</i> 
                                         <span class="icon-name"> Cancel</span>
                                     </button>
@@ -1205,7 +1215,7 @@ $projectSessionName="";
 
                     <div id="cashDiv" class="row">
                         <div class="col-md-12">
-                                <div class="col-md-4">
+                                <div class="col-md-4 cust-tbl">
                                     <b>Employee</b><span style="color:red">  *</span>
                                     <div class="input-group">
                                       <span class="input-group-addon">
@@ -1228,7 +1238,7 @@ $projectSessionName="";
                                   </div>
                                 </div> 
 
-                                <div class="col-md-4">
+                                <div class="col-md-4 cust-tbl">
                                     <b>Cash Amount</b><span style="color:red">  *</span>
                                     <div class="input-group">
                                       <span class="input-group-addon">
@@ -1245,7 +1255,7 @@ $projectSessionName="";
                     
                         <div class="col-md-12">
                             <div class="col-md-12">
-                                <table style="font-size: 13px" class="table table-bordered table-striped table-hover" data-page-length='100'>
+                                <table class="table table-bordered cust-tbl" data-page-length='100'>
                                     <thead>
                                         <tr>
                                             <th><center>Denominations</center></th>
@@ -1330,12 +1340,12 @@ $projectSessionName="";
                           <?php if ((in_array('owner', $des)) || (in_array('cashier', $des))){   ?>
                             <div class="row clearfix">
                                 <div class="col-md-5">
-                                    <button id="cashSaveBtn" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                    <button id="cashSaveBtn" type="button" class="btn btnStyle m-t-15 waves-effect">
                                         <i class="material-icons">save</i> 
                                         <span class="icon-name"> Save</span>
                                     </button>
                                
-                                    <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                    <button data-dismiss="modal" type="button" class="btn btn-sm btn-danger m-t-15 waves-effect">
                                         <i class="material-icons">cancel</i> 
                                         <span class="icon-name"> Cancel</span>
                                     </button>
@@ -1344,12 +1354,12 @@ $projectSessionName="";
                             <?php } else { ?>
                               <div class="row clearfix">
                                 <div class="col-md-5">
-                                    <button id="cashSaveBtn" disabled type="button" class="btn btn-primary m-t-15 waves-effect">
+                                    <button id="cashSaveBtn" disabled type="button" class="btn btnStyle m-t-15 waves-effect">
                                         <i class="material-icons">save</i> 
                                         <span class="icon-name"> Save</span>
                                     </button>
                                
-                                    <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                    <button data-dismiss="modal" type="button" class="btn btn-sm btn-danger m-t-15 waves-effect">
                                         <i class="material-icons">cancel</i> 
                                         <span class="icon-name"> Cancel</span>
                                     </button>
@@ -1638,16 +1648,7 @@ $projectSessionName="";
                     // alert(data);
                     $('#hideInfo').html(data);
                     $('#billNo').val('');
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }   
+                }  
             });
         }
         
@@ -1663,7 +1664,7 @@ $projectSessionName="";
 
         if(currentBillId==''){
             alert('Please enter bill no.');
-        }else{
+        }else{ 
             $.ajax({
                 type: "POST",
                 url:"<?php echo site_url('BillTransactionController/getSrDetails');?>",
@@ -1671,15 +1672,6 @@ $projectSessionName="";
                 success: function (data) {
                     
                     $('#srDiv').html(data);
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
                 }   
             });
         }
@@ -1717,16 +1709,7 @@ $projectSessionName="";
                     }else{
                         alert(data);
                     }
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }   
+                }  
             });
         }
         }
@@ -1776,16 +1759,7 @@ $projectSessionName="";
             }else{
               window.location.href="<?php echo base_url();?>index.php/SrController/outstandingBills";
             }
-          },
-          beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }   
+          }  
       });
     }
   });
@@ -1899,16 +1873,7 @@ $projectSessionName="";
                 }else{
                     alert(data);
                 }
-            },
-            beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }   
+            }  
         });
         
         // }
@@ -1960,16 +1925,7 @@ function dupChequeEntry(){
                 document.getElementById('error-nwl').innerText = '';
                 return true;
               }
-            },
-            beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                } 
+            }
         });
       
     }
@@ -2040,16 +1996,7 @@ function dupChequeEntry(){
                     }else{
                         alert(data);
                     }
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }   
+                }  
             });
         }else if(empName !=="" && chequeAmount !=="" && chequeBank !== "" && chequeNumber !=="" && chequeDate !==""){
             var err=$('#error-nwl').text();
@@ -2109,16 +2056,7 @@ function dupChequeEntry(){
                               }else{
                                   alert(data);
                               }
-                          },
-                          beforeSend: function(){
-                                $('.comman-ajax-loader').css("visibility", "visible");
-                            },
-                            complete: function(){
-                                $('.comman-ajax-loader').css("visibility", "hidden");
-                            },
-                            error: function(jqXHR, exception) {
-                                alert("Something Went Wrong, Please Try Again...!");
-                            }   
+                          }  
                       });
                     } else {
                         // window.location.href="<?php echo base_url();?>index.php/SrController/outstandingBills";
@@ -2137,28 +2075,10 @@ function dupChequeEntry(){
                               }else{
                                   alert(data);
                               }
-                          },
-                          beforeSend: function(){
-                            $('.comman-ajax-loader').css("visibility", "visible");
-                        },
-                        complete: function(){
-                            $('.comman-ajax-loader').css("visibility", "hidden");
-                        },
-                        error: function(jqXHR, exception) {
-                            alert("Something Went Wrong, Please Try Again...!");
-                        }   
+                          }  
                       });
                   }
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                } 
+                }
             });
             
             
@@ -2242,16 +2162,7 @@ function dupChequeEntry(){
                     }else{
                         alert(data);
                     }
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }   
+                }  
             });
         }else if(empId !=="" && neftAmount !=="" && neftNumber !=="" && neftDate !==""){
             var err=$('#error-nwl1').text();
@@ -2297,16 +2208,7 @@ function dupChequeEntry(){
                                     }else{
                                         alert(data);
                                     }
-                                },
-                                beforeSend: function(){
-                                    $('.comman-ajax-loader').css("visibility", "visible");
-                                },
-                                complete: function(){
-                                    $('.comman-ajax-loader').css("visibility", "hidden");
-                                },
-                                error: function(jqXHR, exception) {
-                                    alert("Something Went Wrong, Please Try Again...!");
-                                }   
+                                }  
                             });
                         } else {
                             // window.location.href="<?php echo base_url();?>index.php/SrController/outstandingBills";
@@ -2325,28 +2227,10 @@ function dupChequeEntry(){
                                 }else{
                                     alert(data);
                                 }
-                            },
-                            beforeSend: function(){
-                                $('.comman-ajax-loader').css("visibility", "visible");
-                            },
-                            complete: function(){
-                                $('.comman-ajax-loader').css("visibility", "hidden");
-                            },
-                            error: function(jqXHR, exception) {
-                                alert("Something Went Wrong, Please Try Again...!");
-                            }   
+                            }  
                         });
                       }
-                    },
-                    beforeSend: function(){
-                        $('.comman-ajax-loader').css("visibility", "visible");
-                    },
-                    complete: function(){
-                        $('.comman-ajax-loader').css("visibility", "hidden");
-                    },
-                    error: function(jqXHR, exception) {
-                        alert("Something Went Wrong, Please Try Again...!");
-                    } 
+                    }
                 });
             
             
@@ -2395,16 +2279,7 @@ function dupChequeEntry(){
                 }else{
                     alert(data);
                 }
-            },
-            beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }   
+            }  
         });
         }
         
@@ -2469,16 +2344,7 @@ function dupChequeEntry(){
                 }else{
                     alert(data);
                 }
-            },
-            beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                } 
+            }  
         });
       }
         
@@ -2541,16 +2407,7 @@ function dupChequeEntry(){
                 }else{
                     alert(data);
                 }
-            },
-            beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }   
+            }  
         });
         
         }
@@ -2614,16 +2471,7 @@ function dupChequeEntry(){
                     alert(data);
                 }
 
-            }, 
-            beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }  
+            }  
         });
         }
         
@@ -2685,16 +2533,7 @@ function dupChequeEntry(){
                 }else{
                     alert(data);
                 }
-            },
-            beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }   
+            }  
         });
         }
         
@@ -2759,16 +2598,7 @@ function dupChequeEntry(){
                 }else{
                     alert(data);
                 }
-            },
-            beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }   
+            }  
         });
         }
     });
@@ -2832,16 +2662,7 @@ function dupChequeEntry(){
                 }else{
                     alert(data);
                 }
-            },
-            beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }   
+            }  
         });
         
         }
@@ -3038,16 +2859,7 @@ function dupChequeEntry(){
             data : {id: id},
             success: function(data){
               $('#processIds').html(data);
-            },
-            beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                } 
+            }
         });
     });
 });
@@ -3066,16 +2878,7 @@ function dupChequeEntry(){
             success: function(data){
                 alert(data);
               $('#cashContent').html(data);
-            },
-            beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                } 
+            }
         });
     });
 });
@@ -3093,16 +2896,7 @@ function dupChequeEntry(){
             data : {id: id},
             success: function(data){
               $('#chequeContent').html(data);
-            },
-            beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                } 
+            }
         });
     });
 });
@@ -3118,16 +2912,7 @@ function dupChequeEntry(){
             data : {id: id},
             success: function(data){
               $('#dcContent').html(data);
-            },
-            beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                } 
+            }
         });
     });
 });
@@ -3144,16 +2929,7 @@ function dupChequeEntry(){
             data : {id: id},
             success: function(data){
               $('#debitContent').html(data);
-            },
-            beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                } 
+            }
         });
     });
 });
@@ -3174,16 +2950,7 @@ function dupChequeEntry(){
             data : {id: id},
             success: function(data){
               $('#fixDebId').html(data);
-            },
-            beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                } 
+            }
         });
     });
 });

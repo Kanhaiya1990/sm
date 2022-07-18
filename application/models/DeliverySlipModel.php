@@ -27,7 +27,8 @@ class DeliverySlipModel extends CI_Model {
         $this->db->order_by($orderField, $orderDirection);
         $this->db->limit($limit, $start);
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -51,7 +52,8 @@ class DeliverySlipModel extends CI_Model {
         $this->db->group_by('bills.id');
         $this->db->order_by($orderField, $orderDirection);
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->num_rows();
     }
 
@@ -59,14 +61,16 @@ class DeliverySlipModel extends CI_Model {
         $this->db->where('userId',$userId);
         $this->db->where('productId',$productId);
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
     public function checkRetailerExist($tblName,$code){
         $this->db->where('retailerCode',$code);
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -76,7 +80,8 @@ class DeliverySlipModel extends CI_Model {
         $this->db->where('fsStatus',0);
         $this->db->where('isAllocationComplete',0);
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -89,7 +94,8 @@ class DeliverySlipModel extends CI_Model {
         $this->db->order_by('allocations.id','desc');
         $this->db->limit(1); 
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -102,7 +108,8 @@ class DeliverySlipModel extends CI_Model {
         $this->db->order_by('allocations.id','desc');
         $this->db->limit(1); 
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -115,7 +122,8 @@ class DeliverySlipModel extends CI_Model {
         $this->db->order_by('allocations_officeadjustment.id','desc');
         $this->db->limit(1); 
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -128,14 +136,16 @@ class DeliverySlipModel extends CI_Model {
         $this->db->order_by('allocations_officeadjustment.id','desc');
         $this->db->limit(1); 
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
     public function loadRetailer($id) {
         $sql="select * from retailer where code='".$id."'";
         $query = $this->db->query($sql);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
@@ -145,7 +155,8 @@ class DeliverySlipModel extends CI_Model {
          $this->db->join('retailer_kia','retailer_kia.id=deliveryslip_add_to_cart.retailerId');
         $this->db->where('userId',$userId);
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -156,7 +167,8 @@ class DeliverySlipModel extends CI_Model {
         $this->db->group_by('deliveryslip_pending_for_billing.productId');
         $query=$this->db->get($tblName);
         return $query->result_array();
-        
+        $this->db->close();
+        $this->db->initialize();
         // return $query->row()->totatReduceQuantity;
     }
 
@@ -177,7 +189,8 @@ class DeliverySlipModel extends CI_Model {
         $this->db->order_by('id','desc');
         $this->db->limit(1);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -187,7 +200,8 @@ class DeliverySlipModel extends CI_Model {
         // $this->db->where('deliveryslip_pending_for_billing.operationStatus','add');
         $this->db->group_by('deliveryslip_pending_for_billing.productId');
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
          // return $query->row()->totatAddQuantity;
     }
@@ -198,7 +212,8 @@ class DeliverySlipModel extends CI_Model {
         $this->db->where('deliveryslip_pending_for_billing.operationStatus','add');
         $this->db->group_by('deliveryslip_pending_for_billing.productId');
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
          // return $query->row()->totatAddQuantity;
     }
@@ -207,7 +222,8 @@ class DeliverySlipModel extends CI_Model {
     {
         
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -215,7 +231,8 @@ class DeliverySlipModel extends CI_Model {
     {
         $this->db->where('isDeliverySlipBill','1');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -226,7 +243,8 @@ class DeliverySlipModel extends CI_Model {
         $this->db->where('isAllocationComplete','0');
         $this->db->where('fsStatus','0');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -234,7 +252,8 @@ class DeliverySlipModel extends CI_Model {
     {
         $this->db->where('billingId',$id);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -242,7 +261,8 @@ class DeliverySlipModel extends CI_Model {
         $this->db->where('productCode',$code);
         $this->db->where('name',$name);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -251,7 +271,8 @@ class DeliverySlipModel extends CI_Model {
         $this->db->where('name',$name);
         $this->db->where('mrp',$mrp);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
     
@@ -261,7 +282,8 @@ class DeliverySlipModel extends CI_Model {
         $this->db->where('deliveryslipOwnerApproval','1');
         $this->db->order_by('bills.id','desc');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -272,7 +294,8 @@ class DeliverySlipModel extends CI_Model {
         $this->db->where('deliveryslipOwnerApproval','0');
         $this->db->order_by('bills.id','desc');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -282,7 +305,8 @@ class DeliverySlipModel extends CI_Model {
         $this->db->where('deliveryslip_pending_for_billing.operatorApproval',0);
         $this->db->group_by('deliveryslip_pending_for_billing.productId');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -293,7 +317,8 @@ class DeliverySlipModel extends CI_Model {
         $this->db->where('products.company',$company);
         $this->db->group_by('deliveryslip_pending_for_billing.productId');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -301,7 +326,8 @@ class DeliverySlipModel extends CI_Model {
         $this->db->where('deliveryslip_pending_for_billing.productId',$productId);
         // $this->db->group_by('deliveryslip_pending_for_billing.productId');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
     
@@ -310,7 +336,8 @@ class DeliverySlipModel extends CI_Model {
 
         $this->db->order_by('name', 'asc');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
     
@@ -318,7 +345,8 @@ class DeliverySlipModel extends CI_Model {
     {
         $this->db->order_by('name', 'asc');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -327,7 +355,8 @@ class DeliverySlipModel extends CI_Model {
         $this->db->where('isActive', '1');
         // $this->db->order_by('blockQty', 'asc');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
     
@@ -336,7 +365,8 @@ class DeliverySlipModel extends CI_Model {
         $this->db->where('isActive', '1');
         $this->db->order_by('name', 'asc');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
     
@@ -344,7 +374,8 @@ class DeliverySlipModel extends CI_Model {
     {
         $this->db->where('isActive', '0');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
     
@@ -354,7 +385,8 @@ class DeliverySlipModel extends CI_Model {
         // $this->db->where('pendingAmt >',0);
         $this->db->order_by('date', 'desc');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -363,7 +395,8 @@ class DeliverySlipModel extends CI_Model {
         $this->db->where('billType','DeliverySlip');
         $this->db->where('retailerCode',$code);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
     
@@ -372,7 +405,8 @@ class DeliverySlipModel extends CI_Model {
         $this->db->where('billType','DeliverySlip');
         $this->db->like('retailerName',$name);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -383,13 +417,15 @@ class DeliverySlipModel extends CI_Model {
 
         $this->db->order_by('pendingAmt', 'desc');
         $this->db->group_by('retailerCode');
-        
+        $this->db->close();
+        $this->db->initialize();
         $query = $this->db->get($tableName);
        
         // $this->db->where('date BETWEEN "'. $fromNo. '" and "'.$toNo.'"');
         // $this->db->where()
         // $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
@@ -404,7 +440,8 @@ class DeliverySlipModel extends CI_Model {
         $this->db->order_by('pendingAmt', 'desc');
         $this->db->group_by('retailerCode,retailerId');
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
     
@@ -416,7 +453,8 @@ class DeliverySlipModel extends CI_Model {
         $this->db->order_by('pendingAmt', 'desc');
         $this->db->group_by('retailerName');
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
@@ -425,7 +463,8 @@ class DeliverySlipModel extends CI_Model {
         $this->db->where('isDeliverySlipBill',1);
         $this->db->where('retailerName',$code);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
@@ -436,42 +475,48 @@ class DeliverySlipModel extends CI_Model {
         $this -> db -> where('billType', 'deliveryslip');
         $this->db->order_by('date', 'desc');
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }  
 
     public function load($tblName, $id) {
         $this ->db-> where('id', $id);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
     public function loadByBillId($tblName, $id) {
         $this ->db-> where('billId', $id);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
     public function loadByProductId($tblName, $id) {
         $this ->db-> where('productId', $id);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
     public function loadBills($tblName, $id) {
         $this ->db-> where('billNo', $id);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
     public function getNextId($tableName) {
         $this->db->select_max('id');
         $query = $this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -550,13 +595,15 @@ class DeliverySlipModel extends CI_Model {
      public function prodDetailsByName($tblName,$name) {
         $this->db->where('name', $name);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();  
     }
 
     public function show($tblName) {
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();    
     }
     public function delete($tblName,$id)

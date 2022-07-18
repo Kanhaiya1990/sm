@@ -16,7 +16,7 @@
         }
     }
 
-    .logo_prov {
+    /*.logo_prov {
         border-radius: 30px;
          border: 1px solid black;
         background: red;
@@ -24,7 +24,7 @@
         padding: 6px;
         width: 50px;
         height: 50px;
-    }
+    }*/
 
 </style>
 
@@ -44,7 +44,7 @@
                             <form method="post" role="form" action="<?php echo site_url('manager/CashBookController/downloadPeriodDayBookExcel');?>"> 
                                 <div class="row clearfix">
 
-                                    <div class="col-md-12"> 
+                                    <div class="col-md-12 cust-tbl"> 
                                         <div class="col-md-3">
                                             <b>From Date</b><span style="color:red"> *</span>
                                             <div class="input-group">
@@ -70,14 +70,14 @@
                                         </div>
                                     
                                         <div class="col-md-3">
-                                                <button class="btn btn-primary m-t-15 waves-effect">
+                                                <button class="btn btn-primary btnStyle m-t-15 waves-effect">
                                                     <i class="material-icons">search</i> 
                                                     <span class="icon-name">
                                                     Download
                                                     </span>
                                                 </button>
                                             <a href="<?php echo site_url('manager/CashBookController/downloadPeriodDayBook');?>">
-                                                    <button type="button" class="btn btn-primary m-t-15 waves-effect">
+                                                    <button type="button" class="btn btn-sm btn-danger m-t-15 waves-effect">
                                                         <i class="material-icons">cancel</i> 
                                                         <span class="icon-name"> Cancel</span>
                                                     </button>

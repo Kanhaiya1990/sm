@@ -44,7 +44,7 @@
                             <form method="post" role="form" action="<?php echo site_url('reports/ReportController/allocationwiseReportData');?>"> 
                                 <div class="row clearfix">
 
-                                    <div class="col-md-12"> 
+                                    <div class="col-md-12 cust-tbl"> 
                                         <div class="col-md-3">
                                             <b>From Date</b><span style="color:red"> *</span>
                                             <div class="input-group">
@@ -70,14 +70,14 @@
                                         </div>
                                     
                                         <div class="col-md-3">
-                                                <button id="searchInfo" class="btn btn-primary m-t-15 waves-effect">
+                                                <button id="searchInfo" class="btn btnStyle m-t-15 waves-effect">
                                                     <i class="material-icons">search</i> 
                                                     <span class="icon-name">
                                                     Search
                                                     </span>
                                                 </button>
                                             <a href="<?php echo site_url('AdHocController/billSearch');?>">
-                                                    <button type="button" class="btn btn-primary m-t-15 waves-effect">
+                                                    <button type="button" class="btn btn-sm btn-danger m-t-15 waves-effect">
                                                         <i class="material-icons">cancel</i> 
                                                         <span class="icon-name"> Cancel</span>
                                                     </button>

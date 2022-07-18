@@ -10,6 +10,8 @@ class ExcelModel extends CI_Model {
         $this->db->select('billsdetails.billId');
         $this->db->where('billsdetails.billId',$billId);
         $query=$this->db->get($tableName);
+        $this->db->close();
+        $this->db->initialize();
         return $query->num_rows();
     }
 
@@ -18,6 +20,8 @@ class ExcelModel extends CI_Model {
         $this->db->select('salesmanCode,salesman');
         $this->db->where('salesmanCode !=','');
         $query=$this->db->get($tableName);
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -28,6 +32,8 @@ class ExcelModel extends CI_Model {
         $this->db->where('pendingAmt >',0);
         $this->db->where('deliveryStatus !=','cancelled');
         $query=$this->db->get($tableName);
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -36,6 +42,8 @@ class ExcelModel extends CI_Model {
         $this->db->where('salesman',$name);
         $this->db->where('salesmanCode !=','');
         $query=$this->db->get($tableName);
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -44,6 +52,8 @@ class ExcelModel extends CI_Model {
         $this->db->where('compName','Nestle');
         // $this->db->where('deliveryStatus','pending');
         $query=$this->db->get($tableName);
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -52,6 +62,8 @@ class ExcelModel extends CI_Model {
         $this->db->order_by('id','desc');
         $this->db->limit(1);  
         $query=$this->db->get($tableName);
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -60,6 +72,8 @@ class ExcelModel extends CI_Model {
         $this->db->order_by('id','desc');
         $this->db->limit(1);  
         $query=$this->db->get($tableName);
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -67,6 +81,8 @@ class ExcelModel extends CI_Model {
         $this->db->where('compName',$company);
         $this->db->order_by('id','desc');
         $query=$this->db->get($tableName);
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -80,6 +96,8 @@ class ExcelModel extends CI_Model {
         $this->db->order_by('id','asc');
         $this->db->limit(1);
         $query=$this->db->get($tableName);
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -89,12 +107,16 @@ class ExcelModel extends CI_Model {
         $this->db->order_by('id','desc');
         $this->db->limit(1);
         $query=$this->db->get($tableName);
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
     public function getdata($tableName)
     {
         $query=$this->db->get($tableName);
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -102,6 +124,8 @@ class ExcelModel extends CI_Model {
     {
         $this->db->where('company',$company);
         $query=$this->db->get($tableName);
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -110,6 +134,8 @@ class ExcelModel extends CI_Model {
     {
         $this->db->where('name',$name);
         $query=$this->db->get($tableName);
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -123,6 +149,8 @@ class ExcelModel extends CI_Model {
         $this->db->where('code',$rcode);
         $this->db->where('name',$rname);
         $query=$this->db->get($tableName);
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -130,6 +158,8 @@ class ExcelModel extends CI_Model {
     {
         $this->db->where('name',$rname);
         $query=$this->db->get($tableName);
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -138,6 +168,8 @@ class ExcelModel extends CI_Model {
         $this->db->where('code',$rcode);
         $this->db->where('name',$rname);
         $query=$this->db->get($tableName);
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -146,6 +178,8 @@ class ExcelModel extends CI_Model {
         $this->db->where('name',$rName);
         $this->db->where('code',$rcode);
         $query=$this->db->get($tableName);
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -153,6 +187,8 @@ class ExcelModel extends CI_Model {
     {
         $this->db->where('code',$rcode);
         $query=$this->db->get($tableName);
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -161,6 +197,8 @@ class ExcelModel extends CI_Model {
         $this->db->where('name',$name);
         $this->db->where('company',$comp);
         $query=$this->db->get($tableName);
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -169,6 +207,8 @@ class ExcelModel extends CI_Model {
         $this->db->select('name');
         $this->db->distinct();
         $query=$this->db->get($tableName);
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -209,6 +249,8 @@ class ExcelModel extends CI_Model {
 
     public function show($tblName) {
         $query = $this->db->get($tblName);
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();    
     }
     
@@ -230,12 +272,16 @@ class ExcelModel extends CI_Model {
     public function load($tblName, $id) {
         $this->db->where('id', $id);
         $query = $this->db->get($tblName);
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
     public function getBillDetails($tblName, $id) {
         $this->db->where('billId', $id);
         $query = $this->db->get($tblName);
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
@@ -248,6 +294,8 @@ class ExcelModel extends CI_Model {
             $this->db->where('qty',trim($quantity));
             $this->db->like('netAmount',trim($netAmount));
             $query = $this->db->get($tblName);
+            $this->db->close();
+        $this->db->initialize();
             return $query->result_array(); 
         }
 
@@ -259,6 +307,8 @@ class ExcelModel extends CI_Model {
         $this->db->where('qty', $quantity);
         $this->db->where('netAmount', $netAmount);
         $query = $this->db->get($tblName);
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array(); 
     }
 
@@ -268,16 +318,8 @@ class ExcelModel extends CI_Model {
         $this->db->where('gstPercent', $gstPercent);
         $this->db->where('qty', $quantity);
         $query = $this->db->get($tblName);
-        return $query->result_array(); 
-    }
-
-    public function checkBillDetailsDataForTata($tblName,$billId,$productName,$mrp,$quantity,$netAmount){
-        $this->db->where('billId', $billId);
-        $this->db->where('productName', $productName);
-        $this->db->where('mrp', $mrp);
-        $this->db->where('qty', $quantity);
-        $this->db->where('netAmount', $netAmount);
-        $query = $this->db->get($tblName);
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array(); 
     }
 
@@ -291,6 +333,8 @@ class ExcelModel extends CI_Model {
         $this->db->limit(10000);
         $this->db->order_by('id','desc');
         $query = $this->db->get($tblName);
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array(); 
     }
 
@@ -303,6 +347,8 @@ class ExcelModel extends CI_Model {
     public function getBillId($tblName, $id) {
         $this->db->where('billNo', $id);
         $query = $this->db->get($tblName);
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array(); 
         // return $query->row()->id;   
     }
@@ -311,6 +357,8 @@ class ExcelModel extends CI_Model {
         $this->db->select('id,billNo');
         $this->db->where('billNo', $id);
         $query = $this->db->get($tblName);
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array(); 
         // return $query->row()->id;   
     }
@@ -319,6 +367,8 @@ class ExcelModel extends CI_Model {
         $this->db->select('grossAmount,taxAmount,billNetAmount,netAmount,pendingAmt');
         $this->db->where('id', $id);
         $query = $this->db->get($tblName);
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array(); 
         // return $query->row()->id;   
     }
@@ -327,6 +377,8 @@ class ExcelModel extends CI_Model {
         $this->db->where('deliveryStatus', 'delivered');
         $this->db->where('billNo', $id);
         $query = $this->db->get($tblName);
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array(); 
         // return $query->row()->id;   
     }

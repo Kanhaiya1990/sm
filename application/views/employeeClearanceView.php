@@ -96,7 +96,7 @@ padding-bottom: 0PX;
                             <!-- <div class="demo-masked-input"> -->
                                 
                                   <div class="col-md-12"> 
-                                    <form id="formidForSubmit" action="<?php echo site_url('manager/EmployeeController/employeeClearance');?>" method="post">
+                                    <form class="cust-tbl" id="formidForSubmit" action="<?php echo site_url('manager/EmployeeController/employeeClearance');?>" method="post">
                                     <div class="col-md-6">
                                         <b>Employee</b>
                                         <div class="input-group">
@@ -124,14 +124,14 @@ padding-bottom: 0PX;
                                     </div>
                                   
                                         <div class="col-md-3">
-                                            <button type="submit" class="btn btn-primary m-t-15 waves-effect">
+                                            <button type="submit" class="btn btnStyle btn-lg m-t-15 waves-effect" style="padding: 6px;">
                                                 <i class="material-icons">search</i> 
                                                 <span class="icon-name">
                                                  Search
                                                 </span>
                                             </button>
                                            <a href="<?php echo site_url('manager/EmployeeController/employeeClearance');?>">
-                                                <button type="button" class="btn btn-primary m-t-15 waves-effect">
+                                                <button type="button" class="btn btn-danger m-t-15 waves-effect">
                                                     <i class="material-icons">cancel</i> 
                                                     <span class="icon-name"> Cancel</span>
                                                 </button>
@@ -143,24 +143,24 @@ padding-bottom: 0PX;
                                      <div class="col-md-12">
 
                                         <div class="table-responsive"> 
-                                            <table id="xpdata" style="font-size: 11px" class="table table-bordered table-striped table-hover js-exportable datatable" data-page-length='100'>
+                                        <table id="xpdata" class="table table-bordered cust-tbl js-exportable datatable dataTable" data-page-length='100'>
                                                     <thead>
                                                         <tr>
                                                             <!-- <th>S No.</th> -->
-                                                            <th>S. No.</th>
-                                                            <th> Bill No  </th>
-                                                            <th>Bill Date</th>
+                                                            <th>No</th>
+                                                            <th class="noSpace"> Bill No  </th>
+                                                            <th class="noSpace">Bill Date</th>
                                                             <th> Retailer </th>
                                                             <th> Salesman </th>
-                                                            <th> Net Amount </th>
+                                                            <th> Amount </th>
                                                             <th> SR  </th>
                                                             <th> CD  </th>
                                                             <th> Collection </th>
-                                                            <th> Office Adj  </th>
-                                                            <th> Other Adj  </th>
+                                                            <th> Office</th>
+                                                            <th> Other</th>
                                                             <th> Debit </th>
                                                             <th> Remaining  </th>
-                                                            <th> Cheque Penalty  </th>
+                                                            <th> Penalty  </th>
                                                             <th> Status  </th>
                                                             <th class="noExport">Action</th>
                                                         </tr>
@@ -168,20 +168,20 @@ padding-bottom: 0PX;
                                                     <tfoot>
                                                         <tr>
                                                             <!-- <th>S No.</th> -->
-                                                            <th>S. No.</th>
-                                                            <th> Bill No  </th>
-                                                            <th>Bill Date</th>
+                                                            <th>No</th>
+                                                            <th class="noSpace"> Bill No  </th>
+                                                            <th class="noSpace">Bill Date</th>
                                                             <th> Retailer </th>
                                                             <th> Salesman </th>
-                                                            <th> Net Amount </th>
+                                                            <th> Amount </th>
                                                             <th> SR  </th>
                                                             <th> CD  </th>
                                                             <th> Collection </th>
-                                                            <th> Office Adj  </th>
-                                                            <th> Other Adj  </th>
+                                                            <th> Office </th>
+                                                            <th> Other </th>
                                                             <th> Debit </th>
                                                             <th> Remaining  </th>
-                                                            <th> Cheque Penalty  </th>
+                                                            <th> Penalty  </th>
                                                             <th> Status  </th>
                                                             <th class="noExport">Action</th>
                                                         </tr>
@@ -230,9 +230,19 @@ padding-bottom: 0PX;
             ?>
                 </td>
                 <td><?php echo $data['billNo']; ?></td>
-                <td><?php echo $createdDate; ?></td>
-                <td><?php echo $data['retailerName']; ?></td>
-                <td><?php echo $data['salesman']; ?></td>
+                <td class="noSpace"><?php echo $createdDate; ?></td>
+              
+				<td class="CellWithComment noSpace"><?php 
+						    $retailerName=substr($data['retailerName'], 0, 10);
+                            echo rtrim($retailerName);?>
+							<span class="CellComment"><?php echo $result =substr($data['retailerName'],0); ?></span>
+			    </td>
+               
+				<td class="CellWithComment noSpace"><?php 
+						    $salesman=substr($data['salesman'], 0, 10);
+                            echo rtrim($salesman);?>
+							<span class="CellComment"><?php echo $result =substr($data['salesman'],0); ?></span>
+			    </td>
                 <td><?php echo $data['netAmount']; ?></td>
                 <td><?php echo $data['SRAmt']; ?></td>
                 <td><?php echo $data['cd']; ?></td>
@@ -242,7 +252,7 @@ padding-bottom: 0PX;
                 <td><?php echo $data['debit']; ?></td>
                 <td><?php echo $data['pendingAmt']; ?></td>
                 <td><?php echo $data['chequePenalty']; ?></td>
-                   <td>
+                <td class="noSpace">
                 <?php 
 
                 $allocations=$this->EmployeeModel->getAllocationDetailsByBill('bills',$data['id']);
@@ -289,20 +299,15 @@ padding-bottom: 0PX;
                     } 
             ?>
                 </td>
-                <td class="noExport">
+                <td class="noExport noSpace">
                     <?php if($data['isAllocated']!=1){ ?>
-                        <?php if($this->session->userdata['workRestrict']['status']=="yes"){?>
-                            <button class="btn btn-xs btn-primary waves-effect waves-float" onclick="planUpgradeMsg()"><i class="material-icons">touch_app</i></button>
-                        <?php }else{ ?>    
-                            <a id="prDetailsForAll" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-billDate="<?php echo $date; ?>" data-credAdj="<?php echo $data['creditAdjustment']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-route="<?php echo $data['routeName']; ?>" data-toggle="modal" data-target="#processModalForAll" ><button class="btn btn-xs btn-primary waves-effect waves-float" data-toggle="tooltip" data-placement="bottom" title="Process"><i class="material-icons">touch_app</i></button></a>
-                        <?php } ?>
-                      <!-- <a id="prDetails" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-toggle="modal" data-target="#processModal"><button class="btn btn-xs btn-primary waves-effect"><i class="material-icons">touch_app</i></button></a> -->
-                      &nbsp;&nbsp;<a target="_blank" href="<?php echo site_url('AdHocController/billHistoryInfo/'.$data['id']); ?>" class="btn btn-xs btn-primary" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
-                     &nbsp;&nbsp;<a target="_blank" href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs  btn-primary" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
+                    <a id="prDetails" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-toggle="modal" data-target="#processModal"><button class="btn btn-xs process-btn waves-effect"><i class="material-icons">touch_app</i></button></a>
+                    <a target="_blank" href="<?php echo site_url('AdHocController/billHistoryInfo/'.$data['id']); ?>" class="btn btn-xs history-btn" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
+                    <a target="_blank" href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs viewBill-btn" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
                                        
                   <?php }else{ ?>
-                     <a target="_blank" href="<?php echo site_url('AdHocController/billHistoryInfo/'.$data['id']); ?>" class="btn btn-xs btn-primary" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
-                     &nbsp;&nbsp;<a target="_blank" href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs  btn-primary" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
+                     <a target="_blank" href="<?php echo site_url('AdHocController/billHistoryInfo/'.$data['id']); ?>" class="btn btn-xs history-btn" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
+                     &nbsp;&nbsp;<a target="_blank" href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs viewBill-btn" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
                         
 
                   <?php  }
@@ -427,42 +432,59 @@ padding-bottom: 0PX;
                         </div>
                          
                          <br>
-                           <div class="row">
-                            
+                        <div class="row"> 
                         <div class="col-md-12">
-                            <div class="col-md-12">
+                            <div class="col-md-12 radio-btns-div">
+                                <div class="col-md-2">
                                 <input name="group5" type="radio" id="radio_cash" class="with-gap radio-col-red" checked />
                                 <label for="radio_cash">Cash</label>
-                           
+                                </div>
+
+                                <div class="col-md-2">
                                 <input name="group5" type="radio" id="radio_cheque" class="with-gap radio-col-red"  />
                                 <label for="radio_cheque">Cheque</label>
-                            
+                                </div>
+
+                                <div class="col-md-2">
                                 <input name="group5" type="radio" id="radio_neft" class="with-gap radio-col-red"  />
                                 <label for="radio_neft">NEFT</label>
+                                </div>
                             
+                                <div class="col-md-2">
                                 <input name="group5" type="radio" id="radio_cd" class="with-gap radio-col-red"  />
                                 <label for="radio_cd">CD</label>
+                                </div>
 
+                                <div class="col-md-2">
                                 <input name="group5" type="radio" id="radio_debit" class="with-gap radio-col-red" />
                                 <label for="radio_debit">Debit</label>
+                                </div>
 
+                                <div class="col-md-2">
                                 <input name="group5" type="radio" id="radio_officeAdj" class="with-gap radio-col-red" />
                                 <label for="radio_officeAdj">Office Adjustment</label>
+                                </div>
 
+                                <div class="col-md-2">
                                 <input name="group5" type="radio" id="radio_otherAdj" class="with-gap radio-col-red" />
                                 <label for="radio_otherAdj">Other Adjustment</label>
+                                </div>
 
+                                <div class="col-md-2">
                                 <input name="group5" type="radio" id="radio_sr" class="with-gap radio-col-red"  />
                                 <label for="radio_sr">SR/FSR</label>
+                                </div>
                                 
+                                <div class="col-md-2">
                                 <input name="group5" type="radio" id="radio_allocation" class="with-gap radio-col-red"  />
                                 <label for="radio_allocation">Add to Open Allocation</label>
+                                </div>
 
+                                <div class="col-md-2">
                                 <input name="group5" type="radio" id="radio_EmpDelivery" class="with-gap radio-col-red"  />
                                 <label for="radio_EmpDelivery">Direct Delivery by Employee</label>
+                                </div>
                             </div>
-                             
-
                         </div>
                     </div>
 
@@ -474,7 +496,7 @@ padding-bottom: 0PX;
                     
 
                     <div id="chequeDiv" style="display: none" class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-12 cust-tbl">
                             <div class="col-md-4">
                                     <b>Employee</b>
                                     <div class="input-group">
@@ -514,12 +536,12 @@ padding-bottom: 0PX;
                             </div>
                              <div class="col-md-12">
                                 <div class="col-md-4">
-                                    <button id="chequeSaveBtn" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                    <button id="chequeSaveBtn" type="button" class="btn btn-primary btnStyle m-t-15 waves-effect">
                                         <i class="material-icons">save</i> 
                                         <span class="icon-name"> Save</span>
                                     </button>
                                
-                                    <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                    <button data-dismiss="modal" type="button" class="btn btn-danger m-t-15 waves-effect">
                                         <i class="material-icons">cancel</i> 
                                         <span class="icon-name"> Cancel</span>
                                     </button>
@@ -530,7 +552,7 @@ padding-bottom: 0PX;
 
 
                     <div id="neftDiv" style="display: none" class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-12 cust-tbl">
                                 <div class="col-md-4">
                                     <b>Employee</b>
                                     <div class="input-group">
@@ -572,12 +594,12 @@ padding-bottom: 0PX;
                             </div>
                             <div class="col-md-12">
                                 <div class="col-md-4">
-                                    <button id="neftSaveBtn" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                    <button id="neftSaveBtn" type="button" class="btn btn-primary btnStyle m-t-15 waves-effect">
                                         <i class="material-icons">save</i> 
                                         <span class="icon-name"> Save</span>
                                     </button>
                                
-                                    <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                    <button data-dismiss="modal" type="button" class="btn btn-danger m-t-15 waves-effect">
                                         <i class="material-icons">cancel</i> 
                                         <span class="icon-name"> Cancel</span>
                                     </button>
@@ -586,7 +608,7 @@ padding-bottom: 0PX;
                     </div>
 
                     <div id="cdDiv" style="display: none" class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-12 cust-tbl">
                             <div class="col-md-4">
                                     <b>Employee</b>
                                     <div class="input-group">
@@ -624,7 +646,7 @@ padding-bottom: 0PX;
                                 </div> 
                             </div>
 
-                             <div class="col-md-12">
+                             <div class="col-md-12 cust-tbl">
                                 <div class="col-md-12">
                                     <b>Remark</b>
                                     <div class="input-group">
@@ -642,12 +664,12 @@ padding-bottom: 0PX;
 
                             <div class="col-md-12">
                                 <div class="col-md-4">
-                                    <button id="cdSaveBtn" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                    <button id="cdSaveBtn" type="button" class="btn btn-primary btnStyle m-t-15 waves-effect">
                                         <i class="material-icons">save</i> 
                                         <span class="icon-name"> Save</span>
                                     </button>
                                
-                                    <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                    <button data-dismiss="modal" type="button" class="btn btn-danger m-t-15 waves-effect">
                                         <i class="material-icons">cancel</i> 
                                         <span class="icon-name"> Cancel</span>
                                     </button>
@@ -656,7 +678,7 @@ padding-bottom: 0PX;
                     </div>
 
                     <div id="debitDiv" style="display: none" class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-12 cust-tbl">
                             <div class="col-md-4">
                                     <b>Employee</b>
                                     <div class="input-group">
@@ -694,7 +716,7 @@ padding-bottom: 0PX;
                                 </div> 
                             </div>
 
-                             <div class="col-md-12">
+                             <div class="col-md-12 cust-tbl">
                                 <div class="col-md-12">
                                     <b>Remark</b>
                                     <div class="input-group">
@@ -712,12 +734,12 @@ padding-bottom: 0PX;
 
                             <div class="col-md-12">
                                 <div class="col-md-4">
-                                    <button id="debitSaveBtn" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                    <button id="debitSaveBtn" type="button" class="btn btn-primary btnStyle m-t-15 waves-effect">
                                         <i class="material-icons">save</i> 
                                         <span class="icon-name"> Save</span>
                                     </button>
                                
-                                    <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                    <button data-dismiss="modal" type="button" class="btn btn-danger m-t-15 waves-effect">
                                         <i class="material-icons">cancel</i> 
                                         <span class="icon-name"> Cancel</span>
                                     </button>
@@ -726,7 +748,7 @@ padding-bottom: 0PX;
                     </div>
 
                     <div id="officeAdjDiv" style="display: none" class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-12 cust-tbl">
                             <div class="col-md-4">
                                     <b>Employee</b>
                                     <div class="input-group">
@@ -764,7 +786,7 @@ padding-bottom: 0PX;
                                 </div> 
                             </div>
 
-                             <div class="col-md-12">
+                             <div class="col-md-12 cust-tbl">
                                 <div class="col-md-12">
                                     <b>Remark</b>
                                     <div class="input-group">
@@ -782,12 +804,12 @@ padding-bottom: 0PX;
 
                             <div class="col-md-12">
                                 <div class="col-md-4">
-                                    <button id="officeAdjSaveBtn" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                    <button id="officeAdjSaveBtn" type="button" class="btn btn-primary btnStyle m-t-15 waves-effect">
                                         <i class="material-icons">save</i> 
                                         <span class="icon-name"> Save</span>
                                     </button>
                                
-                                    <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                    <button data-dismiss="modal" type="button" class="btn btn-danger m-t-15 waves-effect">
                                         <i class="material-icons">cancel</i> 
                                         <span class="icon-name"> Cancel</span>
                                     </button>
@@ -796,7 +818,7 @@ padding-bottom: 0PX;
                     </div>
 
                     <div id="otherAdjDiv" style="display: none" class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-12 cust-tbl">
                             <div class="col-md-4">
                                     <b>Employee</b>
                                     <div class="input-group">
@@ -834,7 +856,7 @@ padding-bottom: 0PX;
                                 </div> 
                             </div>
 
-                             <div class="col-md-12">
+                             <div class="col-md-12 cust-tbl">
                                 <div class="col-md-12">
                                     <b>Remark</b>
                                     <div class="input-group">
@@ -852,12 +874,12 @@ padding-bottom: 0PX;
 
                             <div class="col-md-12">
                                 <div class="col-md-4">
-                                    <button id="otherAdjSaveBtn" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                    <button id="otherAdjSaveBtn" type="button" class="btn btn-primary btnStyle m-t-15 waves-effect">
                                         <i class="material-icons">save</i> 
                                         <span class="icon-name"> Save</span>
                                     </button>
                                
-                                    <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                    <button data-dismiss="modal" type="button" class="btn btn-danger m-t-15 waves-effect">
                                         <i class="material-icons">cancel</i> 
                                         <span class="icon-name"> Cancel</span>
                                     </button>
@@ -866,7 +888,7 @@ padding-bottom: 0PX;
                     </div>
 
                     <div id="empDeliveryDiv" style="display: none" class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-12 cust-tbl">
                             <div class="col-md-4">
                                     <b>Employee</b>
                                     <div class="input-group">
@@ -892,7 +914,7 @@ padding-bottom: 0PX;
                                
                             </div>
 
-                             <div class="col-md-12">
+                             <div class="col-md-12 cust-tbl">
                                 <div class="col-md-12">
                                     <b>Remark</b>
                                     <div class="input-group">
@@ -911,12 +933,12 @@ padding-bottom: 0PX;
                           
                             <div class="col-md-12">
                                 <div class="col-md-4">
-                                    <button id="deliveryEmpSaveBtn" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                    <button id="deliveryEmpSaveBtn" type="button" class="btn btn-primary btnStyle m-t-15 waves-effect">
                                         <i class="material-icons">save</i> 
                                         <span class="icon-name"> Save</span>
                                     </button>
                                
-                                    <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                    <button data-dismiss="modal" type="button" class="btn btn-danger m-t-15 waves-effect">
                                         <i class="material-icons">cancel</i> 
                                         <span class="icon-name"> Cancel</span>
                                     </button>
@@ -925,7 +947,7 @@ padding-bottom: 0PX;
                     </div>
 
                     <div id="allocationDiv" style="display: none" class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-12 cust-tbl">
                             <div class="col-md-4">
                                     <b>Open Allocations</b>
                                     <div class="input-group">
@@ -954,12 +976,12 @@ padding-bottom: 0PX;
 
                             <div class="col-md-12">
                                 <div class="col-md-4">
-                                    <button id="allocationSaveBtn" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                    <button id="allocationSaveBtn" type="button" class="btn btn-primary btnStyle m-t-15 waves-effect">
                                         <i class="material-icons">save</i> 
                                         <span class="icon-name"> Save</span>
                                     </button>
                                
-                                    <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                    <button data-dismiss="modal" type="button" class="btn btn-danger m-t-15 waves-effect">
                                         <i class="material-icons">cancel</i> 
                                         <span class="icon-name"> Cancel</span>
                                     </button>
@@ -968,7 +990,7 @@ padding-bottom: 0PX;
                     </div>
 
                     <div id="cashDiv" class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-12 cust-tbl">
                                 <div class="col-md-4">
                                     <b>Employee</b>
                                     <div class="input-group">
@@ -996,7 +1018,7 @@ padding-bottom: 0PX;
                     
                         <div class="col-md-12">
                             <div class="col-md-12">
-                                <table style="font-size: 13px" class="table table-bordered table-striped table-hover" data-page-length='100'>
+                                <table class="table table-bordered cust-tbl" data-page-length='100'>
                                     <thead>
                                         <tr>
                                             <th><center>Denominations</center></th>
@@ -1082,12 +1104,12 @@ padding-bottom: 0PX;
                          <div class="col-md-12">
                             <div class="row clearfix">
                                 <div class="col-md-5">
-                                    <button id="cashSaveBtn" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                    <button id="cashSaveBtn" type="button" class="btn btn-primary btnStyle m-t-15 waves-effect">
                                         <i class="material-icons">save</i> 
                                         <span class="icon-name"> Save</span>
                                     </button>
                                
-                                    <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                    <button data-dismiss="modal" type="button" class="btn btn-danger m-t-15 waves-effect">
                                         <i class="material-icons">cancel</i> 
                                         <span class="icon-name"> Cancel</span>
                                     </button>
@@ -1143,16 +1165,7 @@ padding-bottom: 0PX;
                 success: function (data) {
                     // $('#hideInfo').empty().append(data);
                     // $('#hideInfo').html(data);
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }     
+                }  
             });
         // }
     });
@@ -1182,16 +1195,7 @@ padding-bottom: 0PX;
             data:{billNo:billNo,billId:id},
             success: function (data) {
                 $('#hideBillHistoryInfo').html(data);
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }     
+            }  
         });
     });
 </script>
@@ -1433,16 +1437,7 @@ padding-bottom: 0PX;
                 data:{currentBillId:currentBillId},
                 success: function (data) {
                     $('#srDiv').html(data);
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }     
+                }  
             });
         }
         
@@ -1484,30 +1479,12 @@ padding-bottom: 0PX;
                             data:{empName:empName,empId:empId},
                             success: function (data) {
                                 $('#hideInfo').html(data);
-                            },
-                            beforeSend: function(){
-                                $('.comman-ajax-loader').css("visibility", "visible");
-                            },
-                            complete: function(){
-                                $('.comman-ajax-loader').css("visibility", "hidden");
-                            },
-                            error: function(jqXHR, exception) {
-                                alert("Something Went Wrong, Please Try Again...!");
-                            }     
+                            }  
                         });
                     }else{
                         alert(data);
                     }
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }     
+                }  
             });
         }
         
@@ -1567,27 +1544,9 @@ padding-bottom: 0PX;
                         data:{empName:empName,empId:empId},
                         success: function (data) {
                             $('#hideInfo').html(data);
-                        },
-                        beforeSend: function(){
-                            $('.comman-ajax-loader').css("visibility", "visible");
-                        },
-                        complete: function(){
-                            $('.comman-ajax-loader').css("visibility", "hidden");
-                        },
-                        error: function(jqXHR, exception) {
-                            alert("Something Went Wrong, Please Try Again...!");
-                        }     
+                        }  
                     });
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }     
+          }  
       });
   });
 </script>
@@ -1682,30 +1641,12 @@ padding-bottom: 0PX;
                         data:{empName:empName,empId:empId},
                         success: function (data) {
                             $('#hideInfo').html(data);
-                        },
-                        beforeSend: function(){
-                            $('.comman-ajax-loader').css("visibility", "visible");
-                        },
-                        complete: function(){
-                            $('.comman-ajax-loader').css("visibility", "hidden");
-                        },
-                        error: function(jqXHR, exception) {
-                            alert("Something Went Wrong, Please Try Again...!");
-                        }     
+                        }  
                     });
                 }else{
                     alert(data);
                 }
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }     
+            }  
         });
         
         
@@ -1768,30 +1709,12 @@ padding-bottom: 0PX;
                         data:{empName:empName,empId:empId},
                         success: function (data) {
                             $('#hideInfo').html(data);
-                        },
-                        beforeSend: function(){
-                            $('.comman-ajax-loader').css("visibility", "visible");
-                        },
-                        complete: function(){
-                            $('.comman-ajax-loader').css("visibility", "hidden");
-                        },
-                        error: function(jqXHR, exception) {
-                            alert("Something Went Wrong, Please Try Again...!");
-                        }     
+                        }  
                     });
                 }else{
                     alert(data);
                 }
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }     
+            }  
         });
         
         
@@ -1853,30 +1776,12 @@ padding-bottom: 0PX;
                         data:{empName:empName,empId:empId},
                         success: function (data) {
                             $('#hideInfo').html(data);
-                        },
-                        beforeSend: function(){
-                            $('.comman-ajax-loader').css("visibility", "visible");
-                        },
-                        complete: function(){
-                            $('.comman-ajax-loader').css("visibility", "hidden");
-                        },
-                        error: function(jqXHR, exception) {
-                            alert("Something Went Wrong, Please Try Again...!");
-                        }     
+                        }  
                     });
                 }else{
                     alert(data);
                 }
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }     
+            }  
         });
         
         
@@ -1927,30 +1832,12 @@ padding-bottom: 0PX;
                         data:{empName:empName,empId:empId},
                         success: function (data) {
                             $('#hideInfo').html(data);
-                        },
-                        beforeSend: function(){
-                            $('.comman-ajax-loader').css("visibility", "visible");
-                        },
-                        complete: function(){
-                            $('.comman-ajax-loader').css("visibility", "hidden");
-                        },
-                        error: function(jqXHR, exception) {
-                            alert("Something Went Wrong, Please Try Again...!");
-                        }     
+                        }  
                     });
                 }else{
                     alert(data);
                 }
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }     
+            }  
         });
         
         
@@ -2020,30 +1907,12 @@ padding-bottom: 0PX;
                         data:{empName:empName,empId:empId},
                         success: function (data) {
                             $('#hideInfo').html(data);
-                        },
-                        beforeSend: function(){
-                            $('.comman-ajax-loader').css("visibility", "visible");
-                        },
-                        complete: function(){
-                            $('.comman-ajax-loader').css("visibility", "hidden");
-                        },
-                        error: function(jqXHR, exception) {
-                            alert("Something Went Wrong, Please Try Again...!");
-                        }     
+                        }  
                     });
                 }else{
                     alert(data);
                 }
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }     
+            }  
         });
         
         
@@ -2110,30 +1979,12 @@ padding-bottom: 0PX;
                         data:{empName:empName,empId:empId},
                         success: function (data) {
                             $('#hideInfo').html(data);
-                        },
-                        beforeSend: function(){
-                            $('.comman-ajax-loader').css("visibility", "visible");
-                        },
-                        complete: function(){
-                            $('.comman-ajax-loader').css("visibility", "hidden");
-                        },
-                        error: function(jqXHR, exception) {
-                            alert("Something Went Wrong, Please Try Again...!");
-                        }     
+                        }  
                     });
                 }else{
                     alert(data);
                 }
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }     
+            }  
         });
         
         
@@ -2200,31 +2051,13 @@ padding-bottom: 0PX;
                         data:{empName:empName,empId:empId},
                         success: function (data) {
                             $('#hideInfo').html(data);
-                        },
-                        beforeSend: function(){
-                            $('.comman-ajax-loader').css("visibility", "visible");
-                        },
-                        complete: function(){
-                            $('.comman-ajax-loader').css("visibility", "hidden");
-                        },
-                        error: function(jqXHR, exception) {
-                            alert("Something Went Wrong, Please Try Again...!");
-                        }     
+                        }  
                     });
                 }else{
                     alert(data);
                 }
 
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }     
+            }  
         });
         
         
@@ -2291,30 +2124,12 @@ padding-bottom: 0PX;
                         data:{empName:empName,empId:empId},
                         success: function (data) {
                             $('#hideInfo').html(data);
-                        },
-                        beforeSend: function(){
-                            $('.comman-ajax-loader').css("visibility", "visible");
-                        },
-                        complete: function(){
-                            $('.comman-ajax-loader').css("visibility", "hidden");
-                        },
-                        error: function(jqXHR, exception) {
-                            alert("Something Went Wrong, Please Try Again...!");
-                        }     
+                        }  
                     });
                 }else{
                     alert(data);
                 }
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }     
+            }  
         });
         
         
@@ -2383,30 +2198,12 @@ padding-bottom: 0PX;
                             $("#hideInfo").empty();
                             $("#hideInfo").append(data);
                             // $('#hideInfo').html(data);
-                        },
-                        beforeSend: function(){
-                            $('.comman-ajax-loader').css("visibility", "visible");
-                        },
-                        complete: function(){
-                            $('.comman-ajax-loader').css("visibility", "hidden");
-                        },
-                        error: function(jqXHR, exception) {
-                            alert("Something Went Wrong, Please Try Again...!");
-                        }     
+                        }  
                     });
                 }else{
                     alert(data);
                 }
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }     
+            }  
         });
         
     });
@@ -2606,16 +2403,7 @@ padding-bottom: 0PX;
               // alert(data);die();
                 $('#dataForId').html(data);
               
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }   
+            }
         });
     });
 

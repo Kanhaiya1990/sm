@@ -56,20 +56,19 @@
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
-                        <div class="header">
+                        <div class="header flex-div">
                             <h2>
                                Products Details 
                             </h2>
                             <p align="right">
-                                 <button data-toggle="modal" id="prod-modal-ref" data-target="#newProdModal" class="modalLink btn btn-primary m-t-15 waves-effect">
+                                 <button data-toggle="modal" id="prod-modal-ref" data-target="#newProdModal" class="modalLink btnStyle btn btn-primary m-t-15 waves-effect">
                                     <span class="icon-name"> <i class="material-icons">person_add</i>Add Product </span>
                                   </button>
                             
                                   <a href="<?php echo site_url('DeliverySlipController/blockedProducts/');?>">
-                                        <button type="submit" class="modalLink btn btn-primary m-t-15 waves-effect"><i class="material-icons">visibility</i>  Show Inactive Products </button>
+                                  <button type="submit" class="modalLink btn btnStyle btn-primary m-t-15 waves-effect"><i class="material-icons">visibility</i>  Show Inactive Products </button>
                                   </a> 
-                                  <button data-toggle="modal" data-target="#ImportProductsModal" class="btn btn-primary m-t-15 waves-effect"><i class="material-icons">upload</i> Upload Products</button>
-                                
+                                  <button data-toggle="modal" data-target="#ImportProductsModal" class="btn btnStyle btn-primary m-t-15 waves-effect"><i class="material-icons">upload</i> Upload Products</button>
                             </p>
                             
                            
@@ -79,35 +78,35 @@
                                 <div class="body outer">
                                     
                                 <div class="table-responsive">
-                                <table id="prodTbl" class="table table-bordered table-striped table-hover js-basic-example dataTable" data-page-length='100'>
+                                <table id="prodTbl" class="table table-bordered cust-tbl js-basic-example dataTable" data-page-length='100'>
                                     <thead>
                                         <tr>
-                                            <th>S. No.</th>
+                                            <th>No</th>
                                             <th>Company</th>
-                                            <th>Product Code</th>
+                                            <th class="noSpace">Product Code</th>
                                             <th>Product Name</th>
                                             <th>Configuration</th>
                                             <th>MRP</th>
-                                            <th>Pcs In Box</th>
-                                            <th>Box In Case</th>
-                                            <th>Quantity Available</th>
-                                            <th>Edit Stock</th>
-                                            <th class="noExport">Action</th>
+                                            <th class="noSpace">Pcs In Box</th>
+                                            <th class="noSpace">Box In Case</th>
+                                            <th class="noSpace">Quantity Available</th>
+                                            <th class="noSpace">Edit Stock</th>
+                                            <th class="noExport">Action</th> 
                                         </tr>
                                     </thead>
                                     <tfoot>
                                        <tr>
-                                          <th>S. No.</th>
-                                          <th>Company</th>
-                                          <th>Product Code</th>
-                                          <th>Product Name</th>
-                                           <th>Configuration</th>
-                                          <th>MRP</th>
-                                          <th>Pcs In Box</th>
-                                          <th>Box In Case</th>
-                                          <th>Quantity Available</th>
-                                          <th>Edit Stock</th>
-                                          <th class="noExport">Action</th>
+                                            <th>No</th>
+                                            <th>Company</th>
+                                            <th class="noSpace">Product Code</th>
+                                            <th>Product Name</th>
+                                            <th>Configuration</th>
+                                            <th>MRP</th>
+                                            <th class="noSpace">Pcs In Box</th>
+                                            <th class="noSpace">Box In Case</th>
+                                            <th class="noSpace">Quantity Available</th>
+                                            <th class="noSpace">Edit Stock</th>
+                                            <th class="noExport">Action</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -182,7 +181,7 @@
                                               <a class="prdQtyLink" data-toggle="modal" data-target="#addProdQtyModal" data-id="<?php echo $data['id']; ?>" data-prodName="<?php echo $data['name']; ?>"
                                                 data-prodCode="<?php echo $data['productCode']; ?>" data-company="<?php echo $data['company']; ?>" data-prodFilter="<?php echo $data['unitFilter']; ?>" data-mrp="<?php echo $data['mrp']; ?>" href="#">
                                                     <b>
-                                                        <i class="material-icons" style="color: blue;">add_circle</i> 
+                                                    <i class="material-icons" style="color: orange;">add_circle</i> 
                                                     </b>
                                                 </a> 
                                             </td>
@@ -221,18 +220,18 @@
       <div class="modal-content">
         <div class="modal-header">
             <center><h4 class="modal-title" id="stsAddSub">Add Product Quantity</h4></center>
-              <div class="col-md-12">
+              <div class="col-md-12 m-t-25 cust-tbl noPadding">
                   <div class="col-md-3">
-                    <h5> Product Code : <span id="prdCodeText" style="color:blue"></span></h5>
+                     Product Code : <span id="prdCodeText" style="color:black"></span>
                   </div>
                   <div class="col-md-3">
-                    <h5> Product Name :<span id="prdNameText" style="color:blue"></span></h5>
+                     Product Name :<span id="prdNameText" style="color:black"></span>
                   </div>
                   <div class="col-md-3">
-                   <h5> Product Company : <span id="prdCompanyText" style="color:blue"></span></h5>
+                    Product Company : <span id="prdCompanyText" style="color:black"></span>
                   </div>
                   <div class="col-md-3">
-                   <h5> Product MRP : <span id="prdMrpText" style="color:blue"></span></h5>
+                    Product MRP : <span id="prdMrpText" style="color:black"></span>
                   </div>
               </div>
                           
@@ -244,7 +243,7 @@
 
                             <div class="demo-masked-input">
                                   <input id="addProdQtyId" type="hidden" name="addProdQtyId">
-                                  <div class="col-md-12">
+                                  <div class="col-md-12 cust-tbl">
                                     <div class="col-md-4">
                                         <b>Product Quantity</b>
                                         <div class="input-group">
@@ -261,13 +260,13 @@
                                         <b>Select Category</b>
                                         <div class="input-group">
                                           
-                                              <input type="radio" name="addReduce" checked id="add_1" value="add" class="with-gap radio-col-light-blue" />
+                                              <input type="radio" name="addReduce" checked id="add_1" value="add" class="with-gap radio-col-red" />
                                               <label for="add_1">Add</label>
                                               <br>
-                                              <input type="radio" name="addReduce" id="add_2" value="reduce" class="with-gap radio-col-light-blue" />
+                                              <input type="radio" name="addReduce" id="add_2" value="reduce" class="with-gap radio-col-red" />
                                               <label for="add_2">Reduce</label>
                                               <br>
-                                              <input type="radio" name="addReduce" id="add_3" value="replace" class="with-gap radio-col-light-blue" />
+                                              <input type="radio" name="addReduce" id="add_3" value="replace" class="with-gap radio-col-red" />
                                               <label for="add_3">Replace</label>
                                         </div>
                                     </div> 
@@ -275,13 +274,13 @@
                                     <div class="col-md-4">
                                         <b>Select Unit</b><br>
                                         <div class="input-group">
-                                              <input type="radio" name="unit_category" checked id="unit_cat_3" value="case" class="with-gap radio-col-light-blue" />
+                                              <input type="radio" name="unit_category" checked id="unit_cat_3" value="case" class="with-gap radio-col-red" />
                                               <label for="unit_cat_3">Case</label>
                                               <br>
-                                              <input type="radio" name="unit_category" id="unit_cat_2" value="box" class="with-gap radio-col-light-blue" />
+                                              <input type="radio" name="unit_category" id="unit_cat_2" value="box" class="with-gap radio-col-red" />
                                               <label for="unit_cat_2">Box</label>
                                               <br>
-                                              <input type="radio" name="unit_category" id="unit_cat_1" value="pcs" class="with-gap radio-col-light-blue" />
+                                              <input type="radio" name="unit_category" id="unit_cat_1" value="pcs" class="with-gap radio-col-red" />
                                               <label for="unit_cat_1">Pcs</label>
                                         </div>
                                     </div> 
@@ -290,12 +289,12 @@
                                  <div class="col-md-12">
                                     <div class="row clearfix">
                                         <div class="col-md-4">
-                                            <button id="insProdQty" class="btn btn-primary m-t-15 waves-effect">
+                                            <button id="insProdQty" class="btn btnStyle btn-primary m-t-15 waves-effect">
                                                 <i class="material-icons">save</i> 
                                                 <span class="icon-name">Save</span>
                                             </button>
                                            
-                                            <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                            <button data-dismiss="modal" type="button" class="btn btn-danger m-t-15 waves-effect">
                                                 <i class="material-icons">cancel</i> 
                                                 <span class="icon-name"> Cancel</span>
                                             </button>
@@ -324,7 +323,7 @@
                       <div class="row clearfix">
                         <div class="body">
                             <div class="demo-masked-input">
-                                <div class="col-md-12">
+                                <div class="col-md-12 cust-tbl">
                                   <div class="col-md-3">
                                       <b>Company</b>
                                       <div class="input-group">
@@ -380,14 +379,14 @@
                                         </div>
                                     </div>  
                                   </div>
-                                  <div class="col-md-12">
+                                  <div class="col-md-12 cust-tbl">
                                     <div class="col-md-3">
                                         <!-- <b>No. of Pcs in a Box</b> -->
                                         <div class="input-group">
-                                            <input name="unitFilter" type="radio" id="radio_1" value="u1" class="with-gap radio-col-light-blue" checked />
+                                            <input name="unitFilter" type="radio" id="radio_1" value="u1" class="with-gap radio-col-red" checked />
                                             <label for="radio_1">2 Units</label>
                                             <br>
-                                            <input name="unitFilter" type="radio" id="radio_2" value="u2" class="with-gap radio-col-light-blue" />
+                                            <input name="unitFilter" type="radio" id="radio_2" value="u2" class="with-gap radio-col-red" />
                                             <label for="radio_2">3 Units</label>
                                         </div>
                                     </div> 
@@ -438,12 +437,12 @@
                                      <div class="col-md-12">
                                         <div class="row clearfix">
                                             <div class="col-md-4">
-                                                <button id="insProd" class="btn btn-primary m-t-15 waves-effect">
+                                                <button id="insProd" class="btn btnStyle btn-primary m-t-15 waves-effect">
                                                     <i class="material-icons">save</i> 
                                                     <span class="icon-name">Save</span>
                                                 </button>
                                                
-                                                <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                                <button data-dismiss="modal" type="button" class="btn btn-danger m-t-15 waves-effect">
                                                     <i class="material-icons">cancel</i> 
                                                     <span class="icon-name"> Cancel</span>
                                                 </button>
@@ -488,7 +487,7 @@
           </div>
           <div class="modal-body">
            <form method="post" role="form"  enctype="multipart/form-data"  action="<?php echo site_url('DeliverySlipController/productsDataUploading');?>"> 
-                    <div class="col-md-12">
+                    <div class="col-md-12 cust-tbl">
                         <div class="col-md-4">
                             <b> Products File </b>
                             <div class="input-group">
@@ -500,7 +499,7 @@
                           
                         <div class="col-md-4">
                             <div class="input-group">
-                                <button type="submit" class="btn btn-sm btn-primary m-t-20 margin">Upload</button>
+                                <button type="submit" class="btn btn-sm btnStyle btn-primary m-t-20 margin">Upload</button>
                                 <a href="<?php echo site_url('DeliverySlipController/Products');?>">
                                   <button type="button" class="btn btn-sm btn-danger m-t-20 margin">Cancel</button>
                                 </a>
@@ -529,16 +528,7 @@
             data : {id: id,name:name},
             success: function(data){
               $('.modal-content').html(data);
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            } 
+            }
         });
     });
 });
@@ -572,16 +562,7 @@
               }else{
                 $('#updDrop').hide();
               }
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            } 
+            }
         });
     });
 });
@@ -652,12 +633,6 @@ function deleted(id)
             },
             error: function(jqXHR, textStatus, errorThrown) {
                console.log(textStatus, errorThrown);
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
             }
         });
         
@@ -706,16 +681,7 @@ function deleted(id)
                   alert(data);
                     // $('#recStatus').html(data);
                     window.location.href="<?php echo base_url();?>index.php/DeliverySlipController/Products";
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                } 
+                }  
             });
         }
     });
@@ -761,16 +727,7 @@ function deleted(id)
                   alert(data);
                     // $('#recStatus').html(data);
                     window.location.href="<?php echo base_url();?>index.php/DeliverySlipController/Products";
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }   
+                }  
             });
         }
     });
@@ -792,16 +749,7 @@ function deleted(id)
                   alert(data);
                     // $('#recStatus').html(data);
                     window.location.href="<?php echo base_url();?>index.php/DeliverySlipController/Products";
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }   
+                }  
             });
         }
     });

@@ -93,7 +93,7 @@
 
                                   </table> -->
 
-                                <table style="font-size: 12px;" class="table table-bordered table-striped table-hover" data-page-length='100'>
+                                <table class="table table-bordered cust-tbl js-exportable dataTable" data-page-length='100'>
                                     <thead>
                                         <tr>
                                             <th colspan="<?php echo count($company)+2; ?>"><center><b>Income</b></center></th>
@@ -207,9 +207,9 @@
                                     </tfoot>
                                 </table>
                             </div>
- <div class="col-md-12"></div> <div class="col-md-12"></div>
+                            <div class="col-md-12"></div> <div class="col-md-12"></div>
                             <div class="col-md-12">
-                                <table style="font-size: 12px;" class="table table-bordered table-striped table-hover" data-page-length='100'>
+                                <table class="table table-bordered cust-tbl js-exportable dataTable" data-page-length='100'>
                                     <thead>
                                         <tr>
                                             <th colspan="<?php echo count($company)+2; ?>"><center><b>Expense</b></center></th>
@@ -718,16 +718,7 @@ $(document).on('show.bs.modal','#myModal2', function () {
             success: function (data) {
                 alert(data);
                  location.reload(); 
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }     
+            }  
         });
     }
 </script>

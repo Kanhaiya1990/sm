@@ -35,9 +35,14 @@
                         <div class="body">
                             <div class="demo-masked-input">
                                 <div class="row clearfix">
-                                     <input type="hidden" name="id" value="<?php if(isset($penalty)){  echo $penalty[0]['id']; } ?>">
+                                     <input type="hidden" name="id" value="<?php
+                                    if(isset($penalty))
+                                      {
+                                        echo $penalty[0]['id'];
+                                      }
+                                    ?>">
                                
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 cust-tbl">
                                         <b>Penalty Reason</b>
                                         <div class="input-group">
                                             <span class="input-group-addon">
@@ -52,14 +57,14 @@
                                             </div>
                                         </div>
                                     </div>  
-                                    <div class="col-md-6">
+                                    <div class="col-md-6 cust-tbl">
                                         <b>Amount</b>
                                         <div class="input-group">
                                             <span class="input-group-addon">
                                                  <i class="material-icons">money</i>
                                             </span>
                                             <div class="form-line">
-                                                <input type="text" name="amount" onkeypress="return isNumberWithoutDash(event)"  class="form-control date" placeholder="Enter penalty Amount" value="<?php if(isset($penalty))
+                                                <input type="text" name="amount" class="form-control date" placeholder="Enter penalty Amount" value="<?php if(isset($penalty))
                                                     {
                                                       echo $penalty[0]['amount']; 
                                                     }
@@ -71,7 +76,7 @@
                                      <div class="col-md-12">
                                         <div class="row clearfix">
                                             <div class="col-md-4">
-                                                <button type="submit" class="btn btn-primary m-t-15 waves-effect">
+                                                <button type="submite" class="btn btnStyle m-t-15 waves-effect">
                                                     <i class="material-icons">save</i> 
                                                     <span class="icon-name">
                                                      <?php
@@ -87,7 +92,7 @@
                                                     </span>
                                                 </button>
                                                 <a href="<?php echo site_url('admin/PenaltyController/');?>">
-                                                    <button type="button" class="btn btn-primary m-t-15 waves-effect">
+                                                    <button type="button" class="btn btn-danger m-t-15 waves-effect">
                                                         <i class="material-icons">cancel</i> 
                                                         <span class="icon-name"> Cancel</span>
                                                     </button>
@@ -100,7 +105,7 @@
 
                             </div>
                         </div>
-                        </form>
+                        <?php form_close();?>
                     </div>
                 </div>
             </div>
@@ -109,14 +114,3 @@
     </section>
     
 <?php $this->load->view('/layouts/footerDataTable'); ?>
-
-<script>
-    function isNumberWithoutDash(evt) {
-        evt = (evt) ? evt : window.event;
-        var charCode = (evt.which) ? evt.which : evt.keyCode;
-        if ((charCode < 48 || charCode > 57) ) {
-            return false;
-        }
-        return true;
-    }
-</script>

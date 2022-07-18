@@ -44,16 +44,14 @@
                             <h2>
                               Lost Bills
                             </h2>
-                             <h2>
-                               
-                            </h2>
+                             
                         </div>
                         <div class="body">
                           <div class="row m-t-20">
-                                <div class="col-md-12">
+                                <div class="col-md-12 mb-0 cust-tbl">
                                     <form method="post" role="form" action="">
                                         <div class="col-md-3">
-                                            <b>Division Name </b>
+                                            <b>Company Name </b>
                                         
                                             <select class="form-control" required id="comp" name="cmp">
                                                 <option value="<?php echo $cmpName; ?>"><?php echo $cmpName; ?></option>
@@ -64,44 +62,44 @@
                                         </div>
                                     
                                         <div class="col-md-2">
-                                            <button type="submit" class="btn m-t-20 btn-primary">Search</button>
+                                            <button type="submit" class="btn m-t-20 btn-lg btnStyle">Search</button>
                                         </div>
                                     </form>
                                 </div>
                             </div>
                             <br>
                             <div class="table-responsive">
-                                <table style="font-size: 11px" class="table table-bordered table-striped table-hover js-exportable dataTable" data-page-length='100'>
+                                <table class="table table-bordered js-exportable dataTable cust-tbl" data-page-length='100'>
                                     <thead>
                                         <tr>
-                                            <th>S. No.</th>
+                                            <th>No</th>
                                             <th>Bill No</th>
                                             <th>Bill Date</th>
                                             <th>Retailer </th>
-                                            <th>Bill Amount</th>
-                                            <th>Pending Amount</th>
+                                            <th>Bill</th>
+                                            <th>Pending</th>
                                             <th>Salesman </th>
                                             <th>Employee </th>
                                             <th>Route </th>
                                             <th>Entry Date </th>
-                                            <th>No. of Days </th>
+                                            <th>Nos </th>
                                             <th>Remark</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>S. No.</th>
+                                            <th>No</th>
                                             <th>Bill No</th>
                                             <th>Bill Date</th>
                                             <th>Retailer </th>
-                                            <th>Bill Amount</th>
-                                            <th>Pending Amount</th>
+                                            <th>Bill</th>
+                                            <th>Pending</th>
                                             <th>Salesman </th>
                                             <th>Employee </th>
                                             <th>Route </th>
                                             <th>Entry Date </th>
-                                            <th>No. of Days </th>
+                                            <th>Nos </th>
                                             <th>Remark</th>
                                             <th>Action</th>
                                         </tr>
@@ -111,12 +109,9 @@
                                         $no=0;
                                             if(!empty($lost)){
                                             foreach($lost as $data){
-                                               
-
                                               $retailerCode=$this->SrModel->loadRetailer($data['retailerCode']);
-
-                                                $no++;
-                                                 $diff=strtotime(date('Y-m-d'))-strtotime($data['entryDate']);
+                                              $no++;
+                                              $diff=strtotime(date('Y-m-d'))-strtotime($data['entryDate']);
                                         ?>
                                         <?php if($data['isAllocated']==1){ ?>
                                                  <tr style="background-color: #dcd6d5">
@@ -125,40 +120,53 @@
                                             <?php } ?>
                                             <td><?php echo $no;?></td>
                                             <td><?php echo $data['billNo'];?></td>
-                                             <td><?php 
+                                            <td class="noSpace"><?php 
                                              $dt=date_create($data['date']);
                                             //  $dt=date_format($dt,'d-M-Y');
                                              echo date_format($dt,'d-M-Y');
                                              $dt=date_format($dt,'d-M-Y');
                                              ?></td>
-                                            <td><?php echo $data['retailerName'];?></td>
-                                           <td align="right"><?php echo number_format($data['netAmount']);?></td>
-                                           <td align="right"><?php echo number_format($data['pendingAmt']);?></td>
-                                            <td><?php echo $data['salesman'];?></td>
-                                            <td><?php echo $data['ename'];?></td>
-                                            <td><?php echo $data['rname'];?></td>
-                                             <td><?php
+                                           
+											<td class="CellWithComment"><?php 
+											$retailerName=substr($data['retailerName'], 0, 8);
+											echo rtrim($retailerName);?>
+											<span class="CellComment"><?php echo $result =substr($data['retailerName'],0); ?></span>
+											</td>
+                                            <td align="right"><?php echo number_format($data['netAmount']);?></td>
+                                            <td align="right"><?php echo number_format($data['pendingAmt']);?></td>
+											<td class="CellWithComment"><?php 
+												$salesman=substr($data['salesman'], 0, 10);
+												echo rtrim($salesman);?>
+												<span class="CellComment"><?php echo $result =substr($data['salesman'],0); ?></span>
+											</td>
+											<td class="CellWithComment noSpace"><?php 
+												$ename=substr($data['ename'], 0, 14);
+												echo rtrim($ename);?>
+												<span class="CellComment"><?php echo $result =substr($data['ename'],0); ?></span>
+											</td>
+											<td class="CellWithComment"><?php 
+												$rname=substr($data['rname'], 0, 10);
+												echo rtrim($rname);?>
+												<span class="CellComment"><?php echo $result =substr($data['rname'],0); ?></span>
+											</td>
+                                            <td class="noSpace"><?php
                                              $date=date_create($data['entryDate']);
                                              echo date_format($date,"d-M-Y");
                                               ?></td>
                                             <td><?php echo abs(round($diff/86400));?></td>
-                                             <td>
-                                                  
-                                                  <a href="javascript:void();"  data-trigger="focus" data-container="body" data-toggle="popover"
+                                            <td>      
+                                            <a href="javascript:void();"  data-trigger="focus" data-container="body" data-toggle="popover"
                                             data-placement="left" title="Remark" data-content="<?php echo $data['remark'];   ?>">
                                         <i class="material-icons">menu</i>
                                     </a>
                                                 </td>
-                                           <td>
+                                           <td class="noSpace">
                                             <?php if($data['isAllocated']!=1){ ?>
-                                                <?php if($this->session->userdata['workRestrict']['status']=="yes"){?>
-                                                    <button class="btn btn-xs btn-primary waves-effect waves-float" onclick="planUpgradeMsg()"><i class="material-icons">touch_app</i></button>
-                                                <?php }else{ ?>    
-                                                    <a id="prDetailsForAll" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-billDate="<?php echo $dt; ?>" data-credAdj="<?php echo $data['creditAdjustment']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-route="<?php echo $data['routeName']; ?>" data-toggle="modal" data-target="#processModalForAll" ><button class="btn btn-xs btn-primary waves-effect waves-float" data-toggle="tooltip" data-placement="bottom" title="Process"><i class="material-icons">touch_app</i></button></a>
-                                                <?php } ?>
+                                            <a id="prDetailsForAll" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-billDate="<?php echo $dt; ?>" data-credAdj="<?php echo $data['creditAdjustment']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-route="<?php echo $data['routeName']; ?>" data-toggle="modal" data-target="#processModalForAll" ><button class="btn btn-xs process-btn waves-effect waves-float" data-toggle="tooltip" data-placement="bottom" title="Process"><i class="material-icons">touch_app</i></button></a>
+                                                
                                             <!-- <a id="prDetailsForAll" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-code="<?php echo $data['retailerCode']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-route="<?php echo $data['routeName']; ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-toggle="modal" data-target="#processModalForAll"><button class="btn btn-xs btn-primary waves-effect"><i class="material-icons">touch_app</i></button></a> -->
-                                             &nbsp;&nbsp;<a href="<?php echo site_url('AdHocController/billHistoryInfo/'.$data['id']); ?>" class="btn btn-xs btn-primary" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
-                                                  &nbsp;&nbsp;<a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs  btn-primary" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
+                                            <a href="<?php echo site_url('AdHocController/billHistoryInfo/'.$data['id']); ?>" class="btn btn-xs history-btn" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
+                                            <a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs viewBill-btn" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
                                                 
                                             <!-- <button onclick="lostBillStatus(this,'<?php echo $data["id"]?>');removeMe(this);" class="btn btn-xs btn-primary m-t-15 waves-effect"> <i class="material-icons">check</i></button> -->
                                          

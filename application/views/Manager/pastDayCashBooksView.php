@@ -30,15 +30,13 @@
                             <h2>
                                Past Day Book
                             </h2><br/>
-                         
-                        
                         </div>
                         <div class="body">
                             <div class="table-responsive">
-                                <table style="font-size: 12px" class="table table-bordered table-striped table-hover js-basic-example dataTable" data-page-length='100'>
+                                <table class="table table-bordered js-basic-example dataTable cust-tbl" data-page-length='100'>
                                     <thead>
                                         <tr>
-                                            <th>Sr.No</th>
+                                            <th>No</th>
                                             <th>Name</th>
                                             <th>Date</th>
                                             <th class="text-right">Opening Balance</th>
@@ -54,7 +52,7 @@
                                     </thead>
                                     <tfoot>
                                          <tr>
-                                            <th>Sr.No</th>
+                                            <th>No</th>
                                             <th>Name</th>
                                             <th>Date</th>
                                             <th class="text-right">Opening Balance</th>
@@ -92,7 +90,7 @@
                                         <tr>
                                         <td><?php echo $no; ?></td>
                                         <td><?php echo $data['closeDayBookName']; ?></td>
-                                        <td><?php echo date("d-M-Y", strtotime($data['closeDayBookDate'])); ?></td>
+                                        <td class="noSpace"><?php echo date("d-M-Y", strtotime($data['closeDayBookDate'])); ?></td>
                                         <td align="right"><?php echo number_format($data['openingBalance']); ?></td>
                                         <td align="right"><?php echo number_format($data['totalIncome']);?></td>
                                         <td align="right"><?php echo number_format($data['totalExpense']);?></td>
@@ -118,8 +116,8 @@
 
                                         <td>
                                             <?php if(empty($checkCashReconsile)){?>
-                                                <a href="<?php echo site_url('manager/CashBookController/pastDayIncomeExpense/'.$data['closeDayBookName'].'/'.$data['openingBalance']); ?>">
-                                                  <i class="material-icons" style="color: green;">remove_red_eye</i>
+                                            <a href="<?php echo site_url('manager/CashBookController/pastDayIncomeExpense/'.$data['closeDayBookName'].'/'.$data['openingBalance']); ?>">
+                                            <button class="btn btn-xs btnStyle margin"><i class="material-icons">visibility</i></button>
                                                 </a> 
                                             <?php } ?>
                                         </td>

@@ -6,12 +6,14 @@ if (isset($this->session->userdata['codeKeyData'])) {
     $projectSessionName= ($this->session->userdata['codeKeyData']['codeKeyValue']);
 }
 ?>
+
     <div class="modal fade" id="empProDetails" role="dialog">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <!-- <div class="col-xs-4"> -->
-                            <p align="right">   <button type="button" data-dismiss="modal" class="btn btn-block bg-primary waves-effect" >Cancel</button></p>
+                            <p align="right">
+                                <button type="button" data-dismiss="modal" class="btn-block btn btn-danger waves-effect" >Cancel</button></p>
                             <!-- </div> -->
             <h4 class="modal-title"><center>Employee Details</center></h4>
           </div>
@@ -47,11 +49,11 @@ if (isset($this->session->userdata['codeKeyData'])) {
                     </div>
                     <div class="row">
                             <div class="col-xs-4">
-                                <button id="sbmt_change_id" class="btn btn-block bg-primary waves-effect" >Send OTP</button>
+                                <button id="sbmt_change_id" class="btn btn-block btnStyle waves-effect" >Send OTP</button>
                                 <!-- <button data-dismiss="modal" class="btn btn-block bg-primary waves-effect" >Cancel</button> -->
                             </div>
                             <div class="col-xs-4">
-                               <button type="button" data-dismiss="modal" class="btn btn-block bg-primary waves-effect" >Cancel</button>
+                               <button type="button" data-dismiss="modal" class="btn btn-block bg-danger waves-effect" >Cancel</button>
                             </div>
                         </div>
                 </div>
@@ -131,11 +133,11 @@ if (isset($this->session->userdata['codeKeyData'])) {
                             <button  id="sbmt_id_data" class="btn btn-block bg-primary waves-effect" >Send OTP</button>
                         </div> -->
                         <div id="passDiv" class="col-xs-4">
-                            <button id="save_id_pass_data" class="btn btn-block bg-primary waves-effect" >Save password</button>
+                            <button id="save_id_pass_data" class="btn btnStyle waves-effect" >Save password</button>
                         </div>
 
                         <div class="col-xs-4">
-                            <button data-dismiss="modal" class="btn btn-block bg-danger waves-effect" >Cancel</button>
+                            <button data-dismiss="modal" class="btn btn-danger waves-effect" >Cancel</button>
                         </div>
                 </div>
                 </div>
@@ -152,10 +154,6 @@ arrow_upward
 <div style="display:none" id="divMsg">
         <img src="<?php echo base_url('/assets/uploads/loading.gif');?>" alt="Please wait.." />
 </div>
-
-
-
-
 
 
     <script src="<?php echo base_url('assets/plugins/jquery/jquery.min.js');?>"></script>
@@ -222,16 +220,7 @@ arrow_upward
             data : {id: id},
             success: function(data){
                 $('#detail_emp').html(data);
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }   
+            }
         });
     });
 
@@ -254,16 +243,7 @@ arrow_upward
                         success:function(response)
                         {
                             $('#mbl').html('<span style="color: blue;">'+response+'</span>');
-                        },
-                        beforeSend: function(){
-                            $('.comman-ajax-loader').css("visibility", "visible");
-                        },
-                        complete: function(){
-                            $('.comman-ajax-loader').css("visibility", "hidden");
-                        },
-                        error: function(jqXHR, exception) {
-                            alert("Something Went Wrong, Please Try Again...!");
-                        }   
+                        }
                     });
                 } else{
                     document.getElementById('mbl').innerText='Please enter valid mobile number';
@@ -296,16 +276,7 @@ alert(mobile);
                             
                             
                             $("#mobileChange").prop("disabled", true);
-                        },
-                        beforeSend: function(){
-                            $('.comman-ajax-loader').css("visibility", "visible");
-                        },
-                        complete: function(){
-                            $('.comman-ajax-loader').css("visibility", "hidden");
-                        },
-                        error: function(jqXHR, exception) {
-                            alert("Something Went Wrong, Please Try Again...!");
-                        }   
+                        }
                     });
                 } else{
                     document.getElementById('mblData').innerText='Please enter valid mobile number';
@@ -367,16 +338,7 @@ alert(mobile);
                     $('#res').html('<span style="color: blue;">'+response+'</span>');
                 }
                 
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }   
+            }
         });
         
     });
@@ -417,11 +379,4 @@ alert(mobile);
      }).ajaxStop(function(){
         $('#loading').hide();
      });
-</script>
-
-
-<script>
-  function planUpgradeMsg() {
-    alert('Please renew your subscription to continue.');
-  }
 </script>

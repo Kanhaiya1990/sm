@@ -8,7 +8,8 @@ class ProductModel extends CI_Model {
     public function getdata($tableName)
     {
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -19,7 +20,8 @@ class ProductModel extends CI_Model {
         $this->db->where('deliveryslip_pending_for_billing.operatorApproval',0);
         $this->db->group_by('deliveryslip_pending_for_billing.productId');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
     
@@ -28,7 +30,8 @@ class ProductModel extends CI_Model {
         $this->db->where('isActive', '1');
          $this->db->order_by('blockQty','asc');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -39,7 +42,8 @@ class ProductModel extends CI_Model {
         $this->db->where('mrp', $mrp);
         $this->db->where('isActive !=', 2);
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
     
@@ -47,7 +51,8 @@ class ProductModel extends CI_Model {
     {
         $this->db->where('isActive', '0');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -57,7 +62,8 @@ class ProductModel extends CI_Model {
         // $this->db->where('deliveryslip_pending_for_billing.operationStatus','add');
         $this->db->group_by('deliveryslip_pending_for_billing.productId');
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
          // return $query->row()->totatAddQuantity;
     }
@@ -65,7 +71,8 @@ class ProductModel extends CI_Model {
     public function load($tblName, $id) {
         $this->db->where('id', $id);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
@@ -74,7 +81,8 @@ class ProductModel extends CI_Model {
         $this->db->where('productId', $id);
         $this->db->where('operationStatus', $type);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
@@ -96,7 +104,8 @@ class ProductModel extends CI_Model {
 
     public function show($tblName) {
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();    
     }
      public function delete($tblName,$id)

@@ -56,26 +56,26 @@
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
-                        <div class="header">
+                        <div class="header flex-div">
                             <h2>
                                Retailers Details
                             </h2>
                              <p align="right">
-                                    <button data-toggle="modal" data-target="#newRetailerModal" class="modalLink btn btn-primary m-t-15 waves-effect">
+                                    <button data-toggle="modal" data-target="#newRetailerModal" class="modalLink btn btn-primary btnStyle m-t-15 waves-effect">
                                     <span class="icon-name"> <i class="material-icons">person_add</i>Add Retailer </span>
                                     </button>
                           
                                     <a href="<?php echo site_url('RetailerController/blockedRetailers/');?>">
-                                        <button type="submit" class="btn btn-primary m-t-15 waves-effect"><i class="material-icons">visibility</i>  Show Inactive Retailers </button>
+                                        <button type="submit" class="btn btnStyle btn-primary m-t-15 waves-effect"><i class="material-icons">visibility</i>  Show Inactive Retailers </button>
                                     </a> 
                                     
-                                    <button data-toggle="modal" data-target="#ImportRetailerModal" class="btn btn-primary m-t-15 waves-effect"><i class="material-icons">upload</i> Upload Retailers</button>
+                                    <button data-toggle="modal" data-target="#ImportRetailerModal" class="btn btnStyle btn-primary m-t-15 waves-effect"><i class="material-icons">upload</i> Upload Retailers</button>
                             </p>
                             
                             
                         </div>
                         <div class="body">
-                            <div class="table-responsive">
+                            <div>
                             <div class="row">
                                 <div class="col-sm-3">
                                   <b>Search Anything</b>
@@ -102,17 +102,17 @@
                                   </div>
                                 </div>
                                 <div class="col-sm-3">
-                                  <a href="<?php echo site_url('RetailerController'); ?>" class="btn btn-sm m-t-15 btn-primary waves-effect">
+                                  <a href="<?php echo site_url('RetailerController'); ?>" class="btn btn-sm m-t-15 btn-danger waves-effect">
                                         <i class="material-icons">cancel</i> 
                                         <span class="icon-name"> Cancel</span>
                                     </a>
                                 </div>
                               </div>
                               <?php echo $pagination; ?>
-                                <table class="table table-bordered table-striped table-hover" data-page-length='10'>
+                                <table class="table table-bordered cust-tbl" data-page-length='10'>
                                     <thead>
                                         <tr>
-                                            <th>S. No</th>
+                                            <th>No</th>
                                             <th>Retailer Code</th>
                                             <th>Retailer Name</th>
                                             <th>Area</th>
@@ -121,7 +121,7 @@
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>S. No</th>
+                                            <th>No</th>
                                             <th>Retailer Code</th>
                                             <th>Retailer Name</th>
                                             <th>Area</th>
@@ -180,7 +180,7 @@
           <div class="modal-body">
                         <div class="body">
                             <div class="demo-masked-input">
-                                <div class="row clearfix">
+                                <div class="row clearfix cust-tbl">
                                   <div class="col-md-4">
                                         <b>Retailer Code</b>
                                         <div class="input-group">
@@ -232,16 +232,16 @@
                                      <div class="col-md-12">
                                         <div class="row clearfix">
                                             <div class="col-md-4">
-                                                <button id="insRet" class="btn btn-primary m-t-15 waves-effect">
+                                                <button id="insRet" class="btn btnStyle m-t-15 btn-lg waves-effect">
                                                     <i class="material-icons">save</i> 
                                                     <span class="icon-name">Save</span>
                                                 </button>
                                                
-                                                    <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                                    <button data-dismiss="modal" type="button" class="btn btn-sm btn-danger m-t-15 waves-effect">
                                                         <i class="material-icons">cancel</i> 
                                                         <span class="icon-name"> Cancel</span>
                                                     </button>
-                                               
+                                              
                                             </div>
 
                                         </div>
@@ -275,7 +275,7 @@
           </div>
           <div class="modal-body">
            <form method="post" role="form"  enctype="multipart/form-data"  action="<?php echo site_url('RetailerController/retailersDataUploading');?>"> 
-                    <div class="col-md-12">
+                    <div class="col-md-12 cust-tbl">
                         <div class="col-md-4">
                             <b> Retailers File </b>
                             <div class="input-group">
@@ -287,7 +287,7 @@
                           
                         <div class="col-md-4">
                             <div class="input-group">
-                                <button type="submit" class="btn btn-sm btn-primary m-t-20 margin">Upload</button>
+                                <button type="submit" class="btn btn-sm btnStyle m-t-20 margin">Upload</button>
                                 <a href="<?php echo site_url('RetailerController');?>">
                                   <button type="button" class="btn btn-sm btn-danger m-t-20 margin">Cancel</button>
                                 </a>
@@ -315,16 +315,7 @@
             data : {'id': id, },
             success: function(data){
               $('#retailerdata').html(data);
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            } 
+            }
         });
     });
 });
@@ -413,16 +404,7 @@ swal({
                   alert(data);
                     // $('#recStatus1').html(data);
                     window.location.href="<?php echo base_url();?>index.php/RetailerController";
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }   
+                }  
             });
         }
     });
@@ -448,16 +430,7 @@ swal({
                   alert(data);
                     // $('#recStatus1').html(data);
                     window.location.href="<?php echo base_url();?>index.php/RetailerController";
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }   
+                }  
             });
         }
     });

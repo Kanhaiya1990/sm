@@ -12,30 +12,6 @@ class ExpensesController extends CI_Controller {
        
         if(isset($this->session->userdata['codeKeyData'])) {
 			$this->projectSessionName= $this->session->userdata['codeKeyData']['codeKeyValue'];
-			$this->baseUrl=$this->session->userdata['codeKeyData']['yourBaseUrl'];
-
-            if($this->baseUrl=="http://localhost/smartdistributor/" || $this->baseUrl=="https://siainc.in/kiasales/" || $this->baseUrl=="https://siainc.in/staging_kiasales/"){
-
-            }else{
-                $this->load->helper('url');
-                $url_parts = parse_url(current_url());
-                $siteUrl=explode('/',$url_parts['path']);//current url path
-        
-                $baseUrl=explode('/',$this->baseUrl);//base url path
-                
-                $siteDistributorName=trim($siteUrl[2]);
-                $baseDistributorName=trim($baseUrl[4]);
-                
-                if($siteDistributorName !="" && $baseDistributorName !=""){
-                    if($siteDistributorName==$baseDistributorName){
-                    //   
-                    }else{
-                    redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
-                    }
-                }else{
-                redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
-                }
-            }
 		}else{
 			$this->load->view('LoginView');
 		}
@@ -922,9 +898,9 @@ class ExpensesController extends CI_Controller {
                <label for="processdebit-basic_checkbox_<?php echo $data['id']; ?>"></label>
            </td>
            <td><?php echo $data['initiatorName']; ?></td>
-            <td><?php echo $data['currentbillNo']; ?></td>
-            <td><?php echo date("d-M-Y", strtotime($data['currentbillDate'])); ?></td>
-            <td><?php echo $data['empName']; ?></td>
+       <td><?php echo $data['currentbillNo']; ?></td>
+       <td><?php echo date("d-M-Y", strtotime($data['currentbillDate'])); ?></td>
+       <td><?php echo $data['empName']; ?></td>
            <td><?php echo $data['paidAmount']; ?></td>
            <td><?php echo $data['paymentMode']; ?></td>
            <td><?php echo $data['description']; ?></td>
@@ -1141,8 +1117,6 @@ public function acceptOfficeAdjustmentAmount(){
         <td class="text-right"><?php echo number_format($data['officeAdjAmount']); ?></td>
         <td><?php echo $otherAdjDate; ?></td>
         <td>
-        <a target="_blank" href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs  btn-primary" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
-                                                  
           <a href="javascript:void();" onclick="acceptOfficeAdjustment(this,'<?php echo $data["billPaymentId"]; ?>');" class="modalLink btn btn-xs btn-primary waves-effect">
             <i class="material-icons">check</i>
         </a>

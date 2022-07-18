@@ -10,33 +10,10 @@ class DashbordController extends CI_Controller {
 		$this->load->library('session');
 		date_default_timezone_set('Asia/Kolkata');
 		ini_set('memory_limit', '-1');
-		
+
+
 		if(isset($this->session->userdata['codeKeyData'])) {
 			$this->projectSessionName= $this->session->userdata['codeKeyData']['codeKeyValue'];
-			$this->baseUrl=$this->session->userdata['codeKeyData']['yourBaseUrl'];
-
-            if($this->baseUrl=="http://localhost/smartdistributor/" || $this->baseUrl=="https://siainc.in/kiasales/" || $this->baseUrl=="https://siainc.in/staging_kiasales/"){
-
-            }else{
-                $this->load->helper('url');
-                $url_parts = parse_url(current_url());
-                $siteUrl=explode('/',$url_parts['path']);//current url path
-        
-                $baseUrl=explode('/',$this->baseUrl);//base url path
-                
-                $siteDistributorName=trim($siteUrl[2]);
-                $baseDistributorName=trim($baseUrl[4]);
-                
-                if($siteDistributorName !="" && $baseDistributorName !=""){
-                    if($siteDistributorName==$baseDistributorName){
-                    //   
-                    }else{
-                    redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
-                    }
-                }else{
-                redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
-                }
-            }
 		}else{
 			$this->load->view('LoginView');
 		}
@@ -64,51 +41,8 @@ class DashbordController extends CI_Controller {
 	}
 	
 	public function index() {
-		$this->load->model('PaymentGatewayModel');
-		$officeDetails=$this->PaymentGatewayModel->getdata('office_details');
-        $distributorCode=$officeDetails[0]['distributorCode'];
-
-        $distributorInfo=$this->PaymentGatewayModel->getUserByCode('distributors_details',$distributorCode);
-        $validTill=$distributorInfo[0]['validTill'];
-
-		$data['dateForValidity']=$validTill;
-		$data['days']=0;
-
-		$days=0;
-        $projectSessionName="";
-        $id=0;
-        if (isset($this->session->userdata['codeKeyData'])) {
-            $projectSessionName= ($this->session->userdata['codeKeyData']['codeKeyValue']);
-        }
-
-        if ($projectSessionName !="") {
-            $designation = ($this->session->userdata[$projectSessionName]['designation']);
-            $des=explode(',',$designation);
-            $des = array_map('trim', $des);
-           
-            // if (in_array('owner', $des) || in_array('senior_manager', $des)) { 
-                $now = time(); // or your date as well
-                $your_date = strtotime($validTill);
-                
-				$datediff = $your_date - $now;
-                $days= round($datediff / (60 * 60 * 24));
-
-				$data['days']=$days;
-                if($days < (-6)){
-					$session_data = array(
-						'status' =>'yes'
-					);
-					$this->session->set_userdata('workRestrict', $session_data);
-                }else{
-					$session_data = array(
-						'status' =>'no'
-					);
-					$this->session->set_userdata('workRestrict', $session_data);
-				}
-            // }
-        } 
-
-		$this->load->model('ExcelModel');
+		// $id = $this->uri->segment(2);
+		// echo $id;exit;
 
 		//Dynamic name for Distributor
 		$getCode=$this->ExcelModel->getdata('office_details');

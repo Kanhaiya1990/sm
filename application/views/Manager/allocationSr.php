@@ -15,7 +15,7 @@
                         </div>
                         <div class="body">
                             <div class="table-responsive">
-                                <table class="table table-bordered table-striped table-hover js-exportable dataTable" data-page-length='100'>
+                                <table class="table table-bordered cust-tbl js-exportable dataTable" data-page-length='100'>
                                     <thead>
                                         <tr>
                                             <th>S. No.</th>
@@ -58,7 +58,7 @@
                                         </td>
                                         <td><?php echo $data['empName']; ?></td>
                                         <td>
-                                            <a href="<?php echo site_url('manager/SrCheckController/pendingAllocationSr/'.$allocation_Id); ?>"><button class="btn btn-xs bg-primary margin"><i class="material-icons">visibility</i></button></a>
+                                            <a href="<?php echo site_url('manager/SrCheckController/pendingAllocationSr/'.$allocation_Id); ?>"><button class="btn btn-xs btnStyle margin"><i class="material-icons">visibility</i></button></a>
                                         </td>
                                    </tr>  
                                 <?php

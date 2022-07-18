@@ -22,13 +22,15 @@
 
     <!-- Custom Css -->
     <link href="<?php echo base_url('assets/css/style.css');?>" rel="stylesheet">
+    <link href="<?php echo base_url('assets/css/custom.css');?>" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/login-sliders/css/demo.css');?>" />
     <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/login-sliders/css/style2.css');?>" />
 
     
 </head>
 
-<body class="login-page" style="background-color: #607D8B">
+<!-- <body class="login-body" style="background-color: #607D8B"> -->
+    <body class="login-body" data-new-gr-c-s-check-loaded="14.1063.0" data-gr-ext-installed="">
 
         <!-- <ul class="cb-slideshow">
             <li><span>Image 01</span><div><h3>KIA SALES</h3></div></li>
@@ -36,14 +38,7 @@
             <li><span>Image 03</span><div><h3>ITC</h3></div></li>
             <li><span>Image 04</span><div><h3>PARLE</h3></div></li>
         </ul> -->
-        <div class="container">
-            <header>
-                <img width="25%" height="20%" src="<?php echo base_url('assets/uploads/KiAS Logo 1024x512.png'); ?>" alt="Italian Trulli">
-                <!-- <h1><span>Smart Distributor</span></h1> -->
-               <!--  <br><br>
-                <h2>Welcome To KIAS</h2> -->
-            </header>
-        </div>
+      
 
 
     <div class="login-box">
@@ -51,19 +46,25 @@
             <a href="javascript:void(0);"><b>Smart Distributor</b></a>
             <small> Welcome To Smart Distributor</small>
         </div> -->
-        <div class="card">
+        <div class="card login-card">
+             <div class="text-center login-logos-div mb-20">
+                <img width="40%" height="20%" src="<?php echo base_url('assets/uploads/KiAS Logo 1024x512.png'); ?>" alt="Italian Trulli">
+                <!-- <h1><span>Smart Distributor</span></h1> -->
+               <!--  <br><br>
+                <h2>Welcome To KIAS</h2> -->
+            
+        </div>
             <div class="body">
-                 <?php echo form_open('UserAuthentication/user_login_process'); ?> 
-                    <div class="msg">Sign in to start your session</div>
 
-                    <?php if($this->session->flashdata('msg')){ $msg=$this->session->flashdata('msg'); ?>
-                            <div class="alert alert-danger">      
-                            <?php echo $msg['error_message'];?>
-                            </div>
-                    <?php } ?> 
+                 <?php echo form_open('UserAuthentication/user_login_process'); ?> 
+                    <div class="msg">
+                     <div class="login-head">
+                         <h2 class="header">Sign in to start your session</h2>
+                     </div>
+                    </div>
                         <?php
                             if (isset($message_display)) {
-                            echo "<div class='alert alert-danger'>";
+                            echo "<div class='alert alert-success'>";
                             //echo $message_display;
                             echo "<h3><b> $message_display </b></h3>";
                             echo "</div>";
@@ -105,13 +106,15 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-8 p-t-5">
+                        <p class="forgot-pwd">
                             Forgot Password ? <a data-toggle="modal" data-target="#updatelimitModal" href="">Click here</a>
+                        </p>
                         </div>
                         <div class="col-xs-4 p-t-5">
                             <!-- <a href="<?php echo base_url()."index.php/UserAuthentication/adminLogin"; ?>">Admin</a> -->
                         </div>
                          <div class="col-xs-12 p-t-5">
-                            <button type="submit" class="btn btn-block bg-primary waves-effect" >SIGN IN</button>
+                            <button type="submit" class="btn btn-block btnStyle waves-effect" >SIGN IN</button>
                         </div>
                     </div>
                    <!--  <div class="row m-t-15 m-b--20">
@@ -192,14 +195,16 @@
                 </div>
                 <div class="row">
                         <div id="otpDiv" style="display: block" class="col-xs-4">
-                            <button  id="sbmt_id" class="btn btn-block bg-primary waves-effect" >Send OTP</button>
+                            <button  id="sbmt_id" class="btn btn-block btnStyle waves-effect" >Send OTP</button>
+
                         </div>
                         <div id="passDiv" style="display: none" class="col-xs-4">
-                            <button id="save_id_pass" class="btn btn-block bg-primary waves-effect" >Save password</button>
+                            <button id="save_id_pass" class="btn btn-block  btnStyle waves-effect" >Save password</button>
+
                         </div>
 
                         <div class="col-xs-4">
-                            <button data-dismiss="modal" class="btn btn-block bg-primary waves-effect" >Cancel</button>
+                            <button data-dismiss="modal" class="btn btn-block btn-danger waves-effect" >Cancel</button>
                         </div>
                 </div>
                 </div>

@@ -38,11 +38,11 @@
                         </div>
                         <div class="body">
                           <div class="row m-t-20">
-                                <div class="col-md-12">
+                                <div class="col-md-12 cust-tbl">
                                     <form method="post" role="form" action="">
                                         
                                         <div class="col-md-3">
-                                            <b>Division Name </b>
+                                            <b>Company Name </b>
                                         
                                             <select class="form-control" required id="comp" name="cmp">
                                                 <option value="<?php echo $cmpName; ?>"><?php echo $cmpName; ?></option>
@@ -52,7 +52,7 @@
                                             </select>
                                         </div>
                                         <div class="col-md-3">
-                                          <button type="submit" class="btn m-t-20 btn-primary">Search</button>
+                                          <button type="submit" class="btn btn-lg m-t-25 btnStyle">Search</button>
                                         </div>
                                     </form>
 
@@ -60,37 +60,37 @@
                             </div>
                             <br>
                             <div class="table-responsive">
-                                <table style="font-size: 12px; " class="table table-bordered table-striped table-hover js-exportable dataTable" data-page-length='100'>
+                                <table class="table table-bordered js-exportable dataTable cust-tbl" data-page-length='100'>
                                     <thead>
                                         <tr>
-                                            <th>S. No.</th>
+                                            <th>No</th>
                                             <th>Bill No</th>
                                             <th>Bill Date</th>
                                             <th>Retailer</th>
-                                            <th>Bill Amount</th>
+                                            <th>Bill</th>
 
-                                            <th>Pending Amount</th>
+                                            <th>Pending</th>
                                             <th>Salesman</th>
                                             <th>Employee</th>
-                                             <th>Route</th>
-                                              <th>Entry Date</th>
-                                            <th>No. of Days</th>
+                                            <th>Route</th>
+                                            <th>Entry Date</th>
+                                            <th>Nos</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>S. No.</th>
+                                            <th>No</th>
                                             <th>Bill No</th>
                                             <th>Bill Date</th>
                                             <th>Retailer</th>
-                                            <th>Bill Amount</th>
-                                            <th>Pending Amount</th>
+                                            <th>Bill</th>
+                                            <th>Pending</th>
                                             <th>Salesman</th>
-                                             <th>Employee</th>
-                                              <th>Route</th>
-                                              <th>Entry Date</th>
-                                            <th>No. of Days</th>
+                                            <th>Employee</th>
+                                            <th>Route</th>
+                                            <th>Entry Date</th>
+                                            <th>Nos</th>
                                             <th>Action</th>
                                         </tr>
                                     </tfoot>
@@ -119,33 +119,47 @@
                                             <?php } ?>
                                             <td><?php echo $no;?></td>
                                             <td><?php echo $data['billNo'];?></td>
-                                            <td><?php 
+                                            <td class="noSpace"><?php 
                                              $dt=date_create($data['date']);
                                              echo date_format($dt,'d-M-Y');
                                              $dt=date_format($dt,'d-M-Y');
                                              ?></td>
-                                            <td><?php echo $data['retailerName'];?></td>
+											<td class="CellWithComment"><?php
+												$retailerName=substr($data['retailerName'], 0, 10);
+												echo rtrim($retailerName);?>
+												<span class="CellComment"><?php echo $result =substr($data['retailerName'],0); ?></span>
+											</td>
                                             <td align="right"><?php echo number_format($data['netAmount']);?></td>
                                             <td align="right"><?php echo number_format($data['pendingAmt']);?></td>
-                                            <td><?php echo $data['salesman'];?></td>
-                                            <td><?php echo $data['ename'];?></td>
-                                            <td><?php echo $data['rname'];?></td>
-                                             <td><?php
+											<td class="CellWithComment noSpace"><?php //echo  rtrim($data['salesman'],', '); 
+												$salesman=substr($data['salesman'], 0, 10);
+												echo rtrim($salesman);?>
+												<span class="CellComment"><?php echo $result =substr($data['salesman'],0); ?></span>
+											</td>
+                                           
+											<td class="CellWithComment noSpace"><?php 
+												$ename=substr($data['ename'], 0, 10);
+												echo rtrim($ename);?>
+												<span class="CellComment"><?php echo $result =substr($data['ename'],0); ?></span>
+											</td>
+											
+											<td class="CellWithComment noSpace"><?php 
+												$rname=substr($data['rname'], 0, 10);
+												echo rtrim($rname);?>
+												<span class="CellComment"><?php echo $result =substr($data['rname'],0); ?></span>
+											</td> 
+                                            <td class="noSpace"><?php
                                              $date=date_create($data['entryDate']);
                                              echo date_format($date,"d-M-Y");
-                                              ?></td>
+                                              ?></td> 
                                             <td><?php echo abs(round($diff/86400));?></td>
-                                            <td>
-                                                 <?php if($data['isAllocated']!=1){ ?>
+                                            <td class="noSpace"> 
+                                                <?php if($data['isAllocated']!=1){ ?>
+                                                <a id="prDetailsForAll" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-billDate="<?php echo $dt; ?>" data-credAdj="<?php echo $data['creditAdjustment']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-route="<?php echo $data['routeName']; ?>" data-toggle="modal" data-target="#processModalForAll" ><button class="btn btn-xs process-btn waves-effect waves-float" data-toggle="tooltip" data-placement="bottom" title="Process"><i class="material-icons">touch_app</i></button></a>
 
-                                                <?php if($this->session->userdata['workRestrict']['status']=="yes"){?>
-                                                    <button class="btn btn-xs btn-primary waves-effect waves-float" onclick="planUpgradeMsg()"><i class="material-icons">touch_app</i></button>
-                                                <?php }else{ ?>    
-                                                    <a id="prDetailsForAll" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-billDate="<?php echo $dt; ?>" data-credAdj="<?php echo $data['creditAdjustment']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-route="<?php echo $data['routeName']; ?>" data-toggle="modal" data-target="#processModalForAll" ><button class="btn btn-xs btn-primary waves-effect waves-float" data-toggle="tooltip" data-placement="bottom" title="Process"><i class="material-icons">touch_app</i></button></a>
-                                                <?php } ?>
                                                    <!-- <a id="prDetails" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($retailerCode)){ echo $retailerCode[0]['gstIn']; } ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-toggle="modal" data-target="#processModal"><button class="btn btn-xs btn-primary waves-effect"><i class="material-icons">touch_app</i></button></a> -->
-                                                    &nbsp;&nbsp;<a href="<?php echo site_url('AdHocController/billHistoryInfo/'.$data['id']); ?>" class="btn btn-xs btn-primary" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
-                                                  &nbsp;&nbsp;<a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs  btn-primary" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
+                                                  <a href="<?php echo site_url('AdHocController/billHistoryInfo/'.$data['id']); ?>" class="btn btn-xs history-btn" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
+                                                  <a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs viewBill-btn" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
                                                 <?php  }else{
 
                                             $allocations=$this->SrModel->getAllocationDetailsByBill('bills',$data['id']);

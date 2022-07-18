@@ -15,29 +15,27 @@
                         </div>
                         <div class="body">
                             <div class="row m-t-20">
-                            <div class="col-md-12">
+                            <div class="col-md-12 cust-tbl">
                                     <form method="post" role="form" action="">
-                                        
-                                        <label>Company:</label>
-                                        <input type="text" list="compList" autocomplete="off" placeholder="select company" id="cmp" name="cmp" value="<?php  echo $cmpName; ?>">
-                                         <datalist id="compList">
-                                        <?php
-                                            foreach($company as $data){
-                                                $name=$data['name'];
+                                    <label>Company:</label>
+                                    <input type="text" list="compList" autocomplete="off" placeholder="select company" id="cmp" name="cmp" value="<?php  echo $cmpName; ?>" style="border: 0" class="b-bottom">
+                                   
+                                    <datalist id="compList">
+                                    <?php
+                                        foreach($company as $data){
+                                        $name=$data['name'];
                                         ?>   
-                                        <option value="<?php echo $name;?>"/>
-                                        <?php    
-                                            }
-                                        ?>
+                                    <option value="<?php echo $name;?>"/>
+                                    <?php } ?>
                                     </datalist>
-                                        <button type="submit" class="btn btn-primary">Filter</button>
+                                        <button type="submit" class="btn btnStyle h-35">Filter</button>
                                     </form>
 
                                 </div>
                             </div>
                             <br>
                             <div class="table-responsive">
-                                <table class="table table-bordered table-striped table-hover js-exportable dataTable" data-page-length='100'>
+                                <table class="table table-bordered cust-tbl js-exportable dataTable" data-page-length='100'>
                                     <thead>
                                         <tr>
                                             <th>S. No.</th>
@@ -71,7 +69,7 @@
                                             ?>
                                         </td>
                                         <td>
-                                            <a href="<?php echo site_url('operator/OperatorController/pendingAllocationSrWithDate/'.$dateForLink); ?>"><button class="btn btn-xs bg-primary margin"><i class="material-icons">visibility</i></button></a>
+                                            <a href="<?php echo site_url('operator/OperatorController/pendingAllocationSrWithDate/'.$dateForLink); ?>"><button class="btn btn-xs btnStyle margin"><i class="material-icons">visibility</i></button></a>
                                         </td>
                                    </tr>  
                                 <?php

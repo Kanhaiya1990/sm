@@ -39,15 +39,15 @@
       <div class="row clearfix">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <div id="frm_AddItem" class="card">
-            <div class="header">
+            <div class="header flex-div">
               <h2>New Delivery Slip Master </h2>
               <h2>
                   <p align="right">
-                        <button data-toggle="modal" data-target="#prodModal" class="modalLink btn btn-xs btn-primary m-t-15 waves-effect">
+                        <button data-toggle="modal" data-target="#prodModal" class="modalLink btn btn-xs btn-primary btnStyle m-t-15 waves-effect">
                             <span class="icon-name"> <i class="material-icons">person_add</i>Add Product </span>
                         </button>
 
-                        <button data-toggle="modal" data-target="#retailerModal" class="modalLink btn btn-xs btn-primary m-t-15 waves-effect">
+                        <button data-toggle="modal" data-target="#retailerModal" class="modalLink btn btn-xs btn-primary btnStyle m-t-15 waves-effect">
                             <span class="icon-name"> <i class="material-icons">person_add</i>Add Retailer </span>
                         </button>
                   </p>
@@ -59,7 +59,7 @@
 
           <div class="body">
             <div class="demo-masked-input">
-              <div class="row clearfix">
+              <div class="row clearfix cust-tbl">
                 <div class="col-md-12">
                   <div class="col-md-4">
                       <b>Bill No</b>
@@ -267,7 +267,7 @@
 
               <div class="col-md-12">
                 <div id="rc" class="table-responsive">
-                    <table id="tbl" class="table table-bordered table-striped table-hover" data-page-length='100'>
+                    <table id="tbl" class="table table-bordered cust-tbl" data-page-length='100'>
                         <thead>
                           <tr>
                             <th>Item</th>
@@ -299,7 +299,7 @@
                       <!-- <td><button data-id="<?php echo $items['id']; ?>" class="romove_cart btn btn-sm"><i class="fa fa-trash" style="color: red;"></i></button></td> -->
                       <td> 
                           <a href="<?php echo site_url('DeliverySlipController/deleteCart/'.$items['id']); ?>">
-                          <button class="btn btn-xs btn-primary waves-effect" data-type="basic"><i class="material-icons">delete</i></button>
+                          <button class="btn btn-xs btn-danger waves-effect" data-type="basic"><i class="material-icons">delete</i></button>
                           </a>
                       </td>
                       </tr>
@@ -320,14 +320,14 @@
                 </div>
                 <div class="row clearfix">
                   <div class="col-sm-offset-5 col-xs-offset-5">
-                        <button type="button" target="_blank" id="sndBtn" class="btn btn-xs btn-primary m-t-15 waves-effect">
+                        <button type="button" target="_blank" id="sndBtn" class="btn btn-xs btn-primary btnStyle m-t-15 waves-effect">
                           <i class="material-icons">print</i> 
                           <span class="icon-name">
                            Save And Print
                          </span>
                        </button>
                        
-                       <button type="button" id="cnBtn" class="btn btn-xs btn-danger m-t-15 waves-effect">
+                       <button type="button" id="cnBtn" class="btn btn-sm btn-danger m-t-15 waves-effect">
                           <i class="material-icons">cancel</i> 
                           <span class="icon-name">
                            Cancel
@@ -340,38 +340,20 @@
               <div class="col-md-12">
                   <div class="body outer">
                             <div class="table-responsive">
-
-                            <?php if($this->session->userdata['workRestrict']['status']=="yes"){?>
-                                <button type="button" class="btn btn-xs btn-primary waves-effect" onclick="planUpgradeMsg()">
+                                <button data-toggle="modal" data-target="#addToAllocationModal" type="button" class="btn btn-xs btn-primary btnStyle waves-effect">
                                     <i class="material-icons">print</i> 
                                     <span class="icon-name">
                                      Add to Open Allocation
                                    </span>
                                 </button>
-                                <button type="button" class="btn btn-xs btn-primary waves-effect" onclick="planUpgradeMsg()">
+                                <button data-toggle="modal" data-target="#addToNewAllocationModal" type="button" class="btn btnStyle btn-xs btn-primary waves-effect">
                                     <i class="material-icons">print</i> 
                                     <span class="icon-name">
                                      Create New Allocation
                                    </span>
                                 </button>
-                            <?php } else { ?>
-                                <button data-toggle="modal" data-target="#addToAllocationModal" type="button" class="btn btn-xs btn-primary waves-effect">
-                                    <i class="material-icons">print</i> 
-                                    <span class="icon-name">
-                                     Add to Open Allocation
-                                   </span>
-                                </button>
-                                <button data-toggle="modal" data-target="#addToNewAllocationModal" type="button" class="btn btn-xs btn-primary waves-effect">
-                                    <i class="material-icons">print</i> 
-                                    <span class="icon-name">
-                                     Create New Allocation
-                                   </span>
-                                </button>
-                            <?php } ?>
-
-                                
                                 <br><br>
-                                <table id="prodTbl" style="font-size:13px" class="table table-bordered table-striped table-hover" data-page-length='100' >
+                                <table id="prodTbl" style="font-size:13px" class="table table-bordered cust-tbl" data-page-length='100' >
                                     <thead>
                                         <tr>
                                             <th>
@@ -415,19 +397,15 @@
                                             <td><?php echo $data['salesman']; ?></td>
                                             <td><?php echo "<p style='color:red'>Unaccounted</p>"; ?></td>
                                             <td>
+                    <a id="prDetailsForAll" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-billDate="<?php echo date("d-M-Y", strtotime($data['date'])); ?>" data-credAdj="<?php echo $data['creditAdjustment']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($rCode)){ echo $rCode[0]['gstIn']; } ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-route="<?php echo $data['routeName']; ?>" data-toggle="modal" data-target="#processModalForAll" ><button class="btn btn-xs process-btn waves-effect waves-float" data-toggle="tooltip" data-placement="bottom" title="Process"><i class="material-icons">touch_app</i></button></a>
 
-                                            <?php if($this->session->userdata['workRestrict']['status']=="yes"){?>
-                                                    <button class="btn btn-xs btn-primary waves-effect waves-float" onclick="planUpgradeMsg()"><i class="material-icons">touch_app</i></button>
-                                            <?php }else{ ?>  
-                                                <a id="prDetailsForAll" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-billDate="<?php echo date("d-M-Y", strtotime($data['date'])); ?>" data-credAdj="<?php echo $data['creditAdjustment']; ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>" data-gst="<?php if(!empty($rCode)){ echo $rCode[0]['gstIn']; } ?>" data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-route="<?php echo $data['routeName']; ?>" data-toggle="modal" data-target="#processModalForAll" ><button class="btn btn-xs btn-primary waves-effect waves-float" data-toggle="tooltip" data-placement="bottom" title="Process"><i class="material-icons">touch_app</i></button></a>
-                                            <?php } ?>
-                                              <!-- <a id="prDetails" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-billDate="<?php echo date("d-M-Y", strtotime($data['date'])); ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>"  data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-toggle="modal" data-target="#processModal" ><button class="btn btn-xs btn-primary waves-effect waves-float" data-toggle="tooltip" data-placement="bottom" title="Process"><i class="material-icons">touch_app</i></button></a> -->
-                                              &nbsp;&nbsp;
-                                              <a href="<?php echo site_url('AdHocController/billHistoryInfo/'.$data['id']); ?>" class="btn btn-xs btn-primary" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
-                                              &nbsp;&nbsp;
-                                              <a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs  btn-primary" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
-                                              &nbsp;&nbsp;
-                                              <a target="_blank" href="<?php echo site_url('DeliverySlipController/downloadPDF/'.$data['id']); ?>" class="btn btn-xs  btn-primary" data-toggle="tooltip" data-placement="bottom" title="Download PDF"><i class="material-icons">download</i></a>
+                    <!-- <a id="prDetails" href="javascript:void()" data-id="<?php echo $data['id']; ?>" data-salesman="<?php echo $data['salesman']; ?>" data-billDate="<?php echo date("d-M-Y", strtotime($data['date'])); ?>" data-billNo="<?php echo $data['billNo']; ?>" data-retailerName="<?php echo $data['retailerName']; ?>"  data-pendingAmt="<?php echo $data['pendingAmt']; ?>" data-toggle="modal" data-target="#processModal" ><button class="btn btn-xs btn-primary waves-effect waves-float" data-toggle="tooltip" data-placement="bottom" title="Process"><i class="material-icons">touch_app</i></button></a> -->
+                                    
+                    <a href="<?php echo site_url('AdHocController/billHistoryInfo/'.$data['id']); ?>" class="btn btn-xs history-btn" data-toggle="tooltip" data-placement="bottom" title="View History"><i class="material-icons">info</i></a>
+                                             
+                   <a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs viewBill-btn" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
+                                            
+                    <a target="_blank" href="<?php echo site_url('DeliverySlipController/downloadPDF/'.$data['id']); ?>" class="btn btn-xs btnStyle" data-toggle="tooltip" data-placement="bottom" title="Download PDF"><i class="material-icons">download</i></a>
  
                                             </td>
                                         </tr>
@@ -460,7 +438,7 @@
             <center><h4 class="modal-title">Add Product</h4></center>
           </div>
           <div class="modal-body">
-            <div class="row clearfix">
+            <div class="row clearfix cust-tbl">
               <div class="body">
                   <div class="demo-masked-input">
                       <div class="col-md-12">
@@ -534,10 +512,10 @@
                         <div class="col-md-12">
                           <div class="col-md-3">
                               <div class="input-group">
-                                  <input name="unitFilter" type="radio" id="radio_1" value="u1" class="with-gap radio-col-light-blue" checked />
+                                  <input name="unitFilter" type="radio" id="radio_1" value="u1" class="with-gap radio-col-red" checked />
                                   <label for="radio_1">2 Units</label>
                                   <br>
-                                  <input name="unitFilter" type="radio" id="radio_2" value="u2" class="with-gap radio-col-light-blue" />
+                                  <input name="unitFilter" type="radio" id="radio_2" value="u2" class="with-gap radio-col-red" />
                                   <label for="radio_2">3 Units</label>
                               </div>
                           </div> 
@@ -589,12 +567,12 @@
                            <div class="col-md-12">
                               <div class="row clearfix">
                                   <div class="col-md-4">
-                                      <button id="insProd" class="btn btn-primary m-t-15 waves-effect">
+                                      <button id="insProd" class="btn btn-primary btnStyle m-t-15 waves-effect">
                                           <i class="material-icons">save</i> 
                                           <span class="icon-name">Save</span>
                                       </button>
                                      
-                                      <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                      <button data-dismiss="modal" type="button" class="btn btn-danger m-t-15 waves-effect">
                                           <i class="material-icons">cancel</i> 
                                           <span class="icon-name"> Cancel</span>
                                       </button>
@@ -622,7 +600,7 @@
          <!--<form method="post" role="form" action="<?php echo site_url('RetailerController/insert'); ?>"> -->
                         <div class="body">
                             <div class="demo-masked-input">
-                                <div class="row clearfix">
+                                <div class="row clearfix cust-tbl">
                                   <div class="col-md-4">
                                         <b>Retailer Code</b>
                                         <div class="input-group">
@@ -705,12 +683,12 @@
                                      <div class="col-md-12">
                                         <div class="row clearfix">
                                             <div class="col-md-4">
-                                                <button id="insRet" class="btn btn-primary m-t-15 waves-effect">
+                                                <button id="insRet" class="btn btnStyle btn-primary m-t-15 waves-effect">
                                                     <i class="material-icons">save</i> 
                                                     <span class="icon-name">Save</span>
                                                 </button>
                                                
-                                                    <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                                    <button data-dismiss="modal" type="button" class="btn btn-danger m-t-15 waves-effect">
                                                         <i class="material-icons">cancel</i> 
                                                         <span class="icon-name"> Cancel</span>
                                                     </button>
@@ -737,7 +715,7 @@
           <div class="modal-body">
               <div class="body">
                   <div class="demo-masked-input">
-                      <div class="row clearfix">
+                      <div class="row clearfix cust-tbl">
                           <div class="col-md-12">
                             <div class="col-md-6">
                                   <b>Open Allocations</b>
@@ -758,11 +736,11 @@
                           <div class="col-md-12">
                               <div class="row clearfix">
                                   <div class="col-md-4">
-                                      <button id="ins_add_allocation" class="btn btn-primary m-t-15 waves-effect">
+                                      <button id="ins_add_allocation" class="btn btnStyle btn-primary m-t-15 waves-effect">
                                           <i class="material-icons">save</i> 
                                           <span class="icon-name">Save</span>
                                       </button>
-                                      <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                      <button data-dismiss="modal" type="button" class="btn btn-danger m-t-15 waves-effect">
                                           <i class="material-icons">cancel</i> 
                                           <span class="icon-name"> Cancel</span>
                                       </button>
@@ -787,7 +765,7 @@
           <div class="modal-body">
               <div class="body">
                   <div class="demo-masked-input">
-                      <div class="row clearfix">
+                      <div class="row clearfix cust-tbl">
                           <div class="col-md-12">
 
                             <div class="col-md-6">
@@ -840,11 +818,11 @@
                           <div class="col-md-12">
                               <div class="row clearfix">
                                   <div class="col-md-4">
-                                      <button id="ins_new_allocation" class="btn btn-primary m-t-15 waves-effect">
+                                      <button id="ins_new_allocation" class="btn btnStyle btn-primary m-t-15 waves-effect">
                                           <i class="material-icons">save</i> 
                                           <span class="icon-name">Save</span>
                                       </button>
-                                      <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                      <button data-dismiss="modal" type="button" class="btn btn-danger m-t-15 waves-effect">
                                           <i class="material-icons">cancel</i> 
                                           <span class="icon-name"> Cancel</span>
                                       </button>
@@ -931,16 +909,7 @@
                 success: function (data) {
                     alert(data);
                     window.location.href="<?php echo base_url();?>index.php/DeliverySlipController";
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }    
+                }  
             });
         }
     });
@@ -963,16 +932,7 @@
                 success: function (data) {
                   alert(data);
                     window.location.href="<?php echo base_url();?>index.php/DeliverySlipController";
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }   
+                }  
             });
         }
     });
@@ -987,16 +947,7 @@
             data:{},
             success: function (data) {
                 window.location.href="<?php echo base_url();?>index.php/DeliverySlipController";
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }   
+            }  
         });
     });
 </script>
@@ -1086,16 +1037,7 @@
                             $('#twoDrp2').show();
                             $('#threeDrp2').show();
                         }
-                    },
-                    beforeSend: function(){
-                        $('.comman-ajax-loader').css("visibility", "visible");
-                    },
-                    complete: function(){
-                        $('.comman-ajax-loader').css("visibility", "hidden");
-                    },
-                    error: function(jqXHR, exception) {
-                        alert("Something Went Wrong, Please Try Again...!");
-                    }   
+                    }  
                 });
               }else{
                 if(productName !==""){
@@ -1106,16 +1048,7 @@
                     die();
                 }
               }
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }   
+            }  
         });
   });
 </script>
@@ -1298,16 +1231,7 @@
                   // alert(data);
                   // $('#detail_cart').html(data);
                   location.reload();
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                } 
+                }
               });
           }else{
               alert('Please fill all the fields...!');
@@ -1323,7 +1247,7 @@
       $(document).on('click','.romove_cart',function(){
           // var row_id=$(this).attr("id"); 
           var row_id =$(this).attr("data-id");
-          // alert(row_id);die();
+          alert(row_id);die();
         
           $.ajax({
             url : "<?php echo site_url('DeliverySlipController/deleteCart');?>",
@@ -1332,16 +1256,7 @@
             data : {cart_id : row_id},
             success :function(data){
               // $('#detail_cart').html(data);
-            },
-            beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                } 
+            }
           });
       });
 
@@ -1466,16 +1381,7 @@
                   // alert(data);
                   // $('#detail_cart').html(data);
                   location.reload();
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                } 
+                }
               });
           }else{
               alert('Please fill all the fields...!');
@@ -1491,7 +1397,7 @@
       $(document).on('click','.romove_cart',function(){
           // var row_id=$(this).attr("id"); 
           var row_id =$(this).attr("data-id");
-          // alert(row_id);die();
+          alert(row_id);die();
         
           $.ajax({
             url : "<?php echo site_url('DeliverySlipController/deleteCart');?>",
@@ -1500,16 +1406,7 @@
             data : {cart_id : row_id},
             success :function(data){
               // $('#detail_cart').html(data);
-            },
-            beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                } 
+            }
           });
       });
 
@@ -1558,16 +1455,7 @@
             window.open(path, "_blank");
             
             window.location.href="<?php echo base_url();?>index.php/DeliverySlipController";
-          },
-          beforeSend: function(){
-              $('.comman-ajax-loader').css("visibility", "visible");
-          },
-          complete: function(){
-              $('.comman-ajax-loader').css("visibility", "hidden");
-          },
-          error: function(jqXHR, exception) {
-              alert("Something Went Wrong, Please Try Again...!");
-          } 
+          }
         });
     });
 </script>
@@ -1600,16 +1488,7 @@
             success: function(data){
               alert(data);
               window.location.href="<?php echo base_url();?>index.php/DeliverySlipController";
-            },
-            beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                } 
+            }
           });
         }else{
             alert('Please select Allocation/Bill.');
@@ -1648,16 +1527,7 @@
             success: function(data){
               alert(data);
               window.location.href="<?php echo base_url();?>index.php/DeliverySlipController";
-            },
-            beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                } 
+            }
           });
         }else{
             alert('Please select Allocation/Bill.');
@@ -1704,16 +1574,7 @@
             data : {id: id},
             success: function(data){
               $('#fixDebId').html(data);
-            },
-            beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                } 
+            }
         });
     });
 });

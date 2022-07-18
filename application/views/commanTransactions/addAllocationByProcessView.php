@@ -47,7 +47,7 @@ padding-bottom: 0PX;
                            
                         </div>
                         <div class="body">
-                              <div class="row">
+                              <div class="row cust-tbl">
                                 <div class="col-md-2">
                                     <label>Allocation : </label>
                                     <label id="allocation"><?php echo date("dmy");?>-<?php echo $nextId ?>
@@ -61,7 +61,7 @@ padding-bottom: 0PX;
                                    <label>Employee Name:</label>
                                     <input type="text" id="eName" autocomplete="off" list="empList" name="eName[]" class="form-control" placeholder="Enter Emp Name"><br>
 
-                                     <button type="button" id="eAdd" class="btn btn-success margin btn-sm"> Add </button>
+                                     <button type="button" id="eAdd" class="btn btnStyle margin btn-sm"> Add </button>
                                                           
                                     <br><br>    
 
@@ -79,7 +79,7 @@ padding-bottom: 0PX;
                                         ?>
                                     </datalist>
                                     <br>
-                                     <button type="button" id="rAdd" class="btn btn-success margin btn-sm"> Add </button>
+                                     <button type="button" id="rAdd" class="btn btnStyle margin btn-sm"> Add </button>
                                 </div>
                                 <div class="col-md-3">
                                 
@@ -124,7 +124,7 @@ padding-bottom: 0PX;
                                     <div class="col-md-5 table-responsive">
                                          <?php echo validation_errors(); ?>
                                         <?php echo form_open_multipart('commanTransactions/AllocationByProcessController/getCurrentBills') ?>
-                                        <table class="table table-striped table-bordered">
+                                        <table class="table cust-tbl table-bordered">
                                             <thead>
                                                 <tr>
                                                     <th class="text-xs-center" colspan="4"><center>Current Supply</center></th>
@@ -160,7 +160,7 @@ padding-bottom: 0PX;
                                                 
                                                 <tr>
                                                      <td class="text-xs-right">
-                                                        <button type="button" id="insert-more" class="btn btn-success margin btn-sm"> Add Current Bills </button><br />                                                      
+                                                        <button type="button" id="insert-more" class="btn btnStyle margin btn-sm"> Add Current Bills </button><br />                                                      
                                                     </td>
                                                 </tr>
                                             
@@ -183,7 +183,7 @@ padding-bottom: 0PX;
                                             
                                                 <tr>
                                                      <td class="text-xs">
-                                                        <button type="button" id="shw_routeBills" class="btn btn-success margin btn-sm">Show</button>
+                                                        <button type="button" id="shw_routeBills" class="btn btnStyle margin btn-sm">Show</button>
                                                          <button type="button" onclick="clearPast();" id="rmv_routeBills" class="btn btn-danger margin btn-sm">Cancel</button>
                                                     </td>
                                                 </tr>
@@ -196,7 +196,7 @@ padding-bottom: 0PX;
                                     <div class="col-md-7 table-responsive">
                                         <!-- <?php echo validation_errors(); ?>
                                         <?php echo form_open_multipart('commanTransactions/AllocationByProcessController/getPastBills') ?> -->
-                                        <table class="table table-striped table-bordered">
+                                        <table class="table cust-tbl table-bordered">
                                             <thead>
                                                 <tr>
                                                     <th class="text-xs-center" colspan="5"><center>Additional Bills</center></th>
@@ -216,7 +216,7 @@ padding-bottom: 0PX;
                                                         </datalist>
                                                     </td>
                                                     <td class="text-xs-right">
-                                                        <button type="button" id="insert-more1" class="btn btn-success margin btn-sm"> Add </button><br />                                                      
+                                                        <button type="button" id="insert-more1" class="btn btnStyle margin btn-sm"> Add </button><br />                                                      
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -234,7 +234,7 @@ padding-bottom: 0PX;
                                                       
                                                     </td>
                                                     <td>
-                                                         <button type="button" id="insert-past" class="btn btn-success margin btn-sm"> Add </button>
+                                                         <button type="button" id="insert-past" class="btn btnStyle margin btn-sm"> Add </button>
                                                     </td>
                                                 </tr>
 
@@ -268,7 +268,7 @@ padding-bottom: 0PX;
                                                       
                                                     </td>
                                                      <td>
-                                                         <button type="button" id="insert-delivery" class="btn btn-success margin btn-sm"> Add </button>
+                                                         <button type="button" id="insert-delivery" class="btn btnStyle margin btn-sm"> Add </button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -295,14 +295,14 @@ padding-bottom: 0PX;
                                 <div class="row m-t-20">
                                     <div class="col-md-12">
                                         <div class="table-responsive">
-                                            <table class="table table-striped table-bordered" id="tbl">
+                                            <table class="table cust-tbl table-bordered" id="tbl">
                                                 <tr class="head">
                                                     <td colspan="12" style="background-color: whitesmoke;"><center><b>Current Supply Bills</b></center></td>
                                                 </tr>
                                                 <tr class="gray">
-                                                    <th>S. No.</th>
+                                                    <th>No</th>
                                                     <th>Bill No.</th>
-                                                    <th> Date</th>
+                                                    <th>Date</th>
                                                     <th>Retailer Name</th>
                                                     <th>Amount</th>
                                                     <th>Sale Return</th>
@@ -357,7 +357,7 @@ padding-bottom: 0PX;
                                             <td>0.00</td>
                                             <td> 
                                               <a>
-                            <button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-primary waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
+                            <button onclick="removeMe(this,'<?php echo $id;?>');" class="btn btn-danger waves-effect" data-type="basic"><i class="material-icons">cancel</i></button>
                             </a>
                                           </td>
                                         </tr>
@@ -373,12 +373,12 @@ padding-bottom: 0PX;
                                     <div class="col-md-12">
                                         <div class="table-responsive">
                                             
-                                            <table class="table table-striped table-bordered">
+                                            <table class="table cust-tbl table-bordered">
                                             <tr class="head">
                                                 <td colspan="12"  style="background-color: whitesmoke;"><center><b>Past Bills</b></center></td>
                                             </tr>
                                             <tr class="gray">
-                                                <th>S. No.</th>
+                                                <th>No</th>
                                                 <th>Bill No.</th>
                                                 <th>Date</th>
                                                 <th>Retailer Name</th>
@@ -406,7 +406,7 @@ padding-bottom: 0PX;
                                         <p id="ins"></p>
                                         <p>
                                             
-                                        <button type="button" id="insert-ins" class="btn btn-success m-t-15 waves-effect">
+                                        <button type="button" id="insert-ins" class="btn btnStyle m-t-15 waves-effect">
                                               <i class="material-icons">save</i> 
                                               <span class="icon-name"> Save</span>
                                         </button>

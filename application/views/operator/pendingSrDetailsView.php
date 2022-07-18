@@ -163,16 +163,7 @@ function goBack() {
                         $(this).attr('checked', false);
                     });      
                     window.location.href="<?php echo base_url();?>index.php/operator/OperatorController/pendingSr";
-                },
-                beforeSend: function(){
-                    $('.comman-ajax-loader').css("visibility", "visible");
-                },
-                complete: function(){
-                    $('.comman-ajax-loader').css("visibility", "hidden");
-                },
-                error: function(jqXHR, exception) {
-                    alert("Something Went Wrong, Please Try Again...!");
-                }     
+                }  
             });
         }else{
             alert('Please select Bills.');
@@ -191,16 +182,7 @@ function goBack() {
             success: function (data) {
                 $('#tbl_data').html(data);
                 // window.location.reload(true);
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }     
+            }  
         });
     }
 
@@ -213,16 +195,7 @@ function goBack() {
             success: function (data) {
                 $('#tbl_data').html(data);
                  // window.location.reload(true);
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }     
+            }  
         });
     }
 </script>

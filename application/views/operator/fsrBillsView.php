@@ -13,18 +13,19 @@ function goBack() {
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
-                        <div class="header">
+                        <div class="header flex-div">
+                            <h2>FSR Bills Report</h2>
                             <h2>
-                               <button onclick="goBack();" class="btn btn-xs bg-primary margin"><i class="material-icons">keyboard_return</i></button></a> FSR Bills Report
+                               <button onclick="goBack();" class="btn btn-xs btnStyle margin"><i class="material-icons">keyboard_return</i></button>
                             </h2>
                         </div>
                         <div class="body">
                              
                             <div class="table-responsive">
-                                <table style="font-size:12px;" class="table table-bordered table-striped table-hover js-exportable dataTable" data-page-length='100'>
+                                <table class="table table-bordered cust-tbl js-exportable dataTable" data-page-length='100'>
                                     <thead>
                                         <tr>
-                                            <th>S. No</th>
+                                            <th>No</th>
                                             <th>Bill Date</th>
                                             <th>Bill No.</th>
                                             <th>Retailer </th>
@@ -32,7 +33,7 @@ function goBack() {
                                             <th>Salesman</th>
                                             <th>Employee</th>
                                             <th>Route </th>
-                                            <th>Bill Amount </th>
+                                            <th>Bill</th>
                                             <th>SRAmt</th>
                                             <th>FSR Date</th>
                                             <th>View</th>
@@ -40,15 +41,15 @@ function goBack() {
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>S. No</th>
-                                             <th>Bill Date</th>
-                                             <th>Bill No.</th>
+                                            <th>SNo</th>
+                                            <th>Bill Date</th>
+                                            <th>Bill No.</th>
                                             <th>Retailer </th>
                                             <th>Retailer Code</th>
                                             <th>Salesman</th>
                                             <th>Employee</th>
                                             <th>Route </th>
-                                            <th>Bill Amount </th>
+                                            <th>Bill </th>
                                             <th>SRAmt</th>
                                             <th>FSR Date</th>
                                             <th>View</th>
@@ -84,17 +85,44 @@ function goBack() {
                                         <tr>
                                             <td><?php echo $no; ?></td>
                                            
-                                            <td><?php echo $dt; ?></td>
-                                             <td><?php echo $data['billNo']; ?></td>
-                                            <td><?php echo $data['retailerName']; ?></td>
-                                             <td><?php echo $data['retailerCode']; ?></td>
-                                            <td><?php echo $data['salesman']; ?></td>
-                                            <td><?php echo rtrim($empName,', '); ?></td>
-                                            <td><?php echo $data['routeName']; ?></td>
+                                            <td class="noSpace"><?php echo $dt; ?></td>
+                                            <td><?php echo $data['billNo']; ?></td>
+											<td class="CellWithComment noSpace"><?php 
+											$retailerName=substr($data['retailerName'], 0, 10);
+											echo rtrim($retailerName);?>
+											<span class="CellComment"><?php echo $result =substr($data['retailerName'],0); ?></span>
+										    </td> 
+											
+											<td class="CellWithComment"><?php 
+											$retailerCode=substr($data['retailerCode'], 0, 14);
+											echo rtrim($retailerCode);?>
+											<span class="CellComment"><?php echo $result =substr($data['retailerCode'],0); ?></span>
+										    </td> 
+                                            <td class="CellWithComment noSpace"><?php 
+											$salesman=substr($data['salesman'], 0, 10);
+											echo rtrim($salesman);
+											?>
+											<span class="CellComment"><?php echo $result =substr($data['salesman'],0); ?></span>
+										    </td>
+											
+                                            <td class="CellWithComment noSpace"><?php 
+											//echo rtrim($empName,', '); 
+											$empName=substr($empName, 0, 10);
+											echo rtrim($empName);
+											?>  
+											<span class="CellComment"><?php echo $result =substr($empName,0); ?></span>
+											</td>
+											
+											<td class="CellWithComment noSpace"><?php 
+											$routeName=substr($data['routeName'], 0, 8);
+											echo rtrim($routeName);
+											?>
+											<span class="CellComment"><?php echo $result =substr($data['routeName'],0); ?></span>
+										    </td>
                                             <td><?php echo $data['netAmount']; ?></td>
                                             <td><?php echo $data['SRAmt']; ?></td>
-                                            <td><?php echo $dateForFsr; ?></td>
-                                            <td><a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs  btn-primary" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
+                                            <td class="noSpace"><?php echo $dateForFsr; ?></td>
+                                            <td><a href="<?php echo site_url('AdHocController/billDetailsInfo/'.$data['id']); ?>" class="btn btn-xs viewBill-btn" data-toggle="tooltip" data-placement="bottom" title="View Bill"><i class="material-icons">article</i></a>
                                              </td>
                                        </tr>  
                                     <?php          

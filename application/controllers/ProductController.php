@@ -12,30 +12,6 @@ class ProductController extends CI_Controller {
 
         if(isset($this->session->userdata['codeKeyData'])) {
 			$this->projectSessionName= $this->session->userdata['codeKeyData']['codeKeyValue'];
-			$this->baseUrl=$this->session->userdata['codeKeyData']['yourBaseUrl'];
-
-            if($this->baseUrl=="http://localhost/smartdistributor/" || $this->baseUrl=="https://siainc.in/kiasales/" || $this->baseUrl=="https://siainc.in/staging_kiasales/"){
-
-            }else{
-                $this->load->helper('url');
-                $url_parts = parse_url(current_url());
-                $siteUrl=explode('/',$url_parts['path']);//current url path
-        
-                $baseUrl=explode('/',$this->baseUrl);//base url path
-                
-                $siteDistributorName=trim($siteUrl[2]);
-                $baseDistributorName=trim($baseUrl[4]);
-                
-                if($siteDistributorName !="" && $baseDistributorName !=""){
-                    if($siteDistributorName==$baseDistributorName){
-                    //   
-                    }else{
-                    redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
-                    }
-                }else{
-                redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
-                }
-            }
 		}else{
 			$this->load->view('LoginView');
 		}
@@ -86,7 +62,7 @@ class ProductController extends CI_Controller {
                       <div class="row clearfix">
                         <div class="body">
                             <div class="demo-masked-input">
-                                <div class="col-md-12">
+                                <div class="col-md-12 cust-tbl">
                                   <div class="col-md-3">
                                       <b>Company</b>
                                       <div class="input-group">
@@ -147,7 +123,7 @@ class ProductController extends CI_Controller {
                                     </div> 
 
                                   </div>
-                                  <div class="col-md-12">
+                                  <div class="col-md-12 cust-tbl">
                                     <div class="col-md-3">
                                         <!-- <b>No. of Pcs in a Box</b> -->
                                         <div class="input-group">
@@ -160,10 +136,10 @@ class ProductController extends CI_Controller {
                                                 } 
 
                                              ?> 
-                                            <input type="radio" name="unitFilterUpd" id="radio_3" <?php if($unitFilter==='u1'){  echo "checked";  } ?> value="u1" class="with-gap radio-col-light-blue" />
+                                            <input type="radio" name="unitFilterUpd" id="radio_3" <?php if($unitFilter==='u1'){  echo "checked";  } ?> value="u1" class="with-gap radio-col-red" />
                                             <label for="radio_3">2 Units</label>
                                             <br>
-                                            <input type="radio" name="unitFilterUpd" id="radio_4" <?php if($unitFilter==='u2'){  echo "checked";  } ?> value="u2" class="with-gap radio-col-light-blue" />
+                                            <input type="radio" name="unitFilterUpd" id="radio_4" <?php if($unitFilter==='u2'){  echo "checked";  } ?> value="u2" class="with-gap radio-col-red" />
                                             <label for="radio_4">3 Units</label>
                                         </div>
                                     </div>
@@ -217,12 +193,12 @@ class ProductController extends CI_Controller {
                                      <div class="col-md-12">
                                         <div class="row clearfix">
                                             <div class="col-md-4">
-                                                <button id="updProd" class="btn btn-primary m-t-15 waves-effect">
+                                                <button id="updProd" class="btn btnStyle btn-primary m-t-15 waves-effect">
                                                     <i class="material-icons">save</i> 
                                                     <span class="icon-name">Save</span>
                                                 </button>
                                                
-                                                <button data-dismiss="modal" type="button" class="btn btn-primary m-t-15 waves-effect">
+                                                <button data-dismiss="modal" type="button" class="btn btn-danger m-t-15 waves-effect">
                                                     <i class="material-icons">cancel</i> 
                                                     <span class="icon-name"> Cancel</span>
                                                 </button>

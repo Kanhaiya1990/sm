@@ -13,34 +13,12 @@ class DeliverySlipController extends CI_Controller {
 
         if(isset($this->session->userdata['codeKeyData'])) {
 			$this->projectSessionName= $this->session->userdata['codeKeyData']['codeKeyValue'];
-			$this->baseUrl=$this->session->userdata['codeKeyData']['yourBaseUrl'];
-
-            if($this->baseUrl=="http://localhost/smartdistributor/" || $this->baseUrl=="https://siainc.in/kiasales/" || $this->baseUrl=="https://siainc.in/staging_kiasales/"){
-
-            }else{
-                $this->load->helper('url');
-                $url_parts = parse_url(current_url());
-                $siteUrl=explode('/',$url_parts['path']);//current url path
-        
-                $baseUrl=explode('/',$this->baseUrl);//base url path
-                
-                $siteDistributorName=trim($siteUrl[2]);
-                $baseDistributorName=trim($baseUrl[4]);
-                
-                if($siteDistributorName !="" && $baseDistributorName !=""){
-                    if($siteDistributorName==$baseDistributorName){
-                    //   
-                    }else{
-                    redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
-                    }
-                }else{
-                redirect($this->baseUrl.'index.php/UserAuthentication/randomlogout');
-                }
-            }
 		}else{
 			$this->load->view('LoginView');
 		}
     }
+
+    
 
     public function deliverySlipDetail()
     {
@@ -664,9 +642,8 @@ class DeliverySlipController extends CI_Controller {
     }
 
 
-
     public function Products(){
-        $data['company']=$this->DeliverySlipModel->getdata('company');
+          $data['company']=$this->DeliverySlipModel->getdata('company');
           $data['prod']=$this->DeliverySlipModel->getActiveProducts('products');
           // $data['deactiveProd']=$this->DeliverySlipModel->getDeactiveProducts('products');
            
@@ -1450,31 +1427,9 @@ class DeliverySlipController extends CI_Controller {
     }
 
     public function insertDeliverySlipData(){
-        $latestid=0;
-        $nextId=$this->DeliverySlipModel->getDeliveryData('bills');
-        if(empty($nextId)) {
-            $latestid = "1";
-        } else {
-            $latestid = count($nextId)+1;
-        }
-        
-        $getCode=$this->DeliverySlipModel->getdata('emp_code');
-        $codeForRetailer="";
-        $codeForDS="";
-        $data['retailerCode']="";
-        if(!empty($getCode)){
-            $codeForRetailer=$getCode[0]['name'];
-            $codeForDS=$getCode[0]['name'].'DS';
-        }
-        $billNo="";
-     
-        $billNo= $codeForDS.date('y').(1000+$latestid);
-        // echo $billNo;exit;
-        // $billNo=$this->input->post('billNo');
+        $billNo=$this->input->post('billNo');
         $salesmanId=$this->input->post('salesmanId');
         $retailerId=$this->input->post('retailerId');
-
-        
 
         $billDate=date('Y-m-d');
         $userId=$this->session->userdata[$this->projectSessionName]['id'];
@@ -1533,7 +1488,7 @@ class DeliverySlipController extends CI_Controller {
             'deliveryStatus'=>"delivered",
             'manuallyAddedBill'=>1
         );
-// print_r($deliverySlipData);exit;
+
         $this->DeliverySlipModel->insert('bills',$deliverySlipData);
         if($this->db->affected_rows()>0){
             $insert_id = $this->db->insert_id();

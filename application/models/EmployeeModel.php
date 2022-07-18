@@ -10,20 +10,23 @@ class EmployeeModel extends CI_Model {
     {
         $this->db->order_by('id','desc');
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
     public function getSumRowCount($id){
         $query = $this->db->query('SELECT sum(isResendBill) as recBill,sum(isLostBill) as lostBill,sum(isLostCheque) as lostCheque,sum(isPendingNeft)as lostNeft FROM `allocationsbills` WHERE allocationsbills.billId='.$id);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
     public function getdata($tableName)
     {
         $query=$this->db->get($tableName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -31,7 +34,8 @@ class EmployeeModel extends CI_Model {
     {
         $this->db->where('status', $status);
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array(); 
     }
 
@@ -44,7 +48,8 @@ class EmployeeModel extends CI_Model {
         $this->db->group_by('salesmanCode');
         // $this->db->order_by('id','desc');
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array(); 
     }
 
@@ -57,7 +62,8 @@ class EmployeeModel extends CI_Model {
         $this->db->where('isLoginEmp',1);
         // $this->db->like('designation','deliveryman');
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array(); 
     }
 
@@ -67,7 +73,8 @@ class EmployeeModel extends CI_Model {
         $this->db->where('salesmanCode',$salesmanCode);
         $this->db->where('salesmanName',$salesmanName);
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array(); 
     }
 
@@ -76,7 +83,8 @@ class EmployeeModel extends CI_Model {
         $this->db->where('salesmanCode',$salesmanCode);
         $this->db->where('salesmanName',$salesmanName);
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array(); 
     }
 
@@ -84,7 +92,8 @@ class EmployeeModel extends CI_Model {
     {
         $this->db->where('employeeId',$employeeId);
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array(); 
     }
 
@@ -97,14 +106,16 @@ class EmployeeModel extends CI_Model {
         $this->db->where('isLoginEmp',1);
         $this->db->like('designation','salesman');
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array(); 
     }
     
     public function checkEmpDetails($tblName,$code){
         $this->db->where('code', $code);
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array(); 
     }
 
@@ -116,13 +127,15 @@ class EmployeeModel extends CI_Model {
         $this->db->where('isSalaryEmp',1);
         $this->db->where('isLoginEmp',1);
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array(); 
     }
 
      public function getRowCount($tableName,$id,$type){
         $query = $this->db->query('SELECT * FROM '.$tableName.' WHERE billId='.$id.' and '.$type.'=1');
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->num_rows();   
     }
 
@@ -130,7 +143,8 @@ class EmployeeModel extends CI_Model {
         $this->db->like('chequeStatus', 'Bounced');
         $this->db->where('billId', $id);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->num_rows();   
     }
 
@@ -138,7 +152,8 @@ class EmployeeModel extends CI_Model {
         $this->db->where('mobile', $mobile);
         $data = $this->db->get($tblName);
         if($data->num_rows()>0){
-            
+            $this->db->close();
+        $this->db->initialize();
             return $data->result_array();
         }else{
             return null;
@@ -149,7 +164,8 @@ class EmployeeModel extends CI_Model {
         $this->db->where('email', $name);
         $data = $this->db->get($tblName);
         if($data->num_rows()>0){
-            
+            $this->db->close();
+        $this->db->initialize();
             return $data->result_array();
         }else{
             return null;
@@ -173,7 +189,8 @@ class EmployeeModel extends CI_Model {
         $this->db->where('bills.pendingAmt >', 0);
         $this->db->group_by('bills.id');
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -185,7 +202,8 @@ class EmployeeModel extends CI_Model {
         $this->db->where('bills.pendingAmt >', 0);
         $this->db->group_by('bills.id');
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -197,7 +215,8 @@ class EmployeeModel extends CI_Model {
         $this->db->where('bills.pendingAmt >', 0);
         $this->db->group_by('bills.id');
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -208,7 +227,8 @@ class EmployeeModel extends CI_Model {
         $this->db->where('bills.pendingAmt >', 0);
         $this->db->group_by('bills.id');
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -236,7 +256,8 @@ class EmployeeModel extends CI_Model {
         $this->db->group_by('bills.id');
         $this->db->order_by('bills.billNo');
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -258,7 +279,8 @@ class EmployeeModel extends CI_Model {
         $this->db->group_by('bills.id');
         $this->db->order_by('bills.billNo');
         $query=$this->db->get();
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -270,7 +292,8 @@ class EmployeeModel extends CI_Model {
         $this->db->where('employee.isSalaryEmp', 1);
         $this->db->group_by('employee.id');
         $resultset=$this->db->get($tableName);
-         
+        $this->db->close();
+        $this->db->initialize(); 
         return $resultset->result_array();
     }
 
@@ -284,7 +307,8 @@ class EmployeeModel extends CI_Model {
         // $this->db->where('employee.isSalaryEmp', 1);
         $this->db->group_by('employee.id');
         $resultset=$this->db->get($tableName); 
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -297,7 +321,8 @@ class EmployeeModel extends CI_Model {
         $this->db->where('emptransactions.ownerApprovalStatus !=',2);
          // $this->db->where('employee.isSalaryEmp', 1);
         $resultset=$this->db->get($tableName); 
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -305,7 +330,8 @@ class EmployeeModel extends CI_Model {
     {
         $sql="SELECT emptransactions.*,employee.id as empId,employee.name as empName,bills.billNo as billNo FROM `emptransactions` join employee on emptransactions.empId = employee.id left join bills on emptransactions.billId = bills.id where emptransactions.ownerApprovalStatus!=2 and emptransactions.empId=$empId and DATE(emptransactions.createdAt) BETWEEN '$fdate' AND '$ldate'";
         $resultset=$this->db->query($sql); 
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
     
@@ -313,7 +339,8 @@ class EmployeeModel extends CI_Model {
     {
         $sql="SELECT emptransactions.*,employee.id as empId,employee.name as empName FROM `emptransactions` join employee on emptransactions.empId = employee.id where emptransactions.ownerApprovalStatus!=2 and emptransactions.empId=$empId and DATE(emptransactions.createdAt) < '$fromdate' order by emptransactions.id desc";
         $resultset=$this->db->query($sql);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -321,7 +348,8 @@ class EmployeeModel extends CI_Model {
     {
         $sql="SELECT emptransactions.*,employee.id as empId,employee.name as empName FROM `emptransactions` join employee on emptransactions.empId = employee.id where emptransactions.empId=$empId and emptransactions.ownerApprovalStatus !=2 and DATE(emptransactions.createdAt) <= '$todate' order by emptransactions.id desc";
         $resultset=$this->db->query($sql);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -336,7 +364,8 @@ class EmployeeModel extends CI_Model {
     {
         $sql="SELECT emptransactions.*,employee.id as empId,employee.name as empName FROM `emptransactions` join employee on emptransactions.empId = employee.id where emptransactions.empId=$empId and emptransactions.ownerApprovalStatus!=2 order by emptransactions.id desc";
         $resultset=$this->db->query($sql);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -353,7 +382,8 @@ class EmployeeModel extends CI_Model {
         $this->db->order_by('allocations.id','desc');
         $this->db->limit(1); 
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -367,7 +397,8 @@ class EmployeeModel extends CI_Model {
         $this->db->order_by('allocations.id','desc');
         $this->db->limit(1); 
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -393,7 +424,8 @@ class EmployeeModel extends CI_Model {
         $this->db->order_by('allocations_officeadjustment.id','desc');
         $this->db->limit(1); 
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -406,7 +438,8 @@ class EmployeeModel extends CI_Model {
         $this->db->order_by('allocations_officeadjustment.id','desc');
         $this->db->limit(1); 
         $query=$this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();
     }
 
@@ -417,7 +450,8 @@ class EmployeeModel extends CI_Model {
         $this->db->where('status', 1);
         $this->db->where('isDeleted', 0);
         $resultset=$this->db->get($tableName); 
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -434,7 +468,8 @@ class EmployeeModel extends CI_Model {
         $this->db->order_by('employee.id','asc');
          // $this->db->where('employee.isSalaryEmp',1);
         $resultset=$this->db->get($tableName); 
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -449,7 +484,8 @@ class EmployeeModel extends CI_Model {
         $this->db->order_by('employee.id','asc');
          // $this->db->where('employee.isSalaryEmp',1);
         $resultset=$this->db->get($tableName); 
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -461,7 +497,8 @@ class EmployeeModel extends CI_Model {
         $this->db->where('employee.isDeleted', 0);
          $this->db->where('employee.isSalaryEmp',0);
         $resultset=$this->db->get($tableName); 
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 
@@ -472,7 +509,8 @@ class EmployeeModel extends CI_Model {
         $this->db->where('status', 0);
         $this->db->where('isDeleted', 0);
         $resultset=$this->db->get($tableName); 
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
     public function insert($tblName, $data) {      
@@ -491,14 +529,10 @@ class EmployeeModel extends CI_Model {
         return $this->db->update($tblName, $data);  
     }
 
-    public function updateWithCode($tblName, $data, $code) {
-        $this->db->where('salesmanCode', $code);
-        return $this->db->update($tblName, $data);  
-    }
-
     public function show($tblName) {
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();    
     }
      public function delete($tblName,$id)
@@ -509,14 +543,16 @@ class EmployeeModel extends CI_Model {
     public function load($tblName, $id) {
         $this->db->where('id', $id);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
     public function getEmpDesignation($tblName, $role) {
         $this->db->where('name', $role);
         $query = $this->db->get($tblName);
-        
+        $this->db->close();
+        $this->db->initialize();
         return $query->result_array();   
     }
 
@@ -527,7 +563,8 @@ class EmployeeModel extends CI_Model {
         $this->db->where('employee.id', $id);
         $this->db->where('isDeleted', 0);
         $resultset=$this->db->get($tableName); 
-        
+        $this->db->close();
+        $this->db->initialize();
         return $resultset->result_array();
     }
 }

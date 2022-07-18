@@ -159,16 +159,7 @@ swal({
             success: function(data){
               alert('Amount Updated');
                 location.reload(); 
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }   
+            }
         });
     });
 
@@ -181,16 +172,7 @@ swal({
             success: function(data){
               alert('Amount Updated');
                 location.reload(); 
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }   
+            }
         });
     });
 
@@ -203,16 +185,7 @@ swal({
             success: function(data){
               alert('Amount Updated');
                 location.reload(); 
-            },
-            beforeSend: function(){
-                $('.comman-ajax-loader').css("visibility", "visible");
-            },
-            complete: function(){
-                $('.comman-ajax-loader').css("visibility", "hidden");
-            },
-            error: function(jqXHR, exception) {
-                alert("Something Went Wrong, Please Try Again...!");
-            }   
+            }
         });
     });
 

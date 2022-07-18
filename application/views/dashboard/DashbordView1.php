@@ -95,33 +95,18 @@
               </a> -->
 
           <?php if (in_array('owner', $des) || in_array('cashier', $des) || in_array('senior_manager', $des) || in_array('manager', $des) || in_array('operator', $des)) {  ?>
-            
-            <?php if($this->session->userdata['workRestrict']['status']=="yes"){?>  
-                    <div onclick="planUpgradeMsg()" class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                        <div class="info-box bg-indigo hover-zoom-effect hover-expand-effect">
-                            <div class="icon">
-                                <i class="material-icons">upload</i>
-                            </div>
-                            <div class="content">
-                                <div class="text">Latest Bills Import</div>
-                            </div>
+              <a href="<?php echo site_url('CompanyDataUploadingController');?>">
+                <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                    <div class="info-box bg-indigo hover-zoom-effect hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">upload</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">Latest Bills Import</div>
                         </div>
                     </div>
-            <?php }else{ ?>    
-                <a href="<?php echo site_url('CompanyDataUploadingController');?>">
-                    <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                        <div class="info-box bg-indigo hover-zoom-effect hover-expand-effect">
-                            <div class="icon">
-                                <i class="material-icons">upload</i>
-                            </div>
-                            <div class="content">
-                                <div class="text">Latest Bills Import</div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            <?php } ?>
-
+                </div>
+              </a>
           <?php } ?>
 
           <?php if (in_array('owner', $des) || in_array('cashier', $des) || in_array('senior_manager', $des) || in_array('manager', $des) || in_array('operator', $des) || in_array('godownkeeper', $des)) {  ?>
@@ -156,19 +141,8 @@
 
             <?php if (in_array('owner', $des) || in_array('cashier', $des) ||  in_array('senior_manager', $des)) {  ?>
           
-            <?php if($this->session->userdata['workRestrict']['status']=="yes"){?> 
-                <div onclick="planUpgradeMsg()" class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                    <div class="info-box bg-brown hover-zoom-effect hover-expand-effect">
-                        <div class="icon">
-                            <i class="material-icons">euro_symbol</i>
-                        </div>
-                        <div class="content">
-                            <div class="text">Non Cash Credit/Debit</div>
-                        </div>
-                    </div>
-                </div>
-            <?php }else{ ?>  
-                <a href="<?php echo site_url('NonAllocationBillsController/nonCashDebitCredit');?>">
+
+              <a href="<?php echo site_url('NonAllocationBillsController/nonCashDebitCredit');?>">
                 <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
                     <div class="info-box bg-brown hover-zoom-effect hover-expand-effect">
                         <div class="icon">
@@ -180,37 +154,22 @@
                     </div>
                 </div>
               </a>
-            <?php } ?>
-
           <?php } ?>
 
             <?php if (in_array('owner', $des) || in_array('cashier', $des) || in_array('senior_manager', $des) || in_array('manager', $des)) {  ?>
           
-                <?php if($this->session->userdata['workRestrict']['status']=="yes"){?> 
-                    <div onclick="planUpgradeMsg()" class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                        <div class="info-box bg-blue hover-zoom-effect hover-expand-effect">
-                            <div class="icon">
-                                <i class="material-icons">account_box</i>
-                            </div>
-                            <div class="content">
-                                <div class="text">Employee Clearance</div>
-                            </div>
+             <a href="<?php echo site_url('manager/EmployeeController/employeeClearance');?>">
+                <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                    <div class="info-box bg-blue hover-zoom-effect hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">account_box</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">Employee Clearance</div>
                         </div>
                     </div>
-                <?php }else{ ?>  
-                    <a href="<?php echo site_url('manager/EmployeeController/employeeClearance');?>">
-                        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                            <div class="info-box bg-blue hover-zoom-effect hover-expand-effect">
-                                <div class="icon">
-                                    <i class="material-icons">account_box</i>
-                                </div>
-                                <div class="content">
-                                    <div class="text">Employee Clearance</div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                <?php } ?>
+                </div>
+              </a>
 
               <a href="<?php echo site_url('BillTransactionController/retailerwiseDetails');?>">
                 <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
@@ -230,32 +189,18 @@
 
           <div class="row clearfix">
             <?php if (in_array('owner', $des)) {  ?>
-
-                <?php if($this->session->userdata['workRestrict']['status']=="yes"){?>  
-                    <div onclick="planUpgradeMsg()" class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                        <div class="info-box bg-pink hover-zoom-effect hover-expand-effect">
-                            <div class="icon">
-                                <i class="material-icons">edit</i>
-                            </div>
-                            <div class="content">
-                                <div class="text">Change Bill Transaction</div>
-                            </div>
+                <a href="<?php echo site_url('admin/BillTransactionController');?>">
+                <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                    <div class="info-box bg-pink hover-zoom-effect hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">edit</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">Change Bill Transaction</div>
                         </div>
                     </div>
-                <?php }else{ ?>  
-                    <a href="<?php echo site_url('admin/BillTransactionController');?>">
-                    <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                        <div class="info-box bg-pink hover-zoom-effect hover-expand-effect">
-                            <div class="icon">
-                                <i class="material-icons">edit</i>
-                            </div>
-                            <div class="content">
-                                <div class="text">Change Bill Transaction</div>
-                            </div>
-                        </div>
-                    </div>
-                    </a>
-                <?php } ?>
+                </div>
+                </a>
             <?php } ?>
 
             <a href="<?php echo site_url('BillTransactionController/cancelledBills');?>">
@@ -284,79 +229,48 @@
               </div>
             </a>
 
-            <?php if (in_array('owner', $des) || in_array('accountant', $des) || in_array('senior_manager', $des)) {  ?>
-            
-                    <a href="<?php echo site_url('TallyExportController');?>">
-                    <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                        <div class="info-box bg-pink hover-zoom-effect hover-expand-effect">
-                            <div class="icon">
-                                <i class="material-icons">edit</i>
-                            </div>
-                            <div class="content">
-                                <div class="text">Tally Export</div>
-                            </div>
+            <?php if (in_array('owner', $des)) {  ?>
+                <a href="<?php echo site_url('TallyExportController');?>">
+                <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                    <div class="info-box bg-pink hover-zoom-effect hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">edit</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">Tally Export</div>
                         </div>
                     </div>
-                    </a>
-                
+                </div>
+                </a>
 
             <?php } ?>
             <?php if (in_array('owner', $des) || in_array('cashier', $des) || in_array('senior_manager', $des) || in_array('operator', $des)) {  ?>
-                
-                <?php if($this->session->userdata['workRestrict']['status']=="yes"){?>
-                    <div onclick="planUpgradeMsg()" class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                        <div class="info-box bg-red hover-zoom-effect hover-expand-effect">
-                            <div class="icon">
-                                <i class="material-icons">edit</i>
-                            </div>
-                            <div class="content">
-                                <div class="text">Multiple Debit Notes</div>
-                            </div>
+                <a href="<?php echo site_url('AdHocController/debitNoteBills');?>">
+                <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                    <div class="info-box bg-red hover-zoom-effect hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">edit</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">Multiple Debit Notes</div>
                         </div>
                     </div>
-                    
-                    <div onclick="planUpgradeMsg()" class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                        <div class="info-box bg-grey hover-zoom-effect hover-expand-effect">
-                            <div class="icon">
-                                <i class="material-icons">edit</i>
-                            </div>
-                            <div class="content">
-                                <div class="text">Bill Journal Entry</div>
-                            </div>
+                </div>
+                </a>
+
+                <a href="<?php echo site_url('AdHocController/creditNoteBills');?>">
+                <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                    <div class="info-box bg-grey hover-zoom-effect hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">edit</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">Bill Journal Entry</div>
                         </div>
                     </div>
+                </div>
+                </a>
 
-                <?php }else{ ?> 
-
-                    <a href="<?php echo site_url('AdHocController/debitNoteBills');?>">
-                    <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                        <div class="info-box bg-red hover-zoom-effect hover-expand-effect">
-                            <div class="icon">
-                                <i class="material-icons">edit</i>
-                            </div>
-                            <div class="content">
-                                <div class="text">Multiple Debit Notes</div>
-                            </div>
-                        </div>
-                    </div>
-                    </a>
-
-                    <a href="<?php echo site_url('AdHocController/creditNoteBills');?>">
-                        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                            <div class="info-box bg-grey hover-zoom-effect hover-expand-effect">
-                                <div class="icon">
-                                    <i class="material-icons">edit</i>
-                                </div>
-                                <div class="content">
-                                    <div class="text">Bill Journal Entry</div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-
-                <?php } ?>
-                
-                
                 <!-- <a href="<?php echo site_url('AdHocController/debitToEmployeeBills');?>">
                 <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
                     <div class="info-box bg-blue hover-zoom-effect hover-expand-effect">
@@ -840,45 +754,6 @@
     </div>
   </div>
 
-
-    <!-- For Material Design Colors -->
-    <div class="modal fade" id="mdModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-sm" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title text-center" id="defaultModalLabel">Subscription Renewal Alert</h4>
-                </div>
-                <div class="modal-body">
-                    <?php 
-                    $currentDate=date('Y-m-d');
-                         if($dateForValidity < $currentDate){
-                    ?>
-
-                        <?php if($days >= 0 ){ ?>
-                            <span style="color:black;">KIAS subscription validity will expire on <?php echo date('d M Y',strtotime($dateForValidity)); ?>.<br><br> Please extend validity from profile tab to avoid inconvenience.</span><br>
-                        <?php }else if($days > (-6)){ ?>
-                            <span style="color:black;">KIAS subscription validity has expired on <?php echo date('d M Y',strtotime($dateForValidity)); ?>. Currently you are using the app in grace period.
-                            <br><br>You will soon be moved to view only rights.<br><br> Please extend validity at the earliest to avoid inconvenience.</span><br>
-                        <?php }else{ ?>
-                           <span style="color:black;"> KIAS subscription validity has expired on <?php echo date('d M Y',strtotime($dateForValidity)); ?>. Currently the app is running in view only mode.
-                            <br><br>Please extend validity at the earliest to avoid inconvenience. <br><br></span>
-                            <span style="color:red;">You may loose access to your data unless the plan is renewed.</span><br>
-                        <?php } ?>
-                        
-                    <?php }else{ ?>
-                        <span style="color:black;">Your KIAS subscription validity will expire on <?php echo date('d M Y',strtotime($dateForValidity)); ?>.<br><br> Please extend validity from profile tab to avoid inconvenience.</span><br>
-
-                    <?php } ?>
-
-                    
-                </div>
-                <div class="modal-footer">
-                    <a href="<?php echo base_url().'index.php/paymentGateways/CashfreePaymentGatewayController/manageAccountDetails'; ?>"  class="btn btn-primary waves-effect">Renew Now</a>
-                    <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">CLOSE</button>
-                </div>
-            </div>
-        </div>
-    </div>
 <?php $this->load->view('/layouts/footerDataTable'); ?>
 
 <script type="text/javascript">
@@ -966,34 +841,6 @@
     // });
 
 </script>
-
-<script type="text/javascript">
-    $(document).ready(function() { 
-        $(window).on("load", function() {
-            $.ajax({
-                type: "POST",
-                url:"<?php echo site_url('paymentGateways/CashfreePaymentGatewayController/showPackageModal');?>",
-                    data:{},
-                    success: function (data) {
-                        // alert(data);
-                        if(data.trim()=="yes"){
-                            $('#mdModal').modal('show');
-                        }
-                    },
-                    beforeSend: function(){
-                        $('.comman-ajax-loader').css("visibility", "visible");
-                    },
-                    complete: function(){
-                        $('.comman-ajax-loader').css("visibility", "hidden");
-                    },
-                    error: function(jqXHR, exception) {
-                        alert("Something Went Wrong, Please Try Again...!");
-                    }     
-            });
-        });
-    });
-</script>
-
 
 
 

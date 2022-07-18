@@ -50,6 +50,7 @@
     <link href="<?php echo base_url('assets/plugins/morrisjs/morris.css');?>" rel="stylesheet" />
     <link href="<?php echo base_url('assets/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css');?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/css/style.css');?>" rel="stylesheet">
+    <link href="<?php echo base_url('assets/css/custom.css');?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/css/themes/all-themes.css');?>" rel="stylesheet" />
     <link href=" https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
     <link href="<?php echo base_url('assets/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.css');?>" rel="stylesheet" />
@@ -64,11 +65,6 @@
     <link rel="stylesheet" type="text/css" href="<?=base_url()?>assets/toaster/toastr.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
     <script type="text/javascript" src="<?=base_url()?>assets/toaster/toastr.min.js"></script>
-
-    <!-- for toast message -->
-    <link href="<?php echo base_url('assets/toaster/toastr.css');?>" rel="stylesheet" />  
-    <script type="text/javascript" src="<?=base_url()?>assets/toaster/toastr.js"></script>
-
     <script type="text/javascript">
         function showSuccess(str){
             toastr.success(str);
@@ -100,7 +96,7 @@
 
 <style>
     .theme-dashboard .navbar {
-        background-color: <?php echo $colorValue;?> 
+        background-color: #F44336; 
     }
 
     .theme-dashboard .navbar-brand {
@@ -150,7 +146,7 @@
     }
 
     .theme-dashboard .sidebar .menu .list li.active > :first-child i, .theme-dashboard .sidebar .menu .list li.active > :first-child span {
-        color: <?php echo $colorValue;?>; 
+        color: #F44336; 
     }
 
     .theme-dashboard .sidebar .menu .list .toggled {
@@ -166,7 +162,7 @@
     }
     
     .theme-dashboard .sidebar .legal .copyright a {
-        color: <?php echo $colorValue;?> !important;
+        color: #F44336; !important;
     }
 </style>
 
@@ -244,13 +240,12 @@
       font-size: 15px;
       border: none;
       outline: none;
-      background-color: #f74f2b ;
+      background-color:  #f74f2b ;
       color: white;
       cursor: pointer;
       padding: 10px;
       border-radius: 4px;
     }
-
     .ide{   
         /*float:left;*/
         background-color: #f74b42   ;
@@ -260,62 +255,29 @@
         color: white;
     }
 
+  /*  @media (max-width: 480px) {*/
+  /*.bt {*/
+  /*  display: none;*/
+  /*}*/
+/*}*/
+
     #myBtn:hover {
       background-color: #f59782 ;
 
     }
 
-    .zoom {
-        zoom: 97%;
-    }
-
-    .comman-ajax-loader {
-        visibility: hidden;
-        background-color: rgba(255,255,255,0.7);
-        position: fixed;
-        z-index: +100 !important;
-        width: 100%;
-        height:100%;
-    }
-
-    .comman-ajax-loader img {
-        margin: 0 auto;
-        position: fixed;
-        top:25%; 
-        left:50%;
-        width: 100px;
-        height:100px;
-        z-index: +100 !important;
-        
-    }
+     .zoom {
+          zoom: 97%;
+        }
 </style>
-
-<script>
-    toastr.options = {
-    "closeButton": false,
-    "debug": false,
-    "newestOnTop": true,
-    "progressBar": true,
-    "positionClass": "toast-bottom-center",
-    "preventDuplicates": true,
-    "showDuration": "500",
-    "hideDuration": "500",
-    "timeOut": "1500",
-    "extendedTimeOut": "500",
-    "showEasing": "swing",
-    "hideEasing": "linear",
-    "showMethod": "fadeIn",
-    "hideMethod": "fadeOut"
-    }
-</script>
 
 </head>
 <!-- <body class="theme-red zoom" oncontextmenu="return false;"> -->
-<body class="theme-dashboard zoom">
+<body class="theme-dashboard zoom" onload="noBack();" 
+	onpageshow="if (event.persisted) noBack();" onunload="">
 
-    <div class="comman-ajax-loader">
-    <img src="<?php echo base_url().'/assets/images/Ajax-loader.gif'; ?>" class="img-responsive" />
-    </div>
+
+
 
     <div class="search-bar">
         <div class="search-icon">
@@ -577,8 +539,7 @@
                             
                             <p><a href="<?php echo site_url('DeliverySlipController/RetailerwiseDetails');?>">Retailer Outstanding </a></p>
                             <p><a href="<?php echo site_url('reports/ReportController/stockMovementReport');?>">Stock Movement Report</a></p>
-                            <p><a href="<?php echo site_url('reports/ReportController/productLoadingSheetReport');?>">Loading Sheet Report</a></p>
-                            
+                           
                             <!--<p><a href="<?php echo site_url('DeliverySlipController/BillwiseDetails');?>">Billwise Details</a></p>-->
                         
                             <!--<div class="one_one">Reports-->
@@ -672,6 +633,11 @@
                             <p><a href="<?php echo site_url('reports/ReportController/billWiseCollectionReportView');?>">Billwise Collection Report</a></p>
                             <p><a href="<?php echo site_url('reports/ReportController/datewiseReportView');?>">Datewise Collection Report</a></p>
                             <p><a href="<?php echo site_url('reports/ReportController/allocationWiseCollectionReportView');?>">Allocation Wise Collection Report</a></p>
+							<p><a href="<?php echo site_url('reports/ReportController/frequentsrRetailersReportView');?>">Frequent SR Retailers Report</a></p>
+                            <p><a href="<?php echo site_url('reports/ReportController/frequentsrSalesmanReportView');?>">Frequent SR Salesman Report</a></p>
+							<p><a href="<?php echo site_url('reports/ReportController/multipleVisitorRetailerReportView');?>">Multiple Visitor Retailer Report</a></p>
+							<p><a href="<?php echo site_url('reports/ReportController/OverdueBillsReports');?>">Overdue Bills Report</a></p> 
+							<p><a href="<?php echo site_url('reports/ReportController/RetailerAccountStatementReport');?>">Retailer Account Statement Report</a></p>
                         <?php } ?>
                         <?php if (in_array('owner', $des) || in_array('manager', $des) || in_array('senior_manager', $des)){?>
                             <p><a href="<?php echo site_url('reports/ReportController/deliveryslipSalesReportView');?>">Deliveryslip Sale Report</a></p>
@@ -692,11 +658,9 @@
                             <p><a href="<?php echo site_url('admin/CategoriesController/expensesCategory');?>">Expense Master</a></p>
                             <p><a href="<?php echo site_url('admin/CategoriesController/incomeCategory');?>">Income Master</a></p>
 
-                            <p><a href="<?php echo site_url('admin/SettingsController/expenseLimitSetting');?>">Expense Limit</a></p>
-
                             <p><a href="<?php echo site_url('admin/CompanyController/officeDetails');?>">Office Details</a></p>
                             <p><a href="<?php echo site_url('admin/EmployeeController/employeeeException');?>">Employees Exempt</a></p>
-                            
+
                             <p><a href="<?php echo site_url('admin/PenaltyController');?>">Cheque Bounce Penalties</a></p>
                            
                             <p><a href="<?php echo site_url('admin/SettingsController/highlightingDays');?>">Notification / Highlight Limit</a></p>
@@ -736,7 +700,7 @@
                         <div class="dropdown-content">
                             <p><a href="javascript:void();" id="emp_pro_det_id" data-toggle="modal" data-target="#empProDetails" data-id="<?php echo $id;?>"><i class="material-icons">account_box</i><span>Profile</span></a></p>      
                             <p><a href="javascript:void();" data-toggle="modal" data-target="#updateChangePasswordlimitModal"><i class="material-icons">vpn_key</i>Password</a></p>
-                            <p><a href="<?php echo site_url('paymentGateways/CashfreePaymentGatewayController/manageAccountDetails');?>"><i class="material-icons">manage_accounts</i>Accounts</a></p>
+                            <p><a href="<?php echo site_url('admin/CompanyController/manageAccountDetails');?>"><i class="material-icons">manage_accounts</i>Accounts</a></p>
                             <p><a href="<?php echo site_url('UserAuthentication/logout');?>"><i class="material-icons">exit_to_app</i>Logout</a></p>
                         </div>
                     </div> 

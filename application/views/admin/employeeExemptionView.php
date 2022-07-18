@@ -8,18 +8,19 @@
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
-                        <div class="header">
+                        <div class="header flex-div">
                             <h2>Employees Exempt from Manager Hisab Review</h2>
-                             <div align="right">
+                             
                               <p align="right">
-                                  <button align="right" type="button" id="insert-ins" class="btn btn-xs btn-primary m-t-15 waves-effect"> <i class="material-icons">save</i><span class="icon-name">Clear All</span></button>
-                                  <button align="right" type="button" id="cancel-ins" class="btn btn-xs btn-primary m-t-15 waves-effect"> <i class="material-icons">save</i><span class="icon-name">Cancel All</span></button>
+                                  <button align="right" type="button" id="insert-ins" class="btn btn-xs btnStyle m-t-15 waves-effect"> <i class="material-icons">save</i><span class="icon-name">Clear All</span></button>
+                                  <button align="right" type="button" id="cancel-ins" class="btn btn-xs btn-danger m-t-15 waves-effect" style="padding: 5px;"> <i class="material-icons">save</i><span class="icon-name">Cancel All</span></button>
                               </p>
-                            </div>
+                        </div>
+                           
                         <div class="body">
-                            <div class="table-responsive">
+                            <!--<div class="table-responsive"> -->
                               <p id="res"></p>
-                                <table class="table table-bordered table-striped table-hover js-basic-example dataTable" data-page-length='100'>
+                                <table class="table table-bordered cust-tbl js-basic-example dataTable" data-page-length='100'>
                                     <thead>
                                         <tr>
                                             <th><input class="checkall" type="checkbox" name="selValue" id="basic_checkbox"/><label for="basic_checkbox"></label>Select All</th>
@@ -81,9 +82,8 @@
                                   ?>
                                   </tbody>
                                 </table>
-                            </div>
+                           <!-- </div> -->
                         </div>
-                    </div>
                 </div>
             </div>
             <!-- #END# Basic Examples -->  
@@ -122,22 +122,11 @@
                             $(this).attr('checked', false);
                         });      
                         window.location.href="<?php echo base_url();?>index.php/admin/EmployeeController/employeeeException";
-                    },
-                    beforeSend: function(){
-                        $('.comman-ajax-loader').css("visibility", "visible");
-                    },
-                    complete: function(){
-                        $('.comman-ajax-loader').css("visibility", "hidden");
-                    },
-                    error: function(jqXHR, exception) {
-                        toastr.error('Something Went Wrong, Please Try Again...!', 'Alert!');
-                        // alert("Something Went Wrong, Please Try Again...!");
-                    }     
+                    }  
                 });
             }
         }else{
-            toastr.info('Please select employees.', 'Alert!');
-            // alert('Please select employees.');
+            alert('Please select employees.');
         }
 });
     
@@ -173,22 +162,11 @@
                             $(this).attr('checked', false);
                         });      
                         window.location.href="<?php echo base_url();?>index.php/admin/EmployeeController/employeeeException";
-                    },
-                    beforeSend: function(){
-                        $('.comman-ajax-loader').css("visibility", "visible");
-                    },
-                    complete: function(){
-                        $('.comman-ajax-loader').css("visibility", "hidden");
-                    },
-                    error: function(jqXHR, exception) {
-                        toastr.error('Something Went Wrong, Please Try Again...!', 'Error!');
-                        alert("");
-                    }     
+                    }  
                 });
             }
         }else{
-            toastr.info('Please select employees.', 'Alert!');
-            // alert('Please select employees.');
+            alert('Please select employees.');
         }
 });
     
