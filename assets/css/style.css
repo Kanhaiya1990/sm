@@ -1,4 +1,6 @@
-﻿/* Navbar ====================================== */
+﻿@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&family=Roboto&display=swap');
+
+/* Navbar ====================================== */
 @import url(materialize.css);
 .navbar {
   font-family: "Roboto", sans-serif;
@@ -2368,12 +2370,14 @@
 
 /* General ===================================== */
 body {
-  background-color: #e9e9e9;
-  -moz-transition: all 0.5s;
-  -o-transition: all 0.5s;
-  -webkit-transition: all 0.5s;
-  transition: all 0.5s;
-  font-family: 'Roboto', Arial, Tahoma, sans-serif; }
+background-color: #f9f9f9;
+-moz-transition: all 0.5s;
+-o-transition: all 0.5s;
+-webkit-transition: all 0.5s;
+transition: all 0.5s;
+font-family: 'Poppins', sans-serif;
+/* font-family: 'Roboto', Arial, Tahoma, sans-serif;*/ 
+}
 
 h1,
 h2,
@@ -3724,11 +3728,16 @@ section.content {
   border-color: #ffffff; }
 
 [type="radio"].with-gap.radio-col-red:checked + label:before {
-  border: 2px solid #F44336; }
+  /*border: 2px solid #F44336;*/
+  border: 3px solid #ffb22b;
+   }
 
 [type="radio"].with-gap.radio-col-red:checked + label:after {
-  background-color: #F44336;
-  border: 2px solid #F44336; }
+  /*background-color: #F44336;
+  border: 2px solid #F44336;*/
+  background-color: #00005f; 
+  border: 2px solid #ffb22b;
+   }
 
 [type="radio"].with-gap.radio-col-pink:checked + label:before {
   border: 2px solid #E91E63; }
